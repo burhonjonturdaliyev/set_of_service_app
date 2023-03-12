@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/pages/home_page.dart';
+import 'package:set_of_service_app/screen/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: Home_page(),
+        home: Home_Page(),
       ),
       designSize: const Size(375, 812),
     );
