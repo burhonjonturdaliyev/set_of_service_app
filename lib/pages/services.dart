@@ -4,13 +4,35 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/models/list_of_services_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:set_of_service_app/pages/services_page/Paynet.dart';
+import 'package:set_of_service_app/pages/services_page/Viza_xizmati.dart';
+import 'package:set_of_service_app/pages/services_page/avia_bilet.dart';
+import 'package:set_of_service_app/pages/services_page/ish_top.dart';
+import 'package:set_of_service_app/pages/services_page/pochta_xizmati.dart';
+import 'package:set_of_service_app/pages/services_page/pul_yuborish.dart';
 import 'package:set_of_service_app/pages/services_page/shop_xizmatlari.dart';
+import 'package:set_of_service_app/pages/services_page/tolovlar.dart';
+import 'package:set_of_service_app/pages/services_page/uy_joy.dart';
+import 'package:set_of_service_app/pages/services_page/valyuta_kurs.dart';
+import 'package:set_of_service_app/pages/services_page/yangiliklar.dart';
 
 // ignore: camel_case_types
 class List_of_services extends StatelessWidget {
   List_of_services({super.key});
   List<Services_model> model = [
-    Services_model(info: "Shop xizmatlari", page: const Shop_xizmatlari())
+    Services_model(info: "Shop xizmatlari", page: const Shop_xizmatlari()),
+    Services_model(info: "Pul yuborish xizmatlari", page: const Pul_yuborish()),
+    Services_model(info: "To'lovlar", page: const Tolovlar()),
+    Services_model(info: "Avia bilet xizmatlari", page: const Avia_bilet()),
+    Services_model(info: "Pochta xizmatlari", page: const Pochta_xizmati()),
+    Services_model(info: "Paynet", page: const Paynet()),
+    Services_model(
+        info: "Viza masalalarida yordam xizmati", page: const Viza_xizmati()),
+    Services_model(info: "Ish topib berish xizmati", page: const Ish_topish()),
+    Services_model(
+        info: "Uy-joy topib berish xizmatlari", page: const Uy_joy_top()),
+    Services_model(info: "Eng oxirgi yangiliklar", page: const Yangiliklar()),
+    Services_model(info: "Valyuta kursi", page: const Valyuta_kursi()),
   ];
   final white = Colors.white;
 
@@ -26,7 +48,9 @@ class List_of_services extends StatelessWidget {
     return Container(
       height: double.infinity,
       width: double.infinity,
-      decoration: BoxDecoration(color: backgroudColor),
+      decoration: BoxDecoration(
+        color: backgroudColor,
+      ),
       child: Column(
         children: [
           Padding(
@@ -75,39 +99,29 @@ class List_of_services extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
               border: Border.all(width: 1, color: Colors.black12)),
           // ignore: prefer_const_literals_to_create_immutables
-          child: Row(children: [
-            Padding(
-              padding: EdgeInsets.only(left: 15.0.w, top: 3.h, bottom: 3.h),
-              child: Container(
-                height: 24.h,
-                width: 25.w,
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(40, 101, 101, 1130),
-                    borderRadius: BorderRadius.circular(5)),
-                child: Icon(
-                  Icons.shopping_cart_checkout,
-                  color: Colors.black,
-                  size: 20.w,
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 16.w,
-            ),
-            Text(
-              model.info,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: "Inter"),
-            ),
-            Icon(
-              Icons.arrow_forward_ios_outlined,
-              size: 13.w,
-              color: const Color(0xff111111),
-            )
-          ]),
+          child: Padding(
+            padding: EdgeInsets.only(left: 10.w, right: 10.w),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    model.info,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: "Inter"),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    size: 13.w,
+                    color: const Color(0xff111111),
+                  )
+                ]),
+          ),
         ),
         onTap: () {
           Navigator.of(context).push(PageTransition(

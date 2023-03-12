@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: Home_Page(),
+        home: const Home_Page(),
       ),
       designSize: const Size(375, 812),
     );

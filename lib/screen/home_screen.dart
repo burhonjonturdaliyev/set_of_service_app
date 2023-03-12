@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, duplicate_ignore
+// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, duplicate_ignore, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

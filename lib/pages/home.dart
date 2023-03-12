@@ -105,17 +105,34 @@ class Home extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Container(
+              width: 50.w,
+              height: 50.h,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: circleavatarback),
+              child: Image.asset(
+                "image/shop.png",
+                width: 65.w,
+                color: Colors.black,
+              )),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
             width: 50.w,
             height: 50.h,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 color: circleavatarback),
-            child: IconButton(
-                icon: Icon(
-                  Icons.track_changes,
-                  size: 50.w,
-                ),
-                onPressed: () {}),
+            child: Padding(
+              padding: EdgeInsets.only(left: 5.w),
+              child: Center(
+                  child: Image.asset(
+                "image/transfer.png",
+                width: 85.w,
+                color: Colors.black,
+              )),
+            ),
           ),
         ),
         Padding(
@@ -126,6 +143,11 @@ class Home extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 color: circleavatarback),
+            child: Image.asset(
+              "image/money.png",
+              color: Colors.black,
+              width: 65.w,
+            ),
           ),
         ),
         Padding(
@@ -136,6 +158,11 @@ class Home extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 color: circleavatarback),
+            child: Image.asset(
+              "image/ticket.png",
+              color: Colors.black,
+              width: 65.w,
+            ),
           ),
         ),
         Padding(
@@ -146,6 +173,11 @@ class Home extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 color: circleavatarback),
+            child: Image.asset(
+              "image/post.png",
+              color: Colors.black,
+              width: 65.w,
+            ),
           ),
         ),
         Padding(
@@ -156,6 +188,11 @@ class Home extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 color: circleavatarback),
+            child: Image.asset(
+              "image/pay.png",
+              color: Colors.black,
+              width: 65.w,
+            ),
           ),
         ),
         Padding(
@@ -166,6 +203,11 @@ class Home extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 color: circleavatarback),
+            child: Image.asset(
+              "image/visa.png",
+              color: Colors.black,
+              width: 65.w,
+            ),
           ),
         ),
         Padding(
@@ -176,6 +218,11 @@ class Home extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 color: circleavatarback),
+            child: Image.asset(
+              "image/Group.png",
+              color: Colors.black,
+              width: 65.w,
+            ),
           ),
         ),
         Padding(
@@ -186,16 +233,11 @@ class Home extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 color: circleavatarback),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            width: 50.w,
-            height: 50.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: circleavatarback),
+            child: Image.asset(
+              "image/home.png",
+              color: Colors.black,
+              width: 65.w,
+            ),
           ),
         ),
       ],
