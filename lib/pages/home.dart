@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -92,29 +93,33 @@ class Home extends StatelessWidget {
         SizedBox(
           height: 15.h,
         ),
-        Expanded(child: Items()),
+        Expanded(child: Items(context)),
       ],
     );
   }
 
   // ignore: non_constant_identifier_names
-  Widget Items() {
+  Widget Items(BuildContext context) {
     return GridView.count(
       crossAxisCount: 3,
       children: [
         Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Container(
-              width: 50.w,
-              height: 50.h,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: circleavatarback),
-              child: Image.asset(
-                "image/shop.png",
-                width: 65.w,
-                color: Colors.black,
-              )),
+          child: InkWell(
+            // onTap: () => Navigator.of(context)
+            //     .push(PageTransition(child: child, type: type)),
+            child: Container(
+                width: 50.w,
+                height: 50.h,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: circleavatarback),
+                child: Image.asset(
+                  "image/shop.png",
+                  width: 65.w,
+                  color: Colors.black,
+                )),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),

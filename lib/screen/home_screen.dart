@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:set_of_service_app/pages/history.dart';
 import 'package:set_of_service_app/pages/home.dart';
 import 'package:set_of_service_app/pages/services.dart';
 
@@ -87,12 +88,12 @@ class _Home_PageState extends State<Home_Page> {
                     setState(() {
                       selectedIndex = i;
                       _controller?.animateToPage(selectedIndex,
-                          duration: Duration(milliseconds: 500),
+                          duration: Duration(milliseconds: 300),
                           curve: Curves.easeInOut);
                     });
                   },
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
+                    duration: const Duration(milliseconds: 300),
                     width: 35.w,
                     child: Icon(
                       data[i],
@@ -117,6 +118,7 @@ class _Home_PageState extends State<Home_Page> {
         },
         children: [
           Home(),
+          History_money(),
           List_of_services(),
         ],
       ),
