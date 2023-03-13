@@ -1,5 +1,9 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:set_of_service_app/Widgets/chat_widgets.dart';
+import 'package:set_of_service_app/main.dart';
 import 'package:set_of_service_app/models/chat_model.dart';
 
 class Chat extends StatefulWidget {
@@ -10,8 +14,14 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
-  List<Chat_model> textlist = [];
+  List<Chat_model> textlist = [
+    Chat_model(id: false, text: "Salom"),
+    Chat_model(id: true, text: "Qale"),
+    Chat_model(id: true, text: "Yaxshimi"),
+    Chat_model(id: false, text: "Ha yaxshi"),
+  ];
   TextEditingController _controller = TextEditingController();
+  final _scroller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,29 +58,11 @@ class _ChatState extends State<Chat> {
                 ),
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: textlist.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      width: 250.w,
-                      decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color.fromARGB(204, 8, 250, 230),
-                                Colors.transparent
-                              ]),
-                          borderRadius: BorderRadius.circular(24.w),
-                          border: Border.all(width: 1, color: Colors.black26)),
-                      margin: EdgeInsets.only(
-                          left: 18.w, right: 18.w, top: 10.h, bottom: 10.h),
-                      alignment: textlist[index].id
-                          ? AlignmentDirectional.centerEnd
-                          : AlignmentDirectional.centerStart,
-                      child: Text(textlist[index].text),
-                    );
-                  },
+                child: SafeArea(
+                  minimum: EdgeInsets.only(bottom: 60.h),
+                  child: Container_design(
+                    textlist: textlist,
+                  ),
                 ),
               ),
             ],
@@ -112,6 +104,7 @@ class _ChatState extends State<Chat> {
                     setState(() {
                       textlist
                           .add(Chat_model(id: true, text: _controller.text));
+
                       _controller.clear();
                     });
                   },
