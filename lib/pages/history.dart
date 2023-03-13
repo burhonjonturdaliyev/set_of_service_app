@@ -1,5 +1,7 @@
 // ignore_for_file: camel_case_types, must_be_immutable
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/models/history_model.dart';
@@ -17,7 +19,7 @@ class History_money extends StatelessWidget {
     history_money_model(
         manba: "+99890-693-65-94",
         summa: 10000,
-        holat: false,
+        holat: true,
         sabab: "Paynet",
         time: DateTime(2022, 2, 1, 12, 35, 0, 5, 55))
   ];
@@ -81,31 +83,87 @@ Widget history_items(BuildContext context, history_money_model model) {
           border: Border.all(width: 1, color: Colors.black12)),
       width: 361.w,
       height: 65.h,
-      child: Column(
-        children: [
-          Row(
-            children: [Text(model.manba), Text(model.sabab)],
-          ),
-          Row(
-            children: [
-              Container(
-                height: 25.h,
-                decoration: BoxDecoration(
-                    color: model.holat == true ? Colors.green : Colors.red,
-                    borderRadius: BorderRadius.circular(16)),
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child:
-                      Text(model.holat == true ? "O'tkazildi" : "Rad qilindi"),
+      child: Padding(
+        padding: EdgeInsets.all(6.0.w),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  DateFormat('kk:mm').format(model.time),
+                  style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Inter",
+                      color: Colors.black),
                 ),
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              Text(DateFormat('kk:mm').format(model.time))
-            ],
-          )
-        ],
+                Text(
+                  model.manba,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14.sp,
+                      fontFamily: "Inter"),
+                ),
+                Container(
+                  height: 11.h,
+                  width: 48.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: model.sabab.toString() == "Tushum"
+                          ? Colors.green
+                          : Colors.red),
+                  child: Center(
+                    child: Text(
+                      model.sabab,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 8.sp,
+                          fontFamily: "Inter"),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  DateFormat('yyyy:MM:dd').format(model.time),
+                  style: TextStyle(color: Colors.black, fontSize: 8.sp),
+                ),
+                Container(
+                    width: 73.w,
+                    height: 11.h,
+                    decoration: BoxDecoration(
+                        color: model.holat == true ? Colors.green : Colors.red,
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Center(
+                      child: Text(
+                        model.holat == true ? "O'tkazildi" : "Rad qilindi",
+                        style: TextStyle(
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    )),
+                Text(
+                  "${model.summa.toString()} yena",
+                  style: TextStyle(
+                      color:
+                          model.sabab == "Tushum" ? Colors.green : Colors.red,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 3.sp),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     ),
   );

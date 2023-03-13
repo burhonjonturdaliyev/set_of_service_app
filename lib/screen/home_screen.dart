@@ -70,13 +70,13 @@ class _Home_PageState extends State<Home_Page> {
         ],
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.only(left: 5.0.w, right: 5.0.w, bottom: 3.0.h),
         child: Material(
           elevation: 10,
           borderRadius: BorderRadius.circular(20),
           color: containerColor,
           child: SizedBox(
-            height: 70.h,
+            height: 60.h,
             width: double.infinity,
             child: ListView.builder(
               itemCount: data.length,

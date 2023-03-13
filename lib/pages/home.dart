@@ -94,6 +94,16 @@ class Home extends StatelessWidget {
           height: 15.h,
         ),
         Expanded(child: Items(context)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Image.asset(
+              "image/back_photo.png",
+              width: 365.w,
+            )
+          ],
+        )
       ],
     );
   }
@@ -231,7 +241,7 @@ class Home extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(10.0.w),
           child: Container(
             width: 50.w,
             height: 50.h,
@@ -240,7 +250,6 @@ class Home extends StatelessWidget {
                 color: circleavatarback),
             child: Image.asset(
               "image/home.png",
-              color: Colors.black,
               width: 65.w,
             ),
           ),
