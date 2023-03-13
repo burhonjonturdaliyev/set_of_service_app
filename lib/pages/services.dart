@@ -48,9 +48,11 @@ class List_of_services extends StatelessWidget {
     return Container(
       height: double.infinity,
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: backgroudColor,
-      ),
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("image/back_screen.png"),
+              fit: BoxFit.cover,
+              alignment: Alignment.bottomCenter)),
       child: Column(
         children: [
           Padding(

@@ -14,97 +14,94 @@ class Home extends StatelessWidget {
   final backgroudColor = const Color(0xffFDDADA);
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 20.h,
-        ),
-        Center(
-          child: Container(
-            width: 354.w,
-            height: 84.h,
-            decoration: BoxDecoration(
-              color: containerColor,
-              borderRadius: BorderRadius.circular(40),
-            ),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 10.w,
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.visibility_outlined,
-                        size: 35.w,
-                        color: white,
+    return Container(
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("image/back_screen.png"),
+              fit: BoxFit.cover,
+              alignment: Alignment.bottomCenter)),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 20.h,
+          ),
+          Center(
+            child: Container(
+              width: 354.w,
+              height: 84.h,
+              decoration: BoxDecoration(
+                color: containerColor,
+                borderRadius: BorderRadius.circular(40),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.visibility_outlined,
+                          size: 35.w,
+                          color: white,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 12.w,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "SOS hisobingiz",
-                      style: TextStyle(
-                        fontFamily: "Inter",
-                        color: white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w700,
+                    ],
+                  ),
+                  SizedBox(
+                    width: 12.w,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "SOS hisobingiz",
+                        style: TextStyle(
+                          fontFamily: "Inter",
+                          color: white,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "0.00 yena",
-                      style: TextStyle(
-                        fontFamily: "Inter",
-                        color: white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w700,
+                      Text(
+                        "0.00 yena",
+                        style: TextStyle(
+                          fontFamily: "Inter",
+                          color: white,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 105.w,
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.add_circle_outline_rounded,
-                        color: white,
-                        size: 36.67,
+                    ],
+                  ),
+                  SizedBox(
+                    width: 105.w,
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.add_circle_outline_rounded,
+                          color: white,
+                          size: 36.67,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          height: 15.h,
-        ),
-        Expanded(child: Items(context)),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Image.asset(
-              "image/back_photo.png",
-              width: 365.w,
-            )
-          ],
-        )
-      ],
+          SizedBox(
+            height: 15.h,
+          ),
+          Expanded(child: Items(context)),
+        ],
+      ),
     );
   }
 

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:set_of_service_app/pages/chat.dart';
 import 'package:set_of_service_app/pages/history.dart';
 import 'package:set_of_service_app/pages/home.dart';
 import 'package:set_of_service_app/pages/services.dart';
@@ -116,11 +117,7 @@ class _Home_PageState extends State<Home_Page> {
             selectedIndex = index;
           });
         },
-        children: [
-          Home(),
-          History_money(),
-          List_of_services(),
-        ],
+        children: [Home(), History_money(), List_of_services(), Chat()],
       ),
     );
   }

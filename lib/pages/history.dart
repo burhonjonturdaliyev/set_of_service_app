@@ -45,7 +45,11 @@ class History_money extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration: BoxDecoration(color: backgroudColor),
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("image/back_screen.png"),
+              fit: BoxFit.cover,
+              alignment: Alignment.bottomCenter)),
       child: Column(children: [
         Container(
           margin: EdgeInsets.only(top: 1.h, left: 1.w, right: 1.w),
