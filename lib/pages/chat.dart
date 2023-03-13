@@ -1,16 +1,130 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:set_of_service_app/models/chat_model.dart';
 
-class Chat extends StatelessWidget {
-  const Chat({super.key});
+class Chat extends StatefulWidget {
+  Chat({super.key});
+
+  @override
+  State<Chat> createState() => _ChatState();
+}
+
+class _ChatState extends State<Chat> {
+  List<Chat_model> textlist = [];
+  TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("image/back_screen.png"),
-              fit: BoxFit.cover,
-              alignment: Alignment.bottomCenter)),
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("image/back_screen.png"),
+                fit: BoxFit.cover,
+                alignment: Alignment.bottomCenter),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(1.w),
+                child: Container(
+                  width: 375.w,
+                  height: 25.h,
+                  decoration: BoxDecoration(
+                      color: const Color(0xff8B0000),
+                      borderRadius: BorderRadius.circular(5.w)),
+                  child: Center(
+                    child: Text(
+                      "Chat",
+                      style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          letterSpacing: 5,
+                          fontFamily: "Inter"),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: textlist.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 250.w,
+                      decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color.fromARGB(204, 8, 250, 230),
+                                Colors.transparent
+                              ]),
+                          borderRadius: BorderRadius.circular(24.w),
+                          border: Border.all(width: 1, color: Colors.black26)),
+                      margin: EdgeInsets.only(
+                          left: 18.w, right: 18.w, top: 10.h, bottom: 10.h),
+                      alignment: textlist[index].id
+                          ? AlignmentDirectional.centerEnd
+                          : AlignmentDirectional.centerStart,
+                      child: Text(textlist[index].text),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          left: 7.w,
+          bottom: 10.h,
+          child: Container(
+            width: 361.w,
+            height: 50.h,
+            decoration: BoxDecoration(
+                color: const Color.fromARGB(204, 138, 246, 233),
+                border: Border.all(
+                    width: 1, color: const Color.fromARGB(105, 0, 0, 0)),
+                borderRadius: BorderRadius.circular(24)),
+            child: Row(children: [
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 12.w, bottom: 4.h),
+                  child: TextFormField(
+                    controller: _controller,
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        // labelText: 'Name',
+                        hintText: "Matn yozish ...",
+                        hintStyle: TextStyle(
+                            color: Colors.black26,
+                            fontSize: 16.sp,
+                            fontFamily: "Inter")),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: 8.0.w),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      textlist
+                          .add(Chat_model(id: true, text: _controller.text));
+                      _controller.clear();
+                    });
+                  },
+                  child: Image.asset(
+                    "image/telegram.png",
+                    width: 24,
+                  ),
+                ),
+              )
+            ]),
+          ),
+        ),
+      ],
     );
   }
 }

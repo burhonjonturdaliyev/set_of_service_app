@@ -77,6 +77,7 @@ flutter:
     - image/transfer.png
     - image/visa.png
     - image/back_screen.png
+    - image/telegram.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
