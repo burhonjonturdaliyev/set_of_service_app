@@ -15,16 +15,18 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   List<Chat_model> textlist = [
-    Chat_model(id: false, text: "Salom"),
-    Chat_model(id: true, text: "Qale"),
-    Chat_model(id: true, text: "Yaxshimi"),
+    Chat_model(
+        id: false, text: "Salom", time: DateTime(2023, 1, 5, 15, 56, 0, 0)),
+    Chat_model(id: true, text: "Qale", time: DateTime(2023, 1, 6, 9, 35, 0, 0)),
+    Chat_model(
+        id: true, text: "Yaxshimi", time: DateTime(2023, 1, 6, 9, 40, 0, 0)),
     Chat_model(
         id: false,
         text:
-            "Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsum has been the  industry's standard dummy text ever since the  1500s, when an unknown printer took a galley of  type and scrambled it to make a type specimen  book. It has survived not only five centuries, but  also the leap into electronic typesetting, remaining  essentially unchanged. It was popularised in the 1960s  with the release of Letraset sheets containing Lorem  Ipsum passages, and more recently with desktop "),
+            "Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsum has been the  industry's standard dummy text ever since the  1500s, when an unknown printer took a galley of  type and scrambled it to make a type specimen  book. It has survived not only five centuries, but  also the leap into electronic typesetting, remaining  essentially unchanged. It was popularised in the 1960s  with the release of Letraset sheets containing Lorem  Ipsum passages, and more recently with desktop ",
+        time: DateTime(2023, 1, 7, 07, 00, 0, 0)),
   ];
   TextEditingController _controller = TextEditingController();
-  final _scroller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +107,10 @@ class _ChatState extends State<Chat> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      textlist
-                          .add(Chat_model(id: true, text: _controller.text));
+                      textlist.add(Chat_model(
+                          id: true,
+                          text: _controller.text,
+                          time: DateTime.now()));
 
                       _controller.clear();
                     });

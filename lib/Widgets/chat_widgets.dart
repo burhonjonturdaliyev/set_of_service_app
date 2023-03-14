@@ -99,7 +99,8 @@ class _Container_designState extends State<Container_design> {
                       right: 18.w,
                     ),
                     child: Text(
-                      DateFormat("dd-MMMM, kk:mm").format(DateTime.now()),
+                      DateFormat("dd-MMMM, kk:mm")
+                          .format(widget.textlist[index].time),
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.normal,

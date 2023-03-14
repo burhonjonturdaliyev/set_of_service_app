@@ -78,7 +78,9 @@ flutter:
     - image/visa.png
     - image/back_screen.png
     - image/telegram.png
-
+    - image/icons/accaount.png
+    - image/icons/call.png
+    - image/icons/location.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

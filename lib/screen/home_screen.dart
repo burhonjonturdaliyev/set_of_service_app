@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/pages/chat.dart';
 import 'package:set_of_service_app/pages/history.dart';
 import 'package:set_of_service_app/pages/home.dart';
+import 'package:set_of_service_app/pages/profil.dart';
 import 'package:set_of_service_app/pages/services.dart';
 
 class Home_Page extends StatefulWidget {
@@ -117,7 +118,13 @@ class _Home_PageState extends State<Home_Page> {
             selectedIndex = index;
           });
         },
-        children: [Home(), History_money(), List_of_services(), Chat()],
+        children: [
+          Home(),
+          History_money(),
+          List_of_services(),
+          Chat(),
+          Profil()
+        ],
       ),
     );
   }
