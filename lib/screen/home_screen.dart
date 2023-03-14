@@ -2,11 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/chat.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/history.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/home.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/profil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services.dart';
+import 'package:set_of_service_app/pages/Support_page/Support_page.dart';
 
 class Home_Page extends StatefulWidget {
   const Home_Page({Key? key}) : super(key: key);
@@ -64,7 +66,12 @@ class _Home_PageState extends State<Home_Page> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(PageTransition(
+                  child: Support_center(),
+                  type: PageTransitionType.rightToLeftJoined,
+                  childCurrent: Home_Page()));
+            },
             icon: Icon(
               Icons.mail,
               size: 32,
