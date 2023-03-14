@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -22,6 +24,7 @@ class Profile_setting_widgets extends StatefulWidget {
       _Profile_setting_widgetsState();
 }
 
+// ignore: camel_case_types
 class _Profile_setting_widgetsState extends State<Profile_setting_widgets> {
   // TextEditingController sana = TextEditingController();
 
@@ -128,9 +131,10 @@ class _Profile_setting_widgetsState extends State<Profile_setting_widgets> {
                 controller: widget.davlat,
                 decoration: InputDecoration(
                   //  helperText: "Qaysi davlat servislar",
-                  hintText: "Qaysi davlat servislar",
+                  labelText: "Qaysi davlat servislar",
+                  // hintText: "Qaysi davlat servislar",
                   hintStyle: TextStyle(
-                      color: Colors.black26,
+                      color: Colors.black,
                       fontSize: 16.sp,
                       fontFamily: "Inter"),
 

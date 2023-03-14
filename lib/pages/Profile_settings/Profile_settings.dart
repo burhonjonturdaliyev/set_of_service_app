@@ -1,11 +1,8 @@
 // ignore: file_names
-// ignore_for_file: file_names, duplicate_ignore
-
-import 'dart:io';
+// ignore_for_file: file_names, duplicate_ignore, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:set_of_service_app/Widgets/profile_settings_widgets.dart';
 
 class Profile_settings extends StatefulWidget {
@@ -21,16 +18,6 @@ class _Profile_settingsState extends State<Profile_settings> {
   TextEditingController nomer = TextEditingController();
   TextEditingController sana = TextEditingController();
   TextEditingController davlat = TextEditingController();
-  final ImagePicker _picker = ImagePicker();
-  File? _imageFile;
-
-  Future<void> _pickImage() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      _imageFile = File(pickedFile!.path);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
