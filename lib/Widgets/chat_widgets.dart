@@ -60,61 +60,65 @@ class _Container_designState extends State<Container_design> {
                   InkWell(
                     onLongPress: () {
                       showDialog(
-                          context: context,
-                          builder: ((context) => AlertDialog(
-                                backgroundColor: const Color(0xffFDDADA),
-                                content: SizedBox(
-                                  height: 70.h,
-                                  width: 130.w,
-                                  child: Column(children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
+                        context: context,
+                        builder: ((context) => AlertDialog(
+                              backgroundColor: const Color(0xffFDDADA),
+                              content: SizedBox(
+                                height: 90.h,
+                                width: 130.w,
+                                child: Column(children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          "Ushbu xabarni o'chirishni xoxlaysizmi?",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14.sp,
+                                              fontFamily: "Inter"),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 2.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              widget.textlist.removeAt(index);
+                                            });
+                                            Navigator.pop(context);
+                                          },
                                           child: Text(
-                                              "Ushbu xabarni o'chirishni xoxlaysizmi?"),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 2.h,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(16)),
-                                          child: Padding(
-                                            padding: EdgeInsets.all(4.0.w),
-                                            child: Text(
-                                              "Ha",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              borderRadius:
-                                                  BorderRadius.circular(16.w)),
-                                          child: Padding(
-                                            padding: EdgeInsets.all(4.0.w),
-                                            child: Text(
-                                              "Yo'q",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ]),
-                                ),
-                              )));
+                                            "Ha",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.sp),
+                                          )),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text(
+                                            "Yo'q",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.sp),
+                                          ))
+                                    ],
+                                  )
+                                ]),
+                              ),
+                            )),
+                      );
                     },
                     child: Container(
                       constraints: BoxConstraints(maxWidth: 250.w),
