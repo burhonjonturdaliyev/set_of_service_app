@@ -1,9 +1,8 @@
-// ignore_for_file: prefer_final_fields
+// ignore_for_file: prefer_final_fields, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/Widgets/chat_widgets.dart';
-import 'package:set_of_service_app/main.dart';
 import 'package:set_of_service_app/models/chat_model.dart';
 
 class Chat extends StatefulWidget {
@@ -23,7 +22,7 @@ class _ChatState extends State<Chat> {
     Chat_model(
         id: false,
         text:
-            "Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsum has been the  industry's standard dummy text ever since the  1500s, when an unknown printer took a galley of  type and scrambled it to make a type specimen  book. It has survived not only five centuries, but  also the leap into electronic typesetting, remaining  essentially unchanged. It was popularised in the 1960s  with the release of Letraset sheets containing Lorem  Ipsum passages, and more recently with desktop ",
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop ",
         time: DateTime(2023, 1, 7, 07, 00, 0, 0)),
   ];
   TextEditingController _controller = TextEditingController();

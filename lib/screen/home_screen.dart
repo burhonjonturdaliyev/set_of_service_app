@@ -2,21 +2,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/pages/chat.dart';
-import 'package:set_of_service_app/pages/history.dart';
-import 'package:set_of_service_app/pages/home.dart';
-import 'package:set_of_service_app/pages/profil.dart';
-import 'package:set_of_service_app/pages/services.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/chat.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/history.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/home.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/profil.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services.dart';
 
 class Home_Page extends StatefulWidget {
   const Home_Page({Key? key}) : super(key: key);
 
   @override
-  _Home_PageState createState() => _Home_PageState();
+  _Home_PageState createState() => _Home_PageState(selectedIndex: 0);
 }
 
 class _Home_PageState extends State<Home_Page> {
   int selectedIndex = 0;
+  _Home_PageState({required this.selectedIndex});
   final List<IconData> data = [
     Icons.home_outlined,
     Icons.history_outlined,
@@ -112,6 +113,7 @@ class _Home_PageState extends State<Home_Page> {
         ),
       ),
       body: PageView(
+        physics: NeverScrollableScrollPhysics(),
         controller: _controller,
         onPageChanged: (int index) {
           setState(() {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/Widgets/profile_widgets.dart';
+import 'package:set_of_service_app/pages/Profile_settings/Profile_settings.dart';
 
 class Profil extends StatelessWidget {
   const Profil({super.key});
@@ -101,12 +103,14 @@ class Profil extends StatelessWidget {
                         EdgeInsets.only(top: 15.0.h, left: 19.w, right: 19.w),
                     child: Row(
                       children: [
-                        Text(
-                          "Ilovaning barcha imkoniyatlaridan to’liq  foydalanish uchun , iltimos identifikatsiya  jarajoyidan o’ting",
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: "Inter"),
+                        Expanded(
+                          child: Text(
+                            "Ilovaning barcha imkoniyatlaridan to’liq foydalanish uchun , iltimos identifikatsiya jarajoyidan o’ting",
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: "Inter"),
+                          ),
                         )
                       ],
                     ),
@@ -144,21 +148,26 @@ class Profil extends StatelessWidget {
         Positioned(
             left: 48.w,
             bottom: 15.h,
-            child: Container(
-              width: 281.w,
-              height: 46.h,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: const Color(0xff8B0000)),
-              child: Center(
-                child: Text(
-                  "Tahrirlash",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14.sp,
-                      letterSpacing: 1.5),
+            child: InkWell(
+              onTap: () => Navigator.of(context).push(PageTransition(
+                  child: const Profile_settings(),
+                  type: PageTransitionType.bottomToTop)),
+              child: Container(
+                width: 281.w,
+                height: 46.h,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: const Color(0xff8B0000)),
+                child: Center(
+                  child: Text(
+                    "Tahrirlash",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14.sp,
+                        letterSpacing: 1.5),
+                  ),
                 ),
               ),
             ))
