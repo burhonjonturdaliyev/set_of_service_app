@@ -60,6 +60,7 @@ class _Container_designState extends State<Container_design> {
                     : MainAxisAlignment.start,
                 children: [
                   Container(
+                    constraints: BoxConstraints(maxWidth: 250.w),
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(
                             begin: Alignment.topLeft,
@@ -76,6 +77,8 @@ class _Container_designState extends State<Container_design> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         widget.textlist[index].text,
+                        // textWidthBasis: TextWidthBasis.longestLine,
+
                         style: TextStyle(
                             fontSize: 16.sp,
                             fontFamily: "Inter",
