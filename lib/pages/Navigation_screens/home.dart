@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/shop/shop_page.dart';
-import 'package:set_of_service_app/screen/home_screen.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -116,7 +115,7 @@ class Home extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: InkWell(
             onTap: () => Navigator.of(context).push(PageTransition(
-              child: const Shop(),
+              child: Shop(),
               type: PageTransitionType.leftToRightWithFade,
             )),
             child: Container(
