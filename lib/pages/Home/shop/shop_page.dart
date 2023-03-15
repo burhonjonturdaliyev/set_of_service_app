@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/pages/shop/shop_pages/nooziq_ovqat.dart';
-import 'package:set_of_service_app/pages/shop/shop_pages/oziq_ovqat.dart';
+import 'package:set_of_service_app/pages/Home/shop/shop_pages/nooziq_ovqat.dart';
+import 'package:set_of_service_app/pages/Home/shop/shop_pages/oziq_ovqat.dart';
 
 class Shop extends StatefulWidget {
   Shop({super.key});
@@ -129,7 +129,7 @@ class _ShopState extends State<Shop> {
               ),
               Expanded(
                 child: PageView(
-                  physics: const NeverScrollableScrollPhysics(),
+                  // physics: const NeverScrollableScrollPhysics(),
                   controller: controller,
                   onPageChanged: (int index) {
                     setState(() {

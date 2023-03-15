@@ -1,24 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/Widgets/shop_widgets.dart';
-import 'package:set_of_service_app/models/shop_models.dart';
+
+import '../../../../Widgets/shop_widgets.dart';
+import '../../../../models/shop_models.dart';
 
 // ignore: camel_case_types
-class Oziq_ovqat extends StatelessWidget {
-  Oziq_ovqat({super.key});
+class Nooziq_ovqat extends StatelessWidget {
+  Nooziq_ovqat({super.key});
   List<Shop_models> models = [
     Shop_models(
-        name: "Uzbek national foods ...",
+        name: "Uzbek non national foods ...",
         number: "+998906936594",
         delevering: "Mavjud",
         address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66"),
     Shop_models(
-        name: "Uzbek national foods ...",
+        name: "Uzbek non national foods ...",
         number: "+998906936594",
         delevering: "Mavjud",
         address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66"),
     Shop_models(
-        name: "Uzbek national foods ...",
+        name: "Uzbek non national foods ...",
+        number: "+998906936594",
+        delevering: "Mavjud",
+        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66"),
+    Shop_models(
+        name: "Uzbek non national foods ...",
+        number: "+998906936594",
+        delevering: "Mavjud",
+        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66"),
+    Shop_models(
+        name: "Uzbek non national foods ...",
+        number: "+998906936594",
+        delevering: "Mavjud",
+        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66"),
+    Shop_models(
+        name: "Uzbek non national foods ...",
+        number: "+998906936594",
+        delevering: "Mavjud",
+        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66"),
+    Shop_models(
+        name: "Uzbek non national foods ...",
+        number: "+998906936594",
+        delevering: "Mavjud",
+        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66"),
+    Shop_models(
+        name: "Uzbek non national foods ...",
         number: "+998906936594",
         delevering: "Mavjud",
         address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66"),
@@ -36,7 +62,7 @@ class Oziq_ovqat extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                "Oziq-ovqat servislari ro’yxati",
+                "Nooziq-ovqat servislari ro’yxati",
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

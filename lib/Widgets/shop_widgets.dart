@@ -4,8 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/models/colour_model.dart';
 import 'package:set_of_service_app/models/shop_models.dart';
 
+// ignore: camel_case_types, must_be_immutable
 class List_builder extends StatelessWidget {
+  // ignore: non_constant_identifier_names
   List_builder({super.key, required this.info_List});
+  // ignore: non_constant_identifier_names
   List<Shop_models> info_List;
   List<Colour_models> colour = [
     Colour_models(
@@ -27,13 +30,13 @@ class List_builder extends StatelessWidget {
     return ListView.builder(
         itemCount: info_List.length,
         itemBuilder: (context, index) {
-          return builder_items(info_List[index],
-              colour[index == colour.length - 1 ? index = 0 : index = index]);
+          return builder_items(info_List[index], colour[index % 4]);
         });
   }
 }
 
-Widget builder_items(Shop_models info_list, Colour_models colour_models) {
+// ignore: non_constant_identifier_names
+Widget builder_items(Shop_models infoList, Colour_models colourModels) {
   return Padding(
     padding: EdgeInsets.only(bottom: 8.0.h),
     child: Container(
@@ -44,7 +47,7 @@ Widget builder_items(Shop_models info_list, Colour_models colour_models) {
         gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [colour_models.rang1, colour_models.rang2]),
+            colors: [colourModels.rang1, colourModels.rang2]),
       ),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -70,7 +73,7 @@ Widget builder_items(Shop_models info_list, Colour_models colour_models) {
               children: [
                 Expanded(
                     child: Text(
-                  info_list.name,
+                  infoList.name,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Colors.black,
@@ -83,7 +86,7 @@ Widget builder_items(Shop_models info_list, Colour_models colour_models) {
                 ),
                 IconButton(
                     onPressed: () {
-                      FlutterPhoneDirectCaller.callNumber(info_list.number);
+                      FlutterPhoneDirectCaller.callNumber(infoList.number);
                     },
                     icon: Icon(
                       Icons.call,
@@ -98,7 +101,7 @@ Widget builder_items(Shop_models info_list, Colour_models colour_models) {
             Row(
               children: [
                 Text(
-                  "Yetkazib berish: ${info_list.delevering}",
+                  "Yetkazib berish: ${infoList.delevering}",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -113,7 +116,7 @@ Widget builder_items(Shop_models info_list, Colour_models colour_models) {
             Row(
               children: [
                 Text(
-                  "Manzil: ${info_list.address}",
+                  "Manzil: ${infoList.address}",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",

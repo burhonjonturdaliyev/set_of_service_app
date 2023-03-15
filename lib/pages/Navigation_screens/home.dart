@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/pages/shop/shop_page.dart';
+import 'package:set_of_service_app/pages/Home/send_money/send_money.dart';
+import 'package:set_of_service_app/pages/Home/shop/shop_page.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -116,7 +117,7 @@ class Home extends StatelessWidget {
           child: InkWell(
             onTap: () => Navigator.of(context).push(PageTransition(
               child: Shop(),
-              type: PageTransitionType.leftToRightWithFade,
+              type: PageTransitionType.fade,
             )),
             child: Container(
                 width: 50.w,
@@ -133,20 +134,26 @@ class Home extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Container(
-            width: 50.w,
-            height: 50.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: circleavatarback),
-            child: Padding(
-              padding: EdgeInsets.only(left: 5.w),
-              child: Center(
-                  child: Image.asset(
-                "image/transfer.png",
-                width: 85.w,
-                color: Colors.black,
-              )),
+          child: InkWell(
+            onTap: () {
+              Navigator.of(context).push(PageTransition(
+                  child: Send_money(), type: PageTransitionType.fade));
+            },
+            child: Container(
+              width: 50.w,
+              height: 50.h,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: circleavatarback),
+              child: Padding(
+                padding: EdgeInsets.only(left: 5.w),
+                child: Center(
+                    child: Image.asset(
+                  "image/transfer.png",
+                  width: 85.w,
+                  color: Colors.black,
+                )),
+              ),
             ),
           ),
         ),
