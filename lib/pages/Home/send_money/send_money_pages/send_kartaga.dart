@@ -1,106 +1,132 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/pages/Home/send_money/confirm/confirm_tranzactions.dart';
 
-class Kartaga extends StatelessWidget {
+class Kartaga extends StatefulWidget {
   Kartaga({super.key});
 
-  TextEditingController _controller = TextEditingController();
+  @override
+  State<Kartaga> createState() => _KartagaState();
+}
+
+class _KartagaState extends State<Kartaga> {
+  bool visible = true;
+  double money = 0.00;
+  TextEditingController card_number = TextEditingController();
+  TextEditingController transfer_amount = TextEditingController();
+  TextEditingController comments = TextEditingController();
+
+  @override
+  void visib_check() {
+    setState(() {
+      visible = !visible;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return ListView(
       children: [
         Column(
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: 11.0.h, left: 11.w, right: 11.w),
-                  child: Text(
-                    "Kartaga pul o'tkazish",
+            Padding(
+              padding: EdgeInsets.only(top: 11.0.h, left: 11.w),
+              child: Row(
+                children: [
+                  Text(
+                    "Karta pul yuborish",
                     style: TextStyle(
-                        fontSize: 18.sp,
+                        color: Colors.black,
                         fontFamily: "Inter",
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            ),
+            const Divider(
+              thickness: 1,
+              color: Color(0xff8B0000),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 84.h,
+                  width: 354.w,
+                  decoration: BoxDecoration(
+                      color: const Color(0xff8A0000),
+                      borderRadius: BorderRadius.circular(40)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 5.0.w, right: 30.w),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: visib_check,
+                              icon: Icon(
+                                visible == true
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                size: 35.w,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 12.w,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "SOS hisobingiz",
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            Text(
+                              visible ? "$money yena" : "**** yena",
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 85.w,
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.add_circle_outline_rounded,
+                                color: Colors.white,
+                                size: 36.67.w,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],
-            ),
-            Divider(
-              thickness: 1.w,
-              color: const Color(0xFF8B0000),
-            ),
-            Center(
-              child: Container(
-                width: 354.w,
-                height: 84.h,
-                decoration: BoxDecoration(
-                  color: const Color(0xff8A0000),
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.visibility_outlined,
-                            size: 35.w,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 12.w,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "SOS hisobingiz",
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            color: Colors.white,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Text(
-                          "0.00 yena",
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            color: Colors.white,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 105.w,
-                    ),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.add_circle_outline_rounded,
-                            color: Colors.white,
-                            size: 36.67.w,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
             ),
             SizedBox(
               height: 11.h,
@@ -111,35 +137,235 @@ class Kartaga extends StatelessWidget {
                   width: 33.w,
                 ),
                 Text(
-                  "Qabul qiluvchi",
+                  "Qabul qiluvchi:",
                   style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 10.sp,
+                      color: Colors.black,
+                      fontFamily: "Inter",
+                      fontSize: 8.sp,
+                      fontWeight: FontWeight.w300),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Container(
+              height: 84.h,
+              width: 354.w,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(21.w),
+                  color: Colors.transparent,
+                  border: Border.all(width: 1.5.w, color: Colors.black38)),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: card_number,
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        color: Colors.black,
+                        fontSize: 18.sp),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(16)
+                    ],
+                    maxLines: 1,
+                    // maxLength: 16,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Qabul qiluvchi karta raqami",
+                        hintStyle: const TextStyle(
+                            color: Colors.black38,
+                            fontSize: 12,
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.w500),
+                        prefixIcon: Icon(
+                          Icons.credit_card_outlined,
+                          color: Colors.black,
+                          size: 41.w,
+                        )),
                   ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 33.w,
+                ),
+                Text(
+                  "Transfer summasi:",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Inter",
+                      fontSize: 8.sp,
+                      fontWeight: FontWeight.w300),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Container(
+              height: 84.h,
+              width: 354.w,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(21.w),
+                  color: Colors.transparent,
+                  border: Border.all(width: 1.5.w, color: Colors.black38)),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: transfer_amount,
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        color: Colors.black,
+                        fontSize: 18.sp),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    keyboardType: TextInputType.number,
+                    maxLines: 1,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Transfer summasi minimal 2000 yena",
+                      hintStyle: TextStyle(
+                          color: Colors.black38,
+                          fontSize: 12,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 33.w,
+                ),
+                Text(
+                  "Comment",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Inter",
+                      fontSize: 8.sp,
+                      fontWeight: FontWeight.w300),
                 )
               ],
             ),
             Container(
+              height: 135.h,
               width: 354.w,
-              height: 84.h,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(21.w),
-                  border: Border.all(width: 1, color: Colors.black12)),
-              child: Expanded(
-                  child: Center(
+                  border: Border.all(width: 2.w, color: Colors.black38),
+                  borderRadius: BorderRadius.circular(21.w)),
+              child: Padding(
+                padding: EdgeInsets.only(left: 10.0.w, right: 10.w),
                 child: TextFormField(
-                  controller: _controller,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.wallet_outlined),
-                      hintText: "Qabul qiluvchi karta raqami"),
+                  controller: comments,
+                  maxLines: 5,
+                  style: TextStyle(
+                      fontFamily: "Inter",
+                      color: Colors.black,
+                      fontSize: 18.sp),
+                  inputFormatters: [LengthLimitingTextInputFormatter(2000)],
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                  ),
                 ),
-              )),
+              ),
+            ),
+            SizedBox(
+              height: 26.h,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(PageTransition(
+                    child: Confirm_tranzactions(),
+                    duration: const Duration(milliseconds: 300),
+                    type: PageTransitionType.rightToLeftWithFade));
+              },
+              child: Container(
+                width: 300.w,
+                height: 64.h,
+                decoration: BoxDecoration(
+                    color: const Color(0xff8A0000),
+                    borderRadius: BorderRadius.circular(21.w),
+                    border: Border.all(width: 1.w, color: Colors.black87)),
+                child: Center(
+                  child: Text(
+                    "Keyingisi",
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        color: Colors.white,
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.w900),
+                  ),
+                ),
+              ),
             )
           ],
-        )
+        ),
       ],
     );
   }
 }
+ // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // children: [
+                  //   IconButton(
+                  //       onPressed: visib_check,
+                  //       icon: Icon(
+                  //         visible == true
+                  //             ? Icons.visibility_outlined
+                  //             : Icons.visibility_off_outlined,
+                  //         color: Colors.white,
+                  //         size: 35.w,
+                  //       )),
+                  //   SizedBox(
+                  //     width: 12.w,
+                  //   ),
+                  //   Column(
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       Text(
+                  //         "SOS hisobingiz",
+                  //         style: TextStyle(
+                  //           fontFamily: "Inter",
+                  //           color: Colors.white,
+                  //           fontSize: 16.sp,
+                  //           fontWeight: FontWeight.w700,
+                  //         ),
+                  //       ),
+                  //       Text(
+                  //         visible ? "$money yena" : "**** yena",
+                  //         style: TextStyle(
+                  //           fontFamily: "Inter",
+                  //           color: Colors.white,
+                  //           fontSize: 16.sp,
+                  //           fontWeight: FontWeight.w700,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  //   Row(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       IconButton(
+                  //           onPressed: () {},
+                  //           icon: Icon(
+                  //             Icons.add_circle_outline_outlined,
+                  //             size: 45.w,
+                  //           )),
+                  //     ],
+                  //   )
+                  // ]

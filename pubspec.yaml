@@ -43,6 +43,8 @@ dependencies:
   intl: ^0.18.0
   image_picker: ^0.8.7
   flutter_phone_direct_caller: ^2.1.1
+  http: ^0.13.5
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:
