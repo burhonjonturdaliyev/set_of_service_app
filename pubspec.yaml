@@ -82,6 +82,7 @@ flutter:
     - image/visa.png
     - image/back_screen.png
     - image/telegram.png
+    - image/error_tranzaction.png
     - image/icons/accaount.png
     - image/icons/call.png
     - image/icons/location.png

@@ -5,9 +5,11 @@ import 'package:set_of_service_app/models/send_money_naqt_model.dart';
 
 import '../models/colour_model.dart';
 
-// ignore: camel_case_types
+// ignore: camel_case_types, must_be_immutable
 class Send_money_naqt_widget extends StatelessWidget {
+  // ignore: non_constant_identifier_names
   Send_money_naqt_widget({super.key, required this.naqt_model});
+  // ignore: non_constant_identifier_names
   List<Naqt_pul_model> naqt_model;
   List<Colour_models> colour = [
     Colour_models(
@@ -33,6 +35,7 @@ class Send_money_naqt_widget extends StatelessWidget {
   }
 }
 
+// ignore: non_constant_identifier_names
 Widget Container_builder_naqt(
     Colour_models colourModels, Naqt_pul_model models) {
   return Padding(
@@ -63,9 +66,6 @@ Widget Container_builder_naqt(
                       fontSize: 10.sp),
                 )
               ],
-            ),
-            SizedBox(
-              height: 5.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

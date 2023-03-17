@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/Widgets/send_money_naqt_widget.dart';
-import 'package:set_of_service_app/models/colour_model.dart';
 import 'package:set_of_service_app/models/send_money_naqt_model.dart';
 
 class Naqt extends StatefulWidget {
-  Naqt({super.key});
+  const Naqt({super.key});
 
   @override
   State<Naqt> createState() => _NaqtState();
@@ -15,8 +14,20 @@ class _NaqtState extends State<Naqt> {
   List<Naqt_pul_model> models = [
     Naqt_pul_model(
         name: "Payme",
-        kurs: 1.11,
-        address: "Tokyo",
+        kurs: 1.34,
+        address: "Tokyo , Edogawa ku , Kasai rinkoen 1-66",
+        phone_number: "+98906936594",
+        telegram: "https://t.me/TBA_003"),
+    Naqt_pul_model(
+        name: "Omonat servis",
+        kurs: 1.34,
+        address: "Tokyo , Edogawa ku , Kasai rinkoen 1-66",
+        phone_number: "+98906936594",
+        telegram: "https://t.me/TBA_003"),
+    Naqt_pul_model(
+        name: "BSI",
+        kurs: 1.34,
+        address: "Tokyo , Edogawa ku , Kasai rinkoen 1-66",
         phone_number: "+98906936594",
         telegram: "https://t.me/TBA_003"),
   ];

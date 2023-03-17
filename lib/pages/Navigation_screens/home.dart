@@ -3,9 +3,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Home/send_money/send_money.dart';
 import 'package:set_of_service_app/pages/Home/shop/shop_page.dart';
+import 'package:set_of_service_app/pages/services_page/tolovlar.dart';
 
-class Home extends StatelessWidget {
+import '../Home/tolovlar/tolovlar.dart';
+
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  bool visible = true;
+  double money = 0.00;
+
   final white = Colors.white;
 
   final appbarColor = const Color(0xFF8B0000);
@@ -13,7 +25,14 @@ class Home extends StatelessWidget {
   final containerColor = const Color(0xff8A0000);
 
   final circleavatarback = const Color.fromARGB(208, 220, 163, 163);
+
   final backgroudColor = const Color(0xffFDDADA);
+  void visib_check() {
+    setState(() {
+      visible = !visible;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,11 +62,13 @@ class Home extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: visib_check,
                         icon: Icon(
-                          Icons.visibility_outlined,
+                          visible == true
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
                           size: 35.w,
-                          color: white,
+                          color: Colors.white,
                         ),
                       ),
                     ],
@@ -69,7 +90,7 @@ class Home extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "0.00 yena",
+                        visible ? "$money yena" : "**** yena",
                         style: TextStyle(
                           fontFamily: "Inter",
                           color: white,
@@ -159,16 +180,22 @@ class Home extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Container(
-            width: 50.w,
-            height: 50.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: circleavatarback),
-            child: Image.asset(
-              "image/money.png",
-              color: Colors.black,
-              width: 65.w,
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).push(PageTransition(
+                child: Pul_Tolovlar(),
+                duration: const Duration(milliseconds: 250),
+                type: PageTransitionType.rightToLeftWithFade)),
+            child: Container(
+              width: 50.w,
+              height: 50.h,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: circleavatarback),
+              child: Image.asset(
+                "image/money.png",
+                color: Colors.black,
+                width: 65.w,
+              ),
             ),
           ),
         ),

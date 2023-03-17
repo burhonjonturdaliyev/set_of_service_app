@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: camel_case_types
-class Confirm_tranzactions extends StatelessWidget {
-  const Confirm_tranzactions({super.key});
+class Pul_Tolovlar extends StatelessWidget {
+  const Pul_Tolovlar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class Confirm_tranzactions extends StatelessWidget {
         backgroundColor: const Color(0xFF8B0000),
         centerTitle: true,
         title: Text(
-          "Send money",
+          "To’lovlar",
           style: TextStyle(
               fontFamily: "Inter",
               letterSpacing: 5.w,
