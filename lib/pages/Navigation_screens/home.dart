@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/pages/Home/paynet/paynet.dart';
 import 'package:set_of_service_app/pages/Home/send_money/send_money.dart';
 import 'package:set_of_service_app/pages/Home/shop/shop_page.dart';
-import 'package:set_of_service_app/pages/services_page/pochta_xizmati.dart';
+import 'package:set_of_service_app/pages/Home/pochta/pochta_xizmati.dart';
 
 import '../Home/tolovlar/tolovlar.dart';
 
@@ -237,16 +238,22 @@ class _HomeState extends State<Home> {
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Container(
-            width: 50.w,
-            height: 50.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: circleavatarback),
-            child: Image.asset(
-              "image/pay.png",
-              color: Colors.black,
-              width: 65.w,
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).push(PageTransition(
+                child: Paynet(),
+                duration: const Duration(milliseconds: 250),
+                type: PageTransitionType.rightToLeftWithFade)),
+            child: Container(
+              width: 50.w,
+              height: 50.h,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: circleavatarback),
+              child: Image.asset(
+                "image/pay.png",
+                color: Colors.black,
+                width: 65.w,
+              ),
             ),
           ),
         ),

@@ -7,11 +7,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/pages/Home/send_money/send_money.dart';
 import 'package:set_of_service_app/pages/Home/shop/shop_page.dart';
 import 'package:set_of_service_app/pages/Home/tolovlar/tolovlar.dart';
-import 'package:set_of_service_app/pages/services_page/Paynet.dart';
+import 'package:set_of_service_app/pages/Home/paynet/paynet.dart';
 import 'package:set_of_service_app/pages/services_page/Viza_xizmati.dart';
 import 'package:set_of_service_app/pages/services_page/avia_bilet.dart';
 import 'package:set_of_service_app/pages/services_page/ish_top.dart';
-import 'package:set_of_service_app/pages/services_page/pochta_xizmati.dart';
+import 'package:set_of_service_app/pages/Home/pochta/pochta_xizmati.dart';
 
 import 'package:set_of_service_app/pages/services_page/uy_joy.dart';
 import 'package:set_of_service_app/pages/services_page/valyuta_kurs.dart';
