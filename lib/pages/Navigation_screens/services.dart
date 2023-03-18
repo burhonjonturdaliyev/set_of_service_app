@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/models/list_of_services_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:set_of_service_app/pages/Home/send_money/send_money.dart';
+import 'package:set_of_service_app/pages/Home/shop/shop_page.dart';
+import 'package:set_of_service_app/pages/Home/tolovlar/tolovlar.dart';
 import 'package:set_of_service_app/pages/services_page/Paynet.dart';
 import 'package:set_of_service_app/pages/services_page/Viza_xizmati.dart';
 import 'package:set_of_service_app/pages/services_page/avia_bilet.dart';
 import 'package:set_of_service_app/pages/services_page/ish_top.dart';
 import 'package:set_of_service_app/pages/services_page/pochta_xizmati.dart';
-import 'package:set_of_service_app/pages/services_page/pul_yuborish.dart';
-import 'package:set_of_service_app/pages/services_page/shop_xizmatlari.dart';
-import 'package:set_of_service_app/pages/services_page/tolovlar.dart';
+
 import 'package:set_of_service_app/pages/services_page/uy_joy.dart';
 import 'package:set_of_service_app/pages/services_page/valyuta_kurs.dart';
 import 'package:set_of_service_app/pages/services_page/yangiliklar.dart';
@@ -20,11 +21,11 @@ import 'package:set_of_service_app/pages/services_page/yangiliklar.dart';
 class List_of_services extends StatelessWidget {
   List_of_services({super.key});
   List<Services_model> model = [
-    Services_model(info: "Shop xizmatlari", page: const Shop_xizmatlari()),
-    Services_model(info: "Pul yuborish xizmatlari", page: const Pul_yuborish()),
-    Services_model(info: "To'lovlar", page: const Tolovlar()),
+    Services_model(info: "Shop xizmatlari", page: Shop()),
+    Services_model(info: "Pul yuborish xizmatlari", page: Send_money()),
+    Services_model(info: "To'lovlar", page: Pul_Tolovlar()),
     Services_model(info: "Avia bilet xizmatlari", page: const Avia_bilet()),
-    Services_model(info: "Pochta xizmatlari", page: const Pochta_xizmati()),
+    Services_model(info: "Pochta xizmatlari", page: Pochta_xizmati()),
     Services_model(info: "Paynet", page: const Paynet()),
     Services_model(
         info: "Viza masalalarida yordam xizmati", page: const Viza_xizmati()),
@@ -128,7 +129,8 @@ class List_of_services extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(PageTransition(
             child: model.page,
-            type: PageTransitionType.rightToLeft,
+            duration: const Duration(milliseconds: 300),
+            type: PageTransitionType.fade,
           ));
         },
       ),

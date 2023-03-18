@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Home/send_money/confirm/confirm_tranzactions.dart';
 
 class Kartaga extends StatefulWidget {
@@ -17,6 +16,7 @@ class _KartagaState extends State<Kartaga> {
   TextEditingController card_number = TextEditingController();
   TextEditingController transfer_amount = TextEditingController();
   TextEditingController comments = TextEditingController();
+  final _formfield = GlobalKey<FormState>();
 
   @override
   void visib_check() {
@@ -131,119 +131,143 @@ class _KartagaState extends State<Kartaga> {
             SizedBox(
               height: 11.h,
             ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 33.w,
-                ),
-                Text(
-                  "Qabul qiluvchi:",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: "Inter",
-                      fontSize: 8.sp,
-                      fontWeight: FontWeight.w300),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 1.h,
-            ),
-            Container(
-              height: 84.h,
-              width: 354.w,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(21.w),
-                  color: Colors.transparent,
-                  border: Border.all(width: 1.5.w, color: Colors.black38)),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: card_number,
-                    style: TextStyle(
-                        fontFamily: "Inter",
-                        color: Colors.black,
-                        fontSize: 18.sp),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(16)
-                    ],
-                    maxLines: 1,
-                    // maxLength: 16,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Qabul qiluvchi karta raqami",
-                        hintStyle: const TextStyle(
-                            color: Colors.black38,
-                            fontSize: 12,
-                            fontFamily: "Inter",
-                            fontWeight: FontWeight.w500),
-                        prefixIcon: Icon(
-                          Icons.credit_card_outlined,
-                          color: Colors.black,
-                          size: 41.w,
-                        )),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 7.h,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 33.w,
-                ),
-                Text(
-                  "Transfer summasi:",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: "Inter",
-                      fontSize: 8.sp,
-                      fontWeight: FontWeight.w300),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 1.h,
-            ),
-            Container(
-              height: 84.h,
-              width: 354.w,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(21.w),
-                  color: Colors.transparent,
-                  border: Border.all(width: 1.5.w, color: Colors.black38)),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: transfer_amount,
-                    style: TextStyle(
-                        fontFamily: "Inter",
-                        color: Colors.black,
-                        fontSize: 18.sp),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                    keyboardType: TextInputType.number,
-                    maxLines: 1,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Transfer summasi minimal 2000 yena",
-                      hintStyle: TextStyle(
-                          color: Colors.black38,
-                          fontSize: 12,
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.w500),
+            Form(
+                key: _formfield,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 33.w,
+                        ),
+                        Text(
+                          "Qabul qiluvchi:",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Inter",
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.w300),
+                        )
+                      ],
                     ),
-                  ),
-                ),
-              ),
-            ),
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    Container(
+                      height: 84.h,
+                      width: 354.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(21.w),
+                          color: Colors.transparent,
+                          border:
+                              Border.all(width: 1.5.w, color: Colors.black38)),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Karta raqamni kiriting";
+                              }
+                              if (card_number.text.length != 16) {
+                                return "Kartaning barcha raqamlarini kiriting";
+                              }
+                            },
+                            controller: card_number,
+                            style: TextStyle(
+                                fontFamily: "Inter",
+                                color: Colors.black,
+                                fontSize: 18.sp),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(16)
+                            ],
+                            maxLines: 1,
+                            // maxLength: 16,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Qabul qiluvchi karta raqami",
+                                hintStyle: const TextStyle(
+                                    color: Colors.black38,
+                                    fontSize: 12,
+                                    fontFamily: "Inter",
+                                    fontWeight: FontWeight.w500),
+                                prefixIcon: Icon(
+                                  Icons.credit_card_outlined,
+                                  color: Colors.black,
+                                  size: 41.w,
+                                )),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 7.h,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 33.w,
+                        ),
+                        Text(
+                          "Transfer summasi:",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Inter",
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.w300),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    Container(
+                      height: 84.h,
+                      width: 354.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(21.w),
+                          color: Colors.transparent,
+                          border:
+                              Border.all(width: 1.5.w, color: Colors.black38)),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Transfer summasini kiriting!";
+                              }
+                              if (int.parse(transfer_amount.text) < 2000) {
+                                return "Eng kamida 2000 yena kiriting!";
+                              }
+                            },
+                            controller: transfer_amount,
+                            style: TextStyle(
+                                fontFamily: "Inter",
+                                color: Colors.black,
+                                fontSize: 18.sp),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            keyboardType: TextInputType.number,
+                            maxLines: 1,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Transfer summasi minimal 2000 yena",
+                              hintStyle: TextStyle(
+                                  color: Colors.black38,
+                                  fontSize: 12,
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
             SizedBox(
               height: 7.h,
             ),
@@ -289,20 +313,22 @@ class _KartagaState extends State<Kartaga> {
             ),
             GestureDetector(
               onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    backgroundColor: Colors.white,
-                    content: Confirm_tranzactions(
-                        name: "Burhonjon Turdialiev",
-                        number: card_number.text,
-                        yuborish_summa: transfer_amount.text,
-                        qabul_qilish_summa:
-                            "${(int.parse(transfer_amount.text)) * 70} sum",
-                        kurs: "70 sum",
-                        komissiya: "100 yena"),
-                  ),
-                );
+                if (_formfield.currentState!.validate()) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      backgroundColor: Colors.white,
+                      content: Confirm_tranzactions(
+                          name: "Burhonjon Turdialiev",
+                          number: card_number.text,
+                          yuborish_summa: transfer_amount.text,
+                          qabul_qilish_summa:
+                              "${(int.parse(transfer_amount.text)) * 70} sum",
+                          kurs: "70 sum",
+                          komissiya: "100 yena"),
+                    ),
+                  );
+                }
               },
               child: Container(
                 width: 300.w,
