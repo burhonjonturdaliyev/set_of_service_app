@@ -289,10 +289,20 @@ class _KartagaState extends State<Kartaga> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).push(PageTransition(
-                    child: Confirm_tranzactions(),
-                    duration: const Duration(milliseconds: 300),
-                    type: PageTransitionType.rightToLeftWithFade));
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    backgroundColor: Colors.white,
+                    content: Confirm_tranzactions(
+                        name: "Burhonjon Turdialiev",
+                        number: card_number.text,
+                        yuborish_summa: transfer_amount.text,
+                        qabul_qilish_summa:
+                            "${(int.parse(transfer_amount.text)) * 70} sum",
+                        kurs: "70 sum",
+                        komissiya: "100 yena"),
+                  ),
+                );
               },
               child: Container(
                 width: 300.w,
