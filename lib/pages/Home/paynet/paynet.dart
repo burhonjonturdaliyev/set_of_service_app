@@ -36,7 +36,7 @@ class _PaynetState extends State<Paynet> {
                 color: Colors.white,
                 fontFamily: "Inter",
                 fontWeight: FontWeight.bold,
-                fontSize: 14.sp,
+                fontSize: 20.sp,
                 letterSpacing: 5.w),
           )),
       body: Container(

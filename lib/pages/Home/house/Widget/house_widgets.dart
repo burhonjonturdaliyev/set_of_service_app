@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/models/pochta_models.dart';
+import 'package:set_of_service_app/models/colour_model.dart';
+import 'package:set_of_service_app/models/house_model.dart';
 
-import '../models/colour_model.dart';
-
-// ignore: camel_case_types
-class Pochta_widgets extends StatelessWidget {
-  Pochta_widgets({super.key, required this.info_List});
-  List<pochta_models> info_List;
+class House_widget extends StatelessWidget {
+  House_widget({super.key, required this.models});
+  List<house_models> models;
   List<Colour_models> colour = [
     Colour_models(
         rang1: const Color.fromARGB(204, 8, 250, 230),
@@ -23,18 +21,17 @@ class Pochta_widgets extends StatelessWidget {
         rang1: const Color.fromARGB(206, 174, 23, 234),
         rang2: Colors.transparent)
   ];
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: info_List.length,
+      itemCount: models.length,
       itemBuilder: (context, index) =>
-          pochta_items(info_List[index], colour[index % 4]),
+          house_items(models[index], colour[index % colour.length]),
     );
   }
 }
 
-Widget pochta_items(pochta_models models, Colour_models colour_models) {
+Widget house_items(house_models models, Colour_models colour_models) {
   return Padding(
     padding: EdgeInsets.only(top: 5.h, bottom: 5.0.h),
     child: Container(
@@ -54,7 +51,7 @@ Widget pochta_items(pochta_models models, Colour_models colour_models) {
             Row(
               children: [
                 Text(
-                  "Post",
+                  models.turi,
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -99,7 +96,7 @@ Widget pochta_items(pochta_models models, Colour_models colour_models) {
             Row(
               children: [
                 Text(
-                  "Uygacha yetkazib berish: ${models.delevaring}",
+                  "Xizmat haqqi: ${models.tolov}",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",

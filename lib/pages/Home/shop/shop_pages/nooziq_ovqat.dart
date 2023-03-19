@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../Widgets/shop_widgets.dart';
+import '../Widget/shop_widgets.dart';
 import '../../../../models/shop_models.dart';
 
 // ignore: camel_case_types

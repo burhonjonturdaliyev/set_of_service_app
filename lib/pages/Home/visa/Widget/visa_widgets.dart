@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/models/send_money_naqt_model.dart';
+import 'package:set_of_service_app/models/visa_support_models.dart';
 
-import '../models/colour_model.dart';
+import '../../../../models/colour_model.dart';
 
-// ignore: camel_case_types, must_be_immutable
-class Send_money_naqt_widget extends StatelessWidget {
-  // ignore: non_constant_identifier_names
-  Send_money_naqt_widget({super.key, required this.naqt_model});
-  // ignore: non_constant_identifier_names
-  List<Naqt_pul_model> naqt_model;
+class Visa_support_widget extends StatelessWidget {
+  Visa_support_widget({super.key, required this.models});
+  List models;
   List<Colour_models> colour = [
     Colour_models(
         rang1: const Color.fromARGB(204, 8, 250, 230),
@@ -23,23 +20,21 @@ class Send_money_naqt_widget extends StatelessWidget {
         rang2: Colors.transparent),
     Colour_models(
         rang1: const Color.fromARGB(206, 174, 23, 234),
-        rang2: Colors.transparent),
+        rang2: Colors.transparent)
   ];
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: naqt_model.length,
+        itemCount: models.length,
         itemBuilder: (context, index) =>
-            Container_builder_naqt(colour[index % 4], naqt_model[index]));
+            visa_items(models[index], colour[index % 4]));
   }
 }
 
-// ignore: non_constant_identifier_names
-Widget Container_builder_naqt(
-    Colour_models colourModels, Naqt_pul_model models) {
+Widget visa_items(visa_support_models models, Colour_models colour_models) {
   return Padding(
-    padding: EdgeInsets.only(bottom: 8.0.h),
+    padding: EdgeInsets.only(top: 5.h, bottom: 5.0.h),
     child: Container(
       width: 353.w,
       decoration: BoxDecoration(
@@ -48,17 +43,16 @@ Widget Container_builder_naqt(
         gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [colourModels.rang1, colourModels.rang2]),
+            colors: [colour_models.rang1, colour_models.rang2]),
       ),
       child: Padding(
-        padding:
-            EdgeInsets.only(top: 15.0.h, bottom: 25.h, left: 15.w, right: 15.w),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             Row(
               children: [
                 Text(
-                  "Pul yuborish",
+                  models.yordam,
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -66,6 +60,9 @@ Widget Container_builder_naqt(
                       fontSize: 10.sp),
                 )
               ],
+            ),
+            SizedBox(
+              height: 5.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,50 +92,33 @@ Widget Container_builder_naqt(
               ],
             ),
             SizedBox(
-              height: 20.h,
+              height: 10.h,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Kurs: 1\$ = ${models.kurs} yena",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.w400,
-                              fontSize: 10.sp),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "Manzil: ${models.address}",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.w400,
-                              fontSize: 10.sp),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.telegram,
-                      size: 40.w,
+                Text(
+                  "Xizmat turi: ${models.xizmat_turi}",
+                  style: TextStyle(
                       color: Colors.black,
-                    ))
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.w400,
+                      fontSize: 10.sp),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Row(
+              children: [
+                Text(
+                  "Manzil: ${models.address}",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.w400,
+                      fontSize: 10.sp),
+                )
               ],
             )
           ],

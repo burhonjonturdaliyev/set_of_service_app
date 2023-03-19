@@ -8,12 +8,12 @@ import 'package:set_of_service_app/pages/Home/send_money/send_money.dart';
 import 'package:set_of_service_app/pages/Home/shop/shop_page.dart';
 import 'package:set_of_service_app/pages/Home/tolovlar/tolovlar.dart';
 import 'package:set_of_service_app/pages/Home/paynet/paynet.dart';
-import 'package:set_of_service_app/pages/services_page/Viza_xizmati.dart';
+import 'package:set_of_service_app/pages/Home/visa/viza_xizmati.dart';
 import 'package:set_of_service_app/pages/services_page/avia_bilet.dart';
-import 'package:set_of_service_app/pages/services_page/ish_top.dart';
+import 'package:set_of_service_app/pages/Home/job/job.dart';
 import 'package:set_of_service_app/pages/Home/pochta/pochta_xizmati.dart';
 
-import 'package:set_of_service_app/pages/services_page/uy_joy.dart';
+import 'package:set_of_service_app/pages/Home/house/house.dart';
 import 'package:set_of_service_app/pages/services_page/valyuta_kurs.dart';
 import 'package:set_of_service_app/pages/services_page/yangiliklar.dart';
 
@@ -28,10 +28,9 @@ class List_of_services extends StatelessWidget {
     Services_model(info: "Pochta xizmatlari", page: Pochta_xizmati()),
     Services_model(info: "Paynet", page: const Paynet()),
     Services_model(
-        info: "Viza masalalarida yordam xizmati", page: const Viza_xizmati()),
-    Services_model(info: "Ish topib berish xizmati", page: const Ish_topish()),
-    Services_model(
-        info: "Uy-joy topib berish xizmatlari", page: const Uy_joy_top()),
+        info: "Viza masalalarida yordam xizmati", page: Viza_xizmati()),
+    Services_model(info: "Ish topib berish xizmati", page: Ish_topish()),
+    Services_model(info: "Uy-joy topib berish xizmatlari", page: Uy_joy_top()),
     Services_model(info: "Eng oxirgi yangiliklar", page: const Yangiliklar()),
     Services_model(info: "Valyuta kursi", page: const Valyuta_kursi()),
   ];

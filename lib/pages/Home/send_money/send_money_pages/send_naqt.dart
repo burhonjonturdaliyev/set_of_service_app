@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/Widgets/send_money_naqt_widget.dart';
+import 'package:set_of_service_app/pages/Home/send_money/Widgets/send_money_naqt_widget.dart';
 import 'package:set_of_service_app/models/send_money_naqt_model.dart';
 
 class Naqt extends StatefulWidget {

@@ -17,7 +17,7 @@ class Pul_Tolovlar extends StatelessWidget {
               fontFamily: "Inter",
               letterSpacing: 5.w,
               color: Colors.white,
-              fontSize: 14.sp,
+              fontSize: 20.sp,
               fontWeight: FontWeight.bold),
         ),
       ),

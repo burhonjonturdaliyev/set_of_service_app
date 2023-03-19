@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/Widgets/pochta_widgets.dart';
+import 'package:set_of_service_app/pages/Home/pochta/Widget/pochta_widgets.dart';
 import 'package:set_of_service_app/models/pochta_models.dart';
 
 class Pochta_xizmati extends StatelessWidget {
@@ -48,7 +48,7 @@ class Pochta_xizmati extends StatelessWidget {
           title: Text(
             "Pochta xizmati",
             style: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 20.sp,
                 fontFamily: "Inter",
                 fontWeight: FontWeight.bold,
                 letterSpacing: 5.w),
