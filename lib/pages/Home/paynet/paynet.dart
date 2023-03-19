@@ -194,6 +194,14 @@ class _PaynetState extends State<Paynet> {
                             LengthLimitingTextInputFormatter(9)
                           ],
                           decoration: InputDecoration(
+                              prefix: Text(
+                                "+998",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "Inter",
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               prefixIcon: Icon(
                                 Icons.contact_phone_outlined,
                                 size: 36.w,
@@ -205,7 +213,7 @@ class _PaynetState extends State<Paynet> {
                                   fontFamily: "Inter",
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.bold),
-                              hintText: "+998xx-xxx-xx-xx",
+                              hintText: "Telefon raqamni kiriting",
                               border: InputBorder.none),
                         ),
                       ),
