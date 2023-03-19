@@ -78,6 +78,7 @@ class _Profile_setting_widgetsState extends State<Profile_setting_widgets> {
             Expanded(
               child: TextFormField(
                 controller: widget.nomer,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: "Telefon nomer",
                   //helperText: "Telefon nomer",
