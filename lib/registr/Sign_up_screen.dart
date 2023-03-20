@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/screen/home_screen.dart';
 
 class Sign_up extends StatefulWidget {
   Sign_up({super.key});
@@ -85,7 +86,7 @@ class _Sign_upState extends State<Sign_up> {
                         },
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(90)
+                          LengthLimitingTextInputFormatter(9)
                         ],
                         decoration: InputDecoration(
                             prefixIcon: Icon(
@@ -115,15 +116,15 @@ class _Sign_upState extends State<Sign_up> {
                       Expanded(
                           child: TextFormField(
                         controller: password,
+                        onChanged: (value) {
+                          value = password.text;
+                        },
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Iltimos parolni kitiring";
                           }
                           if (value.length < 8) {
                             return "Iltimos eng kamida 8 ta belgili parol kiriting";
-                          }
-                          if (password != cofic_password) {
-                            return "Parol bir-biriga mos emas";
                           }
                         },
                         obscureText: visible,
@@ -158,15 +159,15 @@ class _Sign_upState extends State<Sign_up> {
                       Expanded(
                           child: TextFormField(
                         controller: cofic_password,
+                        onChanged: (value) {
+                          value = cofic_password.text;
+                        },
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Iltimos parolni kitiring";
                           }
                           if (value.length < 8) {
                             return "Iltimos eng kamida 8 ta belgili parol kiriting";
-                          }
-                          if (password != cofic_password) {
-                            return "Parol bir-biriga mos emas";
                           }
                         },
                         obscureText: visible,
@@ -205,7 +206,15 @@ class _Sign_upState extends State<Sign_up> {
                         ),
                       ),
                       onPressed: () {
-                        if (_formkey.currentState!.validate()) {}
+                        if (_formkey.currentState!.validate()) {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              PageTransition(
+                                  child: Home_Page(),
+                                  type: PageTransitionType.bottomToTopPop,
+                                  childCurrent: Sign_up()),
+                              (route) => false);
+                        }
                       },
                       child: Text(
                         "Ro’yxatdan uchun",

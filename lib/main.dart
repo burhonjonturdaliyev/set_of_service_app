@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:set_of_service_app/Splash_screen/splash_screen.dart';
 import 'package:set_of_service_app/registr/Sign_in_screen.dart';
 import 'package:set_of_service_app/screen/home_screen.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: Sign_in(),
+        home: Splash_screen(),
       ),
       designSize: const Size(375, 812),
     );

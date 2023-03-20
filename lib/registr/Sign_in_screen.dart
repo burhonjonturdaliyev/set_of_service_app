@@ -85,7 +85,7 @@ class _Sign_inState extends State<Sign_in> {
                             return "Iltimos oxirigacha kiriting";
                           }
                           if (value != "906936594") {
-                            return "Bazada bunday raqam mavjud emas, iltimos ro'yxatdan o'ting";
+                            return "Bazada bunday raqam mavjud emas!";
                           }
                         },
                         inputFormatters: [
