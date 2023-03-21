@@ -71,7 +71,7 @@ class Reset_password extends StatelessWidget {
                         },
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(90)
+                          LengthLimitingTextInputFormatter(9)
                         ],
                         decoration: InputDecoration(
                             prefix: const Text(

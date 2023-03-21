@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/models/job_models.dart';
+import 'package:set_of_service_app/pages/Home/job/Widget/review_widgets.dart';
 
 import '../../../../models/colour_model.dart';
 
 class Job_widget extends StatelessWidget {
   Job_widget({super.key, required this.models});
   List models;
+  double rate = 2.5;
   List<Colour_models> colour = [
     Colour_models(
         rang1: const Color.fromARGB(204, 8, 250, 230),
@@ -28,11 +30,11 @@ class Job_widget extends StatelessWidget {
     return ListView.builder(
         itemCount: models.length,
         itemBuilder: (context, index) =>
-            job_items(models[index], colour[index % 4]));
+            job_items(models[index], colour[index % 4], rate));
   }
 }
 
-Widget job_items(Job_models models, Colour_models colour_models) {
+Widget job_items(Job_models models, Colour_models colour_models, rate) {
   return Padding(
     padding: EdgeInsets.only(top: 5.h, bottom: 5.0.h),
     child: Container(
@@ -50,6 +52,7 @@ Widget job_items(Job_models models, Colour_models colour_models) {
         child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   models.turi,
@@ -58,6 +61,23 @@ Widget job_items(Job_models models, Colour_models colour_models) {
                       fontFamily: "Inter",
                       fontWeight: FontWeight.w400,
                       fontSize: 10.sp),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Rate: ${rate}/5",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w400,
+                          fontSize: 10.sp),
+                    ),
+                    Icon(
+                      Icons.star,
+                      color: Colors.yellow,
+                      size: 15.w,
+                    )
+                  ],
                 )
               ],
             ),
@@ -120,6 +140,12 @@ Widget job_items(Job_models models, Colour_models colour_models) {
                       fontSize: 10.sp),
                 )
               ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Review_widget(
+              final_value: rate,
             )
           ],
         ),

@@ -20,11 +20,26 @@ class _Sign_upState extends State<Sign_up> {
 
   TextEditingController cofic_password = TextEditingController();
   bool visible = true;
+  bool checking = false;
 
   void _visible() {
     setState(() {
       visible = !visible;
     });
+  }
+
+  String? _passwordMatchValidator(String? value) {
+    if (value != password.text) {
+      return "Parollar mos emas!";
+    }
+    return null;
+  }
+
+  @override
+  void initState() {
+    _visible();
+
+    super.initState();
   }
 
   @override
@@ -126,6 +141,7 @@ class _Sign_upState extends State<Sign_up> {
                           if (value.length < 8) {
                             return "Iltimos eng kamida 8 ta belgili parol kiriting";
                           }
+                          return _passwordMatchValidator(value);
                         },
                         obscureText: visible,
                         decoration: InputDecoration(
@@ -169,6 +185,8 @@ class _Sign_upState extends State<Sign_up> {
                           if (value.length < 8) {
                             return "Iltimos eng kamida 8 ta belgili parol kiriting";
                           }
+
+                          return _passwordMatchValidator(value);
                         },
                         obscureText: visible,
                         decoration: InputDecoration(
