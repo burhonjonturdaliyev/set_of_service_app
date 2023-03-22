@@ -76,7 +76,7 @@ Widget list_items(
               children: [
                 Text(
                   DateFormat("dd-MMMM kk:mm").format(models.dateTime),
-                  style: TextStyle(color: Colors.black54),
+                  style: const TextStyle(color: Colors.black54),
                 )
               ],
             ),
