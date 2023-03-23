@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, duplicate_ignore, library_private_types_in_public_api
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
@@ -9,6 +11,7 @@ import 'package:set_of_service_app/pages/Navigation_screens/home.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/profil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services.dart';
 import 'package:set_of_service_app/pages/Support_page/Support_page.dart';
+import 'package:set_of_service_app/pages/password/password.dart';
 
 class Home_Page extends StatefulWidget {
   const Home_Page({Key? key}) : super(key: key);
@@ -27,6 +30,7 @@ class _Home_PageState extends State<Home_Page> {
     Icons.chat_bubble_outline,
     Icons.manage_accounts_outlined,
   ];
+  bool Lock_screen = false;
   late PageController? _controller;
 
   final white = Colors.white;
@@ -41,6 +45,25 @@ class _Home_PageState extends State<Home_Page> {
   void initState() {
     super.initState();
     _controller = PageController();
+  }
+
+  _page_lock() {
+    Navigator.of(context)
+        .push(PageTransition(child: admin(), type: PageTransitionType.fade));
+  }
+
+  _lock() {
+    setState(() {
+      Lock_screen = true;
+    });
+    if (Lock_screen) {
+      Timer(Duration(seconds: 2), () {
+        setState(() {
+          Lock_screen = false;
+        });
+        _page_lock();
+      });
+    }
   }
 
   @override
@@ -74,9 +97,18 @@ class _Home_PageState extends State<Home_Page> {
             },
             icon: Icon(
               Icons.mail,
-              size: 32,
+              size: 32.w,
             ),
           ),
+          IconButton(
+              onPressed: Lock_screen
+                  ? _lock()
+                  : () {
+                      _lock();
+                    },
+              icon: Icon(Lock_screen ? Icons.lock : Icons.lock_open),
+              color: Colors.white,
+              iconSize: 32.w),
         ],
       ),
       bottomNavigationBar: Padding(

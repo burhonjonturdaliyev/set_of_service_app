@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/pages/services_page/yangiliklar/Widget/yangilik_list.dart';
-import 'package:set_of_service_app/pages/services_page/yangiliklar/models/yangiliklar_models.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/Widget/yangilik_list.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/yangiliklar_models.dart';
 
 import 'models/comment_models.dart';
 

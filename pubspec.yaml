@@ -45,6 +45,7 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   http: ^0.13.5
   url_launcher: ^6.1.10
+  flutter_animated_icons: ^1.0.1
 
 dev_dependencies:
   flutter_test:

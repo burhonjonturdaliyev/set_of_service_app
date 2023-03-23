@@ -9,13 +9,13 @@ import 'package:set_of_service_app/pages/Home/shop/shop_page.dart';
 import 'package:set_of_service_app/pages/Home/tolovlar/tolovlar.dart';
 import 'package:set_of_service_app/pages/Home/paynet/paynet.dart';
 import 'package:set_of_service_app/pages/Home/visa/viza_xizmati.dart';
-import 'package:set_of_service_app/pages/services_page/avia_bilet.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/avia_bilet.dart';
 import 'package:set_of_service_app/pages/Home/job/job.dart';
 import 'package:set_of_service_app/pages/Home/pochta/pochta_xizmati.dart';
 
 import 'package:set_of_service_app/pages/Home/house/house.dart';
-import 'package:set_of_service_app/pages/services_page/valyuta_kurs.dart';
-import 'package:set_of_service_app/pages/services_page/yangiliklar/yangiliklar.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/valyuta_kurs.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/yangiliklar.dart';
 
 // ignore: camel_case_types
 class List_of_services extends StatelessWidget {

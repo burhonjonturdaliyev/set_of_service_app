@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:set_of_service_app/pages/services_page/yangiliklar/models/comment_models.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/comment_models.dart';
 
 class Comment_yangilik extends StatefulWidget {
   List<comment_models> komment;

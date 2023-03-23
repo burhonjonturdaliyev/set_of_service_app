@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/pages/services_page/yangiliklar/models/comment_models.dart';
-import 'package:set_of_service_app/pages/services_page/yangiliklar/models/yangiliklar_models.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/comment_models.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/yangiliklar_models.dart';
 
 class News_comments extends StatelessWidget {
   News_comments({super.key, required this.yangilik, required this.comments});
@@ -31,13 +31,16 @@ class News_comments extends StatelessWidget {
         top: 33.h,
         right: 0.w,
         left: 0.w,
-        child: Image(
-          image: NetworkImage(
-            yangilik.foto,
-          ),
-          fit: BoxFit.cover,
+        child: Container(
           width: 375.w,
           height: 215.h,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(21.w),
+              image: DecorationImage(
+                  image: NetworkImage(
+                    yangilik.foto,
+                  ),
+                  fit: BoxFit.cover)),
         ));
   }
 

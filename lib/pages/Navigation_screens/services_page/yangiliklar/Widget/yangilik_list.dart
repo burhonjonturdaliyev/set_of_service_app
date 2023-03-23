@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/pages/services_page/yangiliklar/models/comment_models.dart';
-import 'package:set_of_service_app/pages/services_page/yangiliklar/models/yangiliklar_models.dart';
-import 'package:set_of_service_app/pages/services_page/yangiliklar/new_with_comment.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/comment_models.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/yangiliklar_models.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/new_with_comment.dart';
 
 class yangiliklar_list extends StatefulWidget {
   yangiliklar_list({super.key, required this.models, required this.komment});
