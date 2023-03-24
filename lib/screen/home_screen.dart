@@ -17,6 +17,7 @@ class Home_Page extends StatefulWidget {
   const Home_Page({Key? key}) : super(key: key);
 
   @override
+  // ignore: no_logic_in_create_state
   _Home_PageState createState() => _Home_PageState(selectedIndex: 0);
 }
 
@@ -57,13 +58,38 @@ class _Home_PageState extends State<Home_Page> {
       Lock_screen = true;
     });
     if (Lock_screen) {
-      Timer(Duration(seconds: 2), () {
+      Timer(Duration(seconds: 1), () {
         setState(() {
           Lock_screen = false;
         });
         _page_lock();
       });
     }
+  }
+
+  _info_message(String showMessage) {
+    final snackBar = SnackBar(
+        backgroundColor: appbarColor,
+        duration: Duration(seconds: 1),
+        //shape: OutlineInputBorder(borderRadius: BorderRadius.circular(21.w)),
+        padding: EdgeInsets.only(bottom: 10.h),
+        content: Center(
+          child: SizedBox(
+            width: 320,
+            child: Center(
+              child: Text(
+                showMessage,
+                style: TextStyle(
+                    fontFamily: "Inter",
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 5.sp),
+              ),
+            ),
+          ),
+        ));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -101,11 +127,15 @@ class _Home_PageState extends State<Home_Page> {
             ),
           ),
           IconButton(
-              onPressed: Lock_screen
-                  ? _lock()
-                  : () {
-                      _lock();
-                    },
+              onPressed: () {
+                if (Lock_screen) {
+                  _info_message("Dastur qulflandi");
+                  _lock();
+                } else {
+                  _info_message("Dastur qulflandi");
+                  _lock();
+                }
+              },
               icon: Icon(Lock_screen ? Icons.lock : Icons.lock_open),
               color: Colors.white,
               iconSize: 32.w),
