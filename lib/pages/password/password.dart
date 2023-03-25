@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/home.dart';
 import 'package:set_of_service_app/screen/home_screen.dart';
 
 class admin extends StatefulWidget {
@@ -16,7 +15,7 @@ class _adminState extends State<admin> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("image/registr_screen.png"),
                 fit: BoxFit.cover)),
@@ -116,7 +115,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 //     color: Colors.black
                 // ),
                 borderRadius: BorderRadius.circular(50)),
-            color: Colors.blue[300],
+            color: const Color(0xFF8B0000),
             child: Text(
               "Enter",
               style: TextStyle(
@@ -216,7 +215,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     pinIndexSetup("0");
                   },
                 ),
-                Container(
+                SizedBox(
                   width: 60.0,
                   child: MaterialButton(
                       height: 60.0,
@@ -228,7 +227,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       },
                       child: Icon(
                         Icons.dangerous_outlined,
-                        color: Colors.white70,
+                        color: const Color(0xFF8B0000),
                         size: 35.w,
                       )),
                 ),
@@ -241,9 +240,9 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   clearPin() {
-    if (pinIndex == 0)
+    if (pinIndex == 0) {
       pinIndex = 0;
-    else if (pinIndex == 4) {
+    } else if (pinIndex == 4) {
       setPin(pinIndex, "");
       currentPin[pinIndex - 1] = "";
       pinIndex--;
@@ -255,9 +254,11 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   pinIndexSetup(String text) {
-    if (pinIndex == 0)
+    if (pinIndex == 0) {
       pinIndex = 1;
-    else if (pinIndex < 4) pinIndex++;
+    } else if (pinIndex < 4) {
+      pinIndex++;
+    }
     setPin(pinIndex, text);
     currentPin[pinIndex - 1] = text;
     String strPin = "";
@@ -342,23 +343,23 @@ class PINNumber extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 50.0,
+    return SizedBox(
+      width: 50.0.w,
       child: TextField(
         controller: textEditingController,
         enabled: false,
         obscureText: true,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(16.0),
+          contentPadding: EdgeInsets.all(16.0.w),
           border: outlineInputBorder,
           filled: true,
           fillColor: Colors.white38,
         ),
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 21.0,
-          color: Colors.white,
+          fontSize: 21.0.sp,
+          color: const Color(0xFF8B0000),
         ),
       ),
     );
@@ -374,15 +375,16 @@ class KeyboardNumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 60.0,
-      height: 60.0,
+      width: 60.0.w,
+      height: 60.0.h,
       decoration: BoxDecoration(
+        border: Border.all(width: 1.w, color: Colors.black38),
         shape: BoxShape.circle,
-        color: Colors.purpleAccent.withOpacity(0.1),
+        //color: Colors.purpleAccent.withOpacity(0.1),
       ),
       alignment: Alignment.center,
       child: MaterialButton(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0.w),
         onPressed: onPressed,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(60.0),
@@ -393,7 +395,7 @@ class KeyboardNumber extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 24 * MediaQuery.of(context).textScaleFactor,
-            color: Colors.white,
+            color: const Color(0xFF8B0000),
             fontWeight: FontWeight.bold,
           ),
         ),
