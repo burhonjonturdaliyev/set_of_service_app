@@ -63,96 +63,125 @@ class _Avia_biletState extends State<Avia_bilet> {
                     color: const Color(0xffFBE5E2),
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Qayerdan:",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  fontFamily: "Inter"),
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 5.h),
-                      CSCPicker(
-                        dropdownItemStyle: TextStyle(
-                            color: Colors.black,
-                            fontFamily: "Inter",
-                            fontSize: 14.sp),
-                        flagState: CountryFlag.DISABLE,
-                        searchBarRadius: 21,
-                        showCities: false,
-                        countryDropdownLabel: "Davlatlar",
-                        stateDropdownLabel: "Shaharlar",
-                        onCountryChanged: (country) {
-                          setState(() {
-                            country1 = country;
-                          });
-                        },
-                        onCityChanged: (city) {},
-                        onStateChanged: (state) {
-                          setState(() {
-                            city1 = state;
-                          });
-                        },
-                      ),
-                      Visibility(
-                        visible: city1 == null ? false : true,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                  "Siz tanlagan joy: $country1 davlati, $city1 shahar"),
-                            )
-                          ],
-                        ),
-                      ),
-                      const Divider(
-                        thickness: 1,
-                        color: Colors.black38,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                controller: _controller2,
-                                initialValue: _controller2.text.isEmpty
-                                    ? null
-                                    : _controller2.text,
-                                readOnly: true,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Qayerdan:",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 14.sp,
+                                    fontSize: 12.sp,
                                     fontFamily: "Inter"),
-                                onTap: openChoice,
-                                keyboardType: TextInputType.none,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(21.w)),
-                                  label: const Text("Qayerga"),
-                                  labelStyle: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14.sp,
-                                      fontFamily: "Inter"),
-                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 5.h),
+                        CSCPicker(
+                          currentCountry: country1,
+                          currentState: city1,
+                          dropdownItemStyle: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Inter",
+                              fontSize: 14.sp),
+                          flagState: CountryFlag.DISABLE,
+                          searchBarRadius: 21,
+                          showCities: false,
+                          countryDropdownLabel: "Davlatlar",
+                          stateDropdownLabel: "Shaharlar",
+                          onCountryChanged: (country) {
+                            setState(() {
+                              country1 = country;
+                            });
+                          },
+                          onCityChanged: (city) {},
+                          onStateChanged: (state) {
+                            setState(() {
+                              city1 = state;
+                            });
+                          },
+                        ),
+                        Row(
+                          children: [
+                            Visibility(
+                              visible: country1 == null ? false : true,
+                              child: Expanded(
+                                child: Text("$country1 davlati"),
                               ),
-                            )
+                            ),
+                            Visibility(
+                              visible: city1 == null ? false : true,
+                              child: Expanded(
+                                child: Text("$city1 shahri"),
+                              ),
+                            ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
+                        const Divider(
+                          thickness: 1,
+                          color: Colors.black38,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Qayerga:",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12.sp,
+                                    fontFamily: "Inter"),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 5.h),
+                        CSCPicker(
+                          currentCountry: country2,
+                          currentState: city2,
+                          dropdownItemStyle: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Inter",
+                              fontSize: 14.sp),
+                          flagState: CountryFlag.DISABLE,
+                          searchBarRadius: 21,
+                          showCities: false,
+                          countryDropdownLabel: "Davlatlar",
+                          stateDropdownLabel: "Shaharlar",
+                          onCountryChanged: (country) {
+                            setState(() {
+                              country2 = country;
+                            });
+                          },
+                          onCityChanged: (city) {},
+                          onStateChanged: (state) {
+                            setState(() {
+                              city2 = state;
+                            });
+                          },
+                        ),
+                        Row(
+                          children: [
+                            Visibility(
+                              visible: country2 == null ? false : true,
+                              child: Expanded(
+                                child: Text("$country2 davlati"),
+                              ),
+                            ),
+                            Visibility(
+                              visible: city2 == null ? false : true,
+                              child: Expanded(
+                                child: Text("$city2 shahri"),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]),
                 ),
               ),
             ],

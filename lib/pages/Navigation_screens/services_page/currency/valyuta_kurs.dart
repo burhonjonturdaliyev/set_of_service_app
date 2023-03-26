@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
@@ -94,31 +95,22 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
                             style: TextStyle(
                               fontFamily: "Inter",
                               color: Colors.white,
-                              fontSize: 16.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           SizedBox(
                             width: 65.w,
                           ),
-                          Text(
-                            "Sotish",
-                            style: TextStyle(
-                              fontFamily: "Inter",
-                              color: Colors.white,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
                           SizedBox(
                             width: 65.w,
                           ),
                           Text(
-                            "Sotib olish",
+                            "Kurs",
                             style: TextStyle(
                               fontFamily: "Inter",
                               color: Colors.white,
-                              fontSize: 16.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -144,11 +136,14 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
 }
 
 Widget builder_items(Currency_model currency) {
+  final String code = currency.code.substring(0, currency.code.length - 1);
+  final date_format = DateFormat('MMMM-dd, yyyy ').format(currency.date);
+
   return Padding(
     padding: EdgeInsets.only(left: 1.0.w, right: 1.w, top: 1.h),
     child: Container(
         width: 375.w,
-        height: 75.h,
+        height: 50.h,
         margin: const EdgeInsets.only(left: 1, right: 1),
         decoration: BoxDecoration(
             color: const Color.fromARGB(177, 228, 201, 201),
@@ -161,28 +156,39 @@ Widget builder_items(Currency_model currency) {
               left: 10.w,
               child: Row(
                 children: [
-                  Text("1 ${currency.title}\n   ${currency.code}"),
+                  CountryFlags.flag(
+                    code,
+                    height: 25.h,
+                    width: 25.w,
+                    borderRadius: 0,
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Text(currency.code),
                 ],
               ),
             ),
             Positioned(
               top: 0,
-              right: 25.w,
+              left: 220.w,
               child: Row(
                 children: [
-                  Text(currency.nbu_buy_price),
+                  Text("${currency.cb_price} so'm"),
                 ],
               ),
             ),
             Positioned(
-              top: 0,
-              left: 175.w,
-              child: Row(
-                children: [
-                  Text(currency.nbu_cell_price),
-                ],
-              ),
-            ),
+                bottom: 0,
+                right: 10,
+                child: Text(
+                  date_format,
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontFamily: "Inter",
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.normal),
+                ))
           ],
         )),
   );

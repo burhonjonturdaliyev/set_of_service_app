@@ -48,6 +48,9 @@ dependencies:
   flutter_animated_icons: ^1.0.1
   snippet_coder_utils: ^1.0.13
   csc_picker: ^0.2.7
+  flag: ^6.0.0
+  country_icons: ^2.0.2
+  country_flags: ^1.0.0
 
 dev_dependencies:
   flutter_test:
