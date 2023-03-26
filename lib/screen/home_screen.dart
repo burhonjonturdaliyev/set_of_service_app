@@ -48,49 +48,49 @@ class _Home_PageState extends State<Home_Page> {
     _controller = PageController();
   }
 
-  _page_lock() {
-    Navigator.of(context)
-        .push(PageTransition(child: admin(), type: PageTransitionType.fade));
-  }
+  // _page_lock() {
+  //   Navigator.of(context)
+  //       .push(PageTransition(child: admin(), type: PageTransitionType.fade));
+  // }
 
-  _lock() {
-    setState(() {
-      Lock_screen = true;
-    });
-    if (Lock_screen) {
-      Timer(Duration(seconds: 1), () {
-        setState(() {
-          Lock_screen = false;
-        });
-        _page_lock();
-      });
-    }
-  }
+  // _lock() {
+  //   setState(() {
+  //     Lock_screen = true;
+  //   });
+  //   if (Lock_screen) {
+  //     Timer(Duration(seconds: 1), () {
+  //       setState(() {
+  //         Lock_screen = false;
+  //       });
+  //       _page_lock();
+  //     });
+  //   }
+  // }
 
-  _info_message(String showMessage) {
-    final snackBar = SnackBar(
-        backgroundColor: appbarColor,
-        duration: Duration(seconds: 1),
-        //shape: OutlineInputBorder(borderRadius: BorderRadius.circular(21.w)),
-        padding: EdgeInsets.only(bottom: 10.h),
-        content: Center(
-          child: SizedBox(
-            width: 320,
-            child: Center(
-              child: Text(
-                showMessage,
-                style: TextStyle(
-                    fontFamily: "Inter",
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    letterSpacing: 5.sp),
-              ),
-            ),
-          ),
-        ));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
+  // _info_message(String showMessage) {
+  //   final snackBar = SnackBar(
+  //       backgroundColor: appbarColor,
+  //       duration: Duration(seconds: 1),
+  //       //shape: OutlineInputBorder(borderRadius: BorderRadius.circular(21.w)),
+  //       padding: EdgeInsets.only(bottom: 10.h),
+  //       content: Center(
+  //         child: SizedBox(
+  //           width: 320,
+  //           child: Center(
+  //             child: Text(
+  //               showMessage,
+  //               style: TextStyle(
+  //                   fontFamily: "Inter",
+  //                   fontSize: 16.sp,
+  //                   fontWeight: FontWeight.bold,
+  //                   color: Colors.white,
+  //                   letterSpacing: 5.sp),
+  //             ),
+  //           ),
+  //         ),
+  //       ));
+  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  // }
 
   @override
   void dispose() {
@@ -127,19 +127,19 @@ class _Home_PageState extends State<Home_Page> {
               size: 32.w,
             ),
           ),
-          IconButton(
-              onPressed: () {
-                if (Lock_screen) {
-                  _info_message("Dastur qulflandi");
-                  _lock();
-                } else {
-                  _info_message("Dastur qulflandi");
-                  _lock();
-                }
-              },
-              icon: Icon(Lock_screen ? Icons.lock : Icons.lock_open),
-              color: Colors.white,
-              iconSize: 32.w),
+          // IconButton(
+          //     onPressed: () {
+          //       if (Lock_screen) {
+          //         _info_message("Dastur qulflandi");
+          //         _lock();
+          //       } else {
+          //         _info_message("Dastur qulflandi");
+          //         _lock();
+          //       }
+          //     },
+          //     icon: Icon(Lock_screen ? Icons.lock : Icons.lock_open),
+          //     color: Colors.white,
+          //     iconSize: 32.w),
         ],
       ),
       bottomNavigationBar: Lock_screen

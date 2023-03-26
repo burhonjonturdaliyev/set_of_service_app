@@ -39,7 +39,7 @@ class _Send_moneyState extends State<Send_money> {
             tabs: [
               Tab(
                 child: Text(
-                  "Kartaga",
+                  "Naqt",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -50,7 +50,7 @@ class _Send_moneyState extends State<Send_money> {
               ),
               Tab(
                 child: Text(
-                  "Naqt",
+                  "Kartaga",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -82,7 +82,10 @@ class _Send_moneyState extends State<Send_money> {
                   image: AssetImage("image/back_screen.png"),
                   fit: BoxFit.cover)),
           child: TabBarView(
-            children: [Kartaga(), Naqt()],
+            children: [
+              Naqt(),
+              Kartaga(),
+            ],
           ),
         ),
       ),

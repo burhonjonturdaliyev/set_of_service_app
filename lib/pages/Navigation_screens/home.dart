@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/pages/Home/airticket/avia_bilet.dart';
 import 'package:set_of_service_app/pages/Home/house/house.dart';
 import 'package:set_of_service_app/pages/Home/job/job.dart';
 import 'package:set_of_service_app/pages/Home/paynet/paynet.dart';
@@ -208,16 +209,22 @@ class _HomeState extends State<Home> {
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Container(
-            width: 50.w,
-            height: 50.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: circleavatarback),
-            child: Image.asset(
-              "image/ticket.png",
-              color: Colors.black,
-              width: 65.w,
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).push(PageTransition(
+                child: Avia_bilet(),
+                duration: const Duration(milliseconds: 250),
+                type: PageTransitionType.rightToLeftWithFade)),
+            child: Container(
+              width: 50.w,
+              height: 50.h,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: circleavatarback),
+              child: Image.asset(
+                "image/ticket.png",
+                color: Colors.black,
+                width: 65.w,
+              ),
             ),
           ),
         ),

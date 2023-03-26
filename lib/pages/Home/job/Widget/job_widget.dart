@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/models/job_models.dart';
+// ignore: unused_import
 import 'package:set_of_service_app/pages/Home/job/Widget/review_widgets.dart';
 
 import '../../../../models/colour_model.dart';
@@ -141,12 +142,12 @@ Widget job_items(Job_models models, Colour_models colour_models, rate) {
                 )
               ],
             ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Review_widget(
-              final_value: rate,
-            )
+            // SizedBox(
+            //   height: 10.h,
+            // ),
+            // Review_widget(
+            //   final_value: rate,
+            // )
           ],
         ),
       ),

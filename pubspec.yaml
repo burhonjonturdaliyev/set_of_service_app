@@ -46,6 +46,8 @@ dependencies:
   http: ^0.13.5
   url_launcher: ^6.1.10
   flutter_animated_icons: ^1.0.1
+  snippet_coder_utils: ^1.0.13
+  csc_picker: ^0.2.7
 
 dev_dependencies:
   flutter_test:
