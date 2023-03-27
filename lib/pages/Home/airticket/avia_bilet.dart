@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/pages/Home/airticket/page/air_ticket_list.dart';
+import 'package:set_of_service_app/pages/Home/airticket/widget/counting_passangers.dart';
 import 'package:set_of_service_app/pages/password/password.dart';
 
 // ignore: camel_case_types
@@ -324,6 +327,11 @@ class _Avia_biletState extends State<Avia_bilet> {
                       borderRadius: BorderRadius.circular(21.w),
                       color: const Color.fromARGB(255, 243, 236, 235),
                     ),
+                    child: Center(
+                        child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+                      child: Counting(),
+                    )),
                   ),
                 ),
                 SizedBox(
@@ -335,6 +343,13 @@ class _Avia_biletState extends State<Avia_bilet> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(21.w)),
                         backgroundColor: const Color(0xFF8B0000)),
+                    onLongPress: () => Navigator.push(
+                        context,
+                        PageTransition(
+                            child: Air_ticket_list(),
+                            type: PageTransitionType.fade,
+                            curve: Curves.decelerate,
+                            childCurrent: Avia_bilet())),
                     onPressed: () {
                       if (country1 == null) {
                         showDialog(
@@ -432,7 +447,13 @@ class _Avia_biletState extends State<Avia_bilet> {
                         );
                       }
                       if (_formfield.currentState!.validate()) {
-                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: Air_ticket_list(),
+                                type: PageTransitionType.fade,
+                                curve: Curves.decelerate,
+                                childCurrent: Avia_bilet()));
                       }
                     },
                     child: Text(
