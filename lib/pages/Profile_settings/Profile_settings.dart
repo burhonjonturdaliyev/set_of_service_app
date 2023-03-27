@@ -18,6 +18,9 @@ class _Profile_settingsState extends State<Profile_settings> {
   TextEditingController nomer = TextEditingController();
   TextEditingController sana = TextEditingController();
   TextEditingController davlat = TextEditingController();
+  List<String> Jins = ["Erkak", "Ayol"];
+
+  String dropdownValue = "Erkak";
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +51,14 @@ class _Profile_settingsState extends State<Profile_settings> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Profile_setting_widgets(
-                      ism: ism,
-                      familya: familya,
-                      nomer: nomer,
-                      sana: sana,
-                      davlat: davlat),
+                    ism: ism,
+                    familya: familya,
+                    nomer: nomer,
+                    sana: sana,
+                    davlat: davlat,
+                    jins: Jins,
+                    dropdownValue: dropdownValue,
+                  ),
                 )
               ],
             ),

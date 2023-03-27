@@ -11,13 +11,18 @@ class Profile_setting_widgets extends StatefulWidget {
   TextEditingController nomer;
   TextEditingController sana;
   TextEditingController davlat;
+  String dropdownValue;
+
+  List<String> jins;
   Profile_setting_widgets(
       {super.key,
       required this.ism,
       required this.familya,
       required this.nomer,
       required this.sana,
-      required this.davlat});
+      required this.davlat,
+      required this.jins,
+      required this.dropdownValue});
 
   @override
   State<Profile_setting_widgets> createState() =>
@@ -27,6 +32,23 @@ class Profile_setting_widgets extends StatefulWidget {
 // ignore: camel_case_types
 class _Profile_setting_widgetsState extends State<Profile_setting_widgets> {
   // TextEditingController sana = TextEditingController();
+  choose() {
+    return DropdownButton(
+      value: widget.dropdownValue,
+      elevation: 16,
+      onChanged: (newValue) {
+        setState(() {
+          widget.dropdownValue = newValue!;
+        });
+      },
+      items: widget.jins.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +112,29 @@ class _Profile_setting_widgetsState extends State<Profile_setting_widgets> {
                   //border: InputBorder.none
                 ),
               ),
+            )
+          ],
+        ),
+        Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  "Jins:",
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 16.sp,
+                      fontFamily: "Inter"),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                choose(),
+              ],
+            ),
+            const Divider(
+              thickness: 1,
+              color: Colors.black38,
             )
           ],
         ),
