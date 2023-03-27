@@ -63,7 +63,6 @@ class _Avia_biletState extends State<Avia_bilet> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     width: 355.w,
-                    height: 250.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(21.w),
                       color: const Color.fromARGB(255, 243, 236, 235),
@@ -113,21 +112,24 @@ class _Avia_biletState extends State<Avia_bilet> {
                                 });
                               },
                             ),
-                            Row(
-                              children: [
-                                Visibility(
-                                  visible: country1 == null ? false : true,
-                                  child: Expanded(
-                                    child: Text("$country1 davlati"),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                              child: Row(
+                                children: [
+                                  Visibility(
+                                    visible: country1 == null ? false : true,
+                                    child: Expanded(
+                                      child: Text("$country1 davlati"),
+                                    ),
                                   ),
-                                ),
-                                Visibility(
-                                  visible: city1 == null ? false : true,
-                                  child: Expanded(
-                                    child: Text("$city1 shahri"),
+                                  Visibility(
+                                    visible: city1 == null ? false : true,
+                                    child: Expanded(
+                                      child: Text("$city1 shahri"),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             const Divider(
                               thickness: 1,
@@ -173,21 +175,24 @@ class _Avia_biletState extends State<Avia_bilet> {
                                 });
                               },
                             ),
-                            Row(
-                              children: [
-                                Visibility(
-                                  visible: country2 == null ? false : true,
-                                  child: Expanded(
-                                    child: Text("$country2 davlati"),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                              child: Row(
+                                children: [
+                                  Visibility(
+                                    visible: country2 == null ? false : true,
+                                    child: Expanded(
+                                      child: Text("$country2 davlati"),
+                                    ),
                                   ),
-                                ),
-                                Visibility(
-                                  visible: city2 == null ? false : true,
-                                  child: Expanded(
-                                    child: Text("$city2 shahri"),
+                                  Visibility(
+                                    visible: city2 == null ? false : true,
+                                    child: Expanded(
+                                      child: Text("$city2 shahri"),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ]),
                     ),
@@ -235,7 +240,7 @@ class _Avia_biletState extends State<Avia_bilet> {
                                     }
                                   },
                                   controller: ketishSanasi,
-                                  keyboardType: TextInputType.number,
+                                  keyboardType: TextInputType.none,
                                   inputFormatters: [
                                     LengthLimitingTextInputFormatter(10)
                                   ],
@@ -286,7 +291,7 @@ class _Avia_biletState extends State<Avia_bilet> {
                                     }
                                   },
                                   controller: qaytishSanasi,
-                                  keyboardType: TextInputType.number,
+                                  keyboardType: TextInputType.none,
                                   inputFormatters: [
                                     LengthLimitingTextInputFormatter(10)
                                   ],
@@ -336,16 +341,44 @@ class _Avia_biletState extends State<Avia_bilet> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
+                              backgroundColor: const Color(0xFF8B0000),
                               content: SizedBox(
-                                  height: 60.h,
+                                  height: 85.h,
                                   width: 60.h,
-                                  child: Text(
-                                    "Qayerdan ketishingizni kiriting",
-                                    style: TextStyle(
-                                        fontFamily: "Inter",
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Qayerdan Ketishingizni kiriting",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: "Inter",
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 15.h,
+                                      ),
+                                      ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 243, 236, 235)),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("OK",
+                                              style: TextStyle(
+                                                  fontFamily: "Inter",
+                                                  color:
+                                                      const Color(0xFF8B0000),
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.bold)))
+                                    ],
                                   )),
                             );
                           },
@@ -355,16 +388,44 @@ class _Avia_biletState extends State<Avia_bilet> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
+                              backgroundColor: const Color(0xFF8B0000),
                               content: SizedBox(
-                                  height: 60.h,
+                                  height: 85.h,
                                   width: 60.h,
-                                  child: Text(
-                                    "Qayerga qaytishingizni kiriting",
-                                    style: TextStyle(
-                                        fontFamily: "Inter",
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Qayerga Qaytishingizni kiriting",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: "Inter",
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 15.h,
+                                      ),
+                                      ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 243, 236, 235)),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("OK",
+                                              style: TextStyle(
+                                                  fontFamily: "Inter",
+                                                  color:
+                                                      const Color(0xFF8B0000),
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.bold)))
+                                    ],
                                   )),
                             );
                           },
