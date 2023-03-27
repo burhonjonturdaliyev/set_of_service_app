@@ -157,7 +157,7 @@ Widget builder_items(Currency_model currency) {
               child: Row(
                 children: [
                   CountryFlags.flag(
-                    code,
+                    code.toLowerCase(),
                     height: 25.h,
                     width: 25.w,
                     borderRadius: 0,

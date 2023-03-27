@@ -107,7 +107,7 @@ class _Profile_setting_widgetsState extends State<Profile_setting_widgets> {
                   if (choose != null) {
                     setState(() {
                       widget.sana.text =
-                          DateFormat("yyyy-MMMM-dd").format(choose);
+                          DateFormat("yyyy-MM-dd").format(choose);
                     });
                   }
                 },

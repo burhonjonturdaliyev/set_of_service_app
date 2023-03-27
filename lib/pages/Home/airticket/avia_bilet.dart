@@ -1,6 +1,9 @@
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+import 'package:set_of_service_app/pages/password/password.dart';
 
 // ignore: camel_case_types
 class Avia_bilet extends StatefulWidget {
@@ -11,12 +14,13 @@ class Avia_bilet extends StatefulWidget {
 }
 
 class _Avia_biletState extends State<Avia_bilet> {
-  TextEditingController _controller1 = TextEditingController();
-  TextEditingController _controller2 = TextEditingController();
+  TextEditingController ketishSanasi = TextEditingController();
+  TextEditingController qaytishSanasi = TextEditingController();
   String? country1;
   String? country2;
   String? city1;
   String? city2;
+  final _formfield = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -51,207 +55,355 @@ class _Avia_biletState extends State<Avia_bilet> {
           ),
         ),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 355.w,
-                  height: 250.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(21.w),
-                    color: const Color(0xffFBE5E2),
-                  ),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Qayerdan:",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12.sp,
-                                    fontFamily: "Inter"),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 5.h),
-                        CSCPicker(
-                          currentCountry: country1,
-                          currentState: city1,
-                          dropdownItemStyle: TextStyle(
-                              color: Colors.black,
-                              fontFamily: "Inter",
-                              fontSize: 14.sp),
-                          flagState: CountryFlag.DISABLE,
-                          searchBarRadius: 21,
-                          showCities: false,
-                          countryDropdownLabel: "Davlatlar",
-                          stateDropdownLabel: "Shaharlar",
-                          onCountryChanged: (country) {
-                            setState(() {
-                              country1 = country;
-                            });
-                          },
-                          onCityChanged: (city) {},
-                          onStateChanged: (state) {
-                            setState(() {
-                              city1 = state;
-                            });
-                          },
-                        ),
-                        Row(
-                          children: [
-                            Visibility(
-                              visible: country1 == null ? false : true,
-                              child: Expanded(
-                                child: Text("$country1 davlati"),
-                              ),
-                            ),
-                            Visibility(
-                              visible: city1 == null ? false : true,
-                              child: Expanded(
-                                child: Text("$city1 shahri"),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Divider(
-                          thickness: 1,
-                          color: Colors.black38,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Qayerga:",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12.sp,
-                                    fontFamily: "Inter"),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 5.h),
-                        CSCPicker(
-                          currentCountry: country2,
-                          currentState: city2,
-                          dropdownItemStyle: TextStyle(
-                              color: Colors.black,
-                              fontFamily: "Inter",
-                              fontSize: 14.sp),
-                          flagState: CountryFlag.DISABLE,
-                          searchBarRadius: 21,
-                          showCities: false,
-                          countryDropdownLabel: "Davlatlar",
-                          stateDropdownLabel: "Shaharlar",
-                          onCountryChanged: (country) {
-                            setState(() {
-                              country2 = country;
-                            });
-                          },
-                          onCityChanged: (city) {},
-                          onStateChanged: (state) {
-                            setState(() {
-                              city2 = state;
-                            });
-                          },
-                        ),
-                        Row(
-                          children: [
-                            Visibility(
-                              visible: country2 == null ? false : true,
-                              child: Expanded(
-                                child: Text("$country2 davlati"),
-                              ),
-                            ),
-                            Visibility(
-                              visible: city2 == null ? false : true,
-                              child: Expanded(
-                                child: Text("$city2 shahri"),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ]),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFF8B0000),
-        child: Icon(
-          Icons.restart_alt_rounded,
-          color: Colors.white,
-          size: 35.w,
-        ),
-        onPressed: () {
-          setState(() {
-            var temp = country1;
-            country1 = country2;
-            country2 = temp;
-            var temp1 = city1;
-            city1 = city2;
-            city2 = temp1;
-          });
-        },
-      ),
-    );
-  }
-
-  Future openChoice() => showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: SizedBox(
-            width: 320,
-            height: 100,
+          child: Form(
+            key: _formfield,
             child: Column(
               children: [
-                CSCPicker(
-                  dropdownItemStyle: TextStyle(
-                      color: Colors.black,
-                      fontFamily: "Inter",
-                      fontSize: 14.sp),
-                  flagState: CountryFlag.DISABLE,
-                  searchBarRadius: 21,
-                  showCities: false,
-                  countryDropdownLabel: "Davlatlar",
-                  stateDropdownLabel: "Shaharlar",
-                  currentState: city2,
-                  currentCountry: country2,
-                  onCountryChanged: (value) {
-                    setState(() {
-                      country2 = value;
-                    });
-                  },
-                  onCityChanged: (value) {},
-                  onStateChanged: (value) {
-                    setState(() {
-                      city2 = value;
-                    });
-                  },
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 355.w,
+                    height: 250.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(21.w),
+                      color: const Color.fromARGB(255, 243, 236, 235),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Qayerdan:",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12.sp,
+                                        fontFamily: "Inter"),
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 5.h),
+                            CSCPicker(
+                              currentCountry: country1,
+                              currentState: city1,
+                              dropdownItemStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "Inter",
+                                  fontSize: 14.sp),
+                              flagState: CountryFlag.DISABLE,
+                              searchBarRadius: 21,
+                              showCities: false,
+                              countryDropdownLabel: "Davlatlar",
+                              stateDropdownLabel: "Shaharlar",
+                              onCountryChanged: (country) {
+                                setState(() {
+                                  country1 = country;
+                                });
+                              },
+                              onCityChanged: (city) {},
+                              onStateChanged: (state) {
+                                setState(() {
+                                  city1 = state;
+                                });
+                              },
+                            ),
+                            Row(
+                              children: [
+                                Visibility(
+                                  visible: country1 == null ? false : true,
+                                  child: Expanded(
+                                    child: Text("$country1 davlati"),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: city1 == null ? false : true,
+                                  child: Expanded(
+                                    child: Text("$city1 shahri"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Divider(
+                              thickness: 1,
+                              color: Colors.black38,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Qayerga:",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12.sp,
+                                        fontFamily: "Inter"),
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 5.h),
+                            CSCPicker(
+                              currentCountry: country2,
+                              currentState: city2,
+                              dropdownItemStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "Inter",
+                                  fontSize: 14.sp),
+                              flagState: CountryFlag.DISABLE,
+                              searchBarRadius: 21,
+                              showCities: false,
+                              countryDropdownLabel: "Davlatlar",
+                              stateDropdownLabel: "Shaharlar",
+                              onCountryChanged: (country) {
+                                setState(() {
+                                  country2 = country;
+                                });
+                              },
+                              onCityChanged: (city) {},
+                              onStateChanged: (state) {
+                                setState(() {
+                                  city2 = state;
+                                });
+                              },
+                            ),
+                            Row(
+                              children: [
+                                Visibility(
+                                  visible: country2 == null ? false : true,
+                                  child: Expanded(
+                                    child: Text("$country2 davlati"),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: city2 == null ? false : true,
+                                  child: Expanded(
+                                    child: Text("$city2 shahri"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ]),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 355.w,
+                    height: 230.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(21.w),
+                      color: const Color.fromARGB(255, 243, 236, 235),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: TextFormField(
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "Iltimos Ketish sanasini kiriting";
+                                    }
+                                    if (ketishSanasi.text.length != 10) {
+                                      return "To'liq sanani kiriting";
+                                    }
+                                  },
+                                  onTap: () async {
+                                    DateTime? choose = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime.now());
+                                    if (choose != null) {
+                                      setState(() {
+                                        ketishSanasi.text =
+                                            DateFormat("yyyy-MM-dd")
+                                                .format(choose);
+                                      });
+                                    }
+                                  },
+                                  controller: ketishSanasi,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(10)
+                                  ],
+                                  decoration: InputDecoration(
+                                      label: Text(
+                                        "Ketish sanasi:",
+                                        style: TextStyle(
+                                            fontFamily: "Inter",
+                                            fontSize: 15.sp),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(21.w),
+                                      )),
+                                )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: TextFormField(
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "Iltimos qaytish sanasini kiriting";
+                                    }
+                                    if (qaytishSanasi.text.length != 10) {
+                                      return "To'liq sanani kiriting";
+                                    }
+                                  },
+                                  onTap: () async {
+                                    DateTime? choose = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime.now());
+                                    if (choose != null) {
+                                      setState(() {
+                                        qaytishSanasi.text =
+                                            DateFormat("yyyy-MM-dd")
+                                                .format(choose);
+                                      });
+                                    }
+                                  },
+                                  controller: qaytishSanasi,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(10)
+                                  ],
+                                  decoration: InputDecoration(
+                                      label: Text(
+                                        "Qaytish sanasi:",
+                                        style: TextStyle(
+                                            fontFamily: "Inter",
+                                            fontSize: 15.sp),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(21.w),
+                                      )),
+                                )),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 355.w,
+                    height: 80.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(21.w),
+                      color: const Color.fromARGB(255, 243, 236, 235),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
                 ),
                 ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: Size(355.w, 66.h),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(21.w)),
+                        backgroundColor: const Color(0xFF8B0000)),
                     onPressed: () {
-                      _controller2.clear();
-                      _controller2.text = (country2! + (city2 ?? ""));
-                      Navigator.pop(context);
+                      if (country1 == null) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: SizedBox(
+                                  height: 60.h,
+                                  width: 60.h,
+                                  child: Text(
+                                    "Qayerdan ketishingizni kiriting",
+                                    style: TextStyle(
+                                        fontFamily: "Inter",
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  )),
+                            );
+                          },
+                        );
+                      } else if (country2 == null) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: SizedBox(
+                                  height: 60.h,
+                                  width: 60.h,
+                                  child: Text(
+                                    "Qayerga qaytishingizni kiriting",
+                                    style: TextStyle(
+                                        fontFamily: "Inter",
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  )),
+                            );
+                          },
+                        );
+                      }
+                      if (_formfield.currentState!.validate()) {
+                        Navigator.pop(context);
+                      }
                     },
-                    child: Text("Saqlash"))
+                    child: Text(
+                      "Keyingisi",
+                      style: TextStyle(
+                          fontFamily: "Inter",
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold),
+                    )),
               ],
             ),
           ),
-        );
-      });
+        ),
+      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: const Color(0xFF8B0000),
+      //   child: Icon(
+      //     Icons.restart_alt_rounded,
+      //     color: Colors.white,
+      //     size: 35.w,
+      //   ),
+      //   onPressed: () {
+      //     setState(() {
+      //       var temp = country1;
+      //       country1 = country2;
+      //       country2 = temp;
+      //       var temp1 = city1;
+      //       city1 = city2;
+      //       city2 = temp1;
+      //     });
+      //   },
+      // ),
+    );
+  }
 }
