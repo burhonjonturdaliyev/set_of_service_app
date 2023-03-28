@@ -51,6 +51,7 @@ dependencies:
   flag: ^6.0.0
   country_icons: ^2.0.2
   country_flags: ^1.0.0
+  country_picker: ^2.0.19
 
 dev_dependencies:
   flutter_test:

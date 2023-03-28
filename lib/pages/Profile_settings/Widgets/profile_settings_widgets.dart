@@ -143,6 +143,7 @@ class _Profile_setting_widgetsState extends State<Profile_setting_widgets> {
             Expanded(
               child: TextFormField(
                 controller: widget.sana,
+                keyboardType: TextInputType.none,
                 onTap: () async {
                   DateTime? choose = await showDatePicker(
                       context: context,
