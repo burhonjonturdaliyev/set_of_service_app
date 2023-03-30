@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Home/airticket/page/air_ticket_list.dart';
 import 'package:set_of_service_app/pages/Home/airticket/page/country_picker.dart';
@@ -115,13 +113,6 @@ class _Avia_biletState extends State<Avia_bilet> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(21.w)),
                         backgroundColor: const Color(0xFF8B0000)),
-                    onLongPress: () => Navigator.push(
-                        context,
-                        PageTransition(
-                            child: Air_ticket_list(),
-                            type: PageTransitionType.fade,
-                            curve: Curves.decelerate,
-                            childCurrent: Avia_bilet())),
                     onPressed: () {
                       if (_formfield.currentState!.validate()) {
                         Navigator.push(

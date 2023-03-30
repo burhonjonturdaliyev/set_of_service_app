@@ -1,0 +1,56 @@
+{
+    "results":
+    [
+        {"gender":"male",
+        "name":{
+            "title":"Mr",
+            "first":"Ethan",
+            "last":"Cruz"},
+        "location":{
+            "street":{
+                "number":5586,
+                "name":"Brick Kiln Road"},
+            "city":"Westminster",
+            "state":"Essex",
+            "country":"United Kingdom",
+            "postcode":"L8U 2QN",
+            "coordinates":{
+                "latitude":"-5.8069",
+                "longitude":"-106.7222"},
+            "timezone":{
+                "offset":"+3:30",
+                "description":"Tehran"}
+                },
+        "email":"ethan.cruz@example.com",
+        "login":{
+            "uuid":"42980f5f-aebd-4daa-9f09-0185badc4bfd",
+            "username":"angrymeercat152",
+            "password":"witch",
+            "salt":"O3UZZNOe",
+            "md5":"cc6da93beab6f4bdfa46dae2e00fa294",
+            "sha1":"1b45dd355f309b817a6d2cc77bd2928af8777fc8",
+            "sha256":"b32ef53d565ad2fca37a7069e94e6d1b17f24b6f57767f8954fb46149beabb43"},
+        "dob":{
+            "date":"1950-07-16T06:44:11.647Z",
+            "age":72},
+        "registered":{
+            "date":"2013-02-01T23:00:35.473Z",
+            "age":10},
+        "phone":"016977 68193",
+        "cell":"07432 210220",
+        "id":{
+            "name":"NINO",
+            "value":"JW 17 26 26 W"},
+        "picture":{
+            "large":"https://randomuser.me/api/portraits/men/34.jpg",
+            "medium":"https://randomuser.me/api/portraits/med/men/34.jpg",
+            "thumbnail":"https://randomuser.me/api/portraits/thumb/men/34.jpg"},
+        "nat":"GB"}
+    ],
+        "info":{
+            "seed":"a7f941d91712be84",
+            "results":1,
+            "page":1,
+            "version":"1.4"
+        }
+ }

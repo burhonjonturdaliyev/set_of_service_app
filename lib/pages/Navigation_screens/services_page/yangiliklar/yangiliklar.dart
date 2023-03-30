@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/Widget/yangilik_list.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/yangiliklar_models.dart';
 
-import 'models/comment_models.dart';
-
 class Yangiliklar extends StatelessWidget {
   Yangiliklar({super.key});
   List<yangiliklar_models> models = [
@@ -16,7 +14,7 @@ class Yangiliklar extends StatelessWidget {
         info:
             "With over 100 active volcanoes, Japan has the world’s third largest geothermal resources, but also a powerful industry that has steadfastly opposed developing the sector: hot springs.",
         dateTime: DateTime(2023, 3, 21, 20, 14, 0, 0),
-        likes: "50"),
+        list: "https://randomuser.me/api/?results=5"),
     yangiliklar_models(
         id: "Kun.uz",
         foto: "https://i.imgur.com/W4E4iEF.jpg",
@@ -24,7 +22,7 @@ class Yangiliklar extends StatelessWidget {
         info:
             "A command-line tool which simplifies the task of updating your Flutter app's launcher icon. Fully flexible, allowing you to choose what platform you wish to update the launcher icon for and if you want, the option to keep your old launcher icon in case you want to revert back sometime in the future.",
         dateTime: DateTime.now(),
-        likes: "3"),
+        list: ""),
     yangiliklar_models(
         id: "ft.com",
         foto:
@@ -33,7 +31,7 @@ class Yangiliklar extends StatelessWidget {
         info:
             "Winter has played a major role in Russian and Ukrainian military history. It was decisive in their victories over Napoleon and Nazi Germany, and in what Kyiv-born writer Mikhail Bulgakov called that “great and terrible year” of 1918, when “the snowstorm from the north howled and howled” and Ukraine was beginning its war of independence.",
         dateTime: DateTime(2023, 3, 15, 20, 14, 0, 0),
-        likes: "3"),
+        list: ""),
     yangiliklar_models(
         id: "Kun.uz",
         foto:
@@ -42,31 +40,13 @@ class Yangiliklar extends StatelessWidget {
         info:
             "Although the oldest records of Navruz go back to the Parthian era(247 BC-224 AD), there is sufficient evidence to believe that this tradition has over 3000 years of history. Although it is widely celebrated among Central Asia, its roots are recognized as being in Persia which was interlinked with the Zoroastrian religion.",
         dateTime: DateTime(2020, 3, 21, 20, 14, 0, 0),
-        likes: "3"),
-  ];
-
-  List<comment_models> komment = [
-    comment_models(
-        id: "Burkhonjon Turdialiev",
-        message: "Salom",
-        check_id: false,
-        time: DateTime.now()),
-    comment_models(
-        id: "Abdusalom Yuldashev",
-        message: "Qalesiz",
-        check_id: false,
-        time: DateTime.now()),
-    comment_models(
-        id: "Davron Salomov",
-        message: "Salom",
-        check_id: false,
-        time: DateTime.now()),
+        list: ""),
   ];
 
   @override
   Widget build(BuildContext context) {
     models.sort((a, b) => b.dateTime.compareTo(a.dateTime));
-    komment.sort((a, b) => b.time.compareTo(a.time));
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF8B0000),
@@ -86,7 +66,9 @@ class Yangiliklar extends StatelessWidget {
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("image/back_screen.png"), fit: BoxFit.fill)),
-        child: yangiliklar_list(models: models, komment: komment),
+        child: yangiliklar_list(
+          models: models,
+        ),
       ),
     );
   }
