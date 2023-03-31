@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -24,15 +23,39 @@ class _News_commentsState extends State<News_comments> {
 
   void _fetchComment() async {
     try {
+      debugPrint("Yuklash boshlandi");
       final uri = widget.yangilik.list;
       final url = Uri.parse(uri);
       final response = await http.get(url);
       final body = response.body;
       final json = jsonDecode(body);
       final transforming = json["results"] as List<dynamic>;
+      final result = transforming.map((e) {
+        final name = e["name"]["first"];
+        return comment_models(
+            name: name,
+            message: e["country"],
+            check_id: false,
+            time: e["dob"]["date"]);
+      });
+      debugPrint("Yuklash tugatildi");
     } catch (e) {
       print("XAto $e");
     }
+  }
+
+  _addingElement() {
+    comment.add(comment_models(
+        name: "Burkhonjon",
+        message: send_message.text,
+        check_id: true,
+        time: DateTime.now()));
+  }
+
+  @override
+  void initState() {
+    _fetchComment();
+    super.initState();
   }
 
   @override
