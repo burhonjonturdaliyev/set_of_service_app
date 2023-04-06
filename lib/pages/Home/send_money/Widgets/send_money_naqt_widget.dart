@@ -13,17 +13,8 @@ class Send_money_naqt_widget extends StatelessWidget {
   List<Naqt_pul_model> naqt_model;
   List<Colour_models> colour = [
     Colour_models(
-        rang1: const Color.fromARGB(204, 8, 250, 230),
-        rang2: Colors.transparent),
-    Colour_models(
-        rang1: const Color.fromARGB(206, 50, 53, 224),
-        rang2: Colors.transparent),
-    Colour_models(
-        rang1: const Color.fromARGB(206, 21, 242, 69),
-        rang2: Colors.transparent),
-    Colour_models(
-        rang1: const Color.fromARGB(206, 174, 23, 234),
-        rang2: Colors.transparent),
+        rang2: const Color.fromARGB(255, 255, 0, 0),
+        rang1: const Color.fromARGB(255, 255, 255, 255))
   ];
 
   @override
@@ -31,7 +22,7 @@ class Send_money_naqt_widget extends StatelessWidget {
     return ListView.builder(
         itemCount: naqt_model.length,
         itemBuilder: (context, index) =>
-            Container_builder_naqt(colour[index % 4], naqt_model[index]));
+            Container_builder_naqt(colour[index % 1], naqt_model[index]));
   }
 }
 
@@ -43,7 +34,7 @@ Widget Container_builder_naqt(
     child: Container(
       width: 353.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.w),
+        borderRadius: BorderRadius.circular(33.w),
         border: Border.all(width: 1, color: Colors.black26),
         gradient: LinearGradient(
             begin: Alignment.topLeft,

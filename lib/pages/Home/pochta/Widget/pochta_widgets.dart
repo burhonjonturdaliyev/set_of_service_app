@@ -11,17 +11,8 @@ class Pochta_widgets extends StatelessWidget {
   List<pochta_models> info_List;
   List<Colour_models> colour = [
     Colour_models(
-        rang1: const Color.fromARGB(204, 8, 250, 230),
-        rang2: Colors.transparent),
-    Colour_models(
-        rang1: const Color.fromARGB(206, 50, 53, 224),
-        rang2: Colors.transparent),
-    Colour_models(
-        rang1: const Color.fromARGB(206, 21, 242, 69),
-        rang2: Colors.transparent),
-    Colour_models(
-        rang1: const Color.fromARGB(206, 174, 23, 234),
-        rang2: Colors.transparent)
+        rang2: const Color.fromARGB(255, 255, 0, 0),
+        rang1: const Color.fromARGB(255, 255, 255, 255))
   ];
 
   @override
@@ -29,7 +20,7 @@ class Pochta_widgets extends StatelessWidget {
     return ListView.builder(
       itemCount: info_List.length,
       itemBuilder: (context, index) =>
-          pochta_items(info_List[index], colour[index % 4]),
+          pochta_items(info_List[index], colour[index % 1]),
     );
   }
 }
@@ -40,7 +31,7 @@ Widget pochta_items(pochta_models models, Colour_models colour_models) {
     child: Container(
       width: 353.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.w),
+        borderRadius: BorderRadius.circular(33.w),
         border: Border.all(width: 1, color: Colors.black26),
         gradient: LinearGradient(
             begin: Alignment.topLeft,

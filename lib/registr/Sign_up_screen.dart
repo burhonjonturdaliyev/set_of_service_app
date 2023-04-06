@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/registr/sign_up_registr/sign_up_registr.dart';
 import 'package:set_of_service_app/screen/home_screen.dart';
 
 class Sign_up extends StatefulWidget {
@@ -228,7 +229,7 @@ class _Sign_upState extends State<Sign_up> {
                           Navigator.pushAndRemoveUntil(
                               context,
                               PageTransition(
-                                  child: Home_Page(),
+                                  child: Registr_sign(),
                                   type: PageTransitionType.bottomToTopPop,
                                   childCurrent: Sign_up()),
                               (route) => false);

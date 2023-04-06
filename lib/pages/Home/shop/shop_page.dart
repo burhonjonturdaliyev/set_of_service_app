@@ -47,7 +47,7 @@ class _ShopState extends State<Shop> {
               ),
               Tab(
                 child: Text(
-                  "Noziq-ovqat",
+                  "Nooziq-ovqat",
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: "Inter",

@@ -13,17 +13,8 @@ class Job_widget extends StatelessWidget {
   double rate = 2.5;
   List<Colour_models> colour = [
     Colour_models(
-        rang1: const Color.fromARGB(204, 8, 250, 230),
-        rang2: Colors.transparent),
-    Colour_models(
-        rang1: const Color.fromARGB(206, 50, 53, 224),
-        rang2: Colors.transparent),
-    Colour_models(
-        rang1: const Color.fromARGB(206, 21, 242, 69),
-        rang2: Colors.transparent),
-    Colour_models(
-        rang1: const Color.fromARGB(206, 174, 23, 234),
-        rang2: Colors.transparent)
+        rang2: const Color.fromARGB(255, 255, 0, 0),
+        rang1: const Color.fromARGB(255, 255, 255, 255)),
   ];
 
   @override
@@ -31,22 +22,22 @@ class Job_widget extends StatelessWidget {
     return ListView.builder(
         itemCount: models.length,
         itemBuilder: (context, index) =>
-            job_items(models[index], colour[index % 4], rate));
+            job_items(models[index], colour[index % 1], rate));
   }
 }
 
-Widget job_items(Job_models models, Colour_models colour_models, rate) {
+Widget job_items(Job_models models, Colour_models colourModels, rate) {
   return Padding(
     padding: EdgeInsets.only(top: 5.h, bottom: 5.0.h),
     child: Container(
       width: 353.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.w),
+        borderRadius: BorderRadius.circular(33.w),
         border: Border.all(width: 1, color: Colors.black26),
         gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [colour_models.rang1, colour_models.rang2]),
+            colors: [colourModels.rang1, colourModels.rang2]),
       ),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -142,12 +133,6 @@ Widget job_items(Job_models models, Colour_models colour_models, rate) {
                 )
               ],
             ),
-            // SizedBox(
-            //   height: 10.h,
-            // ),
-            // Review_widget(
-            //   final_value: rate,
-            // )
           ],
         ),
       ),
