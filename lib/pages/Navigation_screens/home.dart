@@ -29,9 +29,9 @@ class _HomeState extends State<Home> {
 
   final containerColor = const Color(0xff8A0000);
 
-  final circleavatarback = const Color.fromARGB(208, 220, 163, 163);
+  final circleavatarback = Color.fromARGB(208, 233, 192, 192);
 
-  final backgroudColor = const Color(0xffFDDADA);
+  final backgroudColor = Color.fromARGB(255, 253, 235, 235);
   void visib_check() {
     setState(() {
       visible = !visible;

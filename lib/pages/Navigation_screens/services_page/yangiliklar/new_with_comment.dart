@@ -20,11 +20,11 @@ class News_comments extends StatefulWidget {
 class _News_commentsState extends State<News_comments> {
   TextEditingController send_message = TextEditingController();
   List<comment_models> comment = [];
-
-  void _fetchComment() async {
+  Future<void> _fetchComment() async {
     try {
       debugPrint("Yuklash boshlandi");
-      final uri = widget.yangilik.list;
+      const uri = "https://randomuser.me/api/?results=25";
+      // final uri = widget.yangilik.list_url;
       final url = Uri.parse(uri);
       final response = await http.get(url);
       final body = response.body;
@@ -37,7 +37,12 @@ class _News_commentsState extends State<News_comments> {
             message: e["country"],
             check_id: false,
             time: e["dob"]["date"]);
+      }).toList();
+
+      setState(() {
+        comment = result;
       });
+
       debugPrint("Yuklash tugatildi");
     } catch (e) {
       print("XAto $e");
@@ -61,29 +66,32 @@ class _News_commentsState extends State<News_comments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF8B0000),
-      body: SafeArea(
-        child: Container(
-          width: 375.w,
-          height: 812.h,
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              image: DecorationImage(
-                  image: AssetImage("image/back_screen.png"),
-                  fit: BoxFit.cover)),
-          child: Column(children: [
-            _image_provider(widget.yangilik),
-            SizedBox(
-              height: 10.h,
+      backgroundColor: comment.isEmpty ? Colors.white : const Color(0xFF8B0000),
+      body: comment.isEmpty
+          ? const Center(child: CircularProgressIndicator())
+          : SafeArea(
+              child: Container(
+                width: 375.w,
+                height: 812.h,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    image: DecorationImage(
+                        image: AssetImage("image/back_screen.png"),
+                        fit: BoxFit.cover)),
+                child: Column(children: [
+                  _image_provider(widget.yangilik),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Padding(
+                      padding:
+                          EdgeInsets.only(left: 5.w, right: 5.w, bottom: 10.h),
+                      child: _info_provider(widget.yangilik)),
+                  Expanded(child: _comment_provider()),
+                  send_message_provider()
+                ]),
+              ),
             ),
-            Padding(
-                padding: EdgeInsets.only(left: 5.w, right: 5.w, bottom: 10.h),
-                child: _info_provider(widget.yangilik)),
-            Expanded(child: _comment_provider()),
-            send_message_provider()
-          ]),
-        ),
-      ),
     );
   }
 
@@ -114,7 +122,13 @@ class _News_commentsState extends State<News_comments> {
     return Container(
       height: 300.h,
       width: double.infinity,
-      decoration: BoxDecoration(color: Color.fromARGB(22, 244, 67, 54)),
+      decoration: const BoxDecoration(color: Color.fromARGB(22, 244, 67, 54)),
+      child: ListView.builder(
+        itemCount: comment.length,
+        itemBuilder: (context, index) {
+          return Container();
+        },
+      ),
     );
   }
 
@@ -146,7 +160,7 @@ class _News_commentsState extends State<News_comments> {
                   border: InputBorder.none),
             ),
           ),
-          InkWell(
+          GestureDetector(
             onTap: () {
               setState(() {
                 send_message.clear();
