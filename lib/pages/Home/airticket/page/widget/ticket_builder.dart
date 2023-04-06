@@ -10,17 +10,7 @@ class Ticket_builder extends StatelessWidget {
   List<Ticket_list> ticket;
   List<Colour_models> colour = [
     Colour_models(
-        rang1: const Color.fromARGB(204, 8, 250, 230),
-        rang2: Colors.transparent),
-    Colour_models(
-        rang1: const Color.fromARGB(206, 50, 53, 224),
-        rang2: Colors.transparent),
-    Colour_models(
-        rang1: const Color.fromARGB(206, 21, 242, 69),
-        rang2: Colors.transparent),
-    Colour_models(
-        rang1: const Color.fromARGB(206, 174, 23, 234),
-        rang2: Colors.transparent)
+        rang2: const Color.fromARGB(204, 255, 0, 0), rang1: Colors.white),
   ];
 
   @override
@@ -47,7 +37,7 @@ Widget pochta_items(Ticket_list models, Colour_models colour_models) {
     child: Container(
       width: 353.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.w),
+        borderRadius: BorderRadius.circular(33.w),
         border: Border.all(width: 1, color: Colors.black26),
         gradient: LinearGradient(
             begin: Alignment.topLeft,

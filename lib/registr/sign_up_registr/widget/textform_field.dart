@@ -16,7 +16,7 @@ class Text_editions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formkey,
+      
       child: Expanded(
           child: TextFormField(
         style: TextStyle(fontFamily: "Inter", fontSize: 16.sp),
