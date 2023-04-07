@@ -24,6 +24,18 @@ class _Registr_signState extends State<Registr_sign> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF8B0000),
+        title: Text(
+          "Ro'yxatdan o'tish",
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: "Inter",
+              fontSize: 21.sp,
+              fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -132,6 +144,7 @@ class _Registr_signState extends State<Registr_sign> {
                                 initialDate: DateTime.now(),
                                 firstDate: DateTime(1900),
                                 lastDate: DateTime.now());
+                            ThemeData.light().copyWith().appBarTheme;
                             if (choose != null) {
                               setState(() {
                                 time.text =
@@ -142,12 +155,7 @@ class _Registr_signState extends State<Registr_sign> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(21.w)),
-                            labelText: "Sanani tanlang",
-                            hintText: "Tug'ilgan sana",
-                            hintStyle: TextStyle(
-                                color: Colors.black26,
-                                fontSize: 16.sp,
-                                fontFamily: "Inter"),
+                            labelText: "Tug'ilgan sanangizni kiriting:",
                           ),
                         ),
                       )
