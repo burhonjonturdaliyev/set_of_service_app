@@ -23,7 +23,7 @@ class _Country_pickerState extends State<Country_picker> {
           children: [
             Expanded(
               child: TextFormField(
-                keyboardType: TextInputType.none,
+                readOnly: true,
                 controller: widget.country1,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -69,7 +69,7 @@ class _Country_pickerState extends State<Country_picker> {
           children: [
             Expanded(
               child: TextFormField(
-                keyboardType: TextInputType.none,
+                readOnly: true,
                 controller: widget.country2,
                 validator: (value) {
                   if (value!.isEmpty) {

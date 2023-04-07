@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/registr/sign_up_registr/sign_up_registr.dart';
-import 'package:set_of_service_app/screen/home_screen.dart';
 
 class Sign_up extends StatefulWidget {
   Sign_up({super.key});
@@ -19,6 +18,7 @@ class _Sign_upState extends State<Sign_up> {
 
   TextEditingController password = TextEditingController();
 
+  // ignore: non_constant_identifier_names
   TextEditingController cofic_password = TextEditingController();
   bool visible = true;
   bool checking = false;
@@ -75,12 +75,28 @@ class _Sign_upState extends State<Sign_up> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Ro`yxatdan o`tish",
+                        "Ro'yxatdan o'tish",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontFamily: "Inter",
                             fontSize: 30.sp),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Birinchi bosqich",
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Inter",
+                            fontSize: 15.sp),
                       )
                     ],
                   ),
@@ -232,7 +248,7 @@ class _Sign_upState extends State<Sign_up> {
                                   child: Registr_sign(),
                                   type: PageTransitionType.bottomToTopPop,
                                   childCurrent: Sign_up()),
-                              (route) => false);
+                              (route) => true);
                         }
                       },
                       child: Text(
