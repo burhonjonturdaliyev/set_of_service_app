@@ -63,7 +63,7 @@ class _Support_centerState extends State<Support_center> {
               width: 361.w,
               height: 50.h,
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(204, 138, 246, 233),
+                  color: const Color(0xff8A0000),
                   border: Border.all(
                       width: 1, color: const Color.fromARGB(105, 0, 0, 0)),
                   borderRadius: BorderRadius.circular(24)),
@@ -74,12 +74,16 @@ class _Support_centerState extends State<Support_center> {
                     child: TextFormField(
                       controller: _controller,
                       maxLines: 1,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "Inter",
+                          fontSize: 16.sp),
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           // labelText: 'Name',
                           hintText: "Matn yozish ...",
                           hintStyle: TextStyle(
-                              color: Colors.black26,
+                              color: Colors.white60,
                               fontSize: 16.sp,
                               fontFamily: "Inter")),
                     ),
@@ -101,6 +105,7 @@ class _Support_centerState extends State<Support_center> {
                     child: Image.asset(
                       "image/telegram.png",
                       width: 24,
+                      color: Colors.white,
                     ),
                   ),
                 )

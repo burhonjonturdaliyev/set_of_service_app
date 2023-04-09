@@ -129,8 +129,8 @@ class _Container_designState extends State<Container_design> {
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                               colors: [
-                                Color.fromARGB(204, 8, 250, 230),
-                                Colors.transparent
+                                Colors.white,
+                                Colors.red,
                               ]),
                           borderRadius: BorderRadius.circular(24.w),
                           border: Border.all(width: 1, color: Colors.black26)),
