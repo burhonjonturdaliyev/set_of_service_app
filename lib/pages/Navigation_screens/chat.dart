@@ -79,7 +79,7 @@ class _ChatState extends State<Chat> {
             width: 361.w,
             height: 50.h,
             decoration: BoxDecoration(
-                color: const Color.fromARGB(204, 138, 246, 233),
+                color: const Color(0xFF8B0000),
                 border: Border.all(
                     width: 1, color: const Color.fromARGB(105, 0, 0, 0)),
                 borderRadius: BorderRadius.circular(24)),
@@ -88,6 +88,10 @@ class _ChatState extends State<Chat> {
                 child: Padding(
                   padding: EdgeInsets.only(left: 12.w, bottom: 4.h),
                   child: TextFormField(
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "Inter",
+                        fontSize: 16.sp),
                     controller: _controller,
                     maxLines: 1,
                     decoration: InputDecoration(
@@ -95,7 +99,7 @@ class _ChatState extends State<Chat> {
                         // labelText: 'Name',
                         hintText: "Matn yozish ...",
                         hintStyle: TextStyle(
-                            color: Colors.black26,
+                            color: Colors.white60,
                             fontSize: 16.sp,
                             fontFamily: "Inter")),
                   ),
@@ -117,6 +121,7 @@ class _ChatState extends State<Chat> {
                   child: Image.asset(
                     "image/telegram.png",
                     width: 24,
+                    color: Colors.white,
                   ),
                 ),
               )
