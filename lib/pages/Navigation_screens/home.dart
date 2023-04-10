@@ -40,96 +40,89 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("image/back_screen.png"),
-              fit: BoxFit.cover,
-              alignment: Alignment.bottomCenter)),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 20.h,
-          ),
-          Center(
-            child: Container(
-              width: 354.w,
-              height: 84.h,
-              decoration: BoxDecoration(
-                color: containerColor,
-                borderRadius: BorderRadius.circular(40),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: visib_check,
-                        icon: Icon(
-                          visible == true
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          size: 35.w,
-                          color: Colors.white,
-                        ),
+    return Column(
+      children: [
+        SizedBox(
+          height: 20.h,
+        ),
+        Center(
+          child: Container(
+            width: 354.w,
+            height: 84.h,
+            decoration: BoxDecoration(
+              color: containerColor,
+              borderRadius: BorderRadius.circular(40),
+            ),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 10.w,
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: visib_check,
+                      icon: Icon(
+                        visible == true
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        size: 35.w,
+                        color: Colors.white,
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 12.w,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "SOS hisobingiz",
-                        style: TextStyle(
-                          fontFamily: "Inter",
-                          color: white,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 12.w,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "SOS hisobingiz",
+                      style: TextStyle(
+                        fontFamily: "Inter",
+                        color: white,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w700,
                       ),
-                      Text(
-                        visible ? "$money yena" : "**** yena",
-                        style: TextStyle(
-                          fontFamily: "Inter",
-                          color: white,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
+                    ),
+                    Text(
+                      visible ? "$money yena" : "**** yena",
+                      style: TextStyle(
+                        fontFamily: "Inter",
+                        color: white,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w700,
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 105.w,
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.add_circle_outline_rounded,
-                          color: white,
-                          size: 36.67,
-                        ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 105.w,
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.add_circle_outline_rounded,
+                        color: white,
+                        size: 36.67,
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          SizedBox(
-            height: 15.h,
-          ),
-          Expanded(child: Items(context)),
-        ],
-      ),
+        ),
+        SizedBox(
+          height: 15.h,
+        ),
+        Expanded(child: Items(context)),
+      ],
     );
   }
 

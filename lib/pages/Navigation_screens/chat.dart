@@ -31,46 +31,38 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("image/back_screen.png"),
-                fit: BoxFit.cover,
-                alignment: Alignment.bottomCenter),
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(1.w),
-                child: Container(
-                  width: 375.w,
-                  height: 25.h,
-                  decoration: BoxDecoration(
-                      color: const Color(0xff8B0000),
-                      borderRadius: BorderRadius.circular(5.w)),
-                  child: Center(
-                    child: Text(
-                      "Chat",
-                      style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          letterSpacing: 5,
-                          fontFamily: "Inter"),
-                    ),
+        Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(1.w),
+              child: Container(
+                width: 375.w,
+                height: 25.h,
+                decoration: BoxDecoration(
+                    color: const Color(0xff8B0000),
+                    borderRadius: BorderRadius.circular(5.w)),
+                child: Center(
+                  child: Text(
+                    "Chat",
+                    style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: 5,
+                        fontFamily: "Inter"),
                   ),
                 ),
               ),
-              Expanded(
-                child: SafeArea(
-                  minimum: EdgeInsets.only(bottom: 60.h),
-                  child: Container_design(
-                    textlist: textlist,
-                  ),
+            ),
+            Expanded(
+              child: SafeArea(
+                minimum: EdgeInsets.only(bottom: 60.h),
+                child: Container_design(
+                  textlist: textlist,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         Positioned(
           left: 7.w,

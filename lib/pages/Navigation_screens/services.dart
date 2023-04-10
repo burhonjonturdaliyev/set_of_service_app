@@ -45,47 +45,38 @@ class List_of_services extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("image/back_screen.png"),
-              fit: BoxFit.cover,
-              alignment: Alignment.bottomCenter)),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(1.0),
-            child: Container(
-              height: 25.h,
-              width: 375.w,
-              decoration: BoxDecoration(
-                  color: appbarColor, borderRadius: BorderRadius.circular(6)),
-              child: Center(
-                  child: Text(
-                "Barcha servislar".toUpperCase(),
-                style: TextStyle(
-                    fontSize: 14.sp,
-                    color: white,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: "Inter",
-                    letterSpacing: 5),
-              )),
-            ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(1.0),
+          child: Container(
+            height: 25.h,
+            width: 375.w,
+            decoration: BoxDecoration(
+                color: appbarColor, borderRadius: BorderRadius.circular(6)),
+            child: Center(
+                child: Text(
+              "Barcha servislar".toUpperCase(),
+              style: TextStyle(
+                  fontSize: 14.sp,
+                  color: white,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: "Inter",
+                  letterSpacing: 5),
+            )),
           ),
-          const SizedBox(
-            height: 3,
-          ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: model.length,
-                itemBuilder: (context, index) {
-                  return list_items(model[index], context);
-                }),
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(
+          height: 3,
+        ),
+        Expanded(
+          child: ListView.builder(
+              itemCount: model.length,
+              itemBuilder: (context, index) {
+                return list_items(model[index], context);
+              }),
+        ),
+      ],
     );
   }
 

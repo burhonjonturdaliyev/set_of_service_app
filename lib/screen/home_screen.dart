@@ -186,21 +186,27 @@ class _Home_PageState extends State<Home_Page> {
                 ),
               ),
             ),
-      body: PageView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: _controller,
-        onPageChanged: (int index) {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
-        children: [
-          Home(),
-          History_money(),
-          List_of_services(),
-          Chat(),
-          Profil()
-        ],
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("image/back_screen.png"),
+                fit: BoxFit.fitHeight)),
+        child: PageView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: _controller,
+          onPageChanged: (int index) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
+          children: [
+            Home(),
+            History_money(),
+            List_of_services(),
+            Chat(),
+            Profil()
+          ],
+        ),
       ),
     );
   }

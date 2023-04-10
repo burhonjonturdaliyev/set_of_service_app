@@ -42,43 +42,34 @@ class History_money extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("image/back_screen.png"),
-              fit: BoxFit.cover,
-              alignment: Alignment.bottomCenter)),
-      child: Column(children: [
-        Container(
-          margin: EdgeInsets.only(top: 1.h, left: 1.w, right: 1.w),
-          width: 375.w,
-          height: 25.h,
-          decoration: BoxDecoration(
-              color: appbarColor, borderRadius: BorderRadius.circular(5)),
-          child: Center(
-            child: Text(
-              "Monitoring",
-              style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.bold,
-                  color: white,
-                  letterSpacing: 5.w),
-            ),
+    return Column(children: [
+      Container(
+        margin: EdgeInsets.only(top: 1.h, left: 1.w, right: 1.w),
+        width: 375.w,
+        height: 25.h,
+        decoration: BoxDecoration(
+            color: appbarColor, borderRadius: BorderRadius.circular(5)),
+        child: Center(
+          child: Text(
+            "Monitoring",
+            style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.bold,
+                color: white,
+                letterSpacing: 5.w),
           ),
         ),
-        SizedBox(
-          height: 9.h,
-        ),
-        Expanded(
-            child: ListView.builder(
-                itemCount: model.length,
-                itemBuilder: (context, index) {
-                  return history_items(context, model[index]);
-                }))
-      ]),
-    );
+      ),
+      SizedBox(
+        height: 9.h,
+      ),
+      Expanded(
+          child: ListView.builder(
+              itemCount: model.length,
+              itemBuilder: (context, index) {
+                return history_items(context, model[index]);
+              }))
+    ]);
   }
 }
 
