@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:country_flags/country_flags.dart';
@@ -18,6 +19,7 @@ class Valyuta_kursi extends StatefulWidget {
 
 class _Valyuta_kursiState extends State<Valyuta_kursi> {
   List<Currency_model> currency = [];
+  bool animator = false;
 
   @override
   void initState() {
@@ -28,6 +30,20 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  infor_message() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: const Color(0xFF8B0000),
+        duration: const Duration(seconds: 5),
+        content: Text(
+          "O'zbekiston Respublikasi Markaziy bankining ${DateFormat('MM.dd.yyyy ').format(currency[0].date)} hisobotiga ko'ra!",
+          textAlign: TextAlign.center,
+        ),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
   }
 
   Future<void> fetchUser() async {
@@ -52,6 +68,7 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
         currency =
             currency.where((model) => model.nbu_buy_price != "").toList();
       });
+      infor_message();
     } catch (e) {
       print("Error: $e");
     }
@@ -84,36 +101,65 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
               ? const Center(child: CircularProgressIndicator())
               : Column(
                   children: [
-                    Container(
-                      height: 35.h,
-                      decoration: const BoxDecoration(color: Color(0xFF8B0000)),
+                    Padding(
+                      padding: EdgeInsets.only(top: 1.5.h, bottom: 1.5.h),
                       child: Row(
                         children: [
+                          Expanded(
+                            child: Container(
+                                height: 25.h,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.w),
+                                    color: const Color(0xFF8B0000)),
+                                child: Center(
+                                    child: Text(
+                                  "Valyuta",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: "Inter",
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold),
+                                ))),
+                          ),
                           SizedBox(
-                            width: 10.w,
+                            width: 2.w,
                           ),
-                          Text(
-                            "Valyuta nomi",
-                            style: TextStyle(
-                              fontFamily: "Inter",
-                              color: Colors.white,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
+                          Expanded(
+                            child: Container(
+                                height: 25.h,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.w),
+                                    color: const Color(0xFF8B0000)),
+                                child: Center(
+                                  child: Text(
+                                    "Sotish",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: "Inter",
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )),
                           ),
                           SizedBox(
-                            width: 65.w,
+                            width: 2.w,
                           ),
-                          SizedBox(
-                            width: 65.w,
-                          ),
-                          Text(
-                            "Kurs",
-                            style: TextStyle(
-                              fontFamily: "Inter",
-                              color: Colors.white,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
+                          Expanded(
+                            child: Container(
+                              height: 25.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.w),
+                                  color: const Color(0xFF8B0000)),
+                              child: Center(
+                                child: Text(
+                                  "Olish",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: "Inter",
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -139,7 +185,6 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
 
 Widget builder_items(Currency_model currency) {
   final String code = currency.code.substring(0, currency.code.length - 1);
-  final date_format = DateFormat('MMMM-dd, yyyy ').format(currency.date);
 
   return Padding(
     padding: EdgeInsets.only(left: 1.0.w, right: 1.w, top: 1.h),
@@ -158,12 +203,18 @@ Widget builder_items(Currency_model currency) {
               left: 10.w,
               child: Row(
                 children: [
-                  CountryFlags.flag(
-                    code.toLowerCase(),
-                    height: 25.h,
-                    width: 25.w,
-                    borderRadius: 0,
-                  ),
+                  code == "EU"
+                      ? Image(
+                          image: const AssetImage("image/flag/euro.png"),
+                          width: 25.w,
+                          height: 25.h,
+                        )
+                      : CountryFlags.flag(
+                          code,
+                          height: 25.h,
+                          width: 25.w,
+                          borderRadius: 0,
+                        ),
                   SizedBox(
                     width: 5.w,
                   ),
@@ -180,17 +231,6 @@ Widget builder_items(Currency_model currency) {
                 ],
               ),
             ),
-            Positioned(
-                bottom: 0,
-                right: 10,
-                child: Text(
-                  date_format,
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontFamily: "Inter",
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.normal),
-                ))
           ],
         )),
   );
