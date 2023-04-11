@@ -49,6 +49,8 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
       }).toList();
       setState(() {
         currency = result;
+        currency =
+            currency.where((model) => model.nbu_buy_price != "").toList();
       });
     } catch (e) {
       print("Error: $e");
