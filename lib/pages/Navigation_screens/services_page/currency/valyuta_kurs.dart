@@ -67,6 +67,8 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
         currency = result;
         currency =
             currency.where((model) => model.nbu_buy_price != "").toList();
+        currency.sort((a, b) =>
+            double.parse(a.cb_price).compareTo(double.parse(b.cb_price)));
       });
       infor_message();
     } catch (e) {
@@ -96,7 +98,7 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("image/back_screen.png"),
-                  fit: BoxFit.cover)),
+                  fit: BoxFit.fill)),
           child: currency.isEmpty
               ? const Center(child: CircularProgressIndicator())
               : Column(
@@ -113,7 +115,7 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
                                     color: const Color(0xFF8B0000)),
                                 child: Center(
                                     child: Text(
-                                  "Valyuta",
+                                  "Olish",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: "Inter",
@@ -132,7 +134,7 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
                                     color: const Color(0xFF8B0000)),
                                 child: Center(
                                   child: Text(
-                                    "Sotish",
+                                    "Valyuta",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: "Inter",
@@ -152,7 +154,7 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
                                   color: const Color(0xFF8B0000)),
                               child: Center(
                                 child: Text(
-                                  "Olish",
+                                  "Sotish",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: "Inter",
@@ -199,9 +201,20 @@ Widget builder_items(Currency_model currency) {
         child: Stack(
           children: [
             Positioned(
-              top: 0,
+              top: 15.h,
               left: 10.w,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("${currency.nbu_buy_price} so'm"),
+                ],
+              ),
+            ),
+            Positioned(
+              top: 3.h,
+              left: 0.w,
+              right: 0.w,
+              child: Column(
                 children: [
                   code == "EU"
                       ? Image(
@@ -223,11 +236,11 @@ Widget builder_items(Currency_model currency) {
               ),
             ),
             Positioned(
-              top: 0,
-              left: 220.w,
+              top: 15.h,
+              left: 260.w,
               child: Row(
                 children: [
-                  Text("${currency.cb_price} so'm"),
+                  Text("${currency.nbu_cell_price} so'm"),
                 ],
               ),
             ),

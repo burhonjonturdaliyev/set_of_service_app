@@ -189,8 +189,16 @@ class _News_commentsState extends State<News_comments> {
               Container(
                 constraints: BoxConstraints(maxWidth: 250.w),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(21.w),
-                    color: Colors.blueAccent),
+                  borderRadius: BorderRadius.circular(21.w),
+                  border: Border.all(width: 1, color: Colors.black38),
+                  gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.white,
+                        Colors.red,
+                      ]),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Text(
@@ -229,7 +237,7 @@ class _News_commentsState extends State<News_comments> {
       width: double.infinity,
       height: 50.h,
       decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 191, 191, 191),
+          color: const Color(0xFF8B0000),
           borderRadius: BorderRadius.circular(21.w)),
       child: Padding(
         padding: EdgeInsets.only(left: 10.w, right: 5.w),
@@ -237,14 +245,14 @@ class _News_commentsState extends State<News_comments> {
           Expanded(
             child: TextFormField(
               style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontFamily: "Inter",
                   fontSize: 16.sp,
                   fontWeight: FontWeight.normal),
               controller: send_message,
               decoration: InputDecoration(
                   hintStyle: TextStyle(
-                      color: Colors.black54,
+                      color: Colors.white60,
                       fontFamily: "Inter",
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w300),

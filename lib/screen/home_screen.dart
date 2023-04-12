@@ -192,7 +192,7 @@ class _Home_PageState extends State<Home_Page> {
                 image: AssetImage("image/back_screen.png"),
                 fit: BoxFit.fitHeight)),
         child: PageView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: AlwaysScrollableScrollPhysics(),
           controller: _controller,
           onPageChanged: (int index) {
             setState(() {
