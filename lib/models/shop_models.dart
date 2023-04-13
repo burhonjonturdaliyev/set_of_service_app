@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Shop_models {
   String name;
   String number;
@@ -8,6 +6,8 @@ class Shop_models {
   DateTime time;
   int count;
   double rate;
+  String information;
+  String image;
 
   Shop_models(
       {required this.name,
@@ -16,5 +16,7 @@ class Shop_models {
       required this.address,
       required this.time,
       required this.count,
-      required this.rate});
+      required this.rate,
+      required this.information,
+      required this.image});
 }

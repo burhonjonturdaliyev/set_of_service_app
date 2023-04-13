@@ -14,7 +14,10 @@ class Oziq_ovqat extends StatelessWidget {
         address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
         time: DateTime(2023, 03, 25),
         count: 12345,
-        rate: 4.7),
+        rate: 4.7,
+        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
+        image:
+            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
     Shop_models(
         name: "Uzbek national foods ...",
         number: "+998906936594",
@@ -22,7 +25,10 @@ class Oziq_ovqat extends StatelessWidget {
         address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
         time: DateTime(2023, 03, 25),
         count: 12345,
-        rate: 4.7),
+        rate: 4.7,
+        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
+        image:
+            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
     Shop_models(
         name: "Uzbek national foods ...",
         number: "+998906936594",
@@ -30,7 +36,10 @@ class Oziq_ovqat extends StatelessWidget {
         address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
         time: DateTime(2023, 03, 25),
         count: 12345,
-        rate: 4.7),
+        rate: 4.7,
+        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
+        image:
+            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
     Shop_models(
         name: "Uzbek national foods ...",
         number: "+998906936594",
@@ -38,7 +47,10 @@ class Oziq_ovqat extends StatelessWidget {
         address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
         time: DateTime(2023, 03, 25),
         count: 12345,
-        rate: 4.7),
+        rate: 4.7,
+        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
+        image:
+            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
     Shop_models(
         name: "Uzbek national foods ...",
         number: "+998906936594",
@@ -46,7 +58,10 @@ class Oziq_ovqat extends StatelessWidget {
         address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
         time: DateTime(2023, 03, 25),
         count: 12345,
-        rate: 4.7),
+        rate: 4.7,
+        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
+        image:
+            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
     Shop_models(
         name: "Uzbek national foods ...",
         number: "+998906936594",
@@ -54,7 +69,10 @@ class Oziq_ovqat extends StatelessWidget {
         address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
         time: DateTime(2023, 03, 25),
         count: 12345,
-        rate: 4.7),
+        rate: 4.7,
+        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
+        image:
+            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
     Shop_models(
         name: "Uzbek national foods ...",
         number: "+998906936594",
@@ -62,7 +80,10 @@ class Oziq_ovqat extends StatelessWidget {
         address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
         time: DateTime(2023, 03, 25),
         count: 12345,
-        rate: 4.7),
+        rate: 4.7,
+        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
+        image:
+            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
     Shop_models(
         name: "Uzbek national foods ...",
         number: "+998906936594",
@@ -70,7 +91,10 @@ class Oziq_ovqat extends StatelessWidget {
         address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
         time: DateTime(2023, 03, 25),
         count: 12345,
-        rate: 4.7),
+        rate: 4.7,
+        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
+        image:
+            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
   ];
 
   @override
