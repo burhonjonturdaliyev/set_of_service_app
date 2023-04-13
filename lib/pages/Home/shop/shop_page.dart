@@ -57,6 +57,7 @@ class _ShopState extends State<Shop> {
             //     ),
             //   ),
             // ]),
+            elevation: 0,
             centerTitle: true,
             backgroundColor: const Color(0xFF8B0000),
             title: Text(

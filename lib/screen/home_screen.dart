@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, duplicate_ignore, library_private_types_in_public_api
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
@@ -11,7 +9,6 @@ import 'package:set_of_service_app/pages/Navigation_screens/home.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/profil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services.dart';
 import 'package:set_of_service_app/pages/Support_page/Support_page.dart';
-import 'package:set_of_service_app/pages/password/password.dart';
 
 class Home_Page extends StatefulWidget {
   const Home_Page({Key? key}) : super(key: key);
