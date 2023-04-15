@@ -86,7 +86,7 @@ class Additional_page_shop extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: Container(
-              height: 450,
+              height: 600,
               width: double.infinity,
               color: const Color(0xFF8B0000),
               child: Scaffold(
