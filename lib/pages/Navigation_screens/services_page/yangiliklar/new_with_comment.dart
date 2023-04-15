@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+import 'package:set_of_service_app/main.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/comment_models.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/yangiliklar_models.dart';
 
@@ -24,7 +26,8 @@ class _News_commentsState extends State<News_comments> {
   List<comment_models> comment = [
     comment_models(
         check_id: false,
-        message: "Salom",
+        message:
+            "Salom fewflerw fner fnwe;k fjerwk;fj bekrf berl fhberf erkjfh berjerh",
         name: "Avaz",
         time: DateTime(2023, 7, 7, 7, 7, 7))
   ];
@@ -162,73 +165,136 @@ class _News_commentsState extends State<News_comments> {
   }
 
   get_comments(comment_models comment) {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 5.w, right: 5.w),
-          child: Row(
-            mainAxisAlignment: comment.check_id
-                ? MainAxisAlignment.end
-                : MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Visibility(
-                visible: comment.check_id ? false : true,
-                child: CircleAvatar(
-                  radius: 15.w,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 25.w,
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              Container(
-                constraints: BoxConstraints(maxWidth: 250.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(21.w),
-                  border: Border.all(width: 1, color: Colors.black38),
-                  gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.white,
-                        Colors.red,
-                      ]),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text(
-                    comment.message,
-                    style: TextStyle(
-                        fontFamily: "Inter",
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10.h),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 5.w, right: 5.w),
+            child: Row(
+              mainAxisAlignment: comment.check_id
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(bottom: 20.0.h),
+                  child: Visibility(
+                    visible: comment.check_id ? false : true,
+                    child: CircleAvatar(
+                      radius: 15.w,
+                      child: Icon(
+                        Icons.person,
                         color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20.sp),
+                        size: 25.w,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              Visibility(
-                visible: comment.check_id,
-                child: CircleAvatar(
-                  radius: 15.w,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 25.w,
+                SizedBox(
+                  width: 5.w,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      constraints: BoxConstraints(maxWidth: 250.w),
+                      decoration: comment.check_id
+                          ? BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(21.w),
+                                  topRight: Radius.circular(21.w),
+                                  bottomLeft: Radius.circular(21.w)),
+                              border:
+                                  Border.all(width: 1, color: Colors.black12),
+                              gradient: const LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white,
+                                    Colors.red,
+                                  ]),
+                            )
+                          : BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(21.w),
+                                  topRight: Radius.circular(21.w),
+                                  bottomRight: Radius.circular(21.w)),
+                              border:
+                                  Border.all(width: 1, color: Colors.black12),
+                              gradient: const LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white,
+                                    Colors.red,
+                                  ]),
+                            ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              comment.name,
+                              style: TextStyle(
+                                  fontFamily: "Inter",
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 10.sp),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Text(
+                              comment.message,
+                              style: TextStyle(
+                                  fontFamily: "Inter",
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 15.sp),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 3.h,
+                    ),
+                    Text(
+                      DateFormat("HH:mm, dd-MMMM").format(comment.time),
+                      style: TextStyle(
+                          fontFamily: "Inter",
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12.sp),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 5.w,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 20.0.h),
+                  child: Visibility(
+                    visible: comment.check_id,
+                    child: CircleAvatar(
+                      radius: 15.w,
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: 25.w,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        )
-      ],
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 

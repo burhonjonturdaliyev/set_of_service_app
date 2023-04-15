@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/registr/Reset_password_screen.dart';
 import 'package:set_of_service_app/registr/Sign_up_screen.dart';
@@ -30,8 +29,47 @@ class _Sign_inState extends State<Sign_in> {
     });
   }
 
-  void sign_in() async {
-    await FirebaseAuth.instance.signInWithPhoneNumber(number.text);
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void sign_in(String number, password) async {
+    try {
+      Response response = await post(Uri.parse("https://reqres.in/api/login"),
+          body: {"email": number, "password": password});
+
+      if (response.statusCode == 200) {
+        print("Succesfully done");
+        // ignore: use_build_context_synchronously
+        Navigator.pushAndRemoveUntil(
+            context,
+            PageTransition(
+                child: const Home_Page(), type: PageTransitionType.fade),
+            (route) => false);
+      } else {
+        error_disp();
+        print("Maybe next time");
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  void error_disp() {
+    AlertDialog(
+      content: SizedBox(
+        height: 50.h,
+        width: 50.w,
+        child: const CircleAvatar(
+          backgroundColor: Colors.red,
+          child: Icon(
+            Icons.error_outline,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -95,9 +133,9 @@ class _Sign_inState extends State<Sign_in> {
                           if (value.length < 9) {
                             return "Iltimos oxirigacha kiriting";
                           }
-                          if (value != "906936594") {
-                            return "Bazada bunday raqam mavjud emas!";
-                          }
+                          // if (value != "906936594") {
+                          //   return "Bazada bunday raqam mavjud emas!";
+                          // }
                         },
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
@@ -133,14 +171,14 @@ class _Sign_inState extends State<Sign_in> {
                         controller: password,
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "Iltimos parolni kitiring";
+                            return "Iltimos parolni kiriting!";
                           }
                           if (value.length < 8) {
-                            return "Iltimos eng kamida 8 ta belgili parol kiriting";
+                            return "Parol mos kelmadi!";
                           }
-                          if (value != "01022003") {
-                            return "Parol yoki raqam xato!";
-                          }
+                          // if (value != "01022003") {
+                          //   return "Parol yoki raqam xato!";
+                          // }
                         },
                         obscureText: visible,
                         decoration: InputDecoration(
@@ -210,12 +248,7 @@ class _Sign_inState extends State<Sign_in> {
                       },
                       onPressed: () {
                         if (_formkey.currentState!.validate()) {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              PageTransition(
-                                  child: const Home_Page(),
-                                  type: PageTransitionType.fade),
-                              (route) => false);
+                          sign_in(number.text, password.text);
                         }
                       },
                       child: Text(
