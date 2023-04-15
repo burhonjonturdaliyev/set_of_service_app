@@ -296,6 +296,11 @@ class _Registr_signState extends State<Registr_sign> {
                           child: TextFormField(
                             controller: time,
                             readOnly: true,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Tug\'ilgan sanangizni kiritng';
+                              }
+                            },
                             keyboardType: TextInputType.none,
                             onTap: () async {
                               DateTime? choose = await showDatePicker(
