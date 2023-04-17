@@ -1,6 +1,8 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:set_of_service_app/pages/Home/airticket/page/models/Api_models.dart';
 import 'package:set_of_service_app/pages/Home/airticket/page/models/air_ticket_model.dart';
 import 'package:set_of_service_app/pages/Home/airticket/page/widget/ticket_builder.dart';
 
@@ -29,6 +31,50 @@ class _Air_ticket_listState extends State<Air_ticket_list> {
         manzil: " Tokyo , Edogawa ku , Kasai rinkoen 1-66",
         number: "0611"),
   ];
+  List<Api_models> models = [];
+  Future<void> fetchInfo() async {
+    try {
+      print("Loading started");
+      const uri = "http://185.196.213.43:7088/api/air/ticket/info";
+      final url = Uri.parse(uri);
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final body = response.body;
+        final json = jsonDecode(body);
+        final result = json["object"] as List<dynamic>;
+        final postes = result
+            .map(
+              (e) => Api_models(
+                  id: e["id"] as int,
+                  createdBy: e["createdBy"],
+                  createdAt: DateTime.parse(e["createdAt"]),
+                  updatedAt: DateTime.parse(e["updatedAt"]),
+                  fromTo: e["fromTo"],
+                  whereTo: e["whereTo"],
+                  toGoDate: DateTime.parse(e["toGoDate"]),
+                  returnDate: DateTime.parse(e["returnDate"]),
+                  airClass: e["airClass"],
+                  passenger: e["passenger"] as int,
+                  userId: e["userId"] as int),
+            )
+            .toList();
+        setState(() {
+          models = postes;
+        });
+        print(body);
+      } else {
+        print("Error");
+      }
+    } catch (e) {
+      print("Error occurred => $e");
+    }
+  }
+
+  @override
+  void initState() {
+    fetchInfo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,17 +92,11 @@ class _Air_ticket_listState extends State<Air_ticket_list> {
                 fontSize: 20.sp),
           )),
       body: RefreshIndicator(
-          onRefresh: get_info, child: Ticket_builder(ticket: ticket)),
+          onRefresh: fetchInfo,
+          child: Ticket_builder(
+            ticket: ticket,
+            models: models,
+          )),
     );
-  }
-
-  Future<void> get_info() async {
-    setState(() {
-      ticket.add(Ticket_list(
-          turi: "Air ticket",
-          nomi: "Uzbek tickets",
-          manzil: " Tokyo , Edogawa ku , Kasai rinkoen 1-66",
-          number: "0611"));
-    });
   }
 }
