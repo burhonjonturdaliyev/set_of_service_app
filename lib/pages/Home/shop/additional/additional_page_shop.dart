@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Additional_page_shop extends StatelessWidget {
+class Additional_page_shop extends StatefulWidget {
   Additional_page_shop(
       {super.key,
       required this.name,
@@ -25,6 +27,25 @@ class Additional_page_shop extends StatelessWidget {
   String image;
 
   @override
+  State<Additional_page_shop> createState() => _Additional_page_shopState();
+}
+
+class _Additional_page_shopState extends State<Additional_page_shop> {
+  bool prograss = false;
+
+  @override
+  void initState() {
+    Timer(const Duration(seconds: 2), changer);
+    super.initState();
+  }
+
+  changer() {
+    setState(() {
+      prograss = true;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
@@ -33,15 +54,8 @@ class Additional_page_shop extends StatelessWidget {
           backgroundColor: Colors.white,
           expandedHeight: 400,
           flexibleSpace: FlexibleSpaceBar(
-            background: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(image),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
+              // ignore: unnecessary_null_comparison
+              background: prograss ? back_photo() : prograss_indicator()),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(10.h),
             child: Container(
@@ -114,7 +128,7 @@ class Additional_page_shop extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            information,
+                            widget.information,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: "Inter",
@@ -130,7 +144,7 @@ class Additional_page_shop extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "Yetkazib berish xizmati: $delevering",
+                          "Yetkazib berish xizmati: ${widget.delevering}",
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -161,7 +175,7 @@ class Additional_page_shop extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            address,
+                            widget.address,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: "Inter",
@@ -179,7 +193,7 @@ class Additional_page_shop extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xffFDDADA)),
                         onPressed: () =>
-                            FlutterPhoneDirectCaller.callNumber(number),
+                            FlutterPhoneDirectCaller.callNumber(widget.number),
                         child: Text(
                           "Hoziroq bog'laning",
                           style: TextStyle(
@@ -196,101 +210,25 @@ class Additional_page_shop extends StatelessWidget {
         )
       ],
     );
+  }
 
-    // SafeArea(
-    //   child: Padding(
-    //     padding: EdgeInsets.only(top: 160.h),
-    //     child: Container(
-    //       height: 525.h,
-    //       width: 375.w,
-    //       decoration: BoxDecoration(
-    //           color: const Color.fromARGB(255, 246, 227, 227),
-    //           borderRadius: BorderRadius.only(
-    //               topRight: Radius.circular(35.w),
-    //               topLeft: Radius.circular(35.w))),
-    //       child: Scaffold(
-    //         backgroundColor: Colors.transparent,
-    //         body: Stack(children: [
-    //           Positioned(
-    //               top: 0,
-    //               child: Container(
-    //                 width: 375.w,
-    //                 height: 375.h,
-    //                 decoration: BoxDecoration(
-    //                     borderRadius: BorderRadius.only(
-    //                         topRight: Radius.circular(21.w),
-    //                         topLeft: Radius.circular(21.w)),
-    //                     image: DecorationImage(
-    //                         image: NetworkImage(image), fit: BoxFit.cover)),
-    //               )),
-    //           Positioned(
-    //               top: 10.h,
-    //               left: 5.w,
-    //               child: CircleAvatar(
-    //                 backgroundColor: Colors.white,
-    //                 child: IconButton(
-    //                   onPressed: () {
-    //                     Navigator.pop(context);
-    //                   },
-    //                   icon: Icon(
-    //                     Icons.close,
-    //                     color: Colors.black,
-    //                     size: 25.w,
-    //                   ),
-    //                 ),
-    //               )),
-    //           Positioned(
-    //               left: 10.w,
-    //               top: 380.h,
-    //               child: Column(
-    //                 children: [
-    //                   Row(
-    //                     children: [
-    //                       Text(
-    //                         "Mahsulot haqida ma'lumot:",
-    //                         style: TextStyle(
-    //                             color: Colors.black,
-    //                             fontWeight: FontWeight.bold,
-    //                             fontFamily: "Inter",
-    //                             fontSize: 18.sp),
-    //                       )
-    //                     ],
-    //                   )
-    //                 ],
-    //               )),
-    //           Positioned(
-    //               top: 405.h,
-    //               left: 5.w,
-    //               right: 5.w,
-    //               child: Text(
-    //                 "$information dwekdfbweh ekfdbewj jfwefbew eifweif we iewbfwe fiwewei fewi",
-    //                 style: TextStyle(
-    //                     color: Colors.black,
-    //                     fontFamily: "Inter",
-    //                     fontWeight: FontWeight.w400,
-    //                     fontSize: 14.sp),
-    //               )),
-    //           Positioned(
-    //               bottom: 10.h,
-    //               right: 10.w,
-    //               child: ElevatedButton(
-    //                 style: ElevatedButton.styleFrom(
-    //                     backgroundColor: const Color(0xFF8B0000)),
-    //                 onPressed: () =>
-    //                     FlutterPhoneDirectCaller.callNumber(number),
-    //                 child: Text(
-    //                   "Hoziroq bog'laning",
-    //                   style: TextStyle(
-    //                       color: Colors.white,
-    //                       fontWeight: FontWeight.w500,
-    //                       fontFamily: "Inter",
-    //                       fontSize: 14.sp),
-    //                 ),
-    //               ))
-    //         ]),
-    //       ),
-    //     ),
-    //   ),
-    // );
+  back_photo() {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(widget.image),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  prograss_indicator() {
+    return const Center(
+      child: CircularProgressIndicator(
+        backgroundColor: Colors.white,
+        color: Colors.red,
+      ),
+    );
   }
 }
