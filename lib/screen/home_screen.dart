@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/chat.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/chat/chat.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/history.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/home.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/profil.dart';

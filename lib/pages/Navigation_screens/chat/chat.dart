@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_final_fields, prefer_const_constructors_in_immutables
 
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/Widgets/chat_widgets.dart';
-import 'package:set_of_service_app/models/chat_model.dart';
+
+import 'package:set_of_service_app/pages/Navigation_screens/chat/models/chat_models.dart';
 
 class Chat extends StatefulWidget {
   Chat({super.key});
@@ -13,18 +15,44 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
-  List<Chat_model> textlist = [
-    Chat_model(
-        id: false, text: "Salom", time: DateTime(2023, 1, 5, 15, 56, 0, 0)),
-    Chat_model(id: true, text: "Qale", time: DateTime(2023, 1, 6, 9, 35, 0, 0)),
-    Chat_model(
-        id: true, text: "Yaxshimi", time: DateTime(2023, 1, 6, 9, 40, 0, 0)),
-    Chat_model(
-        id: false,
-        text:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop ",
-        time: DateTime(2023, 1, 7, 07, 00, 0, 0)),
-  ];
+  List<chat_models> models = [];
+  Future<void> fetchMessage() async {
+    try {
+      print("Loading started");
+      const uri = "http://185.196.213.43:7088/chat";
+      final url = Uri.parse(uri);
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final body = response.body;
+
+        final json = jsonDecode(body);
+        print(json);
+        final result = json["object"] as List<dynamic>;
+        final chates = result
+            .map(
+              (e) => chat_models(
+                  id: e["id"] as int,
+                  message: e["message"],
+                  username: e["username"],
+                  userId: e["userId"] as int,
+                  edited: e["edited"] as bool),
+            )
+            .toList();
+        setState(() {
+          models = chates;
+        });
+      } else {}
+    } catch (e) {
+      print("Error occurred => $e");
+    }
+  }
+
+  @override
+  void initState() {
+    fetchMessage();
+    super.initState();
+  }
+
   TextEditingController _controller = TextEditingController();
 
   @override
@@ -54,14 +82,14 @@ class _ChatState extends State<Chat> {
                 ),
               ),
             ),
-            Expanded(
-              child: SafeArea(
-                minimum: EdgeInsets.only(bottom: 60.h),
-                child: Container_design(
-                  textlist: textlist,
-                ),
-              ),
-            ),
+            // Expanded(
+            //   child: SafeArea(
+            //     minimum: EdgeInsets.only(bottom: 60.h),
+            //     child: Container_design(
+            //       textlist: models,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
         Positioned(
@@ -102,11 +130,6 @@ class _ChatState extends State<Chat> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      textlist.add(Chat_model(
-                          id: true,
-                          text: _controller.text,
-                          time: DateTime.now()));
-
                       _controller.clear();
                     });
                   },
