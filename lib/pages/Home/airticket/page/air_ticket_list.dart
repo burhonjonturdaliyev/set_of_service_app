@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/pages/Home/airticket/page/models/Api_models.dart';
-import 'package:set_of_service_app/pages/Home/airticket/page/models/air_ticket_model.dart';
 import 'package:set_of_service_app/pages/Home/airticket/page/widget/ticket_builder.dart';
 
 class Air_ticket_list extends StatefulWidget {
@@ -14,23 +13,6 @@ class Air_ticket_list extends StatefulWidget {
 }
 
 class _Air_ticket_listState extends State<Air_ticket_list> {
-  List<Ticket_list> ticket = [
-    Ticket_list(
-        turi: "Air ticket",
-        nomi: "Uzbek tickets",
-        manzil: " Tokyo , Edogawa ku , Kasai rinkoen 1-66",
-        number: "0611"),
-    Ticket_list(
-        turi: "Air ticket",
-        nomi: "Uzbek tickets",
-        manzil: " Tokyo , Edogawa ku , Kasai rinkoen 1-66",
-        number: "0611"),
-    Ticket_list(
-        turi: "Air ticket",
-        nomi: "Uzbek tickets",
-        manzil: " Tokyo , Edogawa ku , Kasai rinkoen 1-66",
-        number: "0611"),
-  ];
   List<Api_models> models = [];
   Future<void> fetchInfo() async {
     try {
@@ -94,7 +76,6 @@ class _Air_ticket_listState extends State<Air_ticket_list> {
       body: RefreshIndicator(
           onRefresh: fetchInfo,
           child: Ticket_builder(
-            ticket: ticket,
             models: models,
           )),
     );

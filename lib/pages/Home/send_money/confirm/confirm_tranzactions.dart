@@ -144,7 +144,7 @@ class Confirm_tranzactions extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 5,
+            height: 5.h,
           ),
           Row(
             children: [
@@ -163,10 +163,18 @@ class Confirm_tranzactions extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                     context,
                     PageTransition(
-                        child: Home_Page(), type: PageTransitionType.fade),
+                        child: const Home_Page(),
+                        type: PageTransitionType.fade),
                     (route) => false);
               },
-              child: Text("O'tkazma"))
+              child: Text(
+                "O'tkazma",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: "Inter",
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w700),
+              ))
         ],
       ),
     );
