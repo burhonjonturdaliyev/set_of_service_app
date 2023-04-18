@@ -51,7 +51,7 @@ class _Avia_biletState extends State<Avia_bilet> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("image/back_screen.png"),
-            fit: BoxFit.cover,
+            fit: BoxFit.fitHeight,
           ),
         ),
         child: SingleChildScrollView(
