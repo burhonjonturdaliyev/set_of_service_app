@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/chat/design/design_of_chat.dart';
 
 import 'package:set_of_service_app/pages/Navigation_screens/chat/models/chat_models.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/chat/models/user_send_models.dart';
 
 class Chat extends StatefulWidget {
   Chat({super.key});
@@ -16,7 +17,20 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
+  final _formkey = GlobalKey<FormState>();
+  final apiUrl = Uri.parse('http://185.196.213.43:7088/chat');
   List<chat_models> models = [];
+  List<user_send> send = [];
+
+  Future<void> putUserMessage(user_send send) async {
+    final response = await http.post(
+      apiUrl,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(send.toJson()),
+    );
+    print(response.body);
+  }
+
   Future<void> fetchMessage() async {
     try {
       print("Loading started");
@@ -105,21 +119,26 @@ class _ChatState extends State<Chat> {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(left: 12.w, bottom: 4.h),
-                  child: TextFormField(
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: "Inter",
-                        fontSize: 16.sp),
-                    controller: _controller,
-                    maxLines: 1,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        // labelText: 'Name',
-                        hintText: "Matn yozish ...",
-                        hintStyle: TextStyle(
-                            color: Colors.white60,
-                            fontSize: 16.sp,
-                            fontFamily: "Inter")),
+                  child: Form(
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {}
+                      },
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "Inter",
+                          fontSize: 16.sp),
+                      controller: _controller,
+                      maxLines: 1,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          // labelText: 'Name',
+                          hintText: "Matn yozish ...",
+                          hintStyle: TextStyle(
+                              color: Colors.white60,
+                              fontSize: 16.sp,
+                              fontFamily: "Inter")),
+                    ),
                   ),
                 ),
               ),
@@ -127,9 +146,16 @@ class _ChatState extends State<Chat> {
                 padding: EdgeInsets.only(right: 8.0.w),
                 child: GestureDetector(
                   onTap: () {
-                    setState(() {
-                      _controller.clear();
-                    });
+                    if (_formkey.currentState!.validate()) {
+                      setState(() {
+                        fetchMessage();
+                        putUserMessage(
+                            user_send(message: _controller.text, userId: 1));
+
+                        _controller.clear();
+                        fetchMessage();
+                      });
+                    }
                   },
                   child: Image.asset(
                     "image/telegram.png",

@@ -8,10 +8,16 @@ class Chat_design extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: chat_model.length,
-      itemBuilder: (context, index) => items_design(chat_model[index]),
-    );
+    return chat_model.isEmpty
+        ? const Center(
+            child: CircularProgressIndicator(
+              color: Color(0xFF8B0000),
+            ),
+          )
+        : ListView.builder(
+            itemCount: chat_model.length,
+            itemBuilder: (context, index) => items_design(chat_model[index]),
+          );
   }
 }
 
@@ -21,7 +27,6 @@ Widget items_design(chat_models chat) {
     child: Row(
       children: [
         Column(
-          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
@@ -40,8 +45,24 @@ Widget items_design(chat_models chat) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(5.w),
-                    child: Text(chat.message),
+                    padding: EdgeInsets.all(10.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: 2.h, left: 3.w, right: 3.w),
+                          child: Text(
+                            chat.username,
+                            style: TextStyle(
+                                color: Colors.black54,
+                                fontFamily: "Inter",
+                                fontSize: 12.sp),
+                          ),
+                        ),
+                        Text(chat.message),
+                      ],
+                    ),
                   ),
                 ],
               ),
