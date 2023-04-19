@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/chat/design/design_of_chat.dart';
 
 import 'package:set_of_service_app/pages/Navigation_screens/chat/models/chat_models.dart';
 
@@ -82,14 +83,11 @@ class _ChatState extends State<Chat> {
                 ),
               ),
             ),
-            // Expanded(
-            //   child: SafeArea(
-            //     minimum: EdgeInsets.only(bottom: 60.h),
-            //     child: Container_design(
-            //       textlist: models,
-            //     ),
-            //   ),
-            // ),
+            Expanded(
+              child: SafeArea(
+                  minimum: EdgeInsets.only(bottom: 60.h),
+                  child: Chat_design(chat_model: models)),
+            ),
           ],
         ),
         Positioned(
