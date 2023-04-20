@@ -28,7 +28,7 @@ class _Home_PageState extends State<Home_Page> {
     Icons.chat_bubble_outline,
     Icons.manage_accounts_outlined,
   ];
-  bool Lock_screen = false;
+  //bool Lock_screen = false;
   late PageController? _controller;
 
   final white = Colors.white;
@@ -98,8 +98,8 @@ class _Home_PageState extends State<Home_Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          Lock_screen ? const Color(0xFF8B0000) : const Color(0xffFDDADA),
+      // backgroundColor:
+      //  Lock_screen ? const Color(0xFF8B0000) : const Color(0xffFDDADA),
       appBar: AppBar(
         backgroundColor: appbarColor,
         title: Text(
@@ -139,50 +139,50 @@ class _Home_PageState extends State<Home_Page> {
           //     iconSize: 32.w),
         ],
       ),
-      bottomNavigationBar: Lock_screen
-          ? null
-          : Padding(
-              padding:
-                  EdgeInsets.only(left: 5.0.w, right: 5.0.w, bottom: 3.0.h),
-              child: Material(
-                elevation: 10,
-                borderRadius: BorderRadius.circular(20),
-                color: containerColor,
-                child: SizedBox(
-                  height: 60.h,
-                  width: double.infinity,
-                  child: ListView.builder(
-                    itemCount: data.length,
-                    padding: EdgeInsets.symmetric(horizontal: 10.w),
-                    itemBuilder: (ctx, i) => Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = i;
-                            _controller?.animateToPage(selectedIndex,
-                                duration: Duration(milliseconds: 300),
-                                curve: Curves.easeInOut);
-                          });
-                        },
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 300),
-                          width: 35.w,
-                          child: Icon(
-                            data[i],
-                            size: 35.w,
-                            color: i == selectedIndex
-                                ? Colors.white
-                                : circleavatarback,
-                          ),
-                        ),
-                      ),
+      bottomNavigationBar:
+          // Lock_screen
+          //     ? null
+          //     :
+          Padding(
+        padding: EdgeInsets.only(left: 5.0.w, right: 5.0.w, bottom: 3.0.h),
+        child: Material(
+          elevation: 10,
+          borderRadius: BorderRadius.circular(20),
+          color: containerColor,
+          child: SizedBox(
+            height: 60.h,
+            width: double.infinity,
+            child: ListView.builder(
+              itemCount: data.length,
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              itemBuilder: (ctx, i) => Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = i;
+                      _controller?.animateToPage(selectedIndex,
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeInOut);
+                    });
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    width: 35.w,
+                    child: Icon(
+                      data[i],
+                      size: 35.w,
+                      color:
+                          i == selectedIndex ? Colors.white : circleavatarback,
                     ),
-                    scrollDirection: Axis.horizontal,
                   ),
                 ),
               ),
+              scrollDirection: Axis.horizontal,
             ),
+          ),
+        ),
+      ),
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(

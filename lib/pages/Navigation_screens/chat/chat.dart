@@ -70,9 +70,9 @@ class _ChatState extends State<Chat> {
 
   @override
   void initState() {
-    super.initState();
     fetchMessage();
     checkListForUpdates();
+    super.initState();
   }
 
   TextEditingController _controller = TextEditingController();

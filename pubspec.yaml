@@ -54,6 +54,8 @@ dependencies:
   country_picker: ^2.0.19
   firebase_core: ^2.9.0
   firebase_auth: ^4.2.2
+  device_info: ^2.0.3
+  
 
 dev_dependencies:
   flutter_test:
