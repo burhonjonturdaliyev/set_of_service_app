@@ -48,7 +48,7 @@ class _ChatState extends State<Chat> {
         final body = response.body;
 
         final json = jsonDecode(body);
-        print(json);
+        //print(json);
         final result = json["object"] as List<dynamic>;
         final chates = result
             .map(
@@ -157,13 +157,13 @@ class _ChatState extends State<Chat> {
                   padding: EdgeInsets.only(right: 8.0.w),
                   child: GestureDetector(
                     onTap: () {
-                      checkListForUpdates();
+                      //  checkListForUpdates();
                       if (_formkey.currentState!.validate()) {
                         final value = _controller.text;
                         if (value.isNotEmpty) {
                           setState(() {
                             putUserMessage(
-                                user_send(message: value, userId: 1));
+                                user_send(message: value, userId: 2));
                             models.add(chat_models(
                                 edited: true,
                                 username: "Burkhonjon Turdialiev",
@@ -171,6 +171,7 @@ class _ChatState extends State<Chat> {
                                 userId: 2));
                             _controller.clear();
                           });
+                          fetchMessage();
                         }
                       }
                     },

@@ -33,6 +33,11 @@ class _Chat_designState extends State<Chat_design> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   void didUpdateWidget(covariant Chat_design oldWidget) {
     super.didUpdateWidget(oldWidget);
     _scrollToBottom();
@@ -42,7 +47,7 @@ class _Chat_designState extends State<Chat_design> {
     if (_controller.hasClients) {
       _controller.animateTo(
         _controller.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 1),
+        duration: const Duration(milliseconds: 50),
         curve: Curves.slowMiddle,
       );
     }
@@ -87,7 +92,17 @@ class _Chat_designState extends State<Chat_design> {
                           Colors.white,
                           Colors.red,
                         ]),
-                    borderRadius: BorderRadius.circular(33.w),
+                    borderRadius: chat.userId != id
+                        ? BorderRadius.only(
+                            topLeft: Radius.circular(33.w),
+                            topRight: Radius.circular(33.w),
+                            bottomRight: Radius.circular(33.w),
+                          )
+                        : BorderRadius.only(
+                            topLeft: Radius.circular(33.w),
+                            topRight: Radius.circular(33.w),
+                            bottomLeft: Radius.circular(33.w),
+                          ),
                     border: Border.all(width: 1, color: Colors.black26)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.red,
         ),
         home: Home_Page(),
-        //home: const Splash_screen(),
+        // home: const Splash_screen(),
       ),
       designSize: const Size(375, 812),
     );
