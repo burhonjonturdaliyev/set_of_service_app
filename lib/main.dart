@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: DeviceId(),
-        // home: Home_Page(),
+
+        home: Home_Page(),
         // home: const Splash_screen(),
       ),
       designSize: const Size(375, 812),

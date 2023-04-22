@@ -27,14 +27,9 @@ class _Chat_designState extends State<Chat_design> {
   }
 
   void checkListForUpdates() {
-    Timer.periodic(const Duration(microseconds: 250), (timer) {
+    Timer.periodic(const Duration(microseconds: 150), (timer) {
       _scrollToBottom();
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -47,7 +42,7 @@ class _Chat_designState extends State<Chat_design> {
     if (_controller.hasClients) {
       _controller.animateTo(
         _controller.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 50),
+        duration: const Duration(milliseconds: 150),
         curve: Curves.slowMiddle,
       );
     }

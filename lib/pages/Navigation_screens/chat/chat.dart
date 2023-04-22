@@ -33,7 +33,7 @@ class _ChatState extends State<Chat> {
   }
 
   void checkListForUpdates() {
-    Timer.periodic(const Duration(seconds: 10), (timer) {
+    Timer.periodic(const Duration(minutes: 3), (timer) {
       fetchMessage();
     });
   }
@@ -135,6 +135,7 @@ class _ChatState extends State<Chat> {
                         if (value!.isEmpty) {
                           return null;
                         }
+                        return null;
                       },
                       style: TextStyle(
                           color: Colors.white,
@@ -171,7 +172,6 @@ class _ChatState extends State<Chat> {
                                 userId: 2));
                             _controller.clear();
                           });
-                          fetchMessage();
                         }
                       }
                     },
