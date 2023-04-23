@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/Splash_screen/splash_screen.dart';
 import 'package:set_of_service_app/example/getting_deviceId.dart';
+import 'package:set_of_service_app/example/support_getting.dart';
 import 'package:set_of_service_app/screen/home_screen.dart';
 
 void main() {
@@ -20,8 +21,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-
-        home: Home_Page(),
+        home: SupportMessageGetting(),
+        // home: Home_Page(),
         // home: const Splash_screen(),
       ),
       designSize: const Size(375, 812),

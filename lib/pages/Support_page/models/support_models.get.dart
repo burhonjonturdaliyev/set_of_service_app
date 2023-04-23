@@ -1,19 +1,37 @@
 class support_get {
-  int id;
-  DateTime createdAt;
-  int userId;
+  int? id;
+  DateTime? createdAt;
+  DateTime? createdBy;
+  DateTime? updatedAt;
+  String? modifiedBy;
+  bool? deleted;
+  int? userId;
+  String? status;
   final Dialogs dialogs;
   support_get(
       {required this.id,
       required this.createdAt,
+      //required this.updatedAt,
+      //required this.deleted,
       required this.userId,
+      //required this.status,
       required this.dialogs});
 }
 
 class Dialogs {
-  int userId;
-  String accountType;
-  String message;
+  DateTime? createdAt;
+  int? userId;
+  String? fistName;
+  String? lastName;
+  String? accountType;
+  String? message;
+
   Dialogs(
-      {required this.userId, required this.message, required this.accountType});
+      {
+      //required this.createdAt,
+      required this.userId,
+      required this.fistName,
+      required this.lastName,
+      required this.accountType,
+      required this.message});
 }

@@ -34,9 +34,9 @@ class _Support_centerState extends State<Support_center> {
   }
 
   void fetchMessage() async {
-    final response = await SupportMessage.fetchMessage();
+    // final response = await SupportMessage.fetchMessage();
     setState(() {
-      support = response;
+      // support = response;
     });
   }
 
