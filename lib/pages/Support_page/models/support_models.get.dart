@@ -7,28 +7,27 @@ class support_get {
   bool? deleted;
   int? userId;
   String? status;
-  final Dialogs dialogs;
+  Dialogs? dialogs;
   support_get(
       {required this.id,
       required this.createdAt,
-      //required this.updatedAt,
-      //required this.deleted,
+      required this.updatedAt,
+      required this.deleted,
       required this.userId,
-      //required this.status,
+      required this.status,
       required this.dialogs});
 }
 
 class Dialogs {
   DateTime? createdAt;
-  int? userId;
+  String? userId;
   String? fistName;
   String? lastName;
   String? accountType;
   String? message;
 
   Dialogs(
-      {
-      //required this.createdAt,
+      {required this.createdAt,
       required this.userId,
       required this.fistName,
       required this.lastName,

@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: SupportMessageGetting(),
+        home: const SupportMessageGetting(),
         // home: Home_Page(),
         // home: const Splash_screen(),
       ),
