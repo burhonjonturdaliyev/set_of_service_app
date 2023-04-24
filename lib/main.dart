@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: const SupportMessageGetting(),
+        // home: const SupportMessageGetting(),
         // home: Home_Page(),
-        // home: const Splash_screen(),
+        home: const Splash_screen(),
       ),
       designSize: const Size(375, 812),
     );
