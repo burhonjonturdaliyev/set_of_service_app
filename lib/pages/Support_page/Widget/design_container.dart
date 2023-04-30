@@ -5,9 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/pages/Support_page/models/support_models.get.dart';
 
 class SupportDesign extends StatefulWidget {
-  SupportDesign({super.key, required this.models, required this.userId});
+  SupportDesign(
+      {super.key,
+      required this.models,
+      required this.userId,
+      required this.getMessage});
   int userId;
   List<Data> models;
+  Future<void> Function() getMessage;
 
   @override
   State<SupportDesign> createState() => _SupportDesignState();
@@ -51,11 +56,14 @@ class _SupportDesignState extends State<SupportDesign> {
           ? const Center(
               child: Text("Hozirda hech qanday suhbat mavjud emas!"),
             )
-          : ListView.builder(
-              controller: _controller,
-              itemCount: widget.models.length,
-              itemBuilder: (context, index) =>
-                  items_design(widget.models[index]),
+          : RefreshIndicator(
+              onRefresh: widget.getMessage,
+              child: ListView.builder(
+                controller: _controller,
+                itemCount: widget.models.length,
+                itemBuilder: (context, index) =>
+                    items_design(widget.models[index]),
+              ),
             ),
     );
   }

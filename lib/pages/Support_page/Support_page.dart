@@ -33,7 +33,7 @@ class _Support_centerState extends State<Support_center> {
     );
   }
 
-  void fetchMessage() async {
+  Future<void> fetchMessage() async {
     final Response = await Support_Api.fetchMessage(context, userId);
     setState(() {
       Response != null ? support = Response : null;
@@ -68,7 +68,6 @@ class _Support_centerState extends State<Support_center> {
         children: [
           Container(
             decoration: const BoxDecoration(
-              color: Color(0xffFDDADA),
               image: DecorationImage(
                   image: AssetImage("image/back_screen.png"),
                   fit: BoxFit.fitHeight,
@@ -79,7 +78,11 @@ class _Support_centerState extends State<Support_center> {
                 Expanded(
                   child: SafeArea(
                       minimum: EdgeInsets.only(bottom: 60.h),
-                      child: SupportDesign(models: support, userId: userId)),
+                      child: SupportDesign(
+                        models: support,
+                        userId: userId,
+                        getMessage: fetchMessage,
+                      )),
                 ),
               ],
             ),
