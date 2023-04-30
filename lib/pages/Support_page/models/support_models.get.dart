@@ -1,23 +1,8 @@
 class Data {
   Data({
-    required this.id,
-    required this.createdAt,
-    // this.createdBy,
-    required this.updatedAt,
-    // this.modifiedBy,
-    required this.deleted,
-    required this.userId,
-    required this.status,
     required this.dialogs,
   });
-  final int id;
-  final String createdAt;
-  // final Null createdBy;
-  final String updatedAt;
-  // final Null modifiedBy;
-  final bool deleted;
-  final int userId;
-  final String status;
+
   final Dialogs dialogs;
 }
 

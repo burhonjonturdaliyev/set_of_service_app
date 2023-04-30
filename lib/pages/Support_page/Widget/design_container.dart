@@ -49,9 +49,7 @@ class _SupportDesignState extends State<SupportDesign> {
       backgroundColor: Colors.transparent,
       body: widget.models.isEmpty
           ? const Center(
-              child: CircularProgressIndicator(
-                color: Color(0xFF8B0000),
-              ),
+              child: Text("Hozirda hech qanday suhbat mavjud emas!"),
             )
           : ListView.builder(
               controller: _controller,
@@ -83,7 +81,7 @@ class _SupportDesignState extends State<SupportDesign> {
                           Colors.white,
                           Colors.red,
                         ]),
-                    borderRadius: chat.userId != widget.userId
+                    borderRadius: chat.dialogs.accountType == "ADMIN"
                         ? BorderRadius.only(
                             topLeft: Radius.circular(33.w),
                             topRight: Radius.circular(33.w),

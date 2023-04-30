@@ -1,14 +1,18 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, duplicate_ignore, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/main.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/chat/chat.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/history.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/home.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/profil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services.dart';
 import 'package:set_of_service_app/pages/Support_page/Support_page.dart';
+import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home_Page extends StatefulWidget {
   const Home_Page({Key? key}) : super(key: key);
@@ -39,55 +43,26 @@ class _Home_PageState extends State<Home_Page> {
 
   final circleavatarback = const Color.fromARGB(208, 220, 163, 163);
 
+  String? number;
+  String? password;
+  late SharedPreferences logindata;
+  late bool new_user;
   @override
   void initState() {
     super.initState();
+    SharedPreferences.getInstance().then((SharedPreferences prefs) {
+      logindata = prefs;
+    });
+
     _controller = PageController();
   }
 
-  // _page_lock() {
-  //   Navigator.of(context)
-  //       .push(PageTransition(child: admin(), type: PageTransitionType.fade));
-  // }
-
-  // _lock() {
-  //   setState(() {
-  //     Lock_screen = true;
-  //   });
-  //   if (Lock_screen) {
-  //     Timer(Duration(seconds: 1), () {
-  //       setState(() {
-  //         Lock_screen = false;
-  //       });
-  //       _page_lock();
-  //     });
-  //   }
-  // }
-
-  // _info_message(String showMessage) {
-  //   final snackBar = SnackBar(
-  //       backgroundColor: appbarColor,
-  //       duration: Duration(seconds: 1),
-  //       //shape: OutlineInputBorder(borderRadius: BorderRadius.circular(21.w)),
-  //       padding: EdgeInsets.only(bottom: 10.h),
-  //       content: Center(
-  //         child: SizedBox(
-  //           width: 320,
-  //           child: Center(
-  //             child: Text(
-  //               showMessage,
-  //               style: TextStyle(
-  //                   fontFamily: "Inter",
-  //                   fontSize: 16.sp,
-  //                   fontWeight: FontWeight.bold,
-  //                   color: Colors.white,
-  //                   letterSpacing: 5.sp),
-  //             ),
-  //           ),
-  //         ),
-  //       ));
-  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  // }
+  void takingVariable() {
+    setState(() {
+      number = logindata.get("number").toString();
+      password = logindata.get("password").toString();
+    });
+  }
 
   @override
   void dispose() {
@@ -95,11 +70,35 @@ class _Home_PageState extends State<Home_Page> {
     super.dispose();
   }
 
+  exit() {
+    Navigator.pop(context);
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+          title: Text("Dasturdan chiqishni xoxlaysizmi?"),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+                  onPressed: () {
+                    SystemNavigator.pop();
+                  },
+                  child: Text("Ha")),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Yo'q")),
+            ],
+          )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor:
-      //  Lock_screen ? const Color(0xFF8B0000) : const Color(0xffFDDADA),
       appBar: AppBar(
         backgroundColor: appbarColor,
         title: Text(
@@ -139,6 +138,70 @@ class _Home_PageState extends State<Home_Page> {
           //     iconSize: 32.w),
         ],
       ),
+      drawer: Drawer(
+          backgroundColor: appbarColor,
+          width: MediaQuery.of(context).size.width * .65,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 160.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "set-\nof-\nservices".toUpperCase(),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            // fontFamily: "Inter",
+                            fontSize: 35.sp),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  decoration:
+                      BoxDecoration(color: Color.fromARGB(255, 251, 244, 244)),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text("Log out"),
+                        trailing: Icon(
+                          Icons.logout_outlined,
+                          color: Colors.black,
+                          size: 24.w,
+                        ),
+                        onTap: () {
+                          logindata.setBool("login", true);
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Sign_in(),
+                              ));
+                        },
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Exit"),
+                        trailing: Icon(
+                          Icons.exit_to_app_outlined,
+                          color: Colors.black,
+                          size: 24.w,
+                        ),
+                        onTap: exit,
+                      ),
+                      Divider(),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          )),
       bottomNavigationBar:
           // Lock_screen
           //     ? null

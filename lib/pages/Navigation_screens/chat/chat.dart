@@ -166,7 +166,7 @@ class _ChatState extends State<Chat> {
                             putUserMessage(
                                 user_send(message: value, userId: 2));
                             models.add(chat_models(
-                                edited: true,
+                                edited: false,
                                 username: "Burkhonjon Turdialiev",
                                 message: value,
                                 userId: 2));

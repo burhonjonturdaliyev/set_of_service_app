@@ -2,12 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/registr/Sign_in_screen.dart';
+import 'package:set_of_service_app/registr/registr/sign_up_registr.dart';
 
-class Reset_password extends StatelessWidget {
-  Reset_password({super.key});
+class Sign_up extends StatefulWidget {
+  Sign_up({super.key});
+
+  @override
+  State<Sign_up> createState() => _Sign_upState();
+}
+
+class _Sign_upState extends State<Sign_up> {
   final _formkey = GlobalKey<FormState>();
+
   TextEditingController number = TextEditingController();
+
+  TextEditingController password = TextEditingController();
+
+  // ignore: non_constant_identifier_names
+  TextEditingController cofic_password = TextEditingController();
+  bool visible = true;
+  bool checking = false;
+
+  void _visible() {
+    setState(() {
+      visible = !visible;
+    });
+  }
+
+  String? _passwordMatchValidator(String? value) {
+    if (value != password.text) {
+      return "Parollar mos emas!";
+    }
+    return null;
+  }
+
+  @override
+  void initState() {
+    _visible();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +59,7 @@ class Reset_password extends StatelessWidget {
         _big_container(),
         _samuray_photo(),
         _name_provider(),
-        _context(context)
+        _context()
       ]),
     );
   }
@@ -93,9 +127,9 @@ class Reset_password extends StatelessWidget {
     );
   }
 
-  Widget _context(BuildContext context) {
+  Widget _context() {
     return Positioned(
-      bottom: 180.h,
+      bottom: 0.h,
       right: 10.w,
       left: 10.w,
       child: Form(
@@ -104,18 +138,34 @@ class Reset_password extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 33.w),
           child: Column(children: [
             SizedBox(
-              height: 338.h,
+              height: 300.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Parolni tiklash",
+                  "Ro'yxatdan o'tish",
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontFamily: "Inter",
                       fontSize: 30.sp),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Birinchi bosqich",
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Inter",
+                      fontSize: 15.sp),
                 )
               ],
             ),
@@ -134,25 +184,22 @@ class Reset_password extends StatelessWidget {
                     if (value.length < 9) {
                       return "Iltimos oxirigacha kiriting";
                     }
-                    if (value != "906936594") {
-                      return "Bazada bunday raqam mavjud emas, iltimos ro'yxatdan o'ting";
-                    }
                   },
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(9)
                   ],
                   decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.phone_iphone_outlined,
+                        size: 25.w,
+                      ),
                       prefix: const Text(
                         "+998 ",
                         style: TextStyle(
                           color: Colors.black,
                           fontFamily: "Inter",
                         ),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.phone_iphone_outlined,
-                        size: 25.w,
                       ),
                       label: const Text("Telefon raqamni kiriting:"),
                       fillColor: Colors.black,
@@ -165,6 +212,95 @@ class Reset_password extends StatelessWidget {
             SizedBox(
               height: 29.h,
             ),
+            Row(
+              children: [
+                Expanded(
+                    child: TextFormField(
+                  controller: password,
+                  onChanged: (value) {
+                    value = password.text;
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Iltimos parolni kitiring";
+                    }
+                    if (value.length < 8) {
+                      return "Iltimos eng kamida 8 ta belgili parol kiriting";
+                    }
+                    return _passwordMatchValidator(value);
+                  },
+                  obscureText: visible,
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        size: 25.w,
+                      ),
+                      suffixIcon: IconButton(
+                          onPressed: _visible,
+                          icon: visible == false
+                              ? Icon(
+                                  Icons.visibility_outlined,
+                                  size: 25.w,
+                                )
+                              : Icon(
+                                  Icons.visibility_off_outlined,
+                                  size: 25.w,
+                                )),
+                      label: const Text("Parolni kiriting:"),
+                      fillColor: Colors.black,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(21.w))),
+                ))
+              ],
+            ),
+            SizedBox(
+              height: 29.h,
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: TextFormField(
+                  controller: cofic_password,
+                  onChanged: (value) {
+                    value = cofic_password.text;
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Iltimos parolni kitiring";
+                    }
+                    if (value.length < 8) {
+                      return "Iltimos eng kamida 8 ta belgili parol kiriting";
+                    }
+
+                    return _passwordMatchValidator(value);
+                  },
+                  obscureText: visible,
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        size: 25.w,
+                      ),
+                      suffixIcon: IconButton(
+                          onPressed: _visible,
+                          icon: visible == false
+                              ? Icon(
+                                  Icons.visibility_outlined,
+                                  size: 25.w,
+                                )
+                              : Icon(
+                                  Icons.visibility_off_outlined,
+                                  size: 25.w,
+                                )),
+                      label: const Text("Parolni tasdiqlang:"),
+                      fillColor: Colors.black,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(21.w))),
+                ))
+              ],
+            ),
+            SizedBox(
+              height: 30.h,
+            ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF8B0000),
@@ -175,81 +311,17 @@ class Reset_password extends StatelessWidget {
                 ),
                 onPressed: () {
                   if (_formkey.currentState!.validate()) {
-                    showDialog(
-                      context: context,
-                      builder: (context) => ClipRRect(
-                        borderRadius: BorderRadius.circular(21.w),
-                        child: AlertDialog(
-                          backgroundColor: const Color(0xFF8B0000),
-                          content: SizedBox(
-                            height: 218.h,
-                            width: 348.w,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 54.h,
-                                ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        "Parol telefon raqamingizga yuborildi",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: "Inter",
-                                            fontWeight: FontWeight.w900,
-                                            fontSize: 16.sp),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 65.h,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        PageTransition(
-                                            child: Sign_in(),
-                                            type: PageTransitionType.fade),
-                                        (route) => false);
-                                  },
-                                  child: Container(
-                                    width: 220.w,
-                                    height: 37.h,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(21.w),
-                                        border: Border.all(
-                                            width: 3,
-                                            color: const Color.fromARGB(
-                                                70, 241, 237, 237)),
-                                        color: const Color.fromARGB(
-                                            208, 252, 210, 210)),
-                                    child: Center(
-                                      child: Text(
-                                        "ok".toUpperCase(),
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w900,
-                                            fontSize: 25.sp,
-                                            fontFamily: "Inter"),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        PageTransition(
+                            child: Registr_sign(),
+                            type: PageTransitionType.bottomToTopPop,
+                            childCurrent: Sign_up()),
+                        (route) => true);
                   }
                 },
                 child: Text(
-                  "Parolni olish",
+                  "Ro’yxatdan uchun",
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: "Inter",
@@ -268,6 +340,9 @@ class Reset_password extends StatelessWidget {
                 TextButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      number.clear();
+                      password.clear();
+                      cofic_password.clear();
                     },
                     child: Text(
                       "BU YERNI BOSING",

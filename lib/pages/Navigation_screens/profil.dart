@@ -4,8 +4,18 @@ import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/Widgets/profile_widgets.dart';
 import 'package:set_of_service_app/pages/Profile_settings/Profile_settings.dart';
 
-class Profil extends StatelessWidget {
+class Profil extends StatefulWidget {
   const Profil({super.key});
+
+  @override
+  State<Profil> createState() => _ProfilState();
+}
+
+class _ProfilState extends State<Profil> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +172,7 @@ class Profil extends StatelessWidget {
                   ),
                 ),
               ),
-            ))
+            )),
       ],
     );
   }

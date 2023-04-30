@@ -1,76 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:http/http.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/registr/Reset_password_screen.dart';
-import 'package:set_of_service_app/registr/Sign_up_screen.dart';
-import 'package:set_of_service_app/screen/home_screen.dart';
+import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
 
-class Sign_in extends StatefulWidget {
-  Sign_in({super.key});
-
-  @override
-  State<Sign_in> createState() => _Sign_inState();
-}
-
-class _Sign_inState extends State<Sign_in> {
-  TextEditingController number = TextEditingController();
-
-  TextEditingController password = TextEditingController();
-
-  bool visible = true;
-
+class Reset_password extends StatelessWidget {
+  Reset_password({super.key});
   final _formkey = GlobalKey<FormState>();
-
-  void _visible() {
-    setState(() {
-      visible = !visible;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void sign_in(String number, password) async {
-    try {
-      Response response = await post(Uri.parse("https://reqres.in/api/login"),
-          body: {"email": number, "password": password});
-
-      if (response.statusCode == 200) {
-        print("Succesfully done");
-        // ignore: use_build_context_synchronously
-        Navigator.pushAndRemoveUntil(
-            context,
-            PageTransition(
-                child: const Home_Page(), type: PageTransitionType.fade),
-            (route) => false);
-      } else {
-        error_disp();
-        print("Maybe next time");
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
-
-  void error_disp() {
-    AlertDialog(
-      content: SizedBox(
-        height: 50.h,
-        width: 50.w,
-        child: const CircleAvatar(
-          backgroundColor: Colors.red,
-          child: Icon(
-            Icons.error_outline,
-            color: Colors.white,
-          ),
-        ),
-      ),
-    );
-  }
+  TextEditingController number = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +25,7 @@ class _Sign_inState extends State<Sign_in> {
         _big_container(),
         _samuray_photo(),
         _name_provider(),
-        _context()
+        _context(context)
       ]),
     );
   }
@@ -156,9 +93,9 @@ class _Sign_inState extends State<Sign_in> {
     );
   }
 
-  Widget _context() {
+  Widget _context(BuildContext context) {
     return Positioned(
-      bottom: 40.h,
+      bottom: 180.h,
       right: 10.w,
       left: 10.w,
       child: Form(
@@ -173,7 +110,7 @@ class _Sign_inState extends State<Sign_in> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Tizimga kirish",
+                  "Parolni tiklash",
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -197,25 +134,25 @@ class _Sign_inState extends State<Sign_in> {
                     if (value.length < 9) {
                       return "Iltimos oxirigacha kiriting";
                     }
-                    // if (value != "906936594") {
-                    //   return "Bazada bunday raqam mavjud emas!";
-                    // }
+                    if (value != "906936594") {
+                      return "Bazada bunday raqam mavjud emas, iltimos ro'yxatdan o'ting";
+                    }
                   },
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(90)
+                    LengthLimitingTextInputFormatter(9)
                   ],
                   decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.phone_iphone_outlined,
-                        size: 25.w,
-                      ),
                       prefix: const Text(
                         "+998 ",
                         style: TextStyle(
                           color: Colors.black,
                           fontFamily: "Inter",
                         ),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.phone_iphone_outlined,
+                        size: 25.w,
                       ),
                       label: const Text("Telefon raqamni kiriting:"),
                       fillColor: Colors.black,
@@ -228,70 +165,6 @@ class _Sign_inState extends State<Sign_in> {
             SizedBox(
               height: 29.h,
             ),
-            Row(
-              children: [
-                Expanded(
-                    child: TextFormField(
-                  controller: password,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Iltimos parolni kiriting!";
-                    }
-                    if (value.length < 8) {
-                      return "Parol mos kelmadi!";
-                    }
-                    // if (value != "01022003") {
-                    //   return "Parol yoki raqam xato!";
-                    // }
-                  },
-                  obscureText: visible,
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.lock,
-                        size: 25.w,
-                      ),
-                      suffixIcon: IconButton(
-                          onPressed: _visible,
-                          icon: visible == false
-                              ? Icon(
-                                  Icons.visibility_outlined,
-                                  size: 25.w,
-                                )
-                              : Icon(
-                                  Icons.visibility_off_outlined,
-                                  size: 25.w,
-                                )),
-                      label: const Text("Parolni kiriting:"),
-                      fillColor: Colors.black,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(21.w))),
-                ))
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(PageTransition(
-                          child: Reset_password(),
-                          type: PageTransitionType.fade));
-                      number.clear();
-                      password.clear();
-                    },
-                    child: Text(
-                      "Parolni unutdingizmi?",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.w900,
-                          fontSize: 8.sp),
-                    ))
-              ],
-            ),
-            SizedBox(
-              height: 30.h,
-            ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF8B0000),
@@ -300,27 +173,83 @@ class _Sign_inState extends State<Sign_in> {
                     borderRadius: BorderRadius.circular(21),
                   ),
                 ),
-                onLongPress: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      PageTransition(
-                          child: const Home_Page(),
-                          type: PageTransitionType.fade),
-                      (route) => false);
-                  number.clear();
-                  password.clear();
-                },
                 onPressed: () {
                   if (_formkey.currentState!.validate()) {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (context) => Home_Page(),
+                    showDialog(
+                      context: context,
+                      builder: (context) => ClipRRect(
+                        borderRadius: BorderRadius.circular(21.w),
+                        child: AlertDialog(
+                          backgroundColor: const Color(0xFF8B0000),
+                          content: SizedBox(
+                            height: 218.h,
+                            width: 348.w,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 54.h,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        "Parol telefon raqamingizga yuborildi",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: "Inter",
+                                            fontWeight: FontWeight.w900,
+                                            fontSize: 16.sp),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 65.h,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        PageTransition(
+                                            child: Sign_in(),
+                                            type: PageTransitionType.fade),
+                                        (route) => false);
+                                  },
+                                  child: Container(
+                                    width: 220.w,
+                                    height: 37.h,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(21.w),
+                                        border: Border.all(
+                                            width: 3,
+                                            color: const Color.fromARGB(
+                                                70, 241, 237, 237)),
+                                        color: const Color.fromARGB(
+                                            208, 252, 210, 210)),
+                                    child: Center(
+                                      child: Text(
+                                        "ok".toUpperCase(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w900,
+                                            fontSize: 25.sp,
+                                            fontFamily: "Inter"),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                        (route) => false);
+                      ),
+                    );
                   }
                 },
                 child: Text(
-                  "Kirish",
+                  "Parolni olish",
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: "Inter",
@@ -330,7 +259,7 @@ class _Sign_inState extends State<Sign_in> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Ro’yxatdan o’tish uchun",
+                Text("Tizimdan ro’yxatdan o`tgamisiz? unda",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: "Inter",
@@ -338,10 +267,7 @@ class _Sign_inState extends State<Sign_in> {
                         fontSize: 8.sp)),
                 TextButton(
                     onPressed: () {
-                      Navigator.of(context).push(PageTransition(
-                          child: Sign_up(), type: PageTransitionType.fade));
-                      number.clear();
-                      password.clear();
+                      Navigator.pop(context);
                     },
                     child: Text(
                       "BU YERNI BOSING",

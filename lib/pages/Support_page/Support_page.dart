@@ -11,8 +11,6 @@ import 'package:set_of_service_app/pages/Support_page/functions/get_message.dart
 import 'package:set_of_service_app/pages/Support_page/models/support_models.get.dart';
 import 'package:set_of_service_app/pages/Support_page/models/support_models_send.dart';
 
-import '../../Widgets/chat_widgets.dart';
-
 class Support_center extends StatefulWidget {
   const Support_center({super.key});
 
@@ -38,7 +36,7 @@ class _Support_centerState extends State<Support_center> {
   void fetchMessage() async {
     final Response = await Support_Api.fetchMessage(context, userId);
     setState(() {
-      support = Response!;
+      Response != null ? support = Response : null;
     });
   }
 
@@ -51,6 +49,7 @@ class _Support_centerState extends State<Support_center> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Color(0xffFDDADA),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: const Color(0xff8B0000),
@@ -65,99 +64,84 @@ class _Support_centerState extends State<Support_center> {
           ),
         ),
       ),
-      body: support.isEmpty
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                Text("Malumotlar yuklanmoqda!"),
-                Center(
-                  child: CircularProgressIndicator(
-                    color: Color(0xff8A0000),
-                  ),
-                ),
-              ],
-            )
-          : Stack(
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              color: Color(0xffFDDADA),
+              image: DecorationImage(
+                  image: AssetImage("image/back_screen.png"),
+                  fit: BoxFit.fitHeight,
+                  alignment: Alignment.bottomCenter),
+            ),
+            child: Column(
               children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Color(0xffFDDADA),
-                    image: DecorationImage(
-                        image: AssetImage("image/back_screen.png"),
-                        fit: BoxFit.fitHeight,
-                        alignment: Alignment.bottomCenter),
-                  ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: SafeArea(
-                            minimum: EdgeInsets.only(bottom: 60.h),
-                            child:
-                                SupportDesign(models: support, userId: userId)),
-                      ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  left: 7.w,
-                  bottom: 10.h,
-                  child: Container(
-                    width: 361.w,
-                    height: 50.h,
-                    decoration: BoxDecoration(
-                        color: const Color(0xff8A0000),
-                        border: Border.all(
-                            width: 1,
-                            color: const Color.fromARGB(105, 0, 0, 0)),
-                        borderRadius: BorderRadius.circular(24)),
-                    child: Row(children: [
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 12.w, bottom: 4.h),
-                          child: TextFormField(
-                            controller: _controller,
-                            maxLines: 1,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Inter",
-                                fontSize: 16.sp),
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                // labelText: 'Name',
-                                hintText: "Matn yozish ...",
-                                hintStyle: TextStyle(
-                                    color: Colors.white60,
-                                    fontSize: 16.sp,
-                                    fontFamily: "Inter")),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(right: 8.0.w),
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              textlist.add(Chat_model(
-                                  id: true,
-                                  text: _controller.text,
-                                  time: DateTime.now()));
-
-                              _controller.clear();
-                            });
-                          },
-                          child: Image.asset(
-                            "image/telegram.png",
-                            width: 24,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
-                    ]),
-                  ),
+                Expanded(
+                  child: SafeArea(
+                      minimum: EdgeInsets.only(bottom: 60.h),
+                      child: SupportDesign(models: support, userId: userId)),
                 ),
               ],
             ),
+          ),
+          Positioned(
+            left: 7.w,
+            bottom: 10.h,
+            child: Container(
+              width: 361.w,
+              height: 50.h,
+              decoration: BoxDecoration(
+                  color: const Color(0xff8A0000),
+                  border: Border.all(
+                      width: 1, color: const Color.fromARGB(105, 0, 0, 0)),
+                  borderRadius: BorderRadius.circular(24)),
+              child: Row(children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 12.w, bottom: 4.h),
+                    child: TextFormField(
+                      controller: _controller,
+                      maxLines: 1,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "Inter",
+                          fontSize: 16.sp),
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          // labelText: 'Name',
+                          hintText: "Matn yozish ...",
+                          hintStyle: TextStyle(
+                              color: Colors.white60,
+                              fontSize: 16.sp,
+                              fontFamily: "Inter")),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 8.0.w),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        textlist.add(Chat_model(
+                            id: true,
+                            text: _controller.text,
+                            time: DateTime.now()));
+
+                        _controller.clear();
+                      });
+                    },
+                    child: Image.asset(
+                      "image/telegram.png",
+                      width: 24,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ]),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

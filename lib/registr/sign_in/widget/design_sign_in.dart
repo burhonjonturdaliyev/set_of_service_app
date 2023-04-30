@@ -1,67 +1,78 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: non_constant_identifier_names, duplicate_ignore
+
+import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/registr/sign_up_registr/sign_up_registr.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Sign_up extends StatefulWidget {
-  Sign_up({super.key});
+import '../../../screen/home_screen.dart';
+import '../../reset/Reset_password_screen.dart';
+import '../../sign_up/Sign_up_screen.dart';
+
+// ignore: must_be_immutable
+class DesignSignIn extends StatefulWidget {
+  DesignSignIn(
+      {super.key,
+      required this.number,
+      required this.password,
+      required this.visible});
+  TextEditingController number;
+
+  TextEditingController password;
+
+  bool visible;
 
   @override
-  State<Sign_up> createState() => _Sign_upState();
+  State<DesignSignIn> createState() => _DesignSignInState();
 }
 
-class _Sign_upState extends State<Sign_up> {
+class _DesignSignInState extends State<DesignSignIn> {
+  late SharedPreferences logindata;
+  late bool new_user;
   final _formkey = GlobalKey<FormState>();
-
-  TextEditingController number = TextEditingController();
-
-  TextEditingController password = TextEditingController();
-
-  // ignore: non_constant_identifier_names
-  TextEditingController cofic_password = TextEditingController();
-  bool visible = true;
-  bool checking = false;
 
   void _visible() {
     setState(() {
-      visible = !visible;
+      widget.visible = !widget.visible;
     });
   }
 
-  String? _passwordMatchValidator(String? value) {
-    if (value != password.text) {
-      return "Parollar mos emas!";
+  void check_login() async {
+    logindata = await SharedPreferences.getInstance();
+    new_user = (logindata.getBool("login") ?? true);
+    print("new user");
+    if (new_user == false) {
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Home_Page(),
+          ));
     }
-    return null;
   }
 
   @override
   void initState() {
-    _visible();
-
     super.initState();
+    check_login();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.number.dispose();
+    widget.password.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.light,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-    );
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(children: [
-        _big_container(),
-        _samuray_photo(),
-        _name_provider(),
-        _context()
-      ]),
-    );
+    return Stack(children: [
+      _big_container(),
+      _samuray_photo(),
+      _name_provider(),
+      _context()
+    ]);
   }
 
   // ignore: non_constant_identifier_names
@@ -129,7 +140,7 @@ class _Sign_upState extends State<Sign_up> {
 
   Widget _context() {
     return Positioned(
-      bottom: 0.h,
+      bottom: 40.h,
       right: 10.w,
       left: 10.w,
       child: Form(
@@ -138,34 +149,18 @@ class _Sign_upState extends State<Sign_up> {
           padding: EdgeInsets.symmetric(horizontal: 33.w),
           child: Column(children: [
             SizedBox(
-              height: 300.h,
+              height: 338.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Ro'yxatdan o'tish",
+                  "Tizimga kirish",
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontFamily: "Inter",
                       fontSize: 30.sp),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Birinchi bosqich",
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Inter",
-                      fontSize: 15.sp),
                 )
               ],
             ),
@@ -176,7 +171,7 @@ class _Sign_upState extends State<Sign_up> {
               children: [
                 Expanded(
                     child: TextFormField(
-                  controller: number,
+                  controller: widget.number,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Telefon nomerni kiriting";
@@ -184,10 +179,13 @@ class _Sign_upState extends State<Sign_up> {
                     if (value.length < 9) {
                       return "Iltimos oxirigacha kiriting";
                     }
+                    // if (value != "906936594") {
+                    //   return "Bazada bunday raqam mavjud emas!";
+                    // }
                   },
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(9)
+                    LengthLimitingTextInputFormatter(11)
                   ],
                   decoration: InputDecoration(
                       prefixIcon: Icon(
@@ -216,20 +214,16 @@ class _Sign_upState extends State<Sign_up> {
               children: [
                 Expanded(
                     child: TextFormField(
-                  controller: password,
-                  onChanged: (value) {
-                    value = password.text;
-                  },
+                  controller: widget.password,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Iltimos parolni kitiring";
+                      return "Iltimos parolni kiriting!";
                     }
                     if (value.length < 8) {
-                      return "Iltimos eng kamida 8 ta belgili parol kiriting";
+                      return "Parol mos kelmadi!";
                     }
-                    return _passwordMatchValidator(value);
                   },
-                  obscureText: visible,
+                  obscureText: widget.visible,
                   decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.lock,
@@ -237,7 +231,7 @@ class _Sign_upState extends State<Sign_up> {
                       ),
                       suffixIcon: IconButton(
                           onPressed: _visible,
-                          icon: visible == false
+                          icon: widget.visible == false
                               ? Icon(
                                   Icons.visibility_outlined,
                                   size: 25.w,
@@ -253,49 +247,25 @@ class _Sign_upState extends State<Sign_up> {
                 ))
               ],
             ),
-            SizedBox(
-              height: 29.h,
-            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Expanded(
-                    child: TextFormField(
-                  controller: cofic_password,
-                  onChanged: (value) {
-                    value = cofic_password.text;
-                  },
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Iltimos parolni kitiring";
-                    }
-                    if (value.length < 8) {
-                      return "Iltimos eng kamida 8 ta belgili parol kiriting";
-                    }
-
-                    return _passwordMatchValidator(value);
-                  },
-                  obscureText: visible,
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.lock,
-                        size: 25.w,
-                      ),
-                      suffixIcon: IconButton(
-                          onPressed: _visible,
-                          icon: visible == false
-                              ? Icon(
-                                  Icons.visibility_outlined,
-                                  size: 25.w,
-                                )
-                              : Icon(
-                                  Icons.visibility_off_outlined,
-                                  size: 25.w,
-                                )),
-                      label: const Text("Parolni tasdiqlang:"),
-                      fillColor: Colors.black,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(21.w))),
-                ))
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(PageTransition(
+                          child: Reset_password(),
+                          type: PageTransitionType.fade));
+                      widget.number.clear();
+                      widget.password.clear();
+                    },
+                    child: Text(
+                      "Parolni unutdingizmi?",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w900,
+                          fontSize: 8.sp),
+                    ))
               ],
             ),
             SizedBox(
@@ -309,19 +279,34 @@ class _Sign_upState extends State<Sign_up> {
                     borderRadius: BorderRadius.circular(21),
                   ),
                 ),
+                onLongPress: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      PageTransition(
+                          child: const Home_Page(),
+                          type: PageTransitionType.fade),
+                      (route) => false);
+                  widget.number.clear();
+                  widget.number.clear();
+                },
                 onPressed: () {
                   if (_formkey.currentState!.validate()) {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        PageTransition(
-                            child: Registr_sign(),
-                            type: PageTransitionType.bottomToTopPop,
-                            childCurrent: Sign_up()),
-                        (route) => true);
+                    String number = widget.number.text;
+                    String password = widget.password.text;
+                    print("Succesfully");
+                    logindata.setBool("login", false);
+                    logindata.setString("number", number);
+                    logindata.setString("password", password);
+
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => const Home_Page(),
+                        ),
+                        (route) => false);
                   }
                 },
                 child: Text(
-                  "Ro’yxatdan uchun",
+                  "Kirish",
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: "Inter",
@@ -331,7 +316,7 @@ class _Sign_upState extends State<Sign_up> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Tizimdan ro’yxatdan o`tgamisiz? unda",
+                Text("Ro’yxatdan o’tish uchun",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: "Inter",
@@ -339,10 +324,10 @@ class _Sign_upState extends State<Sign_up> {
                         fontSize: 8.sp)),
                 TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
-                      number.clear();
-                      password.clear();
-                      cofic_password.clear();
+                      Navigator.of(context).push(PageTransition(
+                          child: Sign_up(), type: PageTransitionType.fade));
+                      widget.number.clear();
+                      widget.password.clear();
                     },
                     child: Text(
                       "BU YERNI BOSING",
