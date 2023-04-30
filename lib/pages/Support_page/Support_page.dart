@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/models/chat_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:set_of_service_app/pages/Support_page/Widget/design_container.dart';
 import 'package:set_of_service_app/pages/Support_page/functions/get_message.dart';
 import 'package:set_of_service_app/pages/Support_page/models/support_models.get.dart';
 import 'package:set_of_service_app/pages/Support_page/models/support_models_send.dart';
@@ -20,8 +21,9 @@ class Support_center extends StatefulWidget {
 }
 
 class _Support_centerState extends State<Support_center> {
+  int userId = 1;
   List<Chat_model> textlist = [];
-  List<support_get> support = [];
+  List<Data> support = [];
   final apiUrl = Uri.parse('http://185.196.213.43:7088/support-chats');
 
   final TextEditingController _controller = TextEditingController();
@@ -34,9 +36,9 @@ class _Support_centerState extends State<Support_center> {
   }
 
   void fetchMessage() async {
-    // final response = await SupportMessage.fetchMessage();
+    final Response = await Support_Api.fetchMessage(context, userId);
     setState(() {
-      // support = response;
+      support = Response!;
     });
   }
 
@@ -64,10 +66,17 @@ class _Support_centerState extends State<Support_center> {
         ),
       ),
       body: support.isEmpty
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: Color(0xff8A0000),
-              ),
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Text("Malumotlar yuklanmoqda!"),
+                Center(
+                  child: CircularProgressIndicator(
+                    color: Color(0xff8A0000),
+                  ),
+                ),
+              ],
             )
           : Stack(
               children: [
@@ -83,11 +92,9 @@ class _Support_centerState extends State<Support_center> {
                     children: [
                       Expanded(
                         child: SafeArea(
-                          minimum: EdgeInsets.only(bottom: 60.h),
-                          child: Container_design(
-                            textlist: textlist,
-                          ),
-                        ),
+                            minimum: EdgeInsets.only(bottom: 60.h),
+                            child:
+                                SupportDesign(models: support, userId: userId)),
                       ),
                     ],
                   ),

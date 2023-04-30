@@ -1,0 +1,85 @@
+// if (json is List<dynamic>) {
+          //   // The response is a list of JSON objects
+          //   final result = json;
+          //   if (result.isNotEmpty) {
+          //     final MessageList = result.map((e) {
+          //       final dialogs = e["dialogs"] != null
+          //           ? Dialogs(
+          //               createdAt: e["dialogs"]["createdAt"] != null
+          //                   ? DateTime.parse(e["dialogs"]["createdAt"])
+          //                   : null,
+          //               userId: e["dialogs"]["userId"],
+          //               fistName: e["dialogs"]["fistName"],
+          //               lastName: e["dialogs"]["lastName"],
+          //               accountType: e["dialogs"]["accountType"],
+          //               message: e["dialogs"]["message"])
+          //           : null;
+          //       return support_get(
+          //           id: e["id"],
+          //           createdAt: e["createdAt"] != null
+          //               ? DateTime.parse(e["createdAt"])
+          //               : null,
+          //           updatedAt: e["updatedAt"],
+          //           deleted: e["deleted"],
+          //           userId: e["userId"],
+          //           status: e["status"],
+          //           dialogs: dialogs);
+          //     }).toList();
+          //     setState(() {
+          //       models = MessageList;
+          //     });
+          //   }
+          // } else if (json is Map<String, dynamic>) {
+          //   // The response is a single JSON object
+          //   final result = [json];
+          //   final MessageList = result.map((e) {
+          //     final dialogs = e["dialogs"] != null
+          //         ? Dialogs(
+          //             createdAt: e["dialogs"]["createdAt"] != null
+          //                 ? DateTime.parse(e["dialogs"]["createdAt"])
+          //                 : null,
+          //             userId: e["dialogs"]["userId"],
+          //             fistName: e["dialogs"]["fistName"],
+          //             lastName: e["dialogs"]["lastName"],
+          //             accountType: e["dialogs"]["accountType"],
+          //             message: e["dialogs"]["message"])
+          //         : null;
+          //     return support_get(
+          //         id: e["id"],
+          //         createdAt: e["createdAt"] != null
+          //             ? DateTime.parse(e["createdAt"])
+          //             : null,
+          //         updatedAt: e["updatedAt"],
+          //         deleted: e["deleted"],
+          //         userId: e["userId"],
+          //         status: e["status"],
+          //         dialogs: dialogs);
+          //   }).toList();
+          //   setState(() {
+          //     models = MessageList;
+          //   });
+          // }
+
+
+
+          // second part of code
+
+          
+          // if (json[""]["object"] != null &&
+          //     json[""]["object"]["dialogs"] != null) {
+          //   final result = json[""]["object"]["dialogs"] as List<dynamic>;
+          //   final listes = result.map((e) {
+          //     return Dialogs(
+          //         createdAt: e["createdAt"],
+          //         userId: e["userId"],
+          //         fistName: e["fistName"],
+          //         lastName: e["lastName"],
+          //         accountType: e["accountType"],
+          //         message: e["message"]);
+          //   }).toList();
+          //   setState(() {
+          //     models = listes;
+          //   });
+          // } else {
+          //   throw Exception("Failed to fetch data");
+          // }

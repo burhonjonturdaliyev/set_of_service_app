@@ -16,15 +16,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: (context, child) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Set of service',
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
-        // home: const SupportMessageGetting(),
-        // home: Home_Page(),
-        home: const Splash_screen(),
-      ),
+          debugShowCheckedModeBanner: false,
+          title: 'Set of service',
+          theme: ThemeData(
+            primarySwatch: Colors.red,
+          ),
+          home: const Splash_screen()
+          //  const SupportMessageGetting(),
+          // home: Home_Page(),
+          //home: const Splash_screen(),
+          ),
       designSize: const Size(375, 812),
     );
   }

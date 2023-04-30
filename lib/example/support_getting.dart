@@ -15,22 +15,8 @@ class SupportMessageGetting extends StatefulWidget {
 class _SupportMessageGettingState extends State<SupportMessageGetting> {
   @override
   Widget build(BuildContext context) {
-    List<support_get> models = [
-      support_get(
-          id: 1,
-          createdAt: DateTime(0, 0, 0, 0, 0),
-          updatedAt: null,
-          deleted: null,
-          userId: 1,
-          status: "status",
-          dialogs: Dialogs(
-              accountType: null,
-              createdAt: null,
-              fistName: null,
-              lastName: null,
-              message: "wdwfewerf",
-              userId: "dw"))
-    ];
+    List<Dialogs?> models = [];
+
     Future<void> fetchMessage() async {
       const uri = "http://185.196.213.43:7088/support-chats/get-all-dialog/1";
       final url = Uri.parse(uri);
@@ -41,66 +27,22 @@ class _SupportMessageGettingState extends State<SupportMessageGetting> {
           final body = response.body;
           final json = jsonDecode(body);
           print(json);
-
-          if (json is List<dynamic>) {
-            // The response is a list of JSON objects
-            final result = json;
-            if (result.isNotEmpty) {
-              final MessageList = result.map((e) {
-                final dialogs = e["dialogs"] != null
-                    ? Dialogs(
-                        createdAt: e["dialogs"]["createdAt"] != null
-                            ? DateTime.parse(e["dialogs"]["createdAt"])
-                            : null,
-                        userId: e["dialogs"]["userId"],
-                        fistName: e["dialogs"]["fistName"],
-                        lastName: e["dialogs"]["lastName"],
-                        accountType: e["dialogs"]["accountType"],
-                        message: e["dialogs"]["message"])
-                    : null;
-                return support_get(
-                    id: e["id"],
-                    createdAt: e["createdAt"] != null
-                        ? DateTime.parse(e["createdAt"])
-                        : null,
-                    updatedAt: e["updatedAt"],
-                    deleted: e["deleted"],
-                    userId: e["userId"],
-                    status: e["status"],
-                    dialogs: dialogs);
-              }).toList();
-              setState(() {
-                models = MessageList;
-              });
-            }
-          } else if (json is Map<String, dynamic>) {
-            // The response is a single JSON object
-            final result = [json];
-            final MessageList = result.map((e) {
-              final dialogs = e["dialogs"] != null
-                  ? Dialogs(
-                      createdAt: e["dialogs"]["createdAt"] != null
-                          ? DateTime.parse(e["dialogs"]["createdAt"])
-                          : null,
-                      userId: e["dialogs"]["userId"],
-                      fistName: e["dialogs"]["fistName"],
-                      lastName: e["dialogs"]["lastName"],
-                      accountType: e["dialogs"]["accountType"],
-                      message: e["dialogs"]["message"])
-                  : null;
-              return support_get(
-                  id: e["id"],
-                  createdAt: e["createdAt"] != null
-                      ? DateTime.parse(e["createdAt"])
-                      : null,
-                  updatedAt: e["updatedAt"],
-                  deleted: e["deleted"],
+          final object = json["object"] as List<dynamic>;
+          //final result = json[""]["object"]["dialogs"] as List<dynamic>;
+          // Check the structure of the JSON response
+          final result = object[1]["dialogs"] as List<dynamic>;
+          if (result.isNotEmpty) {
+            final listes = result.map((e) {
+              return Dialogs(
+                  createdAt: e["createdAt"],
                   userId: e["userId"],
-                  status: e["status"],
-                  dialogs: dialogs);
+                  fistName: e["fistName"],
+                  lastName: e["lastName"],
+                  accountType: e["accountType"],
+                  message: e["message"]);
             }).toList();
             setState(() {
-              models = MessageList;
+              models = listes;
             });
           }
         } else {
@@ -124,7 +66,8 @@ class _SupportMessageGettingState extends State<SupportMessageGetting> {
   }
 }
 
-Widget items(support_get models) {
+Widget items(Dialogs? models) {
   return Padding(
-      padding: const EdgeInsets.all(8.0), child: Text(models.id.toString()));
+      padding: const EdgeInsets.all(8.0),
+      child: Text(models!.fistName.toString()));
 }
