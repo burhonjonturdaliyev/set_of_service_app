@@ -22,3 +22,8 @@ class Dialogs {
   final String accountType;
   final String message;
 }
+
+class Id {
+  int? id;
+  Id({this.id});
+}

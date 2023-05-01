@@ -1,22 +1,44 @@
-class Support_models_send {
-  int id;
-  int userId;
-  final Dialogs dialogs;
-  Support_models_send(
-      {required this.id, required this.userId, required this.dialogs});
+class PostSupport {
+  Dialogsa? dialogsa;
+  int? id;
+  int? userId;
+
+  PostSupport({this.dialogsa, this.id, this.userId});
+
+  PostSupport.fromJson(Map<String, dynamic> json) {
+    dialogsa =
+        json['dialogs'] != null ? Dialogsa.fromJson(json['dialogs']) : null;
+    id = json['id'];
+    userId = json['userId'];
+  }
+
   Map<String, dynamic> toJson() {
-    return {"id": id, "userId": userId, "dialogs": dialogs};
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (dialogsa != null) {
+      data['dialogs'] = dialogsa!.toJson();
+    }
+    data['id'] = id;
+    data['userId'] = userId;
+    return data;
   }
 }
 
-class Dialogs {
-  int userId;
-  String message;
-  Dialogs({required this.userId, required this.message});
+class Dialogsa {
+  String? message;
+  int? userId;
+
+  Dialogsa({this.message, this.userId});
+
+  Dialogsa.fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+    userId = json['userId'];
+  }
+
   Map<String, dynamic> toJson() {
-    return {
-      "message": message,
-      "userId": userId,
-    };
+    final Map<String, dynamic> data = <String, dynamic>{};
+
+    data['message'] = message;
+    data['userId'] = userId;
+    return data;
   }
 }

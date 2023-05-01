@@ -47,4 +47,32 @@ class Support_Api {
       Text("Error is here => $e");
     }
   }
+
+  static Future<List<Id>?> fetchId(BuildContext context, int userId) async {
+    final url =
+        "http://185.196.213.43:7088/api/support-chats/get-all-dialog/$userId";
+
+    final uri = Uri.parse(url);
+    try {
+      print("Loading is to get Question ticket Id");
+      http.Response response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final body = response.body;
+        final json = jsonDecode(body);
+        print(json["object"][1][0]);
+        final result = json["object"][1] as List<dynamic>;
+        final userID = result.map((e) {
+          return Id(id: e["id"]);
+        }).toList();
+        print("We are did it!");
+        return userID;
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Error: $e"),
+      ));
+
+      Text("Error is here => $e");
+    }
+  }
 }
