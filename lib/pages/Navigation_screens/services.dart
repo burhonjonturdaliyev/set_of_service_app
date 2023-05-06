@@ -15,6 +15,7 @@ import 'package:set_of_service_app/pages/Home/pochta/pochta_xizmati.dart';
 
 import 'package:set_of_service_app/pages/Home/house/house.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/currency/valyuta_kurs.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/GlobalNews.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/yangiliklar.dart';
 
 // ignore: camel_case_types
@@ -31,7 +32,9 @@ class List_of_services extends StatelessWidget {
         info: "Viza masalalarida yordam xizmati", page: Viza_xizmati()),
     Services_model(info: "Ish topib berish xizmati", page: Ish_topish()),
     Services_model(info: "Uy-joy topib berish xizmatlari", page: Uy_joy_top()),
-    Services_model(info: "Eng oxirgi yangiliklar", page: Yangiliklar()),
+    Services_model(info: "Eng oxirgi yangiliklar", page: GlobalNews()
+        //Yangiliklar()
+        ),
     Services_model(info: "Valyuta kursi", page: const Valyuta_kursi()),
   ];
   final white = Colors.white;

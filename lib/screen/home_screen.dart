@@ -143,24 +143,26 @@ class _Home_PageState extends State<Home_Page> {
           width: MediaQuery.of(context).size.width * .65,
           child: Column(
             children: [
-              SizedBox(
-                height: 160.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "set-\nof-\nservices".toUpperCase(),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            // fontFamily: "Inter",
-                            fontSize: 35.sp),
+              SafeArea(
+                child: SizedBox(
+                  height: 160.h,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "set-\nof-\nservices".toUpperCase(),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              // fontFamily: "Inter",
+                              fontSize: 35.sp),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               Expanded(

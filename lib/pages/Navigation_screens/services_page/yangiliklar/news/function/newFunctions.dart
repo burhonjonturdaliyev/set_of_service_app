@@ -1,0 +1,41 @@
+import 'package:http/http.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/models/newsModels.dart';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+class newFunctions {
+  Future<List<infoNew>?> getInfoNew(BuildContext context, String turi) async {
+    final url =
+        "http://185.196.213.43:7088/api/county/global/info/category/${turi.toUpperCase()}";
+    final uri = Uri.parse(url);
+    try {
+      print("Info loading is started");
+      Response response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final body = response.body;
+        final json = jsonDecode(body);
+        print(json["object"]);
+        final result = json['object'] as List<dynamic>;
+        final infoNews = result.map((e) {
+          return infoNew(
+              id: e["id"],
+              createdAt: e["createdAt"],
+              title: e["title"],
+              description: e["description"],
+              countryInfoType: e["countryInfoType"],
+              photo: e["photo"]);
+        }).toList();
+        print("Loading is finished");
+        return infoNews;
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Error: $e"),
+      ));
+
+      Text("Error is here => $e");
+    }
+  }
+}

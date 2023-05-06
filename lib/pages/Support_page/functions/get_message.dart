@@ -19,7 +19,7 @@ class Support_Api {
         final json = jsonDecode(body);
         print(json["object"]);
 
-        final result = json["object"][1][0]["dialogs"] as List<dynamic>;
+        final result = json["object"]["active"][0]["dialogs"] as List<dynamic>;
 
         final message = result.map(
           (e) {
@@ -59,7 +59,7 @@ class Support_Api {
       if (response.statusCode == 200) {
         final body = response.body;
         final json = jsonDecode(body);
-        print(json["object"][1][0]);
+        print(json["object"]["active"][0]);
         final result = json["object"][1] as List<dynamic>;
         final userID = result.map((e) {
           return Id(id: e["id"]);

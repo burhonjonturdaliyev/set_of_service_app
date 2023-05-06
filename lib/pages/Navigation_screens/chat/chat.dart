@@ -41,7 +41,7 @@ class _ChatState extends State<Chat> {
   Future<void> fetchMessage() async {
     try {
       print("Loading started");
-      const uri = "http://185.196.213.43:7088/chat";
+      const uri = "http://185.196.213.43:7088/api/chat";
       final url = Uri.parse(uri);
       final response = await http.get(url);
       if (response.statusCode == 200) {

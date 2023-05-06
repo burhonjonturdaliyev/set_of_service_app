@@ -18,17 +18,18 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.red,
           ),
+          // home: GlobalNews()),
           home: const Splash_screen()),
       designSize: const Size(375, 812),
     );
   }
 }
 // sos balance press notification -- process
-// auth page
+// auth page 50% done
 // scroll photos
 // add all extra infor
 // auto match which count
 // profil setting which server use
 // identi passport, drive lin, id card selectable, taking photo with whole body with doc
 // second upload quality doc
-// ordering information trend, top, normal, official, others
+// ordering information trend, top, normal, official, others - starting
