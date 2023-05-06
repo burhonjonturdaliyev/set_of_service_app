@@ -165,7 +165,10 @@ class _Support_centerState extends State<Support_center> {
                     padding: EdgeInsets.only(right: 8.0.w),
                     child: GestureDetector(
                       onTap: () {
-                        if (_formKey.currentState!.validate()) {}
+                        if (_formKey.currentState!.validate()) {
+                          cheking();
+                          _controller.clear();
+                        }
                       },
                       child: Image.asset(
                         "image/telegram.png",

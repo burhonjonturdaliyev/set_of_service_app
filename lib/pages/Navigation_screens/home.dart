@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/notification/push_notifications.dart';
 import 'package:set_of_service_app/pages/Home/airticket/avia_bilet.dart';
 import 'package:set_of_service_app/pages/Home/house/house.dart';
 import 'package:set_of_service_app/pages/Home/job/job.dart';
@@ -36,6 +37,15 @@ class _HomeState extends State<Home> {
     setState(() {
       visible = !visible;
     });
+  }
+
+  // late final LocalNotificationService service;
+
+  @override
+  void initState() {
+    // service = LocalNotificationService();
+    // service.initialize();
+    super.initState();
   }
 
   @override
@@ -105,7 +115,13 @@ class _HomeState extends State<Home> {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        // await service.showNotifications(
+                        //     id: 0,
+                        //     title: "Ushbu funksiya mavjud emas!",
+                        //     body:
+                        //         "Hozirda ushbu funksiya ustida ish olib borilmoqda, kelgusi yangilanishlarda bundan foydalanishingiz mumkin");
+                      },
                       icon: Icon(
                         Icons.add_circle_outline_rounded,
                         color: white,
