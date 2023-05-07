@@ -63,6 +63,13 @@ Widget itemshow(infoNew info) {
     child: Container(
       decoration: const BoxDecoration(color: Colors.white70),
       child: Column(children: [
+        Container(
+          height: 120.h,
+          decoration: const BoxDecoration(color: Colors.black),
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
         Text(info.title),
         Text(info.description),
       ]),

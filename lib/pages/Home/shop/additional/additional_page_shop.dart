@@ -218,6 +218,10 @@ class _Additional_page_shopState extends State<Additional_page_shop> {
         image: DecorationImage(
           image: NetworkImage(widget.image),
           fit: BoxFit.cover,
+          onError: (exception, stackTrace) => Image.asset(
+            "image/back_screen.png",
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );
