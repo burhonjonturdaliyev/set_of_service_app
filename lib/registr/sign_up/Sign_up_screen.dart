@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/registr/auth/auth_number.dart';
 import 'package:set_of_service_app/registr/registr/sign_up_registr.dart';
 
 class Sign_up extends StatefulWidget {
@@ -314,7 +315,7 @@ class _Sign_upState extends State<Sign_up> {
                     Navigator.pushAndRemoveUntil(
                         context,
                         PageTransition(
-                            child: Registr_sign(),
+                            child: AuthNumberCode(number: number.text),
                             type: PageTransitionType.bottomToTopPop,
                             childCurrent: Sign_up()),
                         (route) => true);

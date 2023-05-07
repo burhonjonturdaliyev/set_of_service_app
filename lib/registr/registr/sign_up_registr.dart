@@ -1,4 +1,4 @@
-import 'dart:io';
+// ignore_for_file: camel_case_types
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/screen/home_screen.dart';
 
 class Registr_sign extends StatefulWidget {
-  Registr_sign({super.key});
+  const Registr_sign({super.key});
 
   @override
   State<Registr_sign> createState() => _Registr_signState();

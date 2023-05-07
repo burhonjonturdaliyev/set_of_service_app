@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:set_of_service_app/models/send_money_naqt_model.dart';
 
 import '../../../../models/colour_model.dart';
@@ -41,12 +42,11 @@ Widget Container_builder_naqt(
             end: Alignment.bottomRight,
             colors: [colourModels.rang1, colourModels.rang2]),
       ),
-      child: Padding(
-        padding:
-            EdgeInsets.only(top: 15.0.h, bottom: 25.h, left: 15.w, right: 15.w),
-        child: Column(
-          children: [
-            Row(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 15.w, top: 10.h),
+            child: Row(
               children: [
                 Text(
                   "Pul yuborish",
@@ -58,7 +58,10 @@ Widget Container_builder_naqt(
                 )
               ],
             ),
-            Row(
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
@@ -85,10 +88,13 @@ Widget Container_builder_naqt(
                     ))
               ],
             ),
-            SizedBox(
-              height: 20.h,
-            ),
-            Row(
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
@@ -131,9 +137,75 @@ Widget Container_builder_naqt(
                       color: Colors.black,
                     ))
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+          const Divider(
+            thickness: 1,
+            color: Colors.black,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 20.w, right: 7.w, bottom: 5.h),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.calendar_month_outlined,
+                  size: 8.w,
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  width: 3.w,
+                ),
+                Text(
+                  DateFormat("dd.MM.yyyy").format(DateTime.now()),
+                  style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 8.sp,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400),
+                ),
+                SizedBox(
+                  width: 16.w,
+                ),
+                Icon(
+                  Icons.visibility,
+                  size: 12.w,
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  width: 3.w,
+                ),
+                Text(
+                  "1234",
+                  style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 8.sp,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400),
+                ),
+                SizedBox(
+                  width: 16.w,
+                ),
+                Icon(
+                  Icons.star_rate_rounded,
+                  size: 12.w,
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  width: 3.w,
+                ),
+                Text(
+                  "4.5",
+                  style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 8.sp,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     ),
   );
