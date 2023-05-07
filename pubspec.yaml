@@ -107,9 +107,9 @@ flutter:
     - image/icons/accaount.png
     - image/icons/call.png
     - image/icons/location.png
-    - image/icons/auth_number.png
     - image/app/app_icon.png
-    - animations/
+    - animations/error.json
+    - animations/sms_animation.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

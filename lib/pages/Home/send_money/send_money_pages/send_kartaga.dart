@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:set_of_service_app/pages/Home/send_money/confirm/confirm_tranzactions.dart';
 
 class Kartaga extends StatefulWidget {
@@ -27,37 +28,24 @@ class _KartagaState extends State<Kartaga> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Padding(
-        padding: EdgeInsets.only(top: 57.0.h, left: 28.w),
-        child: Row(
-          children: [
-            Text(
-              "Xizmat\nvaqtincha\nishlamaydi ⚠",
-              style: TextStyle(
-                  letterSpacing: 5.w,
-                  color: Colors.black,
-                  fontFamily: "Inter",
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.sp),
-            ),
-          ],
-        ),
-      ),
-      SizedBox(
-        height: 30.h,
-      ),
-      Row(
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image(
-            image: const AssetImage(
-              "image/error_tranzaction.png",
-            ),
-            width: 354.w,
-          )
-        ],
-      )
-    ]);
+          Text(
+            "Texnik ko'rik olib borilmoqda",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Inter",
+                fontSize: 25.sp),
+          ),
+          SizedBox(
+            height: 25.h,
+          ),
+          Lottie.asset("animations/error.json")
+        ]);
 
     // return SingleChildScrollView(
     //   child: Column(
@@ -383,53 +371,53 @@ class _KartagaState extends State<Kartaga> {
     // );
   }
 }
- // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  // children: [
-                  //   IconButton(
-                  //       onPressed: visib_check,
-                  //       icon: Icon(
-                  //         visible == true
-                  //             ? Icons.visibility_outlined
-                  //             : Icons.visibility_off_outlined,
-                  //         color: Colors.white,
-                  //         size: 35.w,
-                  //       )),
-                  //   SizedBox(
-                  //     width: 12.w,
-                  //   ),
-                  //   Column(
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       Text(
-                  //         "SOS hisobingiz",
-                  //         style: TextStyle(
-                  //           fontFamily: "Inter",
-                  //           color: Colors.white,
-                  //           fontSize: 16.sp,
-                  //           fontWeight: FontWeight.w700,
-                  //         ),
-                  //       ),
-                  //       Text(
-                  //         visible ? "$money yena" : "**** yena",
-                  //         style: TextStyle(
-                  //           fontFamily: "Inter",
-                  //           color: Colors.white,
-                  //           fontSize: 16.sp,
-                  //           fontWeight: FontWeight.w700,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  //   Row(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       IconButton(
-                  //           onPressed: () {},
-                  //           icon: Icon(
-                  //             Icons.add_circle_outline_outlined,
-                  //             size: 45.w,
-                  //           )),
-                  //     ],
-                  //   )
-                  // ]
+// mainAxisAlignment: MainAxisAlignment.spaceBetween,
+// children: [
+//   IconButton(
+//       onPressed: visib_check,
+//       icon: Icon(
+//         visible == true
+//             ? Icons.visibility_outlined
+//             : Icons.visibility_off_outlined,
+//         color: Colors.white,
+//         size: 35.w,
+//       )),
+//   SizedBox(
+//     width: 12.w,
+//   ),
+//   Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     mainAxisAlignment: MainAxisAlignment.center,
+//     children: [
+//       Text(
+//         "SOS hisobingiz",
+//         style: TextStyle(
+//           fontFamily: "Inter",
+//           color: Colors.white,
+//           fontSize: 16.sp,
+//           fontWeight: FontWeight.w700,
+//         ),
+//       ),
+//       Text(
+//         visible ? "$money yena" : "**** yena",
+//         style: TextStyle(
+//           fontFamily: "Inter",
+//           color: Colors.white,
+//           fontSize: 16.sp,
+//           fontWeight: FontWeight.w700,
+//         ),
+//       ),
+//     ],
+//   ),
+//   Row(
+//     mainAxisAlignment: MainAxisAlignment.center,
+//     children: [
+//       IconButton(
+//           onPressed: () {},
+//           icon: Icon(
+//             Icons.add_circle_outline_outlined,
+//             size: 45.w,
+//           )),
+//     ],
+//   )
+// ]

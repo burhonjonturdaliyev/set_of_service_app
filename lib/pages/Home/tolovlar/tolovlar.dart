@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 // ignore: camel_case_types
 class Pul_Tolovlar extends StatelessWidget {
@@ -28,37 +29,24 @@ class Pul_Tolovlar extends StatelessWidget {
               image: DecorationImage(
                   image: AssetImage("image/back_screen.png"),
                   fit: BoxFit.cover)),
-          child: Column(children: [
-            Padding(
-              padding: EdgeInsets.only(top: 57.0.h, left: 28.w),
-              child: Row(
-                children: [
-                  Text(
-                    "Xizmat\nvaqtincha\nishlamaydi ⚠",
-                    style: TextStyle(
-                        letterSpacing: 5.w,
-                        color: Colors.black,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.sp),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 30.h,
-            ),
-            Row(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image(
-                  image: const AssetImage(
-                    "image/error_tranzaction.png",
-                  ),
-                  width: 354.w,
-                )
-              ],
-            )
-          ])),
+                Text(
+                  "Texnik ko'rik olib borilmoqda",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Inter",
+                      fontSize: 25.sp),
+                ),
+                SizedBox(
+                  height: 25.h,
+                ),
+                Lottie.asset("animations/error.json")
+              ])),
     );
   }
 }

@@ -24,11 +24,11 @@ class MyApp extends StatelessWidget {
   }
 }
 // sos balance press notification -- process
-// auth page 50% done
-// scroll photos - done
+// auth page ✔️ done
+// scroll photos - ✔️done
 // add all extra infor
 // auto match which count
 // profil setting which server use
 // identi passport, drive lin, id card selectable, taking photo with whole body with doc
 // second upload quality doc
-// ordering information trend, top, normal, official, others - done
+// ordering information trend, top, normal, official, others - ✔️done
