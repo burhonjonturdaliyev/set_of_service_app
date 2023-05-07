@@ -209,7 +209,9 @@ Widget new_design(BuildContext context, Api_models api) {
       width: 353.w,
       height: 200.h,
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(33.w)),
+          border: Border.all(width: 1.w, color: Colors.black26),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(33.w)),
       child: Stack(children: [
         Positioned(
             top: 0,

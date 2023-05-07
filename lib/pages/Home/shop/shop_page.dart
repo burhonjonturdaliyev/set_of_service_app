@@ -31,7 +31,7 @@ class _ShopState extends State<Shop> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: const Color(0xFF8B0000),
+        //backgroundColor: const Color(0xFF8B0000),
         appBar: AppBar(
             // bottom: TabBar(indicatorColor: Colors.white, tabs: [
             //   Tab(
@@ -71,7 +71,7 @@ class _ShopState extends State<Shop> {
             )),
         body: Container(
           decoration: const BoxDecoration(
-            color: Color(0xffFDDADA),
+            //color: Color(0xffFDDADA),
             image: DecorationImage(
                 image: AssetImage("image/back_screen.png"), fit: BoxFit.cover),
           ),

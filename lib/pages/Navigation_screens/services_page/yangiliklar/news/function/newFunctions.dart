@@ -5,18 +5,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+// ignore: camel_case_types
 class newFunctions {
   Future<List<infoNew>?> getInfoNew(BuildContext context, String turi) async {
     final url =
         "http://185.196.213.43:7088/api/county/global/info/category/${turi.toUpperCase()}";
     final uri = Uri.parse(url);
     try {
-      print("Info loading is started");
       Response response = await http.get(uri);
       if (response.statusCode == 200) {
         final body = response.body;
         final json = jsonDecode(body);
-        print(json["object"]);
+
         final result = json['object'] as List<dynamic>;
         final infoNews = result.map((e) {
           return infoNew(
@@ -27,7 +27,7 @@ class newFunctions {
               countryInfoType: e["countryInfoType"],
               photo: e["photo"]);
         }).toList();
-        print("Loading is finished");
+
         return infoNews;
       }
     } catch (e) {
@@ -37,5 +37,6 @@ class newFunctions {
 
       Text("Error is here => $e");
     }
+    return null;
   }
 }

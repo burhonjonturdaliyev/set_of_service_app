@@ -58,7 +58,6 @@ class Ish_topish extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFDDADA),
       appBar: AppBar(
         title: Text(
           "Job",

@@ -27,43 +27,37 @@ class _KartagaState extends State<Kartaga> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("image/back_screen.png"), fit: BoxFit.cover)),
-        child: Column(children: [
-          Padding(
-            padding: EdgeInsets.only(top: 57.0.h, left: 28.w),
-            child: Row(
-              children: [
-                Text(
-                  "Xizmat\nvaqtincha\nishlamaydi ⚠",
-                  style: TextStyle(
-                      letterSpacing: 5.w,
-                      color: Colors.black,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp),
-                ),
-              ],
+    return Column(children: [
+      Padding(
+        padding: EdgeInsets.only(top: 57.0.h, left: 28.w),
+        child: Row(
+          children: [
+            Text(
+              "Xizmat\nvaqtincha\nishlamaydi ⚠",
+              style: TextStyle(
+                  letterSpacing: 5.w,
+                  color: Colors.black,
+                  fontFamily: "Inter",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.sp),
             ),
-          ),
-          SizedBox(
-            height: 30.h,
-          ),
-          Row(
-            children: [
-              Image(
-                image: const AssetImage(
-                  "image/error_tranzaction.png",
-                ),
-                width: 354.w,
-              )
-            ],
+          ],
+        ),
+      ),
+      SizedBox(
+        height: 30.h,
+      ),
+      Row(
+        children: [
+          Image(
+            image: const AssetImage(
+              "image/error_tranzaction.png",
+            ),
+            width: 354.w,
           )
-        ]));
+        ],
+      )
+    ]);
 
     // return SingleChildScrollView(
     //   child: Column(

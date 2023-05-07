@@ -26,7 +26,6 @@ class _PaynetState extends State<Paynet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFDDADA),
       appBar: AppBar(
           centerTitle: true,
           backgroundColor: const Color(0xFF8B0000),

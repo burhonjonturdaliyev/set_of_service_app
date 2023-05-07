@@ -6,14 +6,17 @@ import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangil
 
 class NewsWidgets {
   Widget catagory(
-      {required List<CatagoryModels> list, required BuildContext context}) {
+      {required List<CatagoryModels> list,
+      required BuildContext context,
+      required List ikonlar}) {
     return ListView.builder(
       itemCount: list.length,
-      itemBuilder: (context, index) => itemsDesign(context, list[index]),
+      itemBuilder: (context, index) =>
+          itemsDesign(context, list[index], ikonlar),
     );
   }
 
-  Widget itemsDesign(BuildContext context, CatagoryModels models) {
+  Widget itemsDesign(BuildContext context, CatagoryModels models, ikonlar) {
     return Padding(
       padding: EdgeInsets.only(bottom: 8.0.h),
       child: InkWell(
@@ -33,11 +36,13 @@ class NewsWidgets {
               SizedBox(
                 width: 10.w,
               ),
-              const CircleAvatar(
-                child: Text(""),
+              Icon(
+                Icons.newspaper_outlined,
+                color: Colors.black54,
+                size: 25.w,
               ),
               SizedBox(
-                width: 30.w,
+                width: 15.w,
               ),
               Text(models.name)
             ],

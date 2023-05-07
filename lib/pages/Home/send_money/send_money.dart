@@ -73,14 +73,13 @@ class _Send_moneyState extends State<Send_money> {
                 letterSpacing: 5.w),
           ),
         ),
-        backgroundColor: const Color(0xffFDDADA),
         body: Container(
           height: double.infinity,
           width: double.infinity,
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("image/back_screen.png"),
-                  fit: BoxFit.cover)),
+                  fit: BoxFit.fitHeight)),
           child: Column(
             children: [
               SizedBox(

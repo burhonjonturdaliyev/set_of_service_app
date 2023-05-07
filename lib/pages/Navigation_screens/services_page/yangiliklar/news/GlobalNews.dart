@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/models/newsModels.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/widget/WidgetsNews.dart';
 
@@ -22,12 +23,28 @@ class GlobalNews extends StatelessWidget {
         icon: const Icon(Icons.start_outlined),
         type: "Others"),
   ];
+  List<String> ikonlar = [
+    "article",
+    "trending_up",
+    "trending_up",
+    "check_circle",
+    "category"
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Yangiliklar"),
+        centerTitle: true,
+        title: Text(
+          "Yangiliklar",
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.sp,
+              letterSpacing: 5.w,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Inter"),
+        ),
         backgroundColor: const Color(0xFF8B0000),
       ),
       body: Container(
@@ -37,7 +54,8 @@ class GlobalNews extends StatelessWidget {
                 fit: BoxFit.fitHeight)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: NewsWidgets().catagory(list: catagory, context: context),
+          child: NewsWidgets()
+              .catagory(list: catagory, context: context, ikonlar: ikonlar),
         ),
       ),
     );

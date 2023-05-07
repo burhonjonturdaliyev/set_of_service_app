@@ -41,7 +41,6 @@ class Pochta_xizmati extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFDDADA),
       appBar: AppBar(
           backgroundColor: const Color(0xFF8B0000),
           centerTitle: true,

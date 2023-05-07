@@ -47,7 +47,8 @@ Widget builder_items(
               rate: infoList.rate,
               information: infoList.information,
               image: infoList.image),
-          type: PageTransitionType.bottomToTop,
+          type: PageTransitionType.rightToLeftWithFade,
+          curve: Curves.easeInBack,
           childCurrent: Oziq_ovqat())),
       child: Container(
         width: 353.w,

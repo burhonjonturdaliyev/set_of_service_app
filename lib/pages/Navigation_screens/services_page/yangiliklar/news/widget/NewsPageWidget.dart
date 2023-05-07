@@ -19,11 +19,11 @@ class _NewPageWidgetState extends State<NewPageWidget> {
   List<infoNew> information = [];
 
   Future<void> getInfo() async {
+    // ignore: non_constant_identifier_names
     final Response = await newFunctions().getInfoNew(context, widget.type);
     setState(() {
       Response != null ? information = Response : Response == null;
     });
-    print("Here is length: ${information.length}");
   }
 
   @override
@@ -36,7 +36,15 @@ class _NewPageWidgetState extends State<NewPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.name} xabarlar"),
+        centerTitle: true,
+        title: Text(
+          "${widget.name} xabarlar",
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Inter"),
+        ),
         backgroundColor: const Color(0xFF8B0000),
       ),
       body: Container(
@@ -63,9 +71,18 @@ Widget itemshow(infoNew info) {
     child: Container(
       decoration: const BoxDecoration(color: Colors.white70),
       child: Column(children: [
-        Container(
-          height: 120.h,
-          decoration: const BoxDecoration(color: Colors.black),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12.w),
+          child: Image.network(
+            "https://media.istockphoto.com/id/1135322304/photo/girl-carrying-a-school-bag.jpg?s=2048x2048&w=is&k=20&c=uklhuWev69_O-uI6hILvyfmNJOoYcaFm8nyV9yp2xsg=",
+            errorBuilder: (context, error, stackTrace) => SizedBox(
+              height: 120.h,
+              width: 280.w,
+              child: const Center(
+                child: Text("Serverga bog'lanib bulmayapti"),
+              ),
+            ),
+          ),
         ),
         SizedBox(
           height: 10.h,
