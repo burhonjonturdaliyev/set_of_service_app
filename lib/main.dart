@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
 // scroll photos - ✔️done
 // add all extra infor
 // auto match which count
-// profil setting which server use
+// profil setting which server use - process
 // identi passport, drive lin, id card selectable, taking photo with whole body with doc
 // second upload quality doc
 // ordering information trend, top, normal, official, others - ✔️done

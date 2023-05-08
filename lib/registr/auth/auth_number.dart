@@ -46,6 +46,7 @@ class _AuthNumberCodeState extends State<AuthNumberCode> {
         () {
           if (_secondsRemaining < 1) {
             timer.cancel();
+            _secondsRemaining = 120;
             _visible = true;
           } else {
             _secondsRemaining = _secondsRemaining - 1;
@@ -91,7 +92,7 @@ class _AuthNumberCodeState extends State<AuthNumberCode> {
           child: Stack(
             children: [
               Positioned(
-                top: 10.h,
+                top: -10.h,
                 left: 0,
                 right: 0,
                 child: Row(
@@ -118,7 +119,7 @@ class _AuthNumberCodeState extends State<AuthNumberCode> {
 
   Widget infor() {
     return Positioned(
-        top: 250.h,
+        top: 220.h,
         left: 0,
         right: 0,
         child: Column(
@@ -150,7 +151,7 @@ class _AuthNumberCodeState extends State<AuthNumberCode> {
 
   Widget _codeFully() {
     return Positioned(
-      top: 340.h,
+      top: 310.h,
       left: 0,
       right: 0,
       child: Padding(

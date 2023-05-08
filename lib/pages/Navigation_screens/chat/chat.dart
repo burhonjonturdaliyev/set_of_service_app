@@ -21,6 +21,7 @@ class _ChatState extends State<Chat> {
   final _formkey = GlobalKey<FormState>();
   final apiUrl = Uri.parse('http://185.196.213.43:7088/chat');
   List<chat_models> models = [];
+  Timer? timer;
   //List<user_send> send = [];
 
   Future<void> putUserMessage(user_send send) async {
@@ -33,7 +34,7 @@ class _ChatState extends State<Chat> {
   }
 
   void checkListForUpdates() {
-    Timer.periodic(const Duration(minutes: 3), (timer) {
+    timer = Timer.periodic(const Duration(minutes: 3), (timer) {
       fetchMessage();
     });
   }
@@ -73,6 +74,12 @@ class _ChatState extends State<Chat> {
     fetchMessage();
     checkListForUpdates();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   TextEditingController _controller = TextEditingController();

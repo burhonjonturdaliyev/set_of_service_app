@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/Widgets/profile_widgets.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/profile/identification/profileIdentification.dart';
 import 'package:set_of_service_app/pages/Profile_settings/Profile_settings.dart';
 
 class Profil extends StatefulWidget {
@@ -122,7 +123,13 @@ class _ProfilState extends State<Profil> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(
+                            context,
+                            PageTransition(
+                                child: const IdentificationProfel(),
+                                type: PageTransitionType.fade,
+                                curve: Curves.bounceInOut,
+                                childCurrent: const Profil())),
                         child: Text(
                           "Identifikatsiyadan o’tish",
                           style: TextStyle(
@@ -141,9 +148,11 @@ class _ProfilState extends State<Profil> {
             Padding(
               padding: EdgeInsets.only(left: 20.w),
               child: Information_section_profile(
-                  number: "+998 90 123 45 67",
-                  jins: "Erkak",
-                  mamlakat: "Yaponiya"),
+                number: "+998 90 123 45 67",
+                jins: "Erkak",
+                mamlakat: "O'zbekiston",
+                server: "Yaponiya",
+              ),
             ),
           ],
         ),

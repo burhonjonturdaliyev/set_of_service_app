@@ -6,11 +6,13 @@ class Information_section_profile extends StatelessWidget {
   String number;
   String jins;
   String mamlakat;
+  String server;
   Information_section_profile(
       {super.key,
       required this.number,
       required this.jins,
-      required this.mamlakat});
+      required this.mamlakat,
+      required this.server});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,7 +33,7 @@ class Information_section_profile extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "Telefon raqami",
+                      "Telefon raqam:",
                       style: TextStyle(
                           fontSize: 12.sp,
                           fontFamily: "Inter",
@@ -75,7 +77,7 @@ class Information_section_profile extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "Jins",
+                      "Jins:",
                       style: TextStyle(
                           fontSize: 12.sp,
                           fontFamily: "Inter",
@@ -119,7 +121,7 @@ class Information_section_profile extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "Hozirgi mamlakat",
+                      "Hozirgi mamlakat:",
                       style: TextStyle(
                           fontSize: 12.sp,
                           fontFamily: "Inter",
@@ -132,6 +134,50 @@ class Information_section_profile extends StatelessWidget {
                   children: [
                     Text(
                       mamlakat,
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                    )
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
+        SizedBox(
+          height: 21.h,
+        ),
+        Row(
+          children: [
+            Icon(
+              Icons.wifi_password_outlined,
+              color: Colors.black,
+              size: 30.w,
+            ),
+            SizedBox(
+              width: 19.w,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Ishlatilayotgan server:",
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w700,
+                          color: const Color.fromARGB(143, 0, 0, 0)),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      server,
                       style: TextStyle(
                           fontSize: 16.sp,
                           fontFamily: "Inter",

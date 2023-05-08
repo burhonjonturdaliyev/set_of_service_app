@@ -27,11 +27,7 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
     fetchUser();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
+  // ignore: non_constant_identifier_names
   infor_message() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

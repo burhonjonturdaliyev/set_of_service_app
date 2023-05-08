@@ -20,6 +20,7 @@ class Chat_design extends StatefulWidget {
 class _Chat_designState extends State<Chat_design> {
   final int id = 2;
   final ScrollController _controller = ScrollController();
+  Timer? timer;
   @override
   void initState() {
     _scrollToBottom();
@@ -27,7 +28,7 @@ class _Chat_designState extends State<Chat_design> {
   }
 
   void checkListForUpdates() {
-    Timer.periodic(const Duration(microseconds: 150), (timer) {
+    timer = Timer.periodic(const Duration(microseconds: 150), (timer) {
       _scrollToBottom();
     });
   }
@@ -46,6 +47,12 @@ class _Chat_designState extends State<Chat_design> {
         curve: Curves.slowMiddle,
       );
     }
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override

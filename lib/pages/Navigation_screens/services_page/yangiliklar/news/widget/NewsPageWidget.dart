@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/function/newFunctions.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/models/newsModels.dart';
 
@@ -72,7 +73,10 @@ Widget itemshow(infoNew info) {
       decoration: const BoxDecoration(color: Colors.white70),
       child: Column(children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(12.w),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12.w),
+            topRight: Radius.circular(12.w),
+          ),
           child: Image.network(
             "https://media.istockphoto.com/id/1135322304/photo/girl-carrying-a-school-bag.jpg?s=2048x2048&w=is&k=20&c=uklhuWev69_O-uI6hILvyfmNJOoYcaFm8nyV9yp2xsg=",
             errorBuilder: (context, error, stackTrace) => SizedBox(
@@ -87,8 +91,26 @@ Widget itemshow(infoNew info) {
         SizedBox(
           height: 10.h,
         ),
-        Text(info.title),
-        Text(info.description),
+        Row(
+          children: [
+            Expanded(child: Text(info.title)),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(child: Text(info.description)),
+          ],
+        ),
+        SizedBox(
+          height: 12.h,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(DateFormat("dd-MMMM, yyyy")
+                .format(DateTime.parse(info.createdAt)))
+          ],
+        )
       ]),
     ),
   );
