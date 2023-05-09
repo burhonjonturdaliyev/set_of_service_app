@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, unused_import, unnecessary_import, unused_field
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,7 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:set_of_service_app/pages/Home/send_money/confirm/confirm_tranzactions.dart';
 
 class Kartaga extends StatefulWidget {
-  Kartaga({super.key});
+  const Kartaga({super.key});
 
   @override
   State<Kartaga> createState() => _KartagaState();
@@ -19,7 +21,6 @@ class _KartagaState extends State<Kartaga> {
   TextEditingController comments = TextEditingController();
   final _formfield = GlobalKey<FormState>();
 
-  @override
   void visib_check() {
     setState(() {
       visible = !visible;

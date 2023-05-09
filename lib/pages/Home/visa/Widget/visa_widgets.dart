@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:set_of_service_app/models/visa_support_models.dart';
+
+import 'package:set_of_service_app/pages/Home/visa/models/modelsViza.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../models/colour_model.dart';
 
 class Visa_support_widget extends StatelessWidget {
   Visa_support_widget({super.key, required this.models});
-  List models;
+  List<vizaModels> models;
   List<Colour_models> colour = [
     Colour_models(
         rang2: const Color.fromARGB(255, 255, 0, 0),
@@ -24,7 +26,7 @@ class Visa_support_widget extends StatelessWidget {
   }
 }
 
-Widget visa_items(visa_support_models models, Colour_models colourModels) {
+Widget visa_items(vizaModels models, Colour_models colourModels) {
   return Padding(
     padding: EdgeInsets.only(top: 5.h, bottom: 5.0.h),
     child: Container(
@@ -44,7 +46,7 @@ Widget visa_items(visa_support_models models, Colour_models colourModels) {
             child: Row(
               children: [
                 Text(
-                  models.yordam,
+                  "Visa",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -62,45 +64,57 @@ Widget visa_items(visa_support_models models, Colour_models colourModels) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                    child: Text(
-                  models.name,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 24.sp,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.w800),
-                )),
-                SizedBox(
-                  width: 20.w,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      models.title,
+                      maxLines: 1,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24.sp,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w800),
+                    ),
+                    Text(
+                      models.subTitle,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontFamily: "Inter",
+                          fontSize: 9.sp,
+                          color: Colors.black45),
+                    )
+                  ],
                 ),
-                IconButton(
-                    onPressed: () {
-                      FlutterPhoneDirectCaller.callNumber(models.phone_number);
-                    },
-                    icon: Icon(
-                      Icons.call,
-                      size: 40.w,
-                      color: Colors.black,
-                    ))
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            child: Row(
-              children: [
-                Text(
-                  "Xizmat turi: ${models.xizmat_turi}",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.w400,
-                      fontSize: 10.sp),
+                Column(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          FlutterPhoneDirectCaller.callNumber(
+                              models.phoneNumber);
+                        },
+                        icon: Icon(
+                          Icons.call,
+                          size: 35.w,
+                          color: Colors.black,
+                        )),
+                    IconButton(
+                        onPressed: () async {
+                          try {
+                            await launchUrl(Uri.parse(models.telegramUrl));
+                          } catch (e) {
+                            Text("Error is here => $e");
+                          }
+                        },
+                        icon: Icon(
+                          Icons.telegram_outlined,
+                          size: 35.w,
+                          color: Colors.black,
+                        ))
+                  ],
                 )
               ],
             ),
@@ -113,7 +127,7 @@ Widget visa_items(visa_support_models models, Colour_models colourModels) {
             child: Row(
               children: [
                 Text(
-                  "Manzil: ${models.address}",
+                  "Manzil: ${models.officeAddress}",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -141,7 +155,7 @@ Widget visa_items(visa_support_models models, Colour_models colourModels) {
                   width: 3.w,
                 ),
                 Text(
-                  DateFormat("dd.MM.yyyy").format(DateTime.now()),
+                  DateFormat("dd.MM.yyyy").format(models.updatedAt),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,
@@ -160,7 +174,7 @@ Widget visa_items(visa_support_models models, Colour_models colourModels) {
                   width: 3.w,
                 ),
                 Text(
-                  "1234",
+                  models.totalViews.toString(),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,
@@ -179,7 +193,7 @@ Widget visa_items(visa_support_models models, Colour_models colourModels) {
                   width: 3.w,
                 ),
                 Text(
-                  "4.5",
+                  models.totalStarts.toString(),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,

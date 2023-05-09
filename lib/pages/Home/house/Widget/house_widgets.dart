@@ -1,13 +1,16 @@
+// ignore_for_file: deprecated_member_use, non_constant_identifier_names, camel_case_types, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:set_of_service_app/models/colour_model.dart';
-import 'package:set_of_service_app/models/house_model.dart';
+import 'package:set_of_service_app/pages/Home/house/models/models.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class House_widget extends StatelessWidget {
   House_widget({super.key, required this.models});
-  List<house_models> models;
+  List<HomeModels> models;
   List<Colour_models> colour = [
     Colour_models(
         rang2: const Color.fromARGB(255, 255, 0, 0),
@@ -23,7 +26,7 @@ class House_widget extends StatelessWidget {
   }
 }
 
-Widget house_items(house_models models, Colour_models colourModels) {
+Widget house_items(HomeModels models, Colour_models colourModels) {
   return Padding(
     padding: EdgeInsets.only(top: 5.h, bottom: 5.0.h),
     child: Container(
@@ -43,7 +46,7 @@ Widget house_items(house_models models, Colour_models colourModels) {
             child: Row(
               children: [
                 Text(
-                  models.turi,
+                  "Uy-Joy topib berish agentligi",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -57,32 +60,62 @@ Widget house_items(house_models models, Colour_models colourModels) {
             height: 5.h,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                    child: Text(
-                  models.name,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 24.sp,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.w800),
-                )),
-                SizedBox(
-                  width: 20.w,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      models.title,
+                      maxLines: 1,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24.sp,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w800),
+                    ),
+                    Text(
+                      models.subTitle,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontFamily: "Inter",
+                          fontSize: 9.sp,
+                          color: Colors.black45),
+                    )
+                  ],
                 ),
-                IconButton(
-                    onPressed: () {
-                      FlutterPhoneDirectCaller.callNumber(models.phone_number);
-                    },
-                    icon: Icon(
-                      Icons.call,
-                      size: 40.w,
-                      color: Colors.black,
-                    ))
+                Column(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          FlutterPhoneDirectCaller.callNumber(
+                              models.phoneNumber);
+                        },
+                        icon: Icon(
+                          Icons.call,
+                          size: 35.w,
+                          color: Colors.black,
+                        )),
+                    IconButton(
+                        onPressed: () async {
+                          try {
+                            await launchUrl(Uri.parse(models.telegramUrl));
+                          } catch (e) {
+                            Text("Error is here => $e");
+                          }
+                        },
+                        icon: Icon(
+                          Icons.telegram_outlined,
+                          size: 35.w,
+                          color: Colors.black,
+                        ))
+                  ],
+                )
               ],
             ),
           ),
@@ -94,7 +127,7 @@ Widget house_items(house_models models, Colour_models colourModels) {
             child: Row(
               children: [
                 Text(
-                  "Xizmat haqqi: ${models.tolov}",
+                  "Xizmat haqqi: ${models.serviceFee}",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -112,7 +145,7 @@ Widget house_items(house_models models, Colour_models colourModels) {
             child: Row(
               children: [
                 Text(
-                  "Manzil: ${models.address}",
+                  "Manzil: ${models.officeAddress}",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -140,7 +173,7 @@ Widget house_items(house_models models, Colour_models colourModels) {
                   width: 3.w,
                 ),
                 Text(
-                  DateFormat("dd.MM.yyyy").format(DateTime.now()),
+                  DateFormat("dd.MM.yyyy").format(models.updatedAt),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,
@@ -159,7 +192,7 @@ Widget house_items(house_models models, Colour_models colourModels) {
                   width: 3.w,
                 ),
                 Text(
-                  "1234",
+                  models.totalViews.toString(),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,
@@ -178,7 +211,7 @@ Widget house_items(house_models models, Colour_models colourModels) {
                   width: 3.w,
                 ),
                 Text(
-                  "4.5",
+                  models.totalStarts.toString(),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,

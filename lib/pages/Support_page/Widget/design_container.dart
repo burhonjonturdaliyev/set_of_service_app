@@ -1,9 +1,12 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/pages/Support_page/models/support_models.get.dart';
 
+// ignore: must_be_immutable
 class SupportDesign extends StatefulWidget {
   SupportDesign(
       {super.key,
@@ -20,32 +23,11 @@ class SupportDesign extends StatefulWidget {
 
 class _SupportDesignState extends State<SupportDesign> {
   final ScrollController _controller = ScrollController();
+  double height = 36.0.h;
+
   @override
   void initState() {
-    _scrollToBottom();
     super.initState();
-  }
-
-  void checkListForUpdates() {
-    Timer.periodic(const Duration(microseconds: 150), (timer) {
-      _scrollToBottom();
-    });
-  }
-
-  @override
-  void didUpdateWidget(covariant SupportDesign oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _scrollToBottom();
-  }
-
-  void _scrollToBottom() {
-    if (_controller.hasClients) {
-      _controller.animateTo(
-        _controller.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 150),
-        curve: Curves.slowMiddle,
-      );
-    }
   }
 
   @override

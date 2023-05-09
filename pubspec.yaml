@@ -61,6 +61,7 @@ dependencies:
   rxdart: ^0.27.7
   carousel_slider: ^4.2.1
   lottie: ^1.4.3
+  flutter_bloc: ^8.1.2
   
 
 dev_dependencies:

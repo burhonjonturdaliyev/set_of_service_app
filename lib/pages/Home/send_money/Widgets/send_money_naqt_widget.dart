@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:set_of_service_app/models/send_money_naqt_model.dart';
+
+import 'package:set_of_service_app/pages/Home/send_money/models/modelsNaqt.dart';
 
 import '../../../../models/colour_model.dart';
 
@@ -11,7 +12,7 @@ class Send_money_naqt_widget extends StatelessWidget {
   // ignore: non_constant_identifier_names
   Send_money_naqt_widget({super.key, required this.naqt_model});
   // ignore: non_constant_identifier_names
-  List<Naqt_pul_model> naqt_model;
+  List<NaqtModels> naqt_model;
   List<Colour_models> colour = [
     Colour_models(
         rang2: const Color.fromARGB(255, 255, 0, 0),
@@ -28,8 +29,7 @@ class Send_money_naqt_widget extends StatelessWidget {
 }
 
 // ignore: non_constant_identifier_names
-Widget Container_builder_naqt(
-    Colour_models colourModels, Naqt_pul_model models) {
+Widget Container_builder_naqt(Colour_models colourModels, NaqtModels models) {
   return Padding(
     padding: EdgeInsets.only(bottom: 8.0.h),
     child: Container(
@@ -66,7 +66,7 @@ Widget Container_builder_naqt(
               children: [
                 Expanded(
                     child: Text(
-                  models.name,
+                  models.title,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Colors.black,
@@ -79,7 +79,7 @@ Widget Container_builder_naqt(
                 ),
                 IconButton(
                     onPressed: () {
-                      FlutterPhoneDirectCaller.callNumber(models.phone_number);
+                      FlutterPhoneDirectCaller.callNumber(models.phoneNumber);
                     },
                     icon: Icon(
                       Icons.call,
@@ -103,7 +103,7 @@ Widget Container_builder_naqt(
                     Row(
                       children: [
                         Text(
-                          "Kurs: 1\$ = ${models.kurs} yena",
+                          "To'lov: ${models.serviceFee}",
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "Inter",
@@ -118,7 +118,7 @@ Widget Container_builder_naqt(
                     Row(
                       children: [
                         Text(
-                          "Manzil: ${models.address}",
+                          "Manzil: ${models.officeAddress}",
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "Inter",
@@ -157,7 +157,7 @@ Widget Container_builder_naqt(
                   width: 3.w,
                 ),
                 Text(
-                  DateFormat("dd.MM.yyyy").format(DateTime.now()),
+                  DateFormat("dd.MM.yyyy").format(models.updatedAt),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,
@@ -176,7 +176,7 @@ Widget Container_builder_naqt(
                   width: 3.w,
                 ),
                 Text(
-                  "1234",
+                  models.totalViews.toString(),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,
@@ -195,7 +195,7 @@ Widget Container_builder_naqt(
                   width: 3.w,
                 ),
                 Text(
-                  "4.5",
+                  models.totalViews.toString(),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,

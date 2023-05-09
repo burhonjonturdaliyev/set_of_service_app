@@ -1,13 +1,17 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:set_of_service_app/models/job_models.dart';
+
 // ignore: unused_import
 import 'package:set_of_service_app/pages/Home/job/Widget/review_widgets.dart';
+import 'package:set_of_service_app/pages/Home/job/models/jobModels.dart';
 
 import '../../../../models/colour_model.dart';
 
+// ignore: must_be_immutable
 class Job_widget extends StatelessWidget {
   Job_widget({super.key, required this.models});
   List models;
@@ -27,7 +31,7 @@ class Job_widget extends StatelessWidget {
   }
 }
 
-Widget job_items(Job_models models, Colour_models colourModels, rate) {
+Widget job_items(JobModels models, Colour_models colourModels, rate) {
   return Padding(
     padding: EdgeInsets.only(top: 5.h, bottom: 5.0.h),
     child: Container(
@@ -48,7 +52,7 @@ Widget job_items(Job_models models, Colour_models colourModels, rate) {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  models.turi,
+                  "Ish topish",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -68,7 +72,7 @@ Widget job_items(Job_models models, Colour_models colourModels, rate) {
               children: [
                 Expanded(
                     child: Text(
-                  models.name,
+                  models.title,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Colors.black,
@@ -81,7 +85,7 @@ Widget job_items(Job_models models, Colour_models colourModels, rate) {
                 ),
                 IconButton(
                     onPressed: () {
-                      FlutterPhoneDirectCaller.callNumber(models.phone_number);
+                      FlutterPhoneDirectCaller.callNumber(models.phoneNumber);
                     },
                     icon: Icon(
                       Icons.call,
@@ -99,7 +103,7 @@ Widget job_items(Job_models models, Colour_models colourModels, rate) {
             child: Row(
               children: [
                 Text(
-                  "Xizmat haqqi: ${models.haqqi}",
+                  "Xizmat haqqi: ${models.serviceFee}",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -117,7 +121,7 @@ Widget job_items(Job_models models, Colour_models colourModels, rate) {
             child: Row(
               children: [
                 Text(
-                  "Manzil: ${models.address}",
+                  "Manzil: ${models.officeAddress}",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -145,7 +149,7 @@ Widget job_items(Job_models models, Colour_models colourModels, rate) {
                   width: 3.w,
                 ),
                 Text(
-                  DateFormat("dd.MM.yyyy").format(DateTime.now()),
+                  DateFormat("dd.MM.yyyy").format(models.updatedAt),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,
@@ -164,7 +168,7 @@ Widget job_items(Job_models models, Colour_models colourModels, rate) {
                   width: 3.w,
                 ),
                 Text(
-                  "1234",
+                  models.totalViews.toString(),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,
@@ -183,7 +187,7 @@ Widget job_items(Job_models models, Colour_models colourModels, rate) {
                   width: 3.w,
                 ),
                 Text(
-                  "4.5",
+                  models.totalStarts.toString(),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,

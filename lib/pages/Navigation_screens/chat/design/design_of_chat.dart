@@ -23,31 +23,38 @@ class _Chat_designState extends State<Chat_design> {
   Timer? timer;
   @override
   void initState() {
-    _scrollToBottom();
+    // _scrollToBottom();
+    scrolling();
     super.initState();
   }
 
-  void checkListForUpdates() {
-    timer = Timer.periodic(const Duration(microseconds: 150), (timer) {
-      _scrollToBottom();
-    });
-  }
-
-  @override
-  void didUpdateWidget(covariant Chat_design oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _scrollToBottom();
-  }
-
-  void _scrollToBottom() {
-    if (_controller.hasClients) {
-      _controller.animateTo(
-        _controller.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 150),
-        curve: Curves.slowMiddle,
-      );
+  scrolling() {
+    if (widget.chat_model.isNotEmpty) {
+      _controller.jumpTo(_controller.position.maxScrollExtent);
     }
   }
+
+  // void checkListForUpdates() {
+  //   timer = Timer.periodic(const Duration(microseconds: 150), (timer) {
+  //     _scrollToBottom();
+  //   });
+  // }
+
+  // @override
+  // void didUpdateWidget(covariant Chat_design oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   _scrollToBottom();
+  // }
+
+  // void _scrollToBottom() {
+  //   if (_controller.hasClients) {
+  //     _controller.animateTo(
+  //       _controller.position.maxScrollExtent,
+  //       duration: const Duration(milliseconds: 150),
+  //       curve: Curves.slowMiddle,
+  //     );
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -61,10 +68,7 @@ class _Chat_designState extends State<Chat_design> {
       backgroundColor: Colors.transparent,
       body: widget.chat_model.isEmpty
           ? const Center(
-              child: CircularProgressIndicator(
-                color: Color(0xFF8B0000),
-              ),
-            )
+              child: Text("Hozirda hech qanday yozishmalar mavjud emas!"))
           : ListView.builder(
               controller: _controller,
               itemCount: widget.chat_model.length,

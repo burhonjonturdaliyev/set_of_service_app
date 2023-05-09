@@ -1,15 +1,18 @@
+// ignore_for_file: non_constant_identifier_names, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:set_of_service_app/models/pochta_models.dart';
+
+import 'package:set_of_service_app/pages/Home/pochta/models/pochtaModels.dart';
 
 import '../../../../models/colour_model.dart';
 
 // ignore: camel_case_types
 class Pochta_widgets extends StatelessWidget {
   Pochta_widgets({super.key, required this.info_List});
-  List<pochta_models> info_List;
+  List<pochtaModels> info_List;
   List<Colour_models> colour = [
     Colour_models(
         rang2: const Color.fromARGB(255, 255, 0, 0),
@@ -26,7 +29,7 @@ class Pochta_widgets extends StatelessWidget {
   }
 }
 
-Widget pochta_items(pochta_models models, Colour_models colour_models) {
+Widget pochta_items(pochtaModels models, Colour_models colourModels) {
   return Padding(
     padding: EdgeInsets.only(top: 5.h, bottom: 5.0.h),
     child: Container(
@@ -37,7 +40,7 @@ Widget pochta_items(pochta_models models, Colour_models colour_models) {
         gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [colour_models.rang1, colour_models.rang2]),
+            colors: [colourModels.rang1, colourModels.rang2]),
       ),
       child: Column(
         children: [
@@ -66,7 +69,7 @@ Widget pochta_items(pochta_models models, Colour_models colour_models) {
               children: [
                 Expanded(
                     child: Text(
-                  models.name,
+                  models.title,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Colors.black,
@@ -79,7 +82,7 @@ Widget pochta_items(pochta_models models, Colour_models colour_models) {
                 ),
                 IconButton(
                     onPressed: () {
-                      FlutterPhoneDirectCaller.callNumber(models.phone_number);
+                      FlutterPhoneDirectCaller.callNumber(models.phoneNumber);
                     },
                     icon: Icon(
                       Icons.call,
@@ -97,7 +100,7 @@ Widget pochta_items(pochta_models models, Colour_models colour_models) {
             child: Row(
               children: [
                 Text(
-                  "Uygacha yetkazib berish: ${models.delevaring}",
+                  "Uygacha yetkazib berish: ${models.serviceFee}",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -115,7 +118,7 @@ Widget pochta_items(pochta_models models, Colour_models colour_models) {
             child: Row(
               children: [
                 Text(
-                  "Manzil: ${models.address}",
+                  "Manzil: ${models.officeAddress}",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Inter",
@@ -143,7 +146,7 @@ Widget pochta_items(pochta_models models, Colour_models colour_models) {
                   width: 3.w,
                 ),
                 Text(
-                  DateFormat("dd.MM.yyyy").format(DateTime.now()),
+                  DateFormat("dd.MM.yyyy").format(models.updatedAt),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,
@@ -162,7 +165,7 @@ Widget pochta_items(pochta_models models, Colour_models colour_models) {
                   width: 3.w,
                 ),
                 Text(
-                  "1234",
+                  models.totalViews.toString(),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,
@@ -181,7 +184,7 @@ Widget pochta_items(pochta_models models, Colour_models colour_models) {
                   width: 3.w,
                 ),
                 Text(
-                  "4.5",
+                  models.totalStarts.toString(),
                   style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 8.sp,

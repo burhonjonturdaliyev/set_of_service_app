@@ -19,14 +19,14 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   final _formkey = GlobalKey<FormState>();
-  final apiUrl = Uri.parse('http://185.196.213.43:7088/chat');
+
   List<chat_models> models = [];
   Timer? timer;
   //List<user_send> send = [];
 
   Future<void> putUserMessage(user_send send) async {
     final response = await http.post(
-      apiUrl,
+      Uri.parse('http://185.196.213.43:7088/api/chat'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(send.toJson()),
     );
@@ -164,19 +164,21 @@ class _ChatState extends State<Chat> {
                 Padding(
                   padding: EdgeInsets.only(right: 8.0.w),
                   child: GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       //  checkListForUpdates();
                       if (_formkey.currentState!.validate()) {
                         final value = _controller.text;
                         if (value.isNotEmpty) {
+                          // Perform the asynchronous work first
+                          await putUserMessage(
+                              user_send(message: value, userId: 2));
+                          models.add(chat_models(
+                              edited: false,
+                              username: "Burkhonjon Turdialiev",
+                              message: value,
+                              userId: 2));
+                          // Update the state synchronously
                           setState(() {
-                            putUserMessage(
-                                user_send(message: value, userId: 2));
-                            models.add(chat_models(
-                                edited: false,
-                                username: "Burkhonjon Turdialiev",
-                                message: value,
-                                userId: 2));
                             _controller.clear();
                           });
                         }
