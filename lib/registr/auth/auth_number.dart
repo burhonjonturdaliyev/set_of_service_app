@@ -137,7 +137,7 @@ class _AuthNumberCodeState extends State<AuthNumberCode> {
               height: 7.h,
             ),
             Text(
-              "Biz sizga ushbu +998${widget.number ?? ""} raqamiga kod yuborildik",
+              "Biz sizning ushbu +998${widget.number ?? ""} raqamingizga kod yuborildik",
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.black45,

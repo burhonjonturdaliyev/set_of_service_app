@@ -16,6 +16,9 @@ class IdentificationProfel extends StatefulWidget {
 
 class _IdentificationProfelState extends State<IdentificationProfel> {
   File? image;
+  File? gallery;
+  final galleryPicker = ImagePicker();
+
   final imagePicker = ImagePicker();
 
   bool animation1 = true;
@@ -28,66 +31,74 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
   String onGoing = "animations/ongoing.json";
 
   animationChanger() {
-    setState(() {
-      animation1 = false;
-      face_animation = done_animation;
-    });
+    if (image != null) {
+      setState(() {
+        animation1 = false;
+        face_animation = done_animation;
+      });
+    } else {
+      setState(() {
+        animation1 = true;
+        face_animation = face_animation;
+      });
+    }
   }
 
   uploadCamera() async {
     // ignore: deprecated_member_use
-    var picketFile = await imagePicker.getImage(source: ImageSource.camera);
+    var pickedFile = await imagePicker.getImage(source: ImageSource.camera);
 
-    if (picketFile != null) {
+    if (pickedFile != null) {
       setState(() {
-        image = File(picketFile.path);
+        image = File(pickedFile.path);
       });
     } else {}
   }
 
-  uploadGallery() async {
+  Future<void> uploadGallery() async {
     // ignore: deprecated_member_use
-    var picketFile = await imagePicker.getImage(source: ImageSource.gallery);
+    var picketFile = await galleryPicker.getImage(source: ImageSource.gallery);
 
     if (picketFile != null) {
       setState(() {
-        image = File(picketFile.path);
+        // ignore: unnecessary_null_comparison
+        gallery = picketFile.path != null ? File(picketFile.path) : null;
       });
     } else {}
   }
 
-  Future<void> uploadImage() async {
-    // Get a photo from the camera
-    final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+  // Future<void> uploadImage() async {
+  //   // Get a photo from the camera
+  //   final picker = ImagePicker();
+  //   final pickedFile = await picker.getImage(source: ImageSource.camera);
 
-    // Create a multipart request to upload the photo to the server
-    final request = http.MultipartRequest(
-      'POST',
-      Uri.parse('https://example.com/upload'),
-    );
+  //   // Create a multipart request to upload the photo to the server
+  //   final request = http.MultipartRequest(
+  //     'POST',
+  //     Uri.parse('https://example.com/upload'),
+  //   );
 
-    // Add the photo to the multipart request
-    final file = File(pickedFile!.path);
-    final stream = http.ByteStream(file.openRead());
-    final length = await file.length();
-    final multipartFile = http.MultipartFile(
-      'file',
-      stream,
-      length,
-    );
-    request.files.add(multipartFile);
+  //   // Add the photo to the multipart request
+  //   final file = File(pickedFile!.path);
+  //   final stream = http.ByteStream(file.openRead());
+  //   final length = await file.length();
+  //   final multipartFile = http.MultipartFile(
+  //     'file',
+  //     stream,
+  //     length,
+  //   );
+  //   request.files.add(multipartFile);
 
-    // Send the multipart request to the server
-    final response = await request.send();
+  //   // Send the multipart request to the server
+  //   final response = await request.send();
 
-    // Check if the server returned a success status code
-    if (response.statusCode == 200) {
-      print('Image uploaded to server.');
-    } else {
-      print('Error uploading image to server.');
-    }
-  }
+  //   // Check if the server returned a success status code
+  //   if (response.statusCode == 200) {
+  //     print('Image uploaded to server.');
+  //   } else {
+  //     print('Error uploading image to server.');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +122,7 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
               image: DecorationImage(
                   image: AssetImage("image/back_screen.png"),
                   fit: BoxFit.fitHeight)),
-          child: animation1 ? firstProcess() : secondProcess()),
+          child: image == null ? firstProcess() : secondProcess()),
     );
   }
 
@@ -167,102 +178,178 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
           ),
         ),
         Positioned(
-          bottom: 150,
-          left: 0,
-          right: 0,
-          child: TextButton(
+            bottom: 150.h,
+            left: 80.w,
+            right: 80.w,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff8B0000)),
               onPressed: () async {
                 await uploadCamera();
                 animationChanger();
               },
-              child: Text("Shaxsni tasdiqlash")),
-        ),
+              child: Text(
+                "Shaxsni tasdiqlash",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.sp),
+              ),
+            )),
       ],
     );
   }
 
   Widget secondProcess() {
+    return gallery != null
+        ? doneProcess()
+        : Stack(
+            children: [
+              Positioned(
+                top: 90.h,
+                left: 0,
+                right: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Birinchi bosqich:",
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "Inter",
+                          fontSize: 13.sp),
+                    ),
+                    Lottie.asset(face_animation,
+                        height: 40.h, repeat: animation1, reverse: false),
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 30.h,
+                left: 0,
+                right: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Ikkinchi bosqich:",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Inter",
+                          fontSize: 26.sp),
+                    ),
+                    Lottie.asset(onGoing,
+                        width: 60.w,
+                        height: 90.h,
+                        repeat: animation2,
+                        reverse: false),
+                  ],
+                ),
+              ),
+              Positioned(
+                bottom: 220.h,
+                left: 0,
+                right: 0,
+                child: Text(
+                  "Iltimos, shaxsingizni tasdiqlash uchun Biografik passport , ID karta yoki haydovchilik guvohnomasi bilan taminlang!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.sp),
+                ),
+              ),
+              Positioned(
+                  top: 145.h,
+                  left: -20.w,
+                  right: -20.w,
+                  child: Lottie.asset(passport,
+                      height: 400.h, width: 400.w, repeat: animation2)),
+              Positioned(
+                  bottom: 150.h,
+                  left: 100.w,
+                  right: 100.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff8B0000)),
+                      onPressed: () async {
+                        await uploadGallery();
+                        if (gallery != null) {
+                          setState(() {
+                            passport = done_animation;
+                            animation2 = false;
+                          });
+                        }
+                      },
+                      child: Text(
+                        "Hujjatni yuklash",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp),
+                      ))),
+            ],
+          );
+  }
+
+  Widget doneProcess() {
     return Stack(
       children: [
         Positioned(
-          top: 90.h,
+          top: 60.h,
           left: 0,
           right: 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Column(
             children: [
               Text(
-                "Birinchi bosqich:",
+                "Tabriklaymiz, siz barcha bosqichlarni muvaffaqiyatli yakunladingiz!",
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w700,
                     fontFamily: "Inter",
-                    fontSize: 13.sp),
+                    fontSize: 23.sp),
               ),
-              Lottie.asset(face_animation,
-                  height: 40.h, repeat: animation1, reverse: false),
             ],
           ),
         ),
         Positioned(
-          top: 30.h,
+          top: 120.h,
           left: 0,
           right: 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Ikkinchi bosqich:",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Inter",
-                    fontSize: 26.sp),
-              ),
-              Lottie.asset(onGoing,
-                  width: 60.w,
-                  height: 90.h,
-                  repeat: animation2,
-                  reverse: false),
-            ],
+          child: Lottie.asset("animations/approved.json",
+              width: 200.w, height: 200.h, repeat: false),
+        ),
+        Positioned(
+          bottom: 200.h,
+          left: 100.w,
+          right: 100.w,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xff8B0000),
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              "Yakunlash",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "Inter",
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.sp),
+            ),
           ),
-        ),
-        Positioned(
-          bottom: 220.h,
-          left: 0,
-          right: 0,
-          child: Text(
-            "Iltimos, shaxsingizni tasdiqlash uchun Biografik passport , ID karta yoki haydovchilik guvohnomasi bilan taminlang!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.black54,
-                fontFamily: "Inter",
-                fontWeight: FontWeight.w600,
-                fontSize: 16.sp),
-          ),
-        ),
-        Positioned(
-            top: 145.h,
-            left: -20.w,
-            right: -20.w,
-            child: Lottie.asset(passport,
-                height: 400.h, width: 400.w, repeat: animation2)),
-        Positioned(
-          bottom: 150,
-          left: 0,
-          right: 0,
-          child: TextButton(
-              onPressed: () async {
-                await uploadGallery();
-                setState(() {
-                  passport = done_animation;
-                  animation2 = false;
-                });
-              },
-              child: Text("Hujjatni yuklash")),
-        ),
+        )
       ],
     );
   }
