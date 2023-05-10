@@ -2,17 +2,17 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:set_of_service_app/const_api/api.dart';
 
 import '../models/support_models.get.dart';
 
+// ignore: camel_case_types
 class Support_Api {
   static Future<List<Data>?> fetchMessage(
       BuildContext context, int userId) async {
-    final url =
-        "http://185.196.213.43:7088/api/support-chats/get-all-dialog/$userId";
+    final url = "${Api().supportGet}$userId";
     final uri = Uri.parse(url);
     try {
-      print("Loading is start");
       http.Response response = await http.get(uri);
       if (response.statusCode == 200) {
         final body = response.body;
@@ -35,7 +35,7 @@ class Support_Api {
             );
           },
         ).toList();
-        print("Loading is finished");
+
         return message;
       }
     } catch (e) {
@@ -45,33 +45,6 @@ class Support_Api {
 
       Text("Error is here => $e");
     }
-  }
-
-  static Future<List<Id>?> fetchId(BuildContext context, int userId) async {
-    final url =
-        "http://185.196.213.43:7088/api/support-chats/get-all-dialog/$userId";
-
-    final uri = Uri.parse(url);
-    try {
-      print("Loading is to get Question ticket Id");
-      http.Response response = await http.get(uri);
-      if (response.statusCode == 200) {
-        final body = response.body;
-        final json = jsonDecode(body);
-
-        final result = json["object"][1] as List<dynamic>;
-        final userID = result.map((e) {
-          return Id(id: e["id"]);
-        }).toList();
-        print("We are did it!");
-        return userID;
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error: $e"),
-      ));
-
-      Text("Error is here => $e");
-    }
+    return null;
   }
 }

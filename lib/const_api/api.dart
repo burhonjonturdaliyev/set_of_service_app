@@ -6,4 +6,7 @@ class Api {
       "http://185.196.213.43:7088/api/service/send-money-cash";
   String jobAgent = "http://185.196.213.43:7088/api/service/job-agent";
   String pochta = "http://185.196.213.43:7088/api/service/postal-service-agent";
+  String supportGet =
+      "http://185.196.213.43:7088/api/support-chats/get-all-dialog/";
+  String supportPut = "http://185.196.213.43:7088/api/support-chats";
 }

@@ -1,14 +1,18 @@
-// ignore_for_file: camel_case_types, file_names
+// ignore_for_file: camel_case_types, file_names, non_constant_identifier_names, unused_local_variable
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
-import 'package:set_of_service_app/pages/Support_page/Widget/design_container.dart';
+import 'package:intl/intl.dart';
+
 import 'package:set_of_service_app/pages/Support_page/functions/get_message.dart';
 import 'package:set_of_service_app/pages/Support_page/models/support_models.get.dart';
 import 'package:set_of_service_app/pages/Support_page/models/support_models_send.dart';
+
+import '../../const_api/api.dart';
 
 class Support_center extends StatefulWidget {
   const Support_center({super.key});
@@ -19,6 +23,7 @@ class Support_center extends StatefulWidget {
 
 class _Support_centerState extends State<Support_center> {
   int userId = 1;
+  int? IDsi;
 
   List<Data> support = [];
   List<Id> id = [];
@@ -27,9 +32,19 @@ class _Support_centerState extends State<Support_center> {
 
   late int questionTicketId = id[0] as int;
 
-  final apiUrl = Uri.parse('http://185.196.213.43:7088/api/support-chats');
+  final ScrollController _controllerList = ScrollController();
+
+  final apiUrl = Uri.parse(Api().supportPut);
 
   final TextEditingController _controller = TextEditingController();
+
+  Timer? timer;
+  checkListForUpdates() {
+    timer = Timer.periodic(const Duration(seconds: 10), (timer) {
+      fetchMessage();
+    });
+  }
+
   Future<void> putUserMessage(PostSupport send) async {
     final response = await http.post(
       apiUrl,
@@ -39,11 +54,27 @@ class _Support_centerState extends State<Support_center> {
   }
 
   Future<void> getId() async {
-    final Response = await Support_Api.fetchId(context, userId);
-    setState(() {
-      Response != null ? id = Response : null;
-    });
-    print("Here is length: ${id.length}");
+    final url = "${Api().supportGet}$userId";
+    final uri = Uri.parse(url);
+    try {
+      http.Response response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final body = response.body;
+        final json = jsonDecode(body);
+        final result = json["object"]["active"] as List;
+        if (result.isNotEmpty) {
+          setState(() {
+            IDsi = json["object"]["active"][0]["id"] as int;
+          });
+        }
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Error: $e"),
+      ));
+
+      Text("Error is here => $e");
+    }
   }
 
   Future<void> fetchMessage() async {
@@ -53,10 +84,10 @@ class _Support_centerState extends State<Support_center> {
     });
   }
 
-  void cheking() {
-    if (id.isNotEmpty) {
+  cheking() {
+    if (IDsi != null) {
       putUserMessage(PostSupport(
-        id: questionTicketId,
+        id: IDsi,
         userId: userId,
         dialogsa: Dialogsa(
           message: _controller.text,
@@ -74,11 +105,24 @@ class _Support_centerState extends State<Support_center> {
     }
   }
 
+  scrolling() {
+    if (support.isNotEmpty) {
+      _controllerList.jumpTo(_controllerList.position.maxScrollExtent + 100.h);
+    }
+  }
+
   @override
   void initState() {
     getId();
     fetchMessage();
+    checkListForUpdates();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -114,12 +158,22 @@ class _Support_centerState extends State<Support_center> {
                 children: [
                   Expanded(
                     child: SafeArea(
-                        minimum: EdgeInsets.only(bottom: 60.h),
-                        child: SupportDesign(
-                          models: support,
-                          userId: userId,
-                          getMessage: fetchMessage,
-                        )),
+                      minimum: EdgeInsets.only(bottom: 60.h),
+                      child: support.isEmpty
+                          ? const Center(
+                              child: Text(
+                                  "Hozirda hech qanday suhbat mavjud emas!"),
+                            )
+                          : RefreshIndicator(
+                              onRefresh: fetchMessage,
+                              child: ListView.builder(
+                                controller: _controllerList,
+                                itemCount: support.length,
+                                itemBuilder: (context, index) =>
+                                    items_design(support[index]),
+                              ),
+                            ),
+                    ),
                   ),
                 ],
               ),
@@ -164,9 +218,11 @@ class _Support_centerState extends State<Support_center> {
                   Padding(
                     padding: EdgeInsets.only(right: 8.0.w),
                     child: GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         if (_formKey.currentState!.validate()) {
-                          cheking();
+                          await cheking();
+                          await fetchMessage();
+                          scrolling();
                           _controller.clear();
                         }
                       },
@@ -182,6 +238,84 @@ class _Support_centerState extends State<Support_center> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget items_design(Data chat) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Row(
+        mainAxisAlignment: chat.dialogs.accountType == "CLIENT"
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                constraints: BoxConstraints(maxWidth: 250.w),
+                decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.white,
+                          Colors.red,
+                        ]),
+                    borderRadius: chat.dialogs.accountType == "ADMIN"
+                        ? BorderRadius.only(
+                            bottomLeft: Radius.circular(33.w),
+                            topRight: Radius.circular(33.w),
+                            bottomRight: Radius.circular(33.w),
+                          )
+                        : BorderRadius.only(
+                            topLeft: Radius.circular(33.w),
+                            topRight: Radius.circular(33.w),
+                            bottomLeft: Radius.circular(33.w),
+                          ),
+                    border: Border.all(width: 1, color: Colors.black26)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(10.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: 1.h, left: 3.w, right: 3.w),
+                            child: Text(
+                              "${chat.dialogs.fistName} ${chat.dialogs.lastName}",
+                              style: TextStyle(
+                                  color: Colors.black54,
+                                  fontFamily: "Inter",
+                                  fontSize: 12.sp),
+                            ),
+                          ),
+                          Text(chat.dialogs.message),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  Text(
+                    DateFormat("HH:mm, MMMM")
+                        .format(DateTime.parse(chat.dialogs.createdAt)),
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        fontSize: 9.sp,
+                        fontWeight: FontWeight.w600),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

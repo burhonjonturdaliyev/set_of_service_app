@@ -158,22 +158,13 @@ class _ChatState extends State<Chat> {
                   padding: EdgeInsets.only(right: 8.0.w),
                   child: GestureDetector(
                     onTap: () async {
-                      //  checkListForUpdates();
                       if (_formkey.currentState!.validate()) {
                         final value = _controllerText.text;
                         if (value.isNotEmpty) {
-                          // Perform the asynchronous work first
-                          // models.add(chat_models(
-                          //     edited: false,
-                          //     username: "Burkhonjon Turdialiev",
-                          //     message: value,
-                          //     userId: 2));
                           await putUserMessage(
                               user_send(message: value, userId: 2));
                           await fetchMessage();
                           await scrolling();
-
-                          // Update the state synchronously
                           setState(() {
                             _controllerText.clear();
                           });
