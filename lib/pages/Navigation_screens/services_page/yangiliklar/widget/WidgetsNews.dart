@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/models/newsModels.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/widget/NewsPageWidget.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsModels.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/widget/NewsPageWidget.dart';
 
 class NewsWidgets {
   Widget catagory(

@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/models/newsModels.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/widget/WidgetsNews.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsModels.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/widget/WidgetsNews.dart';
 
 class GlobalNews extends StatelessWidget {
   GlobalNews({super.key});

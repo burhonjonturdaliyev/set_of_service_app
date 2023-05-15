@@ -15,7 +15,7 @@ import 'package:set_of_service_app/pages/Home/pochta/pochta_xizmati.dart';
 
 import 'package:set_of_service_app/pages/Home/house/house.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/currency/valyuta_kurs.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/GlobalNews.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/GlobalNews.dart';
 
 // ignore: camel_case_types
 class List_of_services extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:http/http.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/models/newsModels.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsModels.dart';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';

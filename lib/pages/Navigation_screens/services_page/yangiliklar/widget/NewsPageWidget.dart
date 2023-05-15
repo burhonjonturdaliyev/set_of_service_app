@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/function/newFunctions.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/models/newsModels.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/function/newFunctions.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsModels.dart';
 
 class NewPageWidget extends StatefulWidget {
   NewPageWidget({super.key, required this.type, required this.name});
