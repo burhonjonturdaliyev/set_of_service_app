@@ -1,7 +1,9 @@
+// ignore_for_file: non_constant_identifier_names, duplicate_ignore
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/notification/push_notifications.dart';
 import 'package:set_of_service_app/pages/Home/airticket/avia_bilet.dart';
 import 'package:set_of_service_app/pages/Home/house/house.dart';
 import 'package:set_of_service_app/pages/Home/job/job.dart';
@@ -115,12 +117,44 @@ class _HomeState extends State<Home> {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () async {
-                        // await service.showNotifications(
-                        //     id: 0,
-                        //     title: "Ushbu funksiya mavjud emas!",
-                        //     body:
-                        //         "Hozirda ushbu funksiya ustida ish olib borilmoqda, kelgusi yangilanishlarda bundan foydalanishingiz mumkin");
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            backgroundColor: white,
+                            content: SizedBox(
+                              height: 200.h,
+                              width: 150.w,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 0,
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    child: Lottie.asset(
+                                      "animations/not_working.json",
+                                      width: 200.w,
+                                    ),
+                                  ),
+                                  Positioned(
+                                      top: -10.h,
+                                      right: -3.w,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        icon: Icon(
+                                          Icons.close_rounded,
+                                          color: Colors.black54,
+                                          size: 35.w,
+                                        ),
+                                      )),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
                       },
                       icon: Icon(
                         Icons.add_circle_outline_rounded,
@@ -173,7 +207,7 @@ class _HomeState extends State<Home> {
           child: InkWell(
             onTap: () {
               Navigator.of(context).push(PageTransition(
-                  child: Send_money(),
+                  child: const Send_money(),
                   duration: const Duration(milliseconds: 250),
                   type: PageTransitionType.rightToLeftWithFade));
             },
@@ -199,7 +233,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(10.0),
           child: GestureDetector(
             onTap: () => Navigator.of(context).push(PageTransition(
-                child: Pul_Tolovlar(),
+                child: const Pul_Tolovlar(),
                 duration: const Duration(milliseconds: 250),
                 type: PageTransitionType.rightToLeftWithFade)),
             child: Container(
@@ -220,7 +254,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(10.0),
           child: GestureDetector(
             onTap: () => Navigator.of(context).push(PageTransition(
-                child: Avia_bilet(),
+                child: const Avia_bilet(),
                 duration: const Duration(milliseconds: 250),
                 type: PageTransitionType.rightToLeftWithFade)),
             child: Container(
@@ -241,7 +275,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(10.0),
           child: GestureDetector(
             onTap: () => Navigator.of(context).push(PageTransition(
-                child: Pochta_xizmati(),
+                child: const Pochta_xizmati(),
                 duration: const Duration(milliseconds: 250),
                 type: PageTransitionType.rightToLeftWithFade)),
             child: Container(
@@ -262,7 +296,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(10.0),
           child: GestureDetector(
             onTap: () => Navigator.of(context).push(PageTransition(
-                child: Paynet(),
+                child: const Paynet(),
                 duration: const Duration(milliseconds: 250),
                 type: PageTransitionType.rightToLeftWithFade)),
             child: Container(
@@ -283,7 +317,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(10.0),
           child: GestureDetector(
             onTap: () => Navigator.of(context).push(PageTransition(
-                child: Viza_xizmati(),
+                child: const Viza_xizmati(),
                 duration: const Duration(milliseconds: 250),
                 type: PageTransitionType.rightToLeftWithFade)),
             child: Container(
@@ -304,7 +338,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(10.0),
           child: GestureDetector(
             onTap: () => Navigator.of(context).push(PageTransition(
-                child: Ish_topish(),
+                child: const Ish_topish(),
                 duration: const Duration(milliseconds: 250),
                 type: PageTransitionType.rightToLeftWithFade)),
             child: Container(
@@ -325,7 +359,7 @@ class _HomeState extends State<Home> {
           padding: EdgeInsets.all(10.0.w),
           child: GestureDetector(
             onTap: () => Navigator.of(context).push(PageTransition(
-                child: Uy_joy_top(),
+                child: const Uy_joy_top(),
                 duration: const Duration(milliseconds: 250),
                 type: PageTransitionType.rightToLeftWithFade)),
             child: Container(

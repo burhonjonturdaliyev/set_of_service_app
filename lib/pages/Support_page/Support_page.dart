@@ -253,64 +253,90 @@ class _Support_centerState extends State<Support_center> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Container(
-                constraints: BoxConstraints(maxWidth: 250.w),
-                decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.white,
-                          Colors.red,
-                        ]),
-                    borderRadius: chat.dialogs.accountType == "ADMIN"
-                        ? BorderRadius.only(
-                            bottomLeft: Radius.circular(33.w),
-                            topRight: Radius.circular(33.w),
-                            bottomRight: Radius.circular(33.w),
-                          )
-                        : BorderRadius.only(
-                            topLeft: Radius.circular(33.w),
-                            topRight: Radius.circular(33.w),
-                            bottomLeft: Radius.circular(33.w),
-                          ),
-                    border: Border.all(width: 1, color: Colors.black26)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(10.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: 1.h, left: 3.w, right: 3.w),
-                            child: Text(
-                              "${chat.dialogs.fistName} ${chat.dialogs.lastName}",
-                              style: TextStyle(
-                                  color: Colors.black54,
-                                  fontFamily: "Inter",
-                                  fontSize: 12.sp),
-                            ),
-                          ),
-                          Text(chat.dialogs.message),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    DateFormat("HH:mm, MMMM")
-                        .format(DateTime.parse(chat.dialogs.createdAt)),
-                    style: TextStyle(
-                        fontFamily: "Inter",
-                        fontSize: 9.sp,
-                        fontWeight: FontWeight.w600),
-                  )
+                  Visibility(
+                    visible:
+                        chat.dialogs.accountType == "CLIENT" ? true : false,
+                    child: Row(
+                      children: [
+                        Text(
+                          DateFormat("HH:mm, MMMM")
+                              .format(DateTime.parse(chat.dialogs.createdAt)),
+                          style: TextStyle(
+                              fontFamily: "Inter",
+                              fontSize: 9.sp,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    constraints: BoxConstraints(maxWidth: 250.w),
+                    decoration: BoxDecoration(
+                        color: chat.dialogs.accountType != "ADMIN"
+                            ? const Color.fromARGB(193, 231, 90, 75)
+                            : const Color.fromARGB(255, 63, 187, 63),
+                        borderRadius: chat.dialogs.accountType == "ADMIN"
+                            ? BorderRadius.only(
+                                bottomLeft: Radius.circular(33.w),
+                                topRight: Radius.circular(33.w),
+                                bottomRight: Radius.circular(33.w),
+                              )
+                            : BorderRadius.only(
+                                topLeft: Radius.circular(33.w),
+                                topRight: Radius.circular(33.w),
+                                bottomLeft: Radius.circular(33.w),
+                              ),
+                        border: Border.all(width: 1, color: Colors.black26)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(10.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: 1.h, left: 3.w, right: 3.w),
+                                child: Text(
+                                  "${chat.dialogs.fistName} ${chat.dialogs.lastName}",
+                                  style: TextStyle(
+                                      color: Colors.black54,
+                                      fontFamily: "Inter",
+                                      fontSize: 12.sp),
+                                ),
+                              ),
+                              Text(chat.dialogs.message),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: chat.dialogs.accountType == "ADMIN" ? true : false,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Text(
+                          DateFormat("HH:mm, MMMM")
+                              .format(DateTime.parse(chat.dialogs.createdAt)),
+                          style: TextStyle(
+                              fontFamily: "Inter",
+                              fontSize: 9.sp,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ],

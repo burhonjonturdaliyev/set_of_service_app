@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, camel_case_types, non_constant_identifier_names
 
 import 'dart:convert';
 
@@ -11,7 +11,7 @@ import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangil
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/yangiliklar_models.dart';
 
 class News_comments extends StatefulWidget {
-  News_comments({
+  const News_comments({
     super.key,
     required this.yangilik,
   });

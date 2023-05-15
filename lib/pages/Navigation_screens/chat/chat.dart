@@ -198,78 +198,96 @@ class _ChatState extends State<Chat> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Container(
-                constraints: BoxConstraints(maxWidth: 250.w),
-                decoration: BoxDecoration(
-                    color: chat.userId == id
-                        ? const Color.fromARGB(193, 181, 143, 139)
-                        : const Color.fromARGB(186, 228, 235, 213),
-                    // gradient: chat.userId == id
-                    //     ? const LinearGradient(
-                    //         begin: Alignment.topLeft,
-                    //         end: Alignment.bottomRight,
-                    //         colors: [
-                    //             Colors.white,
-                    //             Colors.blue,
-                    //           ])
-                    //     : const LinearGradient(
-                    //         begin: Alignment.topLeft,
-                    //         end: Alignment.bottomRight,
-                    //         colors: [
-                    //             Colors.white,
-                    //             Colors.red,
-                    //           ]),
-                    borderRadius: chat.userId != id
-                        ? BorderRadius.only(
-                            bottomLeft: Radius.circular(33.w),
-                            topRight: Radius.circular(33.w),
-                            bottomRight: Radius.circular(33.w),
-                          )
-                        : BorderRadius.only(
-                            topLeft: Radius.circular(33.w),
-                            topRight: Radius.circular(33.w),
-                            bottomLeft: Radius.circular(33.w),
-                          ),
-                    border: Border.all(width: 1, color: Colors.black26)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(10.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: 2.h, left: 3.w, right: 3.w),
-                            child: Text(
-                              chat.username,
-                              style: TextStyle(
-                                  color: Colors.black54,
-                                  fontFamily: "Inter",
-                                  fontSize: 12.sp),
-                            ),
-                          ),
-                          Text(chat.message),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  chat.edited ? editable() : const SizedBox.shrink(),
-                  SizedBox(
-                    width: 10.w,
+                  Visibility(
+                    visible: chat.userId == id ? true : false,
+                    child: Row(
+                      children: [
+                        Text(
+                          DateFormat("HH:mm, MMMM").format(chat.createdAt!),
+                          style: TextStyle(
+                              fontFamily: "Inter",
+                              fontSize: 9.sp,
+                              fontWeight: FontWeight.w600),
+                        )
+                      ],
+                    ),
                   ),
-                  Text(
-                    DateFormat("HH:mm, MMMM").format(chat.createdAt!),
-                    style: TextStyle(
-                        fontFamily: "Inter",
-                        fontSize: 9.sp,
-                        fontWeight: FontWeight.w600),
-                  )
+                  Container(
+                    constraints: BoxConstraints(maxWidth: 250.w),
+                    decoration: BoxDecoration(
+                        color: chat.userId == id
+                            ? const Color.fromARGB(193, 231, 90, 75)
+                            : const Color.fromARGB(255, 63, 187, 63),
+                        // gradient: chat.userId == id
+                        //     ? const LinearGradient(
+                        //         begin: Alignment.topLeft,
+                        //         end: Alignment.bottomRight,
+                        //         colors: [
+                        //             Colors.white,
+                        //             Colors.blue,
+                        //           ])
+                        //     : const LinearGradient(
+                        //         begin: Alignment.topLeft,
+                        //         end: Alignment.bottomRight,
+                        //         colors: [
+                        //             Colors.white,
+                        //             Colors.red,
+                        //           ]),
+                        borderRadius: chat.userId != id
+                            ? BorderRadius.only(
+                                bottomLeft: Radius.circular(33.w),
+                                topRight: Radius.circular(33.w),
+                                bottomRight: Radius.circular(33.w),
+                              )
+                            : BorderRadius.only(
+                                topLeft: Radius.circular(33.w),
+                                topRight: Radius.circular(33.w),
+                                bottomLeft: Radius.circular(33.w),
+                              ),
+                        border: Border.all(width: 1, color: Colors.black26)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(10.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: 2.h, left: 3.w, right: 3.w),
+                                child: Text(
+                                  chat.username,
+                                  style: TextStyle(
+                                      color: Colors.black54,
+                                      fontFamily: "Inter",
+                                      fontSize: 12.sp),
+                                ),
+                              ),
+                              Text(chat.message),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: chat.userId != id ? true : false,
+                    child: Row(
+                      children: [
+                        Text(
+                          DateFormat("HH:mm, MMMM").format(chat.createdAt!),
+                          style: TextStyle(
+                              fontFamily: "Inter",
+                              fontSize: 9.sp,
+                              fontWeight: FontWeight.w600),
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ],

@@ -11,6 +11,7 @@ import 'package:set_of_service_app/pages/Navigation_screens/home.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/profile/profil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services.dart';
 import 'package:set_of_service_app/pages/Support_page/Support_page.dart';
+import 'package:set_of_service_app/pages/Support_page/screens/support_type.dart';
 import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -114,7 +115,7 @@ class _Home_PageState extends State<Home_Page> {
           IconButton(
             onPressed: () {
               Navigator.of(context).push(PageTransition(
-                  child: Support_center(),
+                  child: SupportTypes(),
                   type: PageTransitionType.rightToLeftJoined,
                   childCurrent: Home_Page()));
             },
