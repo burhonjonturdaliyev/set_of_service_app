@@ -34,8 +34,8 @@ class _GEttingSupportState extends State<GEttingSupport> {
   }
 
   gettingInfo() async {
-    for (int i = 0; i <= uzunligi! - 1; i++) {
-      final uri =
+    for (int i = 0; i <= uzunligi - 1; i++) {
+      const uri =
           "http://185.196.213.43:7088/api/support-chats/get-all-dialog/1";
       final url = Uri.parse(uri);
       final response = await http.get(url);

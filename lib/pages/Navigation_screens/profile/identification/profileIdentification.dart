@@ -34,14 +34,8 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
     if (image != null) {
       setState(() {
         animation1 = false;
-        face_animation = done_animation;
       });
-    } else {
-      setState(() {
-        animation1 = true;
-        face_animation = face_animation;
-      });
-    }
+    } else {}
   }
 
   uploadCamera() async {
@@ -223,7 +217,7 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                           fontFamily: "Inter",
                           fontSize: 13.sp),
                     ),
-                    Lottie.asset(face_animation,
+                    Lottie.asset(done_animation,
                         height: 40.h, repeat: animation1, reverse: false),
                   ],
                 ),
