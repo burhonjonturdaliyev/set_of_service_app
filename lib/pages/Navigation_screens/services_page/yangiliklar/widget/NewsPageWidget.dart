@@ -56,7 +56,8 @@ class _NewPageWidgetState extends State<NewPageWidget> {
         child: information.isNotEmpty
             ? ListView.builder(
                 itemCount: information.length,
-                itemBuilder: (context, index) => itemshow(information[index]),
+                itemBuilder: (context, index) =>
+                    itemshow(information[index], context),
               )
             : const Center(
                 child: Text("Hozircha yangiliklar mavjud emas!"),
@@ -66,7 +67,7 @@ class _NewPageWidgetState extends State<NewPageWidget> {
   }
 }
 
-Widget itemshow(infoNew info) {
+Widget itemshow(infoNew info, BuildContext context) {
   return Padding(
     padding: EdgeInsets.only(bottom: 8.0.h, left: 8.w, right: 8.w, top: 4.h),
     child: Container(
@@ -109,6 +110,27 @@ Widget itemshow(infoNew info) {
           children: [
             Text(DateFormat("dd-MMMM, yyyy")
                 .format(DateTime.parse(info.createdAt)))
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextButton.icon(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.comment_outlined,
+                  color: Colors.black54,
+                  size: 22.w,
+                ),
+                label: Text(
+                  "Komment",
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.sp),
+                ))
           ],
         )
       ]),

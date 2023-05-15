@@ -16,22 +16,22 @@ import 'package:set_of_service_app/pages/Home/pochta/pochta_xizmati.dart';
 import 'package:set_of_service_app/pages/Home/house/house.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/currency/valyuta_kurs.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/news/GlobalNews.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/yangiliklar.dart';
 
 // ignore: camel_case_types
 class List_of_services extends StatelessWidget {
   List_of_services({super.key});
   List<Services_model> model = [
     Services_model(info: "Shop xizmatlari", page: Shop()),
-    Services_model(info: "Pul yuborish xizmatlari", page: Send_money()),
-    Services_model(info: "To'lovlar", page: Pul_Tolovlar()),
+    Services_model(info: "Pul yuborish xizmatlari", page: const Send_money()),
+    Services_model(info: "To'lovlar", page: const Pul_Tolovlar()),
     Services_model(info: "Avia bilet xizmatlari", page: const Avia_bilet()),
-    Services_model(info: "Pochta xizmatlari", page: Pochta_xizmati()),
+    Services_model(info: "Pochta xizmatlari", page: const Pochta_xizmati()),
     Services_model(info: "Paynet", page: const Paynet()),
     Services_model(
-        info: "Viza masalalarida yordam xizmati", page: Viza_xizmati()),
-    Services_model(info: "Ish topib berish xizmati", page: Ish_topish()),
-    Services_model(info: "Uy-joy topib berish xizmatlari", page: Uy_joy_top()),
+        info: "Viza masalalarida yordam xizmati", page: const Viza_xizmati()),
+    Services_model(info: "Ish topib berish xizmati", page: const Ish_topish()),
+    Services_model(
+        info: "Uy-joy topib berish xizmatlari", page: const Uy_joy_top()),
     Services_model(info: "Eng oxirgi yangiliklar", page: GlobalNews()
         //Yangiliklar()
         ),
