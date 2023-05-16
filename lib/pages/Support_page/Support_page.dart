@@ -79,9 +79,11 @@ class _Support_centerState extends State<Support_center> {
 
   Future<void> fetchMessage() async {
     final Response = await Support_Api.fetchMessage(context, userId);
-    setState(() {
-      Response != null ? support = Response : null;
-    });
+    if (mounted) {
+      setState(() {
+        Response != null ? support = Response : null;
+      });
+    }
   }
 
   cheking() {

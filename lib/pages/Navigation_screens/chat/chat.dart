@@ -21,9 +21,9 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   final _formkey = GlobalKey<FormState>();
   final int id = 2;
+  List<chat_models> models = [];
   final ScrollController _controller = ScrollController();
 
-  List<chat_models> models = [];
   Timer? timer;
 
   Future<void> putUserMessage(user_send send) async {

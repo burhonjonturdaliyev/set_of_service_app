@@ -1,4 +1,7 @@
+// ignore_for_file: file_names
+
 import 'package:http/http.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsCommentModels.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsModels.dart';
 import 'dart:convert';
 
@@ -29,6 +32,37 @@ class newFunctions {
         }).toList();
 
         return infoNews;
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Error: $e"),
+      ));
+
+      Text("Error is here => $e");
+    }
+    return null;
+  }
+
+  Future<List<newCommentModels>?> getComments(
+      BuildContext context, String link) async {
+    final url = link;
+    final uri = Uri.parse(url);
+    try {
+      Response response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final body = response.body;
+        final json = jsonDecode(body);
+
+        final result = json['object'] as List<dynamic>;
+        final komments = result.map((e) {
+          return newCommentModels(
+              id: e["id"],
+              createdAt: e["createdAt"],
+              message: e["message"],
+              name: e["name"]);
+        }).toList();
+
+        return komments;
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
