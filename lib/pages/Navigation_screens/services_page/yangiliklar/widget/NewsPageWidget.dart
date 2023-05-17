@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/function/newFunctions.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsModels.dart';
@@ -19,15 +20,7 @@ class NewPageWidget extends StatefulWidget {
 }
 
 class _NewPageWidgetState extends State<NewPageWidget> {
-  List<infoNew> information = [
-    infoNew(
-        id: 1,
-        createdAt: "2012-12-31T22:00:00.000Z",
-        title: "Salom",
-        description: "Nimadir uzunro",
-        countryInfoType: "Japan",
-        photo: 2)
-  ];
+  List<infoNew> information = [];
 
   Future<void> getInfo() async {
     // ignore: non_constant_identifier_names
@@ -61,20 +54,19 @@ class _NewPageWidgetState extends State<NewPageWidget> {
         backgroundColor: const Color(0xFF8B0000),
       ),
       body: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("image/back_screen.png"),
-                fit: BoxFit.fitHeight)),
-        child: information.isNotEmpty
-            ? ListView.builder(
-                itemCount: information.length,
-                itemBuilder: (context, index) =>
-                    itemshow(information[index], context),
-              )
-            : const Center(
-                child: Text("Hozircha yangiliklar mavjud emas!"),
-              ),
-      ),
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("image/back_screen.png"),
+                  fit: BoxFit.fitHeight)),
+          child: information.isNotEmpty
+              ? ListView.builder(
+                  itemCount: information.length,
+                  itemBuilder: (context, index) =>
+                      itemshow(information[index], context),
+                )
+              : Center(
+                  child: Lottie.asset("animations/empty.json",
+                      repeat: false, width: 300.w, height: 180.h))),
     );
   }
 }

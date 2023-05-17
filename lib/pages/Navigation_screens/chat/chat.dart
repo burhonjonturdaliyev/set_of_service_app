@@ -48,11 +48,9 @@ class _ChatState extends State<Chat> {
 
   Future<void> fetchMessage() async {
     final Response = await getMessage().fetchMessage(context);
-    Response != null
-        ? setState(() {
-            models = Response;
-          })
-        : null;
+    if (mounted) {
+      Response != null ? models = Response : null;
+    }
   }
 
   @override

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 
 class IdentificationProfel extends StatefulWidget {
@@ -217,8 +216,7 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                           fontFamily: "Inter",
                           fontSize: 13.sp),
                     ),
-                    Lottie.asset(done_animation,
-                        height: 40.h, repeat: animation1, reverse: false),
+                    Lottie.asset(done_animation, height: 40.h, reverse: false),
                   ],
                 ),
               ),
@@ -239,10 +237,7 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                           fontSize: 26.sp),
                     ),
                     Lottie.asset(onGoing,
-                        width: 60.w,
-                        height: 90.h,
-                        repeat: animation2,
-                        reverse: false),
+                        width: 60.w, height: 90.h, reverse: false),
                   ],
                 ),
               ),

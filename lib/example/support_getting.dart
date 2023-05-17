@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
-import '../pages/Support_page/models/support_models.get.dart';
+
+import 'question/models/models.dart';
 
 class SupportMessageGetting extends StatefulWidget {
   const SupportMessageGetting({super.key});
@@ -15,7 +16,7 @@ class SupportMessageGetting extends StatefulWidget {
 class _SupportMessageGettingState extends State<SupportMessageGetting> {
   @override
   Widget build(BuildContext context) {
-    List<Dialogs?> models = [];
+    List<Data> models = [];
 
     Future<void> fetchMessage() async {
       const uri = "http://185.196.213.43:7088/support-chats/get-all-dialog/1";
@@ -27,20 +28,10 @@ class _SupportMessageGettingState extends State<SupportMessageGetting> {
           final body = response.body;
           final json = jsonDecode(body);
           print(json);
-          final object = json["object"] as List<dynamic>;
-          //final result = json[""]["object"]["dialogs"] as List<dynamic>;
-          // Check the structure of the JSON response
-          final result = object[1]["dialogs"] as List<dynamic>;
-          if (result.isNotEmpty) {
-            final listes = result.map((e) {
-              return Dialogs(
-                  createdAt: e["createdAt"],
-                  userId: e["userId"],
-                  fistName: e["fistName"],
-                  lastName: e["lastName"],
-                  accountType: e["accountType"],
-                  message: e["message"]);
-            }).toList();
+          final object = json["object"]["dialogs"]['delete'] as List<dynamic>;
+
+          if (object.isNotEmpty) {
+            final listes = List<Data>.from(object.map((e) => Data.fromJson(e)));
             setState(() {
               models = listes;
             });
@@ -66,8 +57,8 @@ class _SupportMessageGettingState extends State<SupportMessageGetting> {
   }
 }
 
-Widget items(Dialogs? models) {
+Widget items(Data? models) {
   return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text(models!.fistName.toString()));
+      child: Text(models!.dialogs[1].firstName));
 }

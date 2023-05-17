@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
@@ -39,7 +38,7 @@ class _CommentsNewsState extends State<CommentsNews> {
   final _formKey = GlobalKey<FormState>();
 
   Timer? timer;
-  List<newCommentModels> nimadir = [
+  List<newCommentModels> newComments = [
     newCommentModels(
         id: 2,
         createdAt: "2012-12-31T22:00:00.000Z",
@@ -93,7 +92,7 @@ class _CommentsNewsState extends State<CommentsNews> {
     final Responce = await newFunctions().getComments(context, "link");
     if (mounted) {
       setState(() {
-        Responce != null ? nimadir = Responce : null;
+        Responce != null ? newComments = Responce : null;
       });
     }
   }
@@ -105,7 +104,7 @@ class _CommentsNewsState extends State<CommentsNews> {
   }
 
   scrolling() {
-    if (nimadir.isNotEmpty) {
+    if (newComments.isNotEmpty) {
       _controller.jumpTo(_controller.position.maxScrollExtent + 100.h);
     }
   }
@@ -141,38 +140,36 @@ class _CommentsNewsState extends State<CommentsNews> {
         body: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(
-                    "image/back_screen.png",
-                  ),
-                  fit: BoxFit.fitHeight)),
+            image: AssetImage(
+              "image/back_screen.png",
+            ),
+            fit: BoxFit.fitHeight,
+          )),
           child: RefreshIndicator(
             onRefresh: getComment,
-            child: nimadir.isEmpty
+            child: newComments.isEmpty
                 ? Center(
                     child: Lottie.asset("animations/empty.json",
                         repeat: false, width: 300.w, height: 180.h))
-                : Form(
-                    key: _formKey,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          child: SizedBox(
-                            width: 375.w,
-                            height: 750.h,
-                            child: ListView.builder(
-                              controller: _controller,
-                              itemCount: nimadir.length,
-                              itemBuilder: (context, index) => designCommets(
-                                  nimadir[index], colors[index % 20]),
-                            ),
+                : Stack(
+                    children: [
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: SizedBox(
+                          width: 375.w,
+                          height: 750.h,
+                          child: ListView.builder(
+                            controller: _controller,
+                            itemCount: newComments.length,
+                            itemBuilder: (context, index) => designCommets(
+                                newComments[index], colors[index % 20]),
                           ),
                         ),
-                        textfield()
-                      ],
-                    ),
+                      ),
+                      textfield()
+                    ],
                   ),
           ),
         ));
@@ -183,55 +180,63 @@ class _CommentsNewsState extends State<CommentsNews> {
       bottom: 0,
       left: 0,
       right: 0,
-      child: Container(
-        decoration: BoxDecoration(
-            color: const Color(0xFF8B0000),
-            borderRadius: BorderRadius.circular(33.w)),
-        child: Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                  child: TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return null;
-                  }
-                  return null;
-                },
-                style: TextStyle(
-                    color: Colors.white, fontFamily: "Inter", fontSize: 16.sp),
-                maxLines: 1,
-                controller: _kommentController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Izoh yozish",
-                    hintStyle: TextStyle(
-                        color: Colors.white60,
-                        fontSize: 16.sp,
-                        fontFamily: "Inter")),
-              )),
-              InkWell(
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    print(
-                      "Bosildi",
-                    );
-                  }
-                },
-                child: CircleAvatar(
-                  radius: 24.w,
-                  backgroundColor: Colors.transparent,
-                  child: Image.asset(
-                    "image/telegram.png",
-                    color: Colors.white,
-                    width: 30.w,
-                    fit: BoxFit.cover,
-                  ),
+      child: Form(
+        key: _formKey,
+        child: Container(
+          decoration: BoxDecoration(
+              color: const Color(0xFF8B0000),
+              borderRadius: BorderRadius.circular(33.w)),
+          child: Padding(
+            padding: EdgeInsets.only(left: 10.w),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 5.w,
                 ),
-              )
-            ],
+                Expanded(
+                    child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return null;
+                    }
+                    return null;
+                  },
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Inter",
+                      fontSize: 16.sp),
+                  maxLines: 1,
+                  controller: _kommentController,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Izoh yozish",
+                      hintStyle: TextStyle(
+                          color: Colors.white60,
+                          fontSize: 16.sp,
+                          fontFamily: "Inter")),
+                )),
+                InkWell(
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      print(
+                        "Bosildi",
+                      );
+                    }
+                  },
+                  child: CircleAvatar(
+                    radius: 24.w,
+                    backgroundColor: Colors.transparent,
+                    child: Image.asset(
+                      "image/telegram.png",
+                      color: Colors.white,
+                      width: 30.w,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -291,21 +296,6 @@ class _CommentsNewsState extends State<CommentsNews> {
                 color: comment.id != userId
                     ? const Color.fromARGB(193, 231, 90, 75)
                     : const Color.fromARGB(255, 63, 187, 63),
-                // gradient: chat.userId == id
-                //     ? const LinearGradient(
-                //         begin: Alignment.topLeft,
-                //         end: Alignment.bottomRight,
-                //         colors: [
-                //             Colors.white,
-                //             Colors.blue,
-                //           ])
-                //     : const LinearGradient(
-                //         begin: Alignment.topLeft,
-                //         end: Alignment.bottomRight,
-                //         colors: [
-                //             Colors.white,
-                //             Colors.red,
-                //           ]),
                 borderRadius: BorderRadius.circular(23.w),
                 border: Border.all(width: 1, color: Colors.black26)),
             child: Stack(
@@ -318,15 +308,18 @@ class _CommentsNewsState extends State<CommentsNews> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: 2.h, left: 3.w, right: 3.w),
-                            child: Text(
-                              comment.name,
-                              style: TextStyle(
-                                  color: Colors.black54,
-                                  fontFamily: "Inter",
-                                  fontSize: 12.sp),
+                          Visibility(
+                            visible: comment.id != userId ? true : false,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: 2.h, left: 3.w, right: 3.w),
+                              child: Text(
+                                comment.name,
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontFamily: "Inter",
+                                    fontSize: 12.sp),
+                              ),
                             ),
                           ),
                           Text(comment.message),
