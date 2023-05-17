@@ -4,19 +4,20 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
+import 'package:set_of_service_app/const_api/api.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/chat/models/chat_models.dart';
 
 class getMessage {
   Future<List<chat_models>?> fetchMessage(BuildContext context) async {
     try {
-      const uri = "http://185.196.213.43:7088/api/chat";
+      final uri = Api().globalChatGet;
       final url = Uri.parse(uri);
       final response = await http.get(url);
       if (response.statusCode == 200) {
         final body = response.body;
 
         final json = jsonDecode(body);
-        //print(json);
+
         final result = json["object"] as List<dynamic>;
         final chates = result
             .map(

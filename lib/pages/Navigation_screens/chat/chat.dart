@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:set_of_service_app/const_api/api.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/chat/functions/getMessage.dart';
 
 import 'package:set_of_service_app/pages/Navigation_screens/chat/models/chat_models.dart';
@@ -28,7 +29,7 @@ class _ChatState extends State<Chat> {
 
   Future<void> putUserMessage(user_send send) async {
     final response = await http.post(
-      Uri.parse('http://185.196.213.43:7088/api/chat'),
+      Uri.parse(Api().globatChatPut),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(send.toJson()),
     );

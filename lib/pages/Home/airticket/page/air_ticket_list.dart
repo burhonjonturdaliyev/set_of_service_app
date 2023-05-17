@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:set_of_service_app/pages/Home/airticket/page/models/Api_models.d
 import 'package:set_of_service_app/pages/Home/airticket/page/widget/ticket_builder.dart';
 
 class Air_ticket_list extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
   Air_ticket_list({super.key});
 
   @override
@@ -16,7 +19,6 @@ class _Air_ticket_listState extends State<Air_ticket_list> {
   List<Api_models> models = [];
   Future<void> fetchInfo() async {
     try {
-      print("Loading started");
       const uri = "http://185.196.213.43:7088/api/air/ticket/info";
       final url = Uri.parse(uri);
       final response = await http.get(url);

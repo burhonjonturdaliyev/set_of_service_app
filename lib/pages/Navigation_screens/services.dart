@@ -12,7 +12,6 @@ import 'package:set_of_service_app/pages/Home/visa/viza_xizmati.dart';
 import 'package:set_of_service_app/pages/Home/airticket/avia_bilet.dart';
 import 'package:set_of_service_app/pages/Home/job/job.dart';
 import 'package:set_of_service_app/pages/Home/pochta/pochta_xizmati.dart';
-
 import 'package:set_of_service_app/pages/Home/house/house.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/currency/valyuta_kurs.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/GlobalNews.dart';

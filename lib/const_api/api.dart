@@ -1,4 +1,6 @@
 class Api {
+  String globalChatGet = "http://185.196.213.43:7088/api/chat";
+  String globatChatPut = 'http://185.196.213.43:7088/api/chat';
   String oziqOvqat = "";
   String homeAgency = "http://185.196.213.43:7088/api/service/home-agent";
   String vizaSupport = "http://185.196.213.43:7088/api/service/visa-support";
@@ -9,4 +11,5 @@ class Api {
   String supportGet =
       "http://185.196.213.43:7088/api/support-chats/get-all-dialog/";
   String supportPut = "http://185.196.213.43:7088/api/support-chats";
+  String airTicket = 'http://185.196.213.43:7088/api/service/avia-ticket-agent';
 }
