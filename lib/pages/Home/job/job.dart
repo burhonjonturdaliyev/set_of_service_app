@@ -20,9 +20,11 @@ class _Ish_topishState extends State<Ish_topish> {
   Future<void> getJob() async {
     // ignore: non_constant_identifier_names, unused_local_variable
     final Response = await gettingJob().fetchInfo(context);
-    setState(() {
-      Response != null ? models = Response : null;
-    });
+    if (mounted) {
+      setState(() {
+        Response != null ? models = Response : null;
+      });
+    }
   }
 
   @override

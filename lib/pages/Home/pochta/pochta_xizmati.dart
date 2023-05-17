@@ -19,9 +19,11 @@ class _Pochta_xizmatiState extends State<Pochta_xizmati> {
 
   Future<void> gettingPochta() async {
     final Response = await GettingPochta().fetchInfo(context);
-    setState(() {
-      Response != null ? models = Response : null;
-    });
+    if (mounted) {
+      setState(() {
+        Response != null ? models = Response : null;
+      });
+    }
   }
 
   @override

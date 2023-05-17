@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 import 'package:set_of_service_app/pages/Home/pochta/models/pochtaModels.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../models/colour_model.dart';
 
@@ -18,6 +19,15 @@ class Pochta_widgets extends StatelessWidget {
         rang2: const Color.fromARGB(255, 255, 0, 0),
         rang1: const Color.fromARGB(255, 255, 255, 255))
   ];
+  // Future<void> _urlLauncher(String url) async {
+  //   final Uri uri = Uri.parse(url);
+  //   if (!await launchUrl(
+  //     uri,
+  //     mode: LaunchMode.externalApplication,
+  //   )) {
+  //     throw "Can not launch $url";
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

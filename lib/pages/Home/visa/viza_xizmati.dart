@@ -18,9 +18,11 @@ class _Viza_xizmatiState extends State<Viza_xizmati> {
 
   Future<void> fetchitems() async {
     final Response = await gettingVizaItems().fetchInfo(context);
-    setState(() {
-      Response != null ? models = Response : null;
-    });
+    if (mounted) {
+      setState(() {
+        Response != null ? models = Response : null;
+      });
+    }
   }
 
   @override

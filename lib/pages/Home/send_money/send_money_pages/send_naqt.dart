@@ -19,9 +19,11 @@ class _NaqtState extends State<Naqt> {
 
   Future<void> getKarta() async {
     final Response = await sendNaqt().fetchInfo(context);
-    setState(() {
-      Response != null ? models = Response : null;
-    });
+    if (mounted) {
+      setState(() {
+        Response != null ? models = Response : null;
+      });
+    }
   }
 
   @override
