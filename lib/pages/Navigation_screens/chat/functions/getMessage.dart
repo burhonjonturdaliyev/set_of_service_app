@@ -19,6 +19,9 @@ class getMessage {
         final json = jsonDecode(body);
 
         final result = json["object"] as List<dynamic>;
+        // final result = json["_embedded"]['chatEntities'] as List<dynamic>;
+        // print(json["_embedded"]['chatEntities']);
+
         final chates = result
             .map(
               (e) => chat_models(

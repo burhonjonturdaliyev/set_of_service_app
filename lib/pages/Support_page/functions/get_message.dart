@@ -47,4 +47,26 @@ class Support_Api {
     }
     return null;
   }
+
+  Future fetchDelete(BuildContext context, int userId) async {
+    final url = "${Api().supportGet}$userId";
+    final uri = Uri.parse(url);
+    try {
+      http.Response response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final body = response.body;
+        final json = jsonDecode(body);
+
+        final result = json["object"]["delete"] as List<dynamic>;
+
+        return result;
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Error: $e"),
+      ));
+
+      Text("Error is here => $e");
+    }
+  }
 }

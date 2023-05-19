@@ -5,19 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Support_page/Support_page.dart';
 import 'package:set_of_service_app/pages/Support_page/models/support_types.dart';
-import 'package:set_of_service_app/pages/Support_page/screens/additional_Support.dart';
+import 'package:set_of_service_app/pages/Support_page/screens/deleteScreen.dart';
 
 class SupportTypes extends StatelessWidget {
   SupportTypes({super.key});
   List<Support_Types> models = [
     Support_Types(name: "Aktiv chat", page: const Support_center()),
     Support_Types(
-        name: "Tugatilgan chatlar",
-        page: AdditionalSupport(
-          id: 1,
-          name: "Tugatilgan chatlar",
-          url: "",
-        )),
+        name: "Tugatilgan chatlar", page: const DeleteMessageSupport()),
   ];
 
   @override
