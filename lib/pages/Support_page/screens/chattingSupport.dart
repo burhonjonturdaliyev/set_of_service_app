@@ -12,7 +12,7 @@ import 'package:set_of_service_app/pages/Support_page/functions/get_message.dart
 import 'package:set_of_service_app/pages/Support_page/models/support_models.get.dart';
 import 'package:set_of_service_app/pages/Support_page/models/support_models_send.dart';
 
-import '../../const_api/api.dart';
+import '../../../const_api/api.dart';
 
 class Support_center extends StatefulWidget {
   const Support_center({super.key});

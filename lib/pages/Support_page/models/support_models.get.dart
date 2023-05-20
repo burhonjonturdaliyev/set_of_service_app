@@ -27,3 +27,23 @@ class Id {
   int? id;
   Id({this.id});
 }
+
+class DeleteModels {
+  int? id;
+  String? createdAt;
+  int? createdBy;
+  String? updatedAt;
+  bool? deleted;
+  int? userId;
+  String? status;
+
+  DeleteModels({
+    required this.id,
+    required this.createdAt,
+    required this.createdBy,
+    required this.updatedAt,
+    required this.deleted,
+    required this.userId,
+    required this.status,
+  });
+}

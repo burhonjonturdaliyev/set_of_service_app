@@ -218,11 +218,7 @@ class _CommentsNewsState extends State<CommentsNews> {
                 )),
                 InkWell(
                   onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      print(
-                        "Bosildi",
-                      );
-                    }
+                    if (_formKey.currentState!.validate()) {}
                   },
                   child: CircleAvatar(
                     radius: 24.w,

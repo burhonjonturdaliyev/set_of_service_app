@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/pages/Support_page/Support_page.dart';
+import 'package:set_of_service_app/pages/Support_page/screens/chattingSupport.dart';
 import 'package:set_of_service_app/pages/Support_page/models/support_types.dart';
 import 'package:set_of_service_app/pages/Support_page/screens/deleteScreen.dart';
 
@@ -32,9 +32,15 @@ class SupportTypes extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: models.length,
-        itemBuilder: (context, index) => supportItems(models[index], context),
+      body: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("image/back_screen.png"),
+                fit: BoxFit.fitHeight)),
+        child: ListView.builder(
+          itemCount: models.length,
+          itemBuilder: (context, index) => supportItems(models[index], context),
+        ),
       ),
     );
   }

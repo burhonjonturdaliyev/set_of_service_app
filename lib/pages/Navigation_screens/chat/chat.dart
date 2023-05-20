@@ -23,6 +23,28 @@ class _ChatState extends State<Chat> {
   final _formkey = GlobalKey<FormState>();
   final int id = 2;
   List<chat_models> models = [];
+  List<int> colors = [
+    0xFFFFC107, // Amber
+    0xFFF44336, // Red
+    0xFFE91E63, // Pink
+    0xFF9C27B0, // Purple
+    0xFF673AB7, // Deep Purple
+    0xFF3F51B5, // Indigo
+    0xFF2196F3, // Blue
+    0xFF03A9F4, // Light Blue
+    0xFF00BCD4, // Cyan
+    0xFF009688, // Teal
+    0xFF4CAF50, // Green
+    0xFF8BC34A, // Light Green
+    0xFFFF9800, // Orange
+    0xFF795548, // Brown
+    0xFF607D8B, // Blue Grey
+    0xFF9E9E9E, // Grey
+    0xFFE91E63, // Pink
+    0xFF673AB7, // Deep Purple
+    0xFF03A9F4, // Light Blue
+    0xFF4CAF50, // Green
+  ];
   final ScrollController _controller = ScrollController();
 
   Timer? timer;
@@ -111,7 +133,7 @@ class _ChatState extends State<Chat> {
                         controller: _controller,
                         itemCount: models.length,
                         itemBuilder: (context, index) =>
-                            items_design(models[index]),
+                            items_design(models[index], colors[index % 20]),
                       ),
               )),
             ],
@@ -187,7 +209,7 @@ class _ChatState extends State<Chat> {
     );
   }
 
-  Widget items_design(chat_models chat) {
+  Widget items_design(chat_models chat, colors) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Row(
@@ -200,6 +222,25 @@ class _ChatState extends State<Chat> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
+                  Visibility(
+                    visible: chat.userId != id ? true : false,
+                    child: CircleAvatar(
+                      backgroundColor: Color(
+                        colors,
+                      ),
+                      child: Text(
+                        chat.username[0],
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22.sp),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
                   Visibility(
                     visible: chat.userId == id ? true : false,
                     child: Row(
@@ -220,32 +261,7 @@ class _ChatState extends State<Chat> {
                         color: chat.userId == id
                             ? const Color.fromARGB(193, 231, 90, 75)
                             : const Color.fromARGB(255, 63, 187, 63),
-                        // gradient: chat.userId == id
-                        //     ? const LinearGradient(
-                        //         begin: Alignment.topLeft,
-                        //         end: Alignment.bottomRight,
-                        //         colors: [
-                        //             Colors.white,
-                        //             Colors.blue,
-                        //           ])
-                        //     : const LinearGradient(
-                        //         begin: Alignment.topLeft,
-                        //         end: Alignment.bottomRight,
-                        //         colors: [
-                        //             Colors.white,
-                        //             Colors.red,
-                        //           ]),
-                        borderRadius: chat.userId != id
-                            ? BorderRadius.only(
-                                bottomLeft: Radius.circular(33.w),
-                                topRight: Radius.circular(33.w),
-                                bottomRight: Radius.circular(33.w),
-                              )
-                            : BorderRadius.only(
-                                topLeft: Radius.circular(33.w),
-                                topRight: Radius.circular(33.w),
-                                bottomLeft: Radius.circular(33.w),
-                              ),
+                        borderRadius: BorderRadius.circular(33.w),
                         border: Border.all(width: 1, color: Colors.black26)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

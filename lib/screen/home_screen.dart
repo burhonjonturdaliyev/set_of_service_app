@@ -4,14 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/main.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/chat/chat.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/history.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/home.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/profile/profil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services.dart';
-import 'package:set_of_service_app/pages/Support_page/Support_page.dart';
-import 'package:set_of_service_app/pages/Support_page/screens/support_type.dart';
+import 'package:set_of_service_app/pages/Support_page/support_type.dart';
 import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
