@@ -23,3 +23,9 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+//switch to 0 to 2 index in navigation
+// add desc "Malumot mavjud emas" to global info
+// change to last changing
+// shop oziq ovqat ulash
+// history add not history
