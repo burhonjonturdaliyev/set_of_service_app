@@ -26,6 +26,10 @@ class MyApp extends StatelessWidget {
 
 //switch to 0 to 2 index in navigation
 // add desc "Malumot mavjud emas" to global info
+// connect comment
 // change to last changing
 // shop oziq ovqat ulash
 // history add not history
+//  add logo where you need
+// connect airticket both methods {post, get}
+// paynet decr "Paynet xizmati vaqtincha ishlamidi"
