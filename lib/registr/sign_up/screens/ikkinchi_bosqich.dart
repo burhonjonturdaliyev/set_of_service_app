@@ -1,11 +1,9 @@
 // ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, unused_element, avoid_print
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/registr/sign_up/screens/yakuniy_bosqich.dart';
 
 class ikkinchi_bosqich extends StatelessWidget {
   ikkinchi_bosqich({super.key, required this.number});
@@ -219,7 +217,11 @@ class ikkinchi_bosqich extends StatelessWidget {
                     ),
                     onPressed: () async {
                       if (_formkey.currentState!.validate()) {
-                        print("Hello tashkent");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Yakuniy_bosqich(),
+                            ));
                       }
                     },
                     child: Text(
