@@ -1,11 +1,14 @@
 // ignore_for_file: unused_local_variable, non_constant_identifier_names, unrelated_type_equality_checks
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:set_of_service_app/const_api/api.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/function/newFunctions.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsCommentModels.dart';
 
@@ -38,33 +41,7 @@ class _CommentsNewsState extends State<CommentsNews> {
   final _formKey = GlobalKey<FormState>();
 
   Timer? timer;
-  List<newCommentModels> newComments = [
-    newCommentModels(
-        id: 2,
-        createdAt: "2012-12-31T22:00:00.000Z",
-        message: "Hi",
-        name: "Abdusattor"),
-    newCommentModels(
-        id: 3,
-        createdAt: "2012-12-31T22:00:00.000Z",
-        message: "Salom",
-        name: "Bahrom"),
-    newCommentModels(
-        id: 4,
-        createdAt: "2012-12-31T22:00:00.000Z",
-        message: "Rostmikan",
-        name: "Do'stmuhammad"),
-    newCommentModels(
-        id: 5,
-        createdAt: "2012-12-31T22:00:00.000Z",
-        message: "Shunaqa busa kere",
-        name: "Sirli odam"),
-    newCommentModels(
-        id: 1,
-        createdAt: "2012-12-31T22:00:00.000Z",
-        message: "Shunaqa busa kere",
-        name: "Burhonjon"),
-  ];
+  List<newCommentModels> newComments = [];
   List<int> colors = [
     0xFFFFC107, // Amber
     0xFFF44336, // Red
@@ -89,12 +66,21 @@ class _CommentsNewsState extends State<CommentsNews> {
   ];
 
   Future<void> getComment() async {
-    final Responce = await newFunctions().getComments(context, "link");
+    final Responce = await newFunctions()
+        .getComments(context, "${Api().getComment}${widget.id}");
     if (mounted) {
       setState(() {
         Responce != null ? newComments = Responce : null;
       });
     }
+  }
+
+  Future<void> putUserMessage(putMessageComment send) async {
+    final response = await http.post(
+      Uri.parse(Api().globatChatPut),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(send.toJson()),
+    );
   }
 
   void checkListForUpdates() {
@@ -217,8 +203,21 @@ class _CommentsNewsState extends State<CommentsNews> {
                           fontFamily: "Inter")),
                 )),
                 InkWell(
-                  onTap: () {
-                    if (_formKey.currentState!.validate()) {}
+                  onTap: () async {
+                    if (_formKey.currentState!.validate()) {
+                      final value = _kommentController.text;
+                      if (value.isNotEmpty) {
+                        await putUserMessage(putMessageComment(
+                            countryGlobalInfoId: widget.id,
+                            message: value,
+                            userId: userId));
+                        await getComment();
+                        await scrolling();
+                        setState(() {
+                          _kommentController.clear();
+                        });
+                      }
+                    }
                   },
                   child: CircleAvatar(
                     radius: 24.w,

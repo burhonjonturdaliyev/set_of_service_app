@@ -12,3 +12,28 @@ class newCommentModels {
       required this.message,
       required this.name});
 }
+
+class putMessageComment {
+  int? countryGlobalInfoId;
+  String? message;
+  int? userId;
+
+  putMessageComment(
+      {required this.countryGlobalInfoId,
+      required this.message,
+      required this.userId});
+
+  putMessageComment.fromJson(Map<String, dynamic> json) {
+    countryGlobalInfoId = json['countryGlobalInfoId'];
+    message = json['message'];
+    userId = json['userId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['countryGlobalInfoId'] = countryGlobalInfoId;
+    data['message'] = message;
+    data['userId'] = userId;
+    return data;
+  }
+}

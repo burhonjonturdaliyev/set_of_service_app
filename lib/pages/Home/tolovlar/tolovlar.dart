@@ -45,7 +45,7 @@ class Pul_Tolovlar extends StatelessWidget {
                 SizedBox(
                   height: 25.h,
                 ),
-                Lottie.asset("animations/error.json")
+                Lottie.asset("animations/error.json", repeat: false)
               ])),
     );
   }

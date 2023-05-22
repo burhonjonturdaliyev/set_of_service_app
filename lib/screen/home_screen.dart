@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, duplicate_ignore, library_private_types_in_public_api
+// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, duplicate_ignore, library_private_types_in_public_api, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,12 +18,11 @@ class Home_Page extends StatefulWidget {
 
   @override
   // ignore: no_logic_in_create_state
-  _Home_PageState createState() => _Home_PageState(selectedIndex: 0);
+  _Home_PageState createState() => _Home_PageState();
 }
 
 class _Home_PageState extends State<Home_Page> {
   int selectedIndex = 0;
-  _Home_PageState({required this.selectedIndex});
   final List<IconData> data = [
     Icons.home_outlined,
     Icons.history_outlined,
@@ -122,19 +121,6 @@ class _Home_PageState extends State<Home_Page> {
               size: 32.w,
             ),
           ),
-          // IconButton(
-          //     onPressed: () {
-          //       if (Lock_screen) {
-          //         _info_message("Dastur qulflandi");
-          //         _lock();
-          //       } else {
-          //         _info_message("Dastur qulflandi");
-          //         _lock();
-          //       }
-          //     },
-          //     icon: Icon(Lock_screen ? Icons.lock : Icons.lock_open),
-          //     color: Colors.white,
-          //     iconSize: 32.w),
         ],
       ),
       drawer: Drawer(
@@ -145,22 +131,9 @@ class _Home_PageState extends State<Home_Page> {
               SafeArea(
                 child: SizedBox(
                   height: 160.h,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "set-\nof-\nservices".toUpperCase(),
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              // fontFamily: "Inter",
-                              fontSize: 35.sp),
-                        ),
-                      ),
-                    ],
+                  child: Image.asset(
+                    "image/app/logo_kok2.png",
+                    width: 200.w,
                   ),
                 ),
               ),
@@ -203,11 +176,7 @@ class _Home_PageState extends State<Home_Page> {
               )
             ],
           )),
-      bottomNavigationBar:
-          // Lock_screen
-          //     ? null
-          //     :
-          Padding(
+      bottomNavigationBar: Padding(
         padding: EdgeInsets.only(left: 5.0.w, right: 5.0.w, bottom: 3.0.h),
         child: Material(
           elevation: 10,
@@ -261,9 +230,9 @@ class _Home_PageState extends State<Home_Page> {
             });
           },
           children: [
-            Home(),
-            History_money(),
             List_of_services(),
+            History_money(),
+            Home(),
             Chat(),
             Profil()
           ],

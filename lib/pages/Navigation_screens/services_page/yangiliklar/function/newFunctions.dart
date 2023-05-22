@@ -59,7 +59,7 @@ class newFunctions {
               id: e["id"],
               createdAt: e["createdAt"],
               message: e["message"],
-              name: e["name"]);
+              name: e["userName"]);
         }).toList();
 
         return komments;

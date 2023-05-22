@@ -108,7 +108,7 @@ flutter:
     - image/icons/accaount.png
     - image/icons/call.png
     - image/icons/location.png
-    - image/app/app_icon.png
+    - image/app/
     - animations/
 
   # An image asset can refer to one or more resolution-specific "variants", see

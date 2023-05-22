@@ -101,7 +101,7 @@ class _Avia_biletState extends State<Avia_bilet> {
                     child: Center(
                         child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.0.w),
-                      child: Counting(),
+                      child: const Counting(),
                     )),
                   ),
                 ),
@@ -122,7 +122,7 @@ class _Avia_biletState extends State<Avia_bilet> {
                                 child: Air_ticket_list(),
                                 type: PageTransitionType.fade,
                                 curve: Curves.decelerate,
-                                childCurrent: Avia_bilet()));
+                                childCurrent: const Avia_bilet()));
                       }
                     },
                     child: Text(

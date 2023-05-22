@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, body_might_complete_normally_nullable, file_names
+// ignore_for_file: camel_case_types, body_might_complete_normally_nullable, file_names, avoid_print
 
 import 'dart:convert';
 
@@ -39,11 +39,7 @@ class sendNaqt {
         return datas;
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error: $e"),
-      ));
-
-      Text("Error is here => $e");
+      print(e);
     }
   }
 }

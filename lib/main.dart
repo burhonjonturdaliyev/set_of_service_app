@@ -24,12 +24,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//switch to 0 to 2 index in navigation
-// add desc "Malumot mavjud emas" to global info
-// connect comment
-// change to last changing
-// shop oziq ovqat ulash
-// history add not history
-//  add logo where you need
-// connect airticket both methods {post, get}
-// paynet decr "Paynet xizmati vaqtincha ishlamidi"
+//switch to 0 to 2 index in navigation --done
+// add desc "Malumot mavjud emas" to global info -- done
+// connect comment - <<process>>
+// change to last changing -- done
+// shop oziq ovqat ulash <<process>>
+// history add not history done
+//  add logo where you need <<50%>>
+// connect airticket both methods {post, get} <<process>>
+// paynet decr "Paynet xizmati vaqtincha ishlamidi" --done
+// "Texnik ko'rik olib borilmoqda" change to "Xizmat hali yo'lga qo'yilgan emas"
+// adding card to no oziq ovqat
+// davlat server in resgitr {Japan, uzb, Korea, Euro, USA, Australia, china}
+// same back auth number code

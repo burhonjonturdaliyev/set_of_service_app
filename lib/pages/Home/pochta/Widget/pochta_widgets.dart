@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 import 'package:set_of_service_app/pages/Home/pochta/models/pochtaModels.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../models/colour_model.dart';
 

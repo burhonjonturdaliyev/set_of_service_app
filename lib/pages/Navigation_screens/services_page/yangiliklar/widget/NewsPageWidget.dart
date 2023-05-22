@@ -65,8 +65,24 @@ class _NewPageWidgetState extends State<NewPageWidget> {
                       itemshow(information[index], context),
                 )
               : Center(
-                  child: Lottie.asset("animations/empty.json",
-                      repeat: false, width: 300.w, height: 180.h))),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset("animations/empty.json",
+                          repeat: false, width: 300.w, height: 180.h),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      Text(
+                        "Hozircha yangilik mavjud emas!",
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontFamily: "Inter",
+                            fontSize: 16.sp),
+                      )
+                    ],
+                  ),
+                )),
     );
   }
 }

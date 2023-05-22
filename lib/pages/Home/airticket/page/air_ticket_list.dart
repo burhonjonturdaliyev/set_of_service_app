@@ -1,10 +1,9 @@
 // ignore_for_file: camel_case_types
 
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/pages/Home/airticket/page/models/Api_models.dart';
+import 'package:set_of_service_app/pages/Home/airticket/page/functions/airTicketFuntions.dart';
+import 'package:set_of_service_app/pages/Home/airticket/page/models/AirticketModels.dart';
 import 'package:set_of_service_app/pages/Home/airticket/page/widget/ticket_builder.dart';
 
 class Air_ticket_list extends StatefulWidget {
@@ -16,41 +15,31 @@ class Air_ticket_list extends StatefulWidget {
 }
 
 class _Air_ticket_listState extends State<Air_ticket_list> {
-  List<Api_models> models = [];
+  List<AirticketModels> models = [
+    AirticketModels(
+        id: 1,
+        title: "Hello tashkent",
+        subTitle: "Caption",
+        juridical: false,
+        serviceFee: "bor",
+        phoneNumber: "+998906936594",
+        telegramUrl: "https/t.me/tba_003",
+        officeAddress: "Mavjud",
+        active: true,
+        serviceCategoryId: 1,
+        businessProfileId: 1,
+        totalStarts: 5,
+        totalViews: 100,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now())
+  ];
   Future<void> fetchInfo() async {
-    try {
-      const uri = "http://185.196.213.43:7088/api/air/ticket/info";
-      final url = Uri.parse(uri);
-      final response = await http.get(url);
-      if (response.statusCode == 200) {
-        final body = response.body;
-        final json = jsonDecode(body);
-        final result = json["object"] as List<dynamic>;
-        final postes = result
-            .map(
-              (e) => Api_models(
-                  id: e["id"] as int,
-                  createdBy: e["createdBy"],
-                  createdAt: DateTime.parse(e["createdAt"]),
-                  updatedAt: DateTime.parse(e["updatedAt"]),
-                  fromTo: e["fromTo"],
-                  whereTo: e["whereTo"],
-                  toGoDate: DateTime.parse(e["toGoDate"]),
-                  returnDate: DateTime.parse(e["returnDate"]),
-                  airClass: e["airClass"],
-                  passenger: e["passenger"] as int,
-                  userId: e["userId"] as int),
-            )
-            .toList();
-        setState(() {
-          models = postes;
-        });
-        print(body);
-      } else {
-        print("Error");
-      }
-    } catch (e) {
-      print("Error occurred => $e");
+    // ignore: non_constant_identifier_names
+    final Response = await AirticketFunctions().getItems(context);
+    if (mounted) {
+      setState(() {
+        Response != null ? models = Response : null;
+      });
     }
   }
 

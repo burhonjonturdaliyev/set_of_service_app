@@ -12,4 +12,7 @@ class Api {
       "http://185.196.213.43:7088/api/support-chats/get-all-dialog/";
   String supportPut = "http://185.196.213.43:7088/api/support-chats";
   String airTicket = 'http://185.196.213.43:7088/api/service/avia-ticket-agent';
+  String getComment = 'http://185.196.213.43:7088/api/info-comment/';
+  String putComment = 'http://185.196.213.43:7088/api/info-comment';
+  // String airticket = "http://185.196.213.43:7088/api/air/ticket/info";
 }
