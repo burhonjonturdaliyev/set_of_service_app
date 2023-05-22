@@ -1,5 +1,5 @@
 // ignore: file_names
-// ignore_for_file: file_names, duplicate_ignore
+// ignore_for_file: file_names, duplicate_ignore, avoid_print
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -39,11 +39,7 @@ class GettingPochta {
         return datas;
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error: $e"),
-      ));
-
-      Text("Error is here => $e");
+      print(e);
     }
     return null;
   }

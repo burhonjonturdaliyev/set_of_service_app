@@ -53,7 +53,7 @@ class _PaynetState extends State<Paynet> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Texnik ko'rik olib borilmoqda",
+                    "Xizmat hali yo'lga qo'yilgan emas",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,

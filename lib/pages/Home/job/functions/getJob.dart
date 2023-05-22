@@ -1,5 +1,5 @@
 // ignore: camel_case_types
-// ignore_for_file: file_names, camel_case_types, duplicate_ignore
+// ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -38,11 +38,7 @@ class gettingJob {
         return datas;
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error: $e"),
-      ));
-
-      Text("Error is here => $e");
+      print(e);
     }
     return null;
   }

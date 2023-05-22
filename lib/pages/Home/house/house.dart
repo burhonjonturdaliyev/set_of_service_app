@@ -17,9 +17,11 @@ class Uy_joy_top extends StatefulWidget {
 class _Uy_joy_topState extends State<Uy_joy_top> {
   Future<void> fetchItems() async {
     final Response = await getHouse().fetchInfo(context);
-    setState(() {
-      Response != null ? homeItems = Response : null;
-    });
+    if (mounted) {
+      setState(() {
+        Response != null ? homeItems = Response : null;
+      });
+    }
   }
 
   List<HomeModels> homeItems = [];

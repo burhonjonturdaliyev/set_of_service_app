@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, file_names
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -36,9 +38,7 @@ class AirticketFunctions {
         return postes;
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error: $e"),
-      ));
+      print(e);
     }
     return null;
   }

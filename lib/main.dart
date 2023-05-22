@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
 //  add logo where you need <<50%>>
 // connect airticket both methods {post, get} <<process>>
 // paynet decr "Paynet xizmati vaqtincha ishlamidi" --done
-// "Texnik ko'rik olib borilmoqda" change to "Xizmat hali yo'lga qo'yilgan emas"
+// "Texnik ko'rik olib borilmoqda" change to "Xizmat hali yo'lga qo'yilgan emas" --done
 // adding card to no oziq ovqat
 // davlat server in resgitr {Japan, uzb, Korea, Euro, USA, Australia, china}
 // same back auth number code

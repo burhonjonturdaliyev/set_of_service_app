@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, file_names
+// ignore_for_file: camel_case_types, file_names, avoid_print
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -38,11 +38,7 @@ class gettingVizaItems {
         return datas;
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error: $e"),
-      ));
-
-      Text("Error is here => $e");
+      print(e);
     }
     return null;
   }

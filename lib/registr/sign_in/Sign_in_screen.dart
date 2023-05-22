@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types, prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:set_of_service_app/registr/sign_in/widget/design_sign_in.dart';

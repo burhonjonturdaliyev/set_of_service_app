@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../screen/home_screen.dart';
 import '../../reset/Reset_password_screen.dart';
-import '../../sign_up/Sign_up_screen.dart';
+import '../../sign_up/screens/birinchi_bosqich.dart';
 
 // ignore: must_be_immutable
 class DesignSignIn extends StatefulWidget {
@@ -325,7 +325,8 @@ class _DesignSignInState extends State<DesignSignIn> {
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).push(PageTransition(
-                          child: Sign_up(), type: PageTransitionType.fade));
+                          child: const birinchi_bosqich(),
+                          type: PageTransitionType.fade));
                       widget.number.clear();
                       widget.password.clear();
                     },

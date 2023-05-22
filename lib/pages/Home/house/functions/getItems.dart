@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, file_names, body_might_complete_normally_nullable
+// ignore_for_file: camel_case_types, file_names, body_might_complete_normally_nullable, avoid_print
 
 import 'dart:convert';
 
@@ -38,11 +38,7 @@ class getHouse {
         return datas;
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error: $e"),
-      ));
-
-      Text("Error is here => $e");
+      print(e);
     }
   }
 }

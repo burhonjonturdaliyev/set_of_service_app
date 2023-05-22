@@ -34,7 +34,7 @@ class _KartagaState extends State<Kartaga> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "Texnik ko'rik olib borilmoqda",
+            "Xizmat hali yo'lga qo'yilgan emas",
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.black,
@@ -45,7 +45,7 @@ class _KartagaState extends State<Kartaga> {
           SizedBox(
             height: 25.h,
           ),
-          Lottie.asset("animations/error.json")
+          Lottie.asset("animations/error.json", repeat: false)
         ]);
 
     // return SingleChildScrollView(

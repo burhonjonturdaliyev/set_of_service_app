@@ -1,18 +1,19 @@
+// ignore_for_file: camel_case_types, file_names, non_constant_identifier_names, duplicate_ignore, unnecessary_null_comparison, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/registr/auth/auth_number.dart';
-import 'package:set_of_service_app/registr/registr/sign_up_registr.dart';
+import 'package:set_of_service_app/registr/sign_up/screens/ikkinchi_bosqich.dart';
 
-class Sign_up extends StatefulWidget {
-  Sign_up({super.key});
+class birinchi_bosqich extends StatefulWidget {
+  const birinchi_bosqich({super.key});
 
   @override
-  State<Sign_up> createState() => _Sign_upState();
+  State<birinchi_bosqich> createState() => _birinchi_bosqichState();
 }
 
-class _Sign_upState extends State<Sign_up> {
+class _birinchi_bosqichState extends State<birinchi_bosqich> {
   final _formkey = GlobalKey<FormState>();
 
   TextEditingController number = TextEditingController();
@@ -21,6 +22,7 @@ class _Sign_upState extends State<Sign_up> {
 
   // ignore: non_constant_identifier_names
   TextEditingController cofic_password = TextEditingController();
+  late String fullnumber;
   bool visible = true;
   bool checking = false;
 
@@ -60,6 +62,7 @@ class _Sign_upState extends State<Sign_up> {
         _big_container(),
         _samuray_photo(),
         _name_provider(),
+        _bosqich(),
         _context()
       ]),
     );
@@ -128,19 +131,13 @@ class _Sign_upState extends State<Sign_up> {
     );
   }
 
-  Widget _context() {
+  Widget _bosqich() {
     return Positioned(
-      bottom: 0.h,
-      right: 10.w,
-      left: 10.w,
-      child: Form(
-        key: _formkey,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 33.w),
-          child: Column(children: [
-            SizedBox(
-              height: 300.h,
-            ),
+        bottom: 400.h,
+        left: 25.w,
+        right: 25.w,
+        child: Column(
+          children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -170,8 +167,22 @@ class _Sign_upState extends State<Sign_up> {
                 )
               ],
             ),
+          ],
+        ));
+  }
+
+  Widget _context() {
+    return Positioned(
+      bottom: 0.h,
+      right: 10.w,
+      left: 10.w,
+      child: Form(
+        key: _formkey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 33.w),
+          child: Column(children: [
             SizedBox(
-              height: 33.h,
+              height: 300.h,
             ),
             Row(
               children: [
@@ -310,19 +321,22 @@ class _Sign_upState extends State<Sign_up> {
                     borderRadius: BorderRadius.circular(21),
                   ),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  await adding();
                   if (_formkey.currentState!.validate()) {
                     Navigator.pushAndRemoveUntil(
                         context,
                         PageTransition(
-                            child: AuthNumberCode(number: number.text),
-                            type: PageTransitionType.bottomToTopPop,
-                            childCurrent: Sign_up()),
+                            child: ikkinchi_bosqich(
+                              number: fullnumber,
+                            ),
+                            type: PageTransitionType.fade,
+                            childCurrent: const birinchi_bosqich()),
                         (route) => true);
                   }
                 },
                 child: Text(
-                  "Ro’yxatdan uchun",
+                  "Keyingisi",
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: "Inter",
@@ -359,5 +373,11 @@ class _Sign_upState extends State<Sign_up> {
         ),
       ),
     );
+  }
+
+  adding() {
+    if (number != null) {
+      fullnumber = "+998${number.text}";
+    }
   }
 }

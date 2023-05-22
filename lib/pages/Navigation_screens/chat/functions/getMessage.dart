@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, file_names, camel_case_types
+// ignore_for_file: unused_local_variable, file_names, camel_case_types, avoid_print
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -37,9 +37,7 @@ class getMessage {
         return chates;
       } else {}
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error: $e"),
-      ));
+      print(e);
     }
     return null;
   }
