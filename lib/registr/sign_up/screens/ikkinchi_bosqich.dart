@@ -220,7 +220,7 @@ class ikkinchi_bosqich extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const Yakuniy_bosqich(),
+                              builder: (context) => Yakuniy_bosqich(),
                             ));
                       }
                     },
