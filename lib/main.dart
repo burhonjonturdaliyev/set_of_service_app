@@ -31,10 +31,10 @@ class MyApp extends StatelessWidget {
 // change to last changing -- done
 // shop oziq ovqat ulash <<process>>
 // history add not history done
-//  add logo where you need <<50%>>
+//  add logo where you need --done
 // connect airticket both methods {post, get} <<process>>
 // paynet decr "Paynet xizmati vaqtincha ishlamidi" --done
 // "Texnik ko'rik olib borilmoqda" change to "Xizmat hali yo'lga qo'yilgan emas" --done
 // adding card to no oziq ovqat
 // davlat server in resgitr {Japan, uzb, Korea, Euro, USA, Australia, china}
-// same back auth number code
+// same back auth number code --done

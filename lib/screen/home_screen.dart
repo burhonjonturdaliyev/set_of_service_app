@@ -22,7 +22,7 @@ class Home_Page extends StatefulWidget {
 }
 
 class _Home_PageState extends State<Home_Page> {
-  int selectedIndex = 0;
+  int selectedIndex = 2;
   final List<IconData> data = [
     Icons.home_outlined,
     Icons.history_outlined,
@@ -52,7 +52,7 @@ class _Home_PageState extends State<Home_Page> {
       logindata = prefs;
     });
 
-    _controller = PageController();
+    _controller = PageController(initialPage: selectedIndex);
   }
 
   void takingVariable() {
