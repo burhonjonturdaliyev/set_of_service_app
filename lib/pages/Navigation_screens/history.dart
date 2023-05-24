@@ -91,7 +91,7 @@ class History_money extends StatelessWidget {
           SizedBox(
             height: 25.h,
           ),
-          Lottie.asset("animations/error.json", repeat: false)
+          Lottie.asset("animations/error.json", repeat: false, animate: false)
         ]);
   }
 }

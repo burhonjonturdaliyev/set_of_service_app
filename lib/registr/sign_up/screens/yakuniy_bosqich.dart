@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:set_of_service_app/screen/home_screen.dart';
 
 class Yakuniy_bosqich extends StatefulWidget {
   Yakuniy_bosqich({super.key});
@@ -25,6 +26,21 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
 
   TextEditingController server = TextEditingController();
 
+  bool isChecked = false;
+  String myServer = 'Yaponiya';
+  String jinsi = 'Erkak';
+
+  List<String> jinslari = ['Erkak', 'Ayol'];
+  List<String> countryNames = [
+    'Yaponiya',
+    'O\'zbekiston',
+    'Koreya',
+    'Yevropa',
+    'Amerika',
+    'Avstraliya',
+    'Xitoy',
+  ];
+
   void listItems1() {
     print("Hello tashket1");
   }
@@ -41,92 +57,6 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
         sana.text = DateFormat("dd.MM.yyyy").format(choose);
       });
     }
-  }
-
-  void servers() {
-    PopupMenuButton<String>(
-        itemBuilder: (context) => [
-              PopupMenuItem(
-                  value: "Japan",
-                  child: Text(
-                    "Japan",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w600),
-                  )),
-              PopupMenuItem(
-                  value: "Uzbekistan",
-                  child: Text(
-                    "Uzbekistan",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w600),
-                  )),
-              PopupMenuItem(
-                  value: "Korea",
-                  child: Text(
-                    "Korea",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w600),
-                  )),
-              PopupMenuItem(
-                  value: "Yevropa",
-                  child: Text(
-                    "Yevropa",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w600),
-                  )),
-              PopupMenuItem(
-                  value: "Amerika",
-                  child: Text(
-                    "Ameria",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w600),
-                  )),
-              PopupMenuItem(
-                  value: "Avstraliya",
-                  child: Text(
-                    "Avstraliya",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w600),
-                  )),
-              PopupMenuItem(
-                  value: "Xitoy",
-                  child: Text(
-                    "Xitoy",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w600),
-                  )),
-              PopupMenuItem(
-                  value: "Japan",
-                  child: Text(
-                    "Japan",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w600),
-                  )),
-            ]);
   }
 
   @override
@@ -263,7 +193,41 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                shortTextfield("Jinsni tanlang:", jins, listItems1),
+                Container(
+                  height: 45.h,
+                  width: 150.w,
+                  decoration: BoxDecoration(
+                      //color: Colors.amberAccent,
+                      border:
+                          Border.all(width: 2.w, color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(33.w)),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 15.w,
+                      ),
+                      DropdownButton<String>(
+                        underline: Container(),
+                        value: jinsi,
+                        elevation: 16,
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            setState(() {
+                              jinsi = newValue;
+                            });
+                          }
+                        },
+                        items: jinslari
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(
                   width: 10.w,
                 ),
@@ -278,9 +242,36 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                shortTextfield("Davlatni tanlang:", server, () {
-                  print("dwd");
-                }),
+                Container(
+                  height: 45.h,
+                  width: 150.w,
+                  decoration: BoxDecoration(
+                      //color: Colors.amberAccent,
+                      border:
+                          Border.all(width: 2.w, color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(33.w)),
+                  child: Center(
+                    child: DropdownButton<String>(
+                      underline: Container(),
+                      value: myServer,
+                      elevation: 16,
+                      onChanged: (String? newValue) {
+                        if (newValue != null) {
+                          setState(() {
+                            myServer = newValue;
+                          });
+                        }
+                      },
+                      items: countryNames
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   width: 10.w,
                 ),
@@ -292,8 +283,30 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                         border:
                             Border.all(width: 2.w, color: Colors.grey.shade300),
                         borderRadius: BorderRadius.circular(33.w)),
-                    child: const Center(
-                      child: Text("Some thing"),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Expanded(
+                            child: Text(
+                          "Foydalanish shartiga roziman",
+                          style: TextStyle(
+                              color: isChecked ? Colors.black : Colors.black54,
+                              fontFamily: "Inter",
+                              fontWeight: FontWeight.w600,
+                              fontSize: 11.sp),
+                        )),
+                        Checkbox(
+                          activeColor: const Color(0xFF8B0000),
+                          value: isChecked,
+                          onChanged: (value) {
+                            setState(() {
+                              isChecked = value!;
+                            });
+                          },
+                        )
+                      ],
                     ))
               ],
             ),
@@ -372,7 +385,14 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                   ),
                 ),
                 onPressed: () async {
-                  if (_formKey.currentState!.validate()) {}
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Home_Page(),
+                        ),
+                        (route) => false);
+                  }
                 },
                 child: Text(
                   "Keyingisi",

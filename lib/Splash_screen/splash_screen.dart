@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -22,9 +24,9 @@ class _Splash_screenState extends State<Splash_screen> {
             context,
             PageTransition(
                 child: Sign_in(),
-                type: PageTransitionType.rightToLeft,
+                type: PageTransitionType.fade,
                 curve: Curves.fastLinearToSlowEaseIn,
-                childCurrent: Splash_screen()),
+                childCurrent: const Splash_screen()),
             (route) => false);
       },
     );
@@ -34,33 +36,14 @@ class _Splash_screenState extends State<Splash_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFDDADA),
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              children: [
-                Image.asset(
-                  "image/app/app_icon.png",
-                  width: 120.w,
-                )
-              ],
-            ),
-            Text(
-              "Set of Services\nBarcha turdagi ma'lumotlar endi \nbitta ilovada!",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold),
-            ),
-            const CircularProgressIndicator(),
-          ],
-        ),
+      backgroundColor: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            "image/app/logo_qizil.png",
+          )
+        ],
       ),
     );
   }

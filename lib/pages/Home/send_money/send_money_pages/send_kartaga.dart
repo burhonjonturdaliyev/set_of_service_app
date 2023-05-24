@@ -45,7 +45,7 @@ class _KartagaState extends State<Kartaga> {
           SizedBox(
             height: 25.h,
           ),
-          Lottie.asset("animations/error.json", repeat: false)
+          Lottie.asset("animations/error.json", repeat: false, animate: false)
         ]);
 
     // return SingleChildScrollView(

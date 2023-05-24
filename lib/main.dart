@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.red,
           ),
-          home: Yakuniy_bosqich()),
+          home: const Splash_screen()),
       designSize: const Size(375, 812),
     );
   }
