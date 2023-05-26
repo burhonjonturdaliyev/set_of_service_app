@@ -300,6 +300,7 @@ class _Registr_signState extends State<Registr_sign> {
                               if (value!.isEmpty) {
                                 return 'Tug\'ilgan sanangizni kiritng';
                               }
+                              return null;
                             },
                             keyboardType: TextInputType.none,
                             onTap: () async {

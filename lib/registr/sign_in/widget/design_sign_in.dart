@@ -41,7 +41,6 @@ class _DesignSignInState extends State<DesignSignIn> {
   void check_login() async {
     logindata = await SharedPreferences.getInstance();
     new_user = (logindata.getBool("login") ?? true);
-    print("new user");
     if (new_user == false) {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
@@ -179,6 +178,7 @@ class _DesignSignInState extends State<DesignSignIn> {
                     if (value.length < 9) {
                       return "Iltimos oxirigacha kiriting";
                     }
+                    return null;
                     // if (value != "906936594") {
                     //   return "Bazada bunday raqam mavjud emas!";
                     // }
@@ -222,6 +222,7 @@ class _DesignSignInState extends State<DesignSignIn> {
                     if (value.length < 8) {
                       return "Parol mos kelmadi!";
                     }
+                    return null;
                   },
                   obscureText: widget.visible,
                   decoration: InputDecoration(
@@ -293,7 +294,7 @@ class _DesignSignInState extends State<DesignSignIn> {
                   if (_formkey.currentState!.validate()) {
                     String number = widget.number.text;
                     String password = widget.password.text;
-                    print("Succesfully");
+
                     logindata.setBool("login", false);
                     logindata.setString("number", number);
                     logindata.setString("password", password);

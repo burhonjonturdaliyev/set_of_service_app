@@ -185,7 +185,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(10.0),
           child: InkWell(
             onTap: () => Navigator.of(context).push(PageTransition(
-              child: Shop(),
+              child: const Shop(),
               duration: const Duration(milliseconds: 250),
               type: PageTransitionType.rightToLeftWithFade,
             )),

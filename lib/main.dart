@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/Splash_screen/splash_screen.dart';
-import 'package:set_of_service_app/registr/sign_up/screens/yakuniy_bosqich.dart';
 
 void main() {
   runApp(const MyApp());

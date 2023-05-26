@@ -6,6 +6,7 @@ class Functions {
   String country2;
   Functions({required this.country1, required this.country2});
   void cheking(context) {
+    // ignore: unnecessary_null_comparison
     if (country1 == null) {
       showDialog(
         context: context,
@@ -52,6 +53,7 @@ class Functions {
         },
       );
     } else {
+      // ignore: unnecessary_null_comparison
       if (country2 == null) {
         showDialog(
           context: context,

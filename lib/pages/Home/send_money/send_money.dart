@@ -179,7 +179,7 @@ class _Send_moneyState extends State<Send_money> {
                       selectedIndex = index;
                     });
                   },
-                  children: [
+                  children: const [
                     Naqt(),
                     Kartaga(),
                   ],

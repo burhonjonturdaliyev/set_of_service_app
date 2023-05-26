@@ -16,18 +16,21 @@ class _CountingState extends State<Counting> {
   int woman = 0;
   int child = 0;
 
+  // ignore: non_constant_identifier_names
   man_adding_function() {
     setState(() {
       man++;
     });
   }
 
+  // ignore: non_constant_identifier_names
   woman_adding_function() {
     setState(() {
       woman++;
     });
   }
 
+  // ignore: non_constant_identifier_names
   child_adding_function() {
     setState(() {
       child++;

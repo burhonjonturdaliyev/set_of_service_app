@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:set_of_service_app/models/history_model.dart';
-import 'package:intl/intl.dart';
 
 class History_money extends StatelessWidget {
   History_money({super.key});

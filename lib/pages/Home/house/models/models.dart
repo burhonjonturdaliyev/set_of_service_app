@@ -28,6 +28,7 @@ class HomeModels {
   late final String telegramUrl;
   late final String officeAddress;
   late final bool active;
+  // ignore: prefer_void_to_null
   late final Null serviceCategoryEntity;
   late final int serviceCategoryId;
   late final int businessProfileId;

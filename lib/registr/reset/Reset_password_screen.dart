@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, file_names, camel_case_types, non_constant_identifier_names, duplicate_ignore
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -137,6 +139,7 @@ class Reset_password extends StatelessWidget {
                     if (value != "906936594") {
                       return "Bazada bunday raqam mavjud emas, iltimos ro'yxatdan o'ting";
                     }
+                    return null;
                   },
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,

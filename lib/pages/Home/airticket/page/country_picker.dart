@@ -29,6 +29,7 @@ class _Country_pickerState extends State<Country_picker> {
                   if (value!.isEmpty) {
                     return "Iltimos Qayerdan ketayotganingizni kiriting";
                   }
+                  return null;
                 },
                 onTap: () {
                   showCountryPicker(
@@ -75,6 +76,7 @@ class _Country_pickerState extends State<Country_picker> {
                   if (value!.isEmpty) {
                     return "Iltimos Qayerga ketayotganingizni kiriting";
                   }
+                  return null;
                 },
                 onTap: () {
                   showCountryPicker(

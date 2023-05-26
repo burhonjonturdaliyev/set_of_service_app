@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, camel_case_types, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -141,7 +143,7 @@ class _Review_widgetState extends State<Review_widget> {
                     submit = false;
                   });
                 },
-                child: Text("Submit"))
+                child: const Text("Submit"))
           ])
         : Row(
             mainAxisAlignment: MainAxisAlignment.center,

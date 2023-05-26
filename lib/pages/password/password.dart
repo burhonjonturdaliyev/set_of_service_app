@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
@@ -19,7 +21,7 @@ class _adminState extends State<admin> {
             image: DecorationImage(
                 image: AssetImage("image/registr_screen.png"),
                 fit: BoxFit.cover)),
-        child: OtpScreen(),
+        child: const OtpScreen(),
       ),
     );
   }
@@ -262,9 +264,9 @@ class _OtpScreenState extends State<OtpScreen> {
     setPin(pinIndex, text);
     currentPin[pinIndex - 1] = text;
     String strPin = "";
-    currentPin.forEach((e) {
+    for (var e in currentPin) {
       strPin += e;
-    });
+    }
     if (pinIndex == 4) print(strPin);
   }
 
@@ -338,7 +340,8 @@ class PINNumber extends StatelessWidget {
   final TextEditingController textEditingController;
   final OutlineInputBorder outlineInputBorder;
 
-  PINNumber(
+  // ignore: use_key_in_widget_constructors
+  const PINNumber(
       {required this.textEditingController, required this.outlineInputBorder});
 
   @override
@@ -370,7 +373,7 @@ class KeyboardNumber extends StatelessWidget {
   final int n;
   final Function() onPressed;
 
-  KeyboardNumber({required this.n, required this.onPressed});
+  const KeyboardNumber({super.key, required this.n, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

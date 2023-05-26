@@ -1,10 +1,8 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unused_field
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:set_of_service_app/pages/Home/send_money/confirm/confirm_tranzactions.dart';
 
 class Paynet extends StatefulWidget {
   const Paynet({super.key});

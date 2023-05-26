@@ -196,6 +196,7 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
                     if (value.length < 9) {
                       return "Iltimos oxirigacha kiriting";
                     }
+                    return null;
                   },
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,

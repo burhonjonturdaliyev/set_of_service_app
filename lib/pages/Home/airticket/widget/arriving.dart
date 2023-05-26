@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,6 +43,7 @@ class _ArrivingState extends State<Arriving> {
                           if (widget.ketishSanasi.text.length != 10) {
                             return "To'liq sanani kiriting";
                           }
+                          return null;
                         },
                         onTap: () async {
                           DateTime? choose = await showDatePicker(
@@ -91,6 +94,7 @@ class _ArrivingState extends State<Arriving> {
                           if (widget.qaytishSanasi.text.length != 10) {
                             return "To'liq sanani kiriting";
                           }
+                          return null;
                         },
                         onTap: () async {
                           DateTime? choose = await showDatePicker(

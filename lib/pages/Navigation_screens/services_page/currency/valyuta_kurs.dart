@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, avoid_print, non_constant_identifier_names, duplicate_ignore
 
 import 'dart:async';
 import 'dart:convert';

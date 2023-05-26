@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, duplicate_ignore, non_constant_identifier_names
+// ignore_for_file: deprecated_member_use, duplicate_ignore, non_constant_identifier_names, file_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +18,7 @@ class Text_editions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      
+      key: _formkey,
       child: Expanded(
           child: TextFormField(
         style: TextStyle(fontFamily: "Inter", fontSize: 16.sp),

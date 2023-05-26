@@ -4,7 +4,7 @@ import 'package:set_of_service_app/pages/Home/shop/shop_pages/nooziq_ovqat.dart'
 import 'package:set_of_service_app/pages/Home/shop/shop_pages/oziq_ovqat.dart';
 
 class Shop extends StatefulWidget {
-  Shop({super.key});
+  const Shop({super.key});
 
   @override
   State<Shop> createState() => _ShopState();

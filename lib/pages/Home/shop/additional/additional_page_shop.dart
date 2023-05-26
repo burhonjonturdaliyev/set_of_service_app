@@ -1,4 +1,4 @@
-import 'dart:async';
+// ignore_for_file: must_be_immutable, camel_case_types
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

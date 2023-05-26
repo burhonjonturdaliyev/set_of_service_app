@@ -20,7 +20,7 @@ import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangil
 class List_of_services extends StatelessWidget {
   List_of_services({super.key});
   List<Services_model> model = [
-    Services_model(info: "Shop xizmatlari", page: Shop()),
+    Services_model(info: "Shop xizmatlari", page: const Shop()),
     Services_model(info: "Pul yuborish xizmatlari", page: const Send_money()),
     Services_model(info: "To'lovlar", page: const Pul_Tolovlar()),
     Services_model(info: "Avia bilet xizmatlari", page: const Avia_bilet()),
