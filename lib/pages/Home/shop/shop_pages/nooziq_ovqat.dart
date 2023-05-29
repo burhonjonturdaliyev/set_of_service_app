@@ -2,8 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/pages/Home/shop/additional/add_items.dart';
+import 'package:set_of_service_app/pages/Home/shop/shop_page.dart';
 
-import '../Widget/shop_widgets.dart';
+import '../Widget/no_oziq_widget.dart';
 import '../../../../models/shop_models.dart';
 
 // ignore: camel_case_types
@@ -110,14 +113,45 @@ class Nooziq_ovqat extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(left: 9.0.w, bottom: 14.h),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                "Nooziq-ovqat servislari ro’yxati",
+                "Nooziq-ovqatlar",
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 18.sp,
                     fontFamily: "Inter"),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: const addItems(),
+                          type: PageTransitionType.fade,
+                          childCurrent: const Shop()));
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      "E'lon berish",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
+                          fontFamily: "Inter"),
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Icon(
+                      Icons.add_to_photos_outlined,
+                      color: Colors.black,
+                      size: 25.w,
+                    )
+                  ],
+                ),
               )
             ],
           ),
@@ -128,7 +162,7 @@ class Nooziq_ovqat extends StatelessWidget {
             left: 8.w,
             right: 8.w,
           ),
-          child: List_builder(info_List: models),
+          child: no_List_builder(info_List: models),
         ))
       ],
     );

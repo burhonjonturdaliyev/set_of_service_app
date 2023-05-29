@@ -34,7 +34,7 @@ class _KartagaState extends State<Kartaga> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "Xizmat hali yo'lga qo'yilgan emas",
+            "Xizmat hali yo'lga qo'yilmagan!",
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.black,

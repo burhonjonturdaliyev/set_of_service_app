@@ -4,7 +4,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
 import 'package:set_of_service_app/screen/home_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Yakuniy_bosqich extends StatefulWidget {
   Yakuniy_bosqich({super.key});
@@ -25,6 +28,15 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
   TextEditingController sana = TextEditingController();
 
   TextEditingController server = TextEditingController();
+  Future<void> _urlLauncher(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw "Can not launch $url";
+    }
+  }
 
   bool isChecked = false;
   String myServer = 'Yaponiya';
@@ -258,7 +270,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                       onChanged: (String? newValue) {
                         if (newValue != null) {
                           setState(() {
-                            myServer = newValue;
+                            myServer = myServer;
                           });
                         }
                       },
@@ -350,7 +362,8 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                                     fontSize: 10.sp,
                                     fontWeight: FontWeight.bold),
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () => print("object")),
+                                  ..onTap = () =>
+                                      _urlLauncher("https://www.youtube.com")),
                             TextSpan(
                                 text: "o'qib chiqdim va to'liq qabul qilaman.",
                                 style: TextStyle(
@@ -366,7 +379,8 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                                     fontSize: 10.sp,
                                     fontWeight: FontWeight.bold),
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () => print("Bosildi"))
+                                  ..onTap = () =>
+                                      _urlLauncher("https://www.youtube.com"))
                           ])),
                         ],
                       ),
@@ -395,7 +409,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                   }
                 },
                 child: Text(
-                  "Keyingisi",
+                  "Ro'yxatdan o'tish",
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: "Inter",
@@ -417,7 +431,14 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                 TextSpan(
                     text: " BU YERNI BOSING ",
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () => print("Bu yerni bosing bosildi"),
+                      ..onTap = () => Navigator.pushAndRemoveUntil(
+                          context,
+                          PageTransition(
+                              child: Sign_in(),
+                              type: PageTransitionType.fade,
+                              curve: Curves.bounceOut,
+                              childCurrent: Yakuniy_bosqich()),
+                          (route) => false),
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: "Inter",

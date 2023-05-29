@@ -98,7 +98,9 @@ class _ShopState extends State<Shop> {
                             width: 185.w,
                             height: 25.h,
                             decoration: BoxDecoration(
-                                color: const Color(0xFF8B0000),
+                                color: selectedIndex == 0
+                                    ? const Color(0xA4F89B9B)
+                                    : const Color(0xFF8B0000),
                                 borderRadius: BorderRadius.circular(5.w)),
                             child: Center(
                               child: Column(
@@ -109,7 +111,9 @@ class _ShopState extends State<Shop> {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: "Inter",
-                                        fontWeight: FontWeight.w700,
+                                        fontWeight: selectedIndex == 0
+                                            ? FontWeight.bold
+                                            : FontWeight.normal,
                                         fontSize: 14.sp,
                                         letterSpacing: 5.w),
                                   ),
@@ -133,7 +137,9 @@ class _ShopState extends State<Shop> {
                             width: 185.w,
                             height: 25.h,
                             decoration: BoxDecoration(
-                                color: const Color(0xFF8B0000),
+                                color: selectedIndex == 1
+                                    ? const Color(0xA4F89B9B)
+                                    : const Color(0xFF8B0000),
                                 borderRadius: BorderRadius.circular(5.w)),
                             child: Center(
                               child: Text(
@@ -141,7 +147,9 @@ class _ShopState extends State<Shop> {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: "Inter",
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: selectedIndex == 1
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
                                     fontSize: 14.sp,
                                     letterSpacing: 5.w),
                               ),

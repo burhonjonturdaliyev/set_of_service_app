@@ -34,7 +34,7 @@ class Pul_Tolovlar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Texnik ko'rik olib borilmoqda",
+                  "Xizmat hali yo'lga qo'yilmagan!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.black,

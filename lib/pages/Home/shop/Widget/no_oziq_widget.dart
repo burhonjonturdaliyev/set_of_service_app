@@ -12,17 +12,17 @@ import 'package:set_of_service_app/pages/Home/shop/shop_pages/oziq_ovqat.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // ignore: camel_case_types, must_be_immutable
-class List_builder extends StatefulWidget {
+class no_List_builder extends StatefulWidget {
   // ignore: non_constant_identifier_names
-  List_builder({super.key, required this.info_List});
+  no_List_builder({super.key, required this.info_List});
   // ignore: non_constant_identifier_names
   List<Shop_models> info_List;
 
   @override
-  State<List_builder> createState() => _List_builderState();
+  State<no_List_builder> createState() => _no_List_builderState();
 }
 
-class _List_builderState extends State<List_builder> {
+class _no_List_builderState extends State<no_List_builder> {
   List<Colour_models> colour = [
     Colour_models(
         rang2: const Color.fromARGB(255, 255, 0, 0),
@@ -195,7 +195,6 @@ class _List_builderState extends State<List_builder> {
                   right: 7.w,
                 ),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.calendar_month_outlined,
@@ -250,6 +249,17 @@ class _List_builderState extends State<List_builder> {
                           fontSize: 8.sp,
                           color: Colors.black,
                           fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(
+                      width: 45.w,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Icon(
+                        Icons.keyboard_arrow_down_outlined,
+                        size: 16.w,
+                        color: Colors.black,
+                      ),
                     ),
                   ],
                 ),

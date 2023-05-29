@@ -52,8 +52,6 @@ dependencies:
   country_icons: ^2.0.2
   country_flags: ^1.0.0
   country_picker: ^2.0.19
-  firebase_core: ^2.9.0
-  firebase_auth: ^4.2.2
   device_info: ^2.0.3
   shared_preferences: ^2.1.0
   flutter_local_notifications: ^14.0.0+1

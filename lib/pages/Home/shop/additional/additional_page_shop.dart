@@ -43,7 +43,7 @@ class _Additional_page_shopState extends State<Additional_page_shop> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Buyurtma berish",
+          "Batafsil ma'lumot",
           style: TextStyle(
               color: Colors.white,
               fontSize: 20.sp,
