@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'package:lottie/lottie.dart';
 import 'package:set_of_service_app/const_api/api.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/function/newFunctions.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsCommentModels.dart';
@@ -131,33 +130,50 @@ class _CommentsNewsState extends State<CommentsNews> {
             ),
             fit: BoxFit.fitHeight,
           )),
-          child: RefreshIndicator(
-            onRefresh: getComment,
-            child: newComments.isEmpty
-                ? Center(
-                    child: Lottie.asset("animations/empty.json",
-                        repeat: false, width: 300.w, height: 180.h))
-                : Stack(
-                    children: [
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        child: SizedBox(
-                          width: 375.w,
-                          height: 750.h,
-                          child: ListView.builder(
-                            controller: _controller,
-                            itemCount: newComments.length,
-                            itemBuilder: (context, index) => designCommets(
-                                newComments[index], colors[index % 20]),
-                          ),
+          child: newComments.isEmpty
+              ? Stack(
+                  children: [
+                    Positioned(
+                        left: 0.w,
+                        right: 0.w,
+                        bottom: 0.h,
+                        top: 0.h,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Birinchi izohni siz qoldirishingiz mumkin!",
+                              style: TextStyle(
+                                  color: Colors.black54,
+                                  fontFamily: "Inter",
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                          ],
+                        )),
+                    textfield(),
+                  ],
+                )
+              : Stack(
+                  children: [
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: SizedBox(
+                        width: 375.w,
+                        height: 750.h,
+                        child: ListView.builder(
+                          controller: _controller,
+                          itemCount: newComments.length,
+                          itemBuilder: (context, index) => designCommets(
+                              newComments[index], colors[index % 20]),
                         ),
                       ),
-                      textfield()
-                    ],
-                  ),
-          ),
+                    ),
+                    textfield()
+                  ],
+                ),
         ));
   }
 

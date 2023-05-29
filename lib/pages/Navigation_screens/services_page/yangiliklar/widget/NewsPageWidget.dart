@@ -7,7 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/function/newFunctions.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsModels.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/screens/comment.dart';
+import '../additional_screen/fully_information.dart';
 
 class NewPageWidget extends StatefulWidget {
   NewPageWidget({super.key, required this.type, required this.name});
@@ -20,14 +20,33 @@ class NewPageWidget extends StatefulWidget {
 }
 
 class _NewPageWidgetState extends State<NewPageWidget> {
-  List<infoNew> information = [];
+  List<infoNew> model = [
+    infoNew(
+        id: 1,
+        createdAt: DateTime.now().toString(),
+        title:
+            "Lorem Ipsum is simply dummy text ofthe printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ....",
+        description:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        countryInfoType: "Japan",
+        photo: 1),
+    infoNew(
+        id: 1,
+        createdAt: DateTime.now().toString(),
+        title:
+            "Lorem Ipsum is simply dummy text ofthe printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ....",
+        description:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        countryInfoType: "Japan",
+        photo: 1)
+  ];
 
   Future<void> getInfo() async {
     // ignore: non_constant_identifier_names
     final Response = await newFunctions().getInfoNew(context, widget.type);
     if (mounted) {
       setState(() {
-        Response != null ? information = Response : Response == null;
+        Response != null ? model = Response : Response == null;
       });
     }
   }
@@ -58,11 +77,11 @@ class _NewPageWidgetState extends State<NewPageWidget> {
               image: DecorationImage(
                   image: AssetImage("image/back_screen.png"),
                   fit: BoxFit.fitHeight)),
-          child: information.isNotEmpty
+          child: model.isNotEmpty
               ? ListView.builder(
-                  itemCount: information.length,
+                  itemCount: model.length,
                   itemBuilder: (context, index) =>
-                      itemshow(information[index], context),
+                      itemshow(context, model[index]),
                 )
               : Center(
                   child: Column(
@@ -87,104 +106,103 @@ class _NewPageWidgetState extends State<NewPageWidget> {
   }
 }
 
-Widget itemshow(infoNew info, BuildContext context) {
-  return Container(
-    decoration: const BoxDecoration(color: Colors.white70),
-    child: Column(children: [
-      SizedBox(
-        height: 10.h,
-      ),
-      Row(
-        children: [
-          Text(
-            "Kun.uz",
-            style: TextStyle(
-                color: Colors.black,
-                fontFamily: "Inter",
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w600),
-          ),
-        ],
-      ),
-      SizedBox(
-        height: 10.h,
-      ),
-      Image.network(
-        "https://media.istockphoto.com/id/1135322304/photo/girl-carrying-a-school-bag.jpg?s=2048x2048&w=is&k=20&c=uklhuWev69_O-uI6hILvyfmNJOoYcaFm8nyV9yp2xsg=",
-        errorBuilder: (context, error, stackTrace) => SizedBox(
-          height: 120.h,
-          width: 280.w,
-          child: const Center(
-            child: Text("Serverga bog'lanib bulmayapti"),
-          ),
-        ),
-      ),
-      SizedBox(
-        height: 10.h,
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(child: Text(info.title)),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(child: Text(info.description)),
-              ],
-            ),
-            SizedBox(
-              height: 12.h,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(DateFormat("dd-MMMM, yyyy")
-                    .format(DateTime.parse(info.createdAt)))
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              child: CommentsNews(
-                                countryInfoType: info.countryInfoType,
-                                createdAt: info.createdAt,
-                                description: info.description,
-                                id: info.id,
-                                photo: info.photo,
-                                title: info.title,
-                              ),
-                              duration: const Duration(milliseconds: 300),
-                              type: PageTransitionType.leftToRightWithFade,
-                              curve: Curves.bounceInOut));
-                    },
-                    icon: Icon(
-                      Icons.comment_outlined,
-                      color: Colors.black54,
-                      size: 22.w,
-                    ),
-                    label: Text(
-                      "Izoh yozish",
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp),
-                    ))
-              ],
-            ),
-          ],
-        ),
-      )
-    ]),
+Widget itemshow(BuildContext context, infoNew model) {
+  return Padding(
+    padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h),
+    child: InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            PageTransition(
+              child: fullyScreen(
+                  id: model.id,
+                  title: model.title,
+                  description: model.description,
+                  countryInfoType: model.countryInfoType,
+                  createdAt: model.createdAt,
+                  photo: model.photo),
+              type: PageTransitionType.rightToLeft,
+            ));
+      },
+      child: Container(
+          height: 95.h,
+          width: 367.w,
+          decoration: BoxDecoration(
+              color: const Color(0x4DE4C9C9),
+              border: Border.all(width: 0.5.w, color: Colors.black26),
+              borderRadius: BorderRadius.circular(13.w)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                              child: Text(
+                            model.title.length >= 100
+                                ? "${model.title.substring(0, 100)} ..."
+                                : model.title,
+                            style:
+                                TextStyle(fontFamily: "Inter", fontSize: 11.sp),
+                          )),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.calendar_month_outlined,
+                            color: Colors.black54,
+                            size: 13.sp,
+                          ),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          Text(DateFormat("yyyy.MM.dd")
+                              .format(DateTime.parse(model.createdAt))),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Icon(
+                            Icons.watch_later_outlined,
+                            color: Colors.black54,
+                            size: 13.sp,
+                          ),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          Text(DateFormat("HH:mm")
+                              .format(DateTime.parse(model.createdAt)))
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: 120.w,
+                  height: 80.h,
+                  decoration: BoxDecoration(
+                      image: const DecorationImage(
+                          image: NetworkImage(
+                            "https://media.istockphoto.com/id/1135322304/photo/girl-carrying-a-school-bag.jpg?s=2048x2048&w=is&k=20&c=uklhuWev69_O-uI6hILvyfmNJOoYcaFm8nyV9yp2xsg=",
+                          ),
+                          fit: BoxFit.cover),
+                      border: Border.all(width: 0.5, color: Colors.black38),
+                      borderRadius: BorderRadius.circular(5.w)),
+                ),
+              )
+            ],
+          )),
+    ),
   );
 }

@@ -69,6 +69,10 @@ class fullyScreen extends StatelessWidget {
                 width: 367.w,
                 height: 254.h,
                 decoration: BoxDecoration(
+                    image: const DecorationImage(
+                        image: NetworkImage(
+                            "https://media.istockphoto.com/id/1135322304/photo/girl-carrying-a-school-bag.jpg?s=2048x2048&w=is&k=20&c=uklhuWev69_O-uI6hILvyfmNJOoYcaFm8nyV9yp2xsg="),
+                        fit: BoxFit.cover),
                     color: Colors.pinkAccent,
                     borderRadius: BorderRadius.circular(12.w),
                     border: Border.all(width: 0.5.w, color: Colors.black45)),
