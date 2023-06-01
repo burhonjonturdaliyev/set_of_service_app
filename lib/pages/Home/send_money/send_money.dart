@@ -34,33 +34,6 @@ class _Send_moneyState extends State<Send_money> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          // bottom: TabBar(
-          //   indicatorColor: Colors.white,
-          //   tabs: [
-          //     Tab(
-          //       child: Text(
-          //         "Naqt",
-          //         style: TextStyle(
-          //           color: Colors.white,
-          //           fontWeight: FontWeight.bold,
-          //           fontFamily: "Inter",
-          //           fontSize: selectedIndex == 0 ? 14.sp : 12.sp,
-          //         ),
-          //       ),
-          //     ),
-          //     Tab(
-          //       child: Text(
-          //         "Kartaga",
-          //         style: TextStyle(
-          //           color: Colors.white,
-          //           fontWeight: FontWeight.bold,
-          //           fontFamily: "Inter",
-          //           fontSize: selectedIndex == 0 ? 14.sp : 12.sp,
-          //         ),
-          //       ),
-          //     )
-          //   ],
-          // ),
           backgroundColor: const Color(0xFF8B0000),
           centerTitle: true,
           title: Text(
@@ -103,7 +76,9 @@ class _Send_moneyState extends State<Send_money> {
                             width: 185.w,
                             height: 25.h,
                             decoration: BoxDecoration(
-                                color: const Color(0xFF8B0000),
+                                color: selectedIndex == 0
+                                    ? const Color(0xA4F89B9B)
+                                    : const Color(0xFF8B0000),
                                 borderRadius: BorderRadius.circular(5.w)),
                             child: Center(
                               child: Column(
@@ -138,7 +113,9 @@ class _Send_moneyState extends State<Send_money> {
                             width: 185.w,
                             height: 25.h,
                             decoration: BoxDecoration(
-                                color: const Color(0xFF8B0000),
+                                color: selectedIndex == 1
+                                    ? const Color(0xA4F89B9B)
+                                    : const Color(0xFF8B0000),
                                 borderRadius: BorderRadius.circular(5.w)),
                             child: Center(
                               child: Text(

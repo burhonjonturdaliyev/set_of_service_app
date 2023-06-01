@@ -31,32 +31,7 @@ class _ShopState extends State<Shop> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        //backgroundColor: const Color(0xFF8B0000),
         appBar: AppBar(
-            // bottom: TabBar(indicatorColor: Colors.white, tabs: [
-            //   Tab(
-            //     child: Text(
-            //       "Oziq-ovqat",
-            //       style: TextStyle(
-            //           color: Colors.white,
-            //           fontFamily: "Inter",
-            //           fontWeight: FontWeight.w700,
-            //           fontSize: selectedIndex == 0 ? 14.sp : 12.sp,
-            //           letterSpacing: 5.w),
-            //     ),
-            //   ),
-            //   Tab(
-            //     child: Text(
-            //       "Nooziq-ovqat",
-            //       style: TextStyle(
-            //           color: Colors.white,
-            //           fontFamily: "Inter",
-            //           fontWeight: FontWeight.w700,
-            //           fontSize: selectedIndex == 0 ? 14.sp : 12.sp,
-            //           letterSpacing: 5.w),
-            //     ),
-            //   ),
-            // ]),
             elevation: 0,
             centerTitle: true,
             backgroundColor: const Color(0xFF8B0000),
