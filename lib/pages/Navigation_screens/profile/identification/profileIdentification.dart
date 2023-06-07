@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, duplicate_ignore, non_constant_identifier_names, file_names
+// ignore_for_file: deprecated_member_use, duplicate_ignore, non_constant_identifier_names, file_names, invalid_use_of_visible_for_testing_member
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,7 +39,8 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
 
   uploadCamera() async {
     // ignore: deprecated_member_use
-    var pickedFile = await imagePicker.getImage(source: ImageSource.camera);
+    var pickedFile =
+        await ImagePicker.platform.getImage(source: ImageSource.camera);
 
     if (pickedFile != null) {
       setState(() {
@@ -50,7 +51,8 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
 
   Future<void> uploadGallery() async {
     // ignore: deprecated_member_use
-    var picketFile = await galleryPicker.getImage(source: ImageSource.gallery);
+    var picketFile =
+        await ImagePicker.platform.getImage(source: ImageSource.gallery);
 
     if (picketFile != null) {
       setState(() {

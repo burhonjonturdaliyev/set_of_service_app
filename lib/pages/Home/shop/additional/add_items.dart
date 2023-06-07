@@ -1,9 +1,12 @@
-// ignore_for_file: camel_case_types, non_constant_identifier_names, must_be_immutable
+// ignore_for_file: camel_case_types, non_constant_identifier_names, must_be_immutable, invalid_use_of_visible_for_testing_member, avoid_print
 
+import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class addItems extends StatefulWidget {
@@ -27,9 +30,83 @@ class _addItemsState extends State<addItems> {
   TextEditingController batafsil = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  File? rasm1;
+  File? rasm2;
+  File? rasm3;
+  File? rasm4;
+
+  File? rasm11;
+  File? rasm22;
+  File? rasm33;
+  File? rasm44;
 
   int radioButton = 1;
   bool checkBox = false;
+
+  elon_joylash() async {
+    if (checkBox == true) {
+      print("Funksiya yozish kere");
+      // var response = await http.post(Uri.parse(Api().elon), body: {
+      //   {
+      //     "address": manzil.text,
+      //     "businessProfileId": 1,
+      //     "delivered": radioButton == 1 ? true : false,
+      //     "description": batafsil.text,
+      //     "id": 1,
+      //     "mobileNumber": telegram.text,
+      //     "phoneNumber": qoshimcha_raqam.text,
+      //     "shopType": "NOFOODS",
+      //     "telegramUrl": telegram.text,
+      //     "title": mavzu.text,
+      //   },
+      // });
+      // print(response.body);
+    }
+  }
+
+  Future compressorImage(manba) async {
+    if (manba == null) return null;
+    FlutterImageCompress.compressWithFile(manba);
+  }
+
+  Future<void> pickImage(File? manba, ImageSource source) async {
+    final pickedfile = await ImagePicker.platform.pickImage(source: source);
+
+    if (mounted) {
+      if (pickedfile != null) {
+        setState(() {
+          if (manba == rasm1) {
+            rasm1 = File(pickedfile.path);
+          } else if (manba == rasm2) {
+            rasm2 = File(pickedfile.path);
+          } else if (manba == rasm3) {
+            rasm3 = File(pickedfile.path);
+          } else if (manba == rasm4) {
+            rasm4 = File(pickedfile.path);
+          }
+        });
+      }
+    }
+
+    if (mounted) {
+      if (pickedfile != null) {
+        final compressedFile = await compressorImage(pickedfile.path);
+        if (compressedFile != null) {
+          setState(() {
+            if (manba == rasm1) {
+              rasm11 = File(compressedFile);
+            } else if (manba == rasm2) {
+              rasm22 = File(compressedFile);
+            } else if (manba == rasm3) {
+              rasm33 = File(compressedFile);
+            } else if (manba == rasm4) {
+              rasm44 = File(compressedFile);
+            }
+          });
+        }
+      }
+    }
+  }
 
   Future<void> _urlLauncher(String url) async {
     final Uri uri = Uri.parse(url);
@@ -41,23 +118,106 @@ class _addItemsState extends State<addItems> {
     }
   }
 
-  Widget getImage() {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        height: 50.h,
-        width: 75.w,
-        decoration: BoxDecoration(
-            color: const Color(0xABB9AEAE),
-            borderRadius: BorderRadius.circular(5.w)),
-        child: Center(
-            child: Icon(
-          Icons.add_photo_alternate_outlined,
-          color: const Color(0xFF8B0000),
-          size: 30.sp,
-        )),
+  Future openDialog(manba) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: SizedBox(
+          height: 100.h,
+          width: 220.w,
+          child: Column(
+            children: [
+              Text(
+                "Suratni qayerdan yuklamoqchisiz?",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Inter",
+                    fontSize: 12.sp),
+              ),
+              const Divider(
+                thickness: 1,
+                color: Colors.black87,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            pickImage(manba, ImageSource.gallery);
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.photo_outlined,
+                            color: Colors.black54,
+                            size: 25.sp,
+                          )),
+                      Text(
+                        "Galareyadan",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Inter",
+                            fontSize: 10.sp),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            pickImage(manba, ImageSource.camera);
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.camera_alt_outlined,
+                            color: Colors.black54,
+                            size: 25.sp,
+                          )),
+                      Text(
+                        "Kamera orqali",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Inter",
+                            fontSize: 10.sp),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
+  }
+
+  Widget getImage(manba) {
+    return InkWell(
+        onTap: () {
+          openDialog(manba);
+        },
+        child: Container(
+          height: 50.h,
+          width: 75.w,
+          decoration: BoxDecoration(
+              color: const Color(0xABB9AEAE),
+              borderRadius: BorderRadius.circular(5.w)),
+          child: manba != null
+              ? Image.file(
+                  manba,
+                  fit: BoxFit.cover,
+                )
+              : Center(
+                  child: Icon(
+                  Icons.add_photo_alternate_outlined,
+                  color: const Color(0xFF8B0000),
+                  size: 30.sp,
+                )),
+        ));
   }
 
   @override
@@ -152,10 +312,10 @@ class _addItemsState extends State<addItems> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        getImage(),
-                        getImage(),
-                        getImage(),
-                        getImage(),
+                        getImage(rasm1),
+                        getImage(rasm2),
+                        getImage(rasm3),
+                        getImage(rasm4),
                       ],
                     ),
                     SizedBox(
@@ -227,6 +387,7 @@ class _addItemsState extends State<addItems> {
                         ),
                         Radio(
                           value: 1,
+                          activeColor: const Color(0xFF8B0000),
                           groupValue: radioButton,
                           onChanged: (value) {
                             setState(() {
@@ -251,6 +412,7 @@ class _addItemsState extends State<addItems> {
                         ),
                         Radio(
                           value: 2,
+                          activeColor: const Color(0xFF8B0000),
                           groupValue: radioButton,
                           onChanged: (value) {
                             setState(() {
@@ -333,7 +495,8 @@ class _addItemsState extends State<addItems> {
         ),
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
-            Navigator.pop(context);
+            elon_joylash();
+            // Navigator.pop(context);
           }
         },
         child: Text(
@@ -439,28 +602,6 @@ class _addItemsState extends State<addItems> {
           ))
         ],
       ),
-      // Container(
-      //   height: 35.h,
-      //   decoration: BoxDecoration(
-      //       border: Border.all(width: 1.w, color: Colors.black54),
-      //       borderRadius: BorderRadius.circular(9.w)),
-      //   child: Padding(
-      //     padding: EdgeInsets.only(left: 15.w),
-      //     child: Row(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       crossAxisAlignment: CrossAxisAlignment.center,
-      //       children: [
-      //         Expanded(
-      //             child: TextFormField(
-      //           controller: controller,
-      //           maxLines: 1,
-      //           decoration:
-      //               InputDecoration(hintText: hint, border: InputBorder.none),
-      //         ))
-      //       ],
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

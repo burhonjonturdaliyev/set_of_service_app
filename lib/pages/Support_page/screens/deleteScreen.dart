@@ -20,7 +20,6 @@ class DeleteMessageSupport extends StatefulWidget {
 
 class _DeleteMessageSupportState extends State<DeleteMessageSupport> {
   List<DeleteModels> models = [];
-
   Future<void> fetchDelete() async {
     try {
       final uri = "${Api().supportGet}1";
@@ -46,11 +45,8 @@ class _DeleteMessageSupportState extends State<DeleteMessageSupport> {
           });
         }
       }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error: $e"),
-      ));
-    }
+      // ignore: empty_catches
+    } catch (e) {}
   }
 
   @override

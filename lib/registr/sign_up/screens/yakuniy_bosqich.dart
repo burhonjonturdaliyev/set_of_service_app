@@ -1,5 +1,7 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_print, must_be_immutable, prefer_const_constructors_in_immutables
 
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +10,9 @@ import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
 import 'package:set_of_service_app/screen/home_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
+import '../../../const_api/api.dart';
+import '../model/step_model.dart';
 
 class Yakuniy_bosqich extends StatefulWidget {
   Yakuniy_bosqich({super.key});
@@ -38,6 +43,33 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
     }
   }
 
+  Future<void> step2(
+    Step3_model model,
+  ) async {
+    try {
+      // ignore: unused_local_variable
+      final response = await http.post(
+        Uri.parse(Api().step3),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(model.toJson()),
+      );
+      if (response.statusCode == 200) {
+        // ignore: use_build_context_synchronously
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Home_Page(),
+            ),
+            (route) => false);
+      } else {
+        // API request failed
+        print('API request failed with status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle any exceptions that occurred during the request
+    }
+  }
+
   bool isChecked = false;
   String myServer = 'Yaponiya';
   String jinsi = 'Erkak';
@@ -52,10 +84,6 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
     'Avstraliya',
     'Xitoy',
   ];
-
-  void listItems1() {
-    print("Hello tashket1");
-  }
 
   void kalendar(BuildContext context) async {
     DateTime? choose = await showDatePicker(
@@ -399,14 +427,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                   ),
                 ),
                 onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Home_Page(),
-                        ),
-                        (route) => false);
-                  }
+                  if (_formKey.currentState!.validate()) {}
                 },
                 child: Text(
                   "Ro'yxatdan o'tish",

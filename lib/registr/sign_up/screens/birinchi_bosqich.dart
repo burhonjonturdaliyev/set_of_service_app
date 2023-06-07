@@ -1,10 +1,15 @@
-// ignore_for_file: camel_case_types, file_names, non_constant_identifier_names, duplicate_ignore, unnecessary_null_comparison, use_build_context_synchronously
+// ignore_for_file: camel_case_types, file_names, non_constant_identifier_names, duplicate_ignore, unnecessary_null_comparison, use_build_context_synchronously, avoid_print
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/registr/sign_up/screens/ikkinchi_bosqich.dart';
+import 'package:http/http.dart' as http;
+import '../../../const_api/api.dart';
+import '../model/step_model.dart';
 
 class birinchi_bosqich extends StatefulWidget {
   const birinchi_bosqich({super.key});
@@ -25,6 +30,7 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
   late String fullnumber;
   bool visible = true;
   bool checking = false;
+  int textstype = 1;
 
   void _visible() {
     setState(() {
@@ -37,6 +43,36 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
       return "Parollar mos emas!";
     }
     return null;
+  }
+
+  Future<void> step1(
+    Step1_model model,
+  ) async {
+    try {
+      // ignore: unused_local_variable
+      final response = await http.post(
+        Uri.parse(Api().step1),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(model.toJson()),
+      );
+      if (response.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            PageTransition(
+                child: ikkinchi_bosqich(
+                  number: fullnumber,
+                  password: password.text,
+                ),
+                type: PageTransitionType.fade,
+                childCurrent: const birinchi_bosqich()),
+            (route) => true);
+      } else {
+        // API request failed
+        print('API request failed with status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle any exceptions that occurred during the request
+    }
   }
 
   @override
@@ -187,39 +223,76 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
             Row(
               children: [
                 Expanded(
-                    child: TextFormField(
-                  controller: number,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Telefon nomerni kiriting";
-                    }
-                    if (value.length < 9) {
-                      return "Iltimos oxirigacha kiriting";
-                    }
-                    return null;
-                  },
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(9)
-                  ],
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.phone_iphone_outlined,
-                        size: 25.w,
-                      ),
-                      prefix: const Text(
-                        "+998 ",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "Inter",
+                  child: TextFormField(
+                    controller: number,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Telefon nomerni kiriting";
+                      }
+                      if (value.length < 9) {
+                        return "Iltimos oxirigacha kiriting";
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      String pattern;
+                      if (value.startsWith('9')) {
+                        pattern = '+XXX-XX-XXX-XX-XX';
+                      } else if (value.startsWith('8')) {
+                        pattern = '+XX-XX-XXXX-XXXX';
+                        setState(() {
+                          textstype = 2;
+                        });
+                      } else {
+                        pattern = '+XXX-XX-XXX-XX-XX'; // Default pattern
+                      }
+
+                      var textIndex = 0;
+                      var maskedText = '';
+
+                      for (var patternIndex = 0;
+                          patternIndex < pattern.length;
+                          patternIndex++) {
+                        if (pattern[patternIndex] == 'X') {
+                          if (textIndex < value.length) {
+                            maskedText += value[textIndex];
+                            textIndex++;
+                          }
+                        } else {
+                          maskedText += pattern[patternIndex];
+                        }
+
+                        if (textIndex >= value.length) {
+                          break;
+                        }
+                      }
+
+                      setState(() {
+                        number.value = TextEditingValue(
+                          text: maskedText,
+                          selection: TextSelection.collapsed(
+                              offset: maskedText.length),
+                        );
+                      });
+                    },
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      textstype == 1
+                          ? LengthLimitingTextInputFormatter(12)
+                          : LengthLimitingTextInputFormatter(12)
+                    ],
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.phone_iphone_outlined,
+                          size: 25.w,
                         ),
-                      ),
-                      label: const Text("Telefon raqamni kiriting:"),
-                      fillColor: Colors.black,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(21.w))),
-                  keyboardType: TextInputType.number,
-                ))
+                        label: const Text("Telefon raqamni kiriting:"),
+                        fillColor: Colors.black,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(21.w))),
+                    keyboardType: TextInputType.number,
+                  ),
+                )
               ],
             ),
             SizedBox(
@@ -325,15 +398,8 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
                 onPressed: () async {
                   await adding();
                   if (_formkey.currentState!.validate()) {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        PageTransition(
-                            child: ikkinchi_bosqich(
-                              number: fullnumber,
-                            ),
-                            type: PageTransitionType.fade,
-                            childCurrent: const birinchi_bosqich()),
-                        (route) => true);
+                    await step1(Step1_model(
+                        password: password.text, phoneNumber: fullnumber));
                   }
                 },
                 child: Text(
@@ -378,7 +444,7 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
 
   adding() {
     if (number != null) {
-      fullnumber = "+998${number.text}";
+      fullnumber = number.text.replaceAll("-", "");
     }
   }
 }

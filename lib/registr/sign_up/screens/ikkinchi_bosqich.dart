@@ -1,15 +1,54 @@
 // ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, unused_element, avoid_print
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/registr/sign_up/screens/yakuniy_bosqich.dart';
+import 'package:http/http.dart' as http;
+import '../../../const_api/api.dart';
+import '../model/step_model.dart';
 
-class ikkinchi_bosqich extends StatelessWidget {
-  ikkinchi_bosqich({super.key, required this.number});
+class ikkinchi_bosqich extends StatefulWidget {
+  ikkinchi_bosqich({super.key, required this.number, required this.password});
   String number;
+  String password;
+
+  @override
+  State<ikkinchi_bosqich> createState() => _ikkinchi_bosqichState();
+}
+
+class _ikkinchi_bosqichState extends State<ikkinchi_bosqich> {
   TextEditingController conficCode = TextEditingController();
+
   final _formkey = GlobalKey<FormState>();
+  Future<void> step2(
+    Step2_model model,
+  ) async {
+    try {
+      // ignore: unused_local_variable
+      final response = await http.post(
+        Uri.parse(Api().step2),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(model.toJson()),
+      );
+      if (response.statusCode == 200) {
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Yakuniy_bosqich(),
+            ));
+      } else {
+        // API request failed
+        print('API request failed with status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle any exceptions that occurred during the request
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -141,7 +180,7 @@ class ikkinchi_bosqich extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            number,
+            widget.number,
             style: TextStyle(
                 color: Colors.black,
                 fontFamily: "Inter",
@@ -178,12 +217,14 @@ class ikkinchi_bosqich extends StatelessWidget {
                   children: [
                     Expanded(
                         child: TextFormField(
+                      // ignore: body_might_complete_normally_nullable
                       validator: (value) {
-                        if (value != null) {
-                          return null; //   => Here we should write some logic
+                        if (value == null) {
+                          return "Iltimos parolni kiriting:"; //   => Here we should write some logic
                         }
-                        if (value!.length > 5) {}
-                        return null;
+                        if (value.length != 4) {
+                          return "Parol 4 xonadan iborat bo'lishi kerak";
+                        }
                       },
                       controller: conficCode,
                       style: TextStyle(
@@ -191,9 +232,16 @@ class ikkinchi_bosqich extends StatelessWidget {
                           fontFamily: "Inter",
                           fontSize: 16.sp),
                       keyboardType: TextInputType.number,
-                      inputFormatters: [LengthLimitingTextInputFormatter(5)],
+                      inputFormatters: [LengthLimitingTextInputFormatter(4)],
                       decoration: InputDecoration(
-                          hintText: "Misol: 12345",
+                          label: Text(
+                            "Tasdiqlash kodi:",
+                            style: TextStyle(
+                                fontFamily: "Inter",
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          hintText: "Misol: 1234",
                           hintStyle: TextStyle(
                               color: Colors.black54,
                               fontFamily: "Inter",
@@ -217,11 +265,10 @@ class ikkinchi_bosqich extends StatelessWidget {
                     ),
                     onPressed: () async {
                       if (_formkey.currentState!.validate()) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Yakuniy_bosqich(),
-                            ));
+                        await step2(Step2_model(
+                            password: widget.password,
+                            phoneNumber: widget.number,
+                            smsCode: conficCode.text));
                       }
                     },
                     child: Text(

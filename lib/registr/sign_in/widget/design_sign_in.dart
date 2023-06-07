@@ -31,6 +31,7 @@ class _DesignSignInState extends State<DesignSignIn> {
   late SharedPreferences logindata;
   late bool new_user;
   final _formkey = GlobalKey<FormState>();
+  int textstype = 1;
 
   void _visible() {
     setState(() {
@@ -171,33 +172,65 @@ class _DesignSignInState extends State<DesignSignIn> {
                 Expanded(
                     child: TextFormField(
                   controller: widget.number,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Telefon nomerni kiriting";
+                  onChanged: (value) {
+                    String pattern;
+                    if (value.startsWith('9')) {
+                      pattern = '+XXX-XX-XXX-XX-XX';
+                    } else if (value.startsWith('8')) {
+                      pattern = '+XX-XX-XXXX-XXXX';
+                      setState(() {
+                        textstype = 2;
+                      });
+                    } else {
+                      pattern = '+XXX-XX-XXX-XX-XX'; // Default pattern
                     }
-                    if (value.length < 9) {
-                      return "Iltimos oxirigacha kiriting";
+
+                    var textIndex = 0;
+                    var maskedText = '';
+
+                    for (var patternIndex = 0;
+                        patternIndex < pattern.length;
+                        patternIndex++) {
+                      if (pattern[patternIndex] == 'X') {
+                        if (textIndex < value.length) {
+                          maskedText += value[textIndex];
+                          textIndex++;
+                        }
+                      } else {
+                        maskedText += pattern[patternIndex];
+                      }
+
+                      if (textIndex >= value.length) {
+                        break;
+                      }
                     }
-                    return null;
-                    // if (value != "906936594") {
-                    //   return "Bazada bunday raqam mavjud emas!";
-                    // }
+
+                    setState(() {
+                      widget.number.value = TextEditingValue(
+                        text: maskedText,
+                        selection:
+                            TextSelection.collapsed(offset: maskedText.length),
+                      );
+                    });
                   },
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(11)
+                    textstype == 1
+                        ? LengthLimitingTextInputFormatter(11)
+                        : LengthLimitingTextInputFormatter(12)
                   ],
+                  buildCounter: (
+                    BuildContext context, {
+                    required int currentLength,
+                    required bool isFocused,
+                    required int? maxLength,
+                  }) =>
+                      null,
+                  cursorColor: Colors.red,
                   decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.phone_iphone_outlined,
                         size: 25.w,
-                      ),
-                      prefix: const Text(
-                        "+998 ",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "Inter",
-                        ),
                       ),
                       label: const Text("Telefon raqamni kiriting:"),
                       fillColor: Colors.black,

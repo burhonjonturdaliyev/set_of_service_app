@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/chat/chat.dart';
-import 'package:set_of_service_app/pages/Navigation_screens/history.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/history/history.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/home.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/profile/profil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services.dart';
@@ -229,13 +229,7 @@ class _Home_PageState extends State<Home_Page> {
               selectedIndex = index;
             });
           },
-          children: [
-            List_of_services(),
-            History_money(),
-            Home(),
-            Chat(),
-            Profil()
-          ],
+          children: [List_of_services(), History(), Home(), Chat(), Profil()],
         ),
       ),
     );

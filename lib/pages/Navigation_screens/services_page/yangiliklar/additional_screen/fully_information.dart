@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/screens/comment.dart';
 
@@ -25,6 +26,15 @@ class fullyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          DateFormat("dd/MM/yyyy").format(DateTime.parse(createdAt)),
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Inter"),
+        ),
         backgroundColor: const Color(0xFF8B0000),
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -49,7 +59,7 @@ class fullyScreen extends StatelessWidget {
           size: 20.sp,
         ),
         label: Text(
-          "Komment",
+          "Izoh qoldirish",
           style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w500,

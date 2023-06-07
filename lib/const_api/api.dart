@@ -1,18 +1,40 @@
 class Api {
-  String globalChatGet = "http://185.196.213.43:7088/api/chat";
-  String globatChatPut = 'http://185.196.213.43:7088/api/chat';
-  String oziqOvqat = "";
-  String homeAgency = "http://185.196.213.43:7088/api/service/home-agent";
-  String vizaSupport = "http://185.196.213.43:7088/api/service/visa-support";
+  String step1 =
+      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/auth/step_1';
+  String step2 =
+      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/auth/step_2';
+  String step3 =
+      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/auth/step_3/register';
+  String globalChatGet =
+      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/chat/all";
+  String globatChatPut =
+      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/chat';
+  String oziqOvqat =
+      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/shop";
+  String elon =
+      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/shop";
+  String homeAgency =
+      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/service/home-agent";
+  String vizaSupport =
+      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/service/visa-support";
   String sendMoneyCash =
-      "http://185.196.213.43:7088/api/service/send-money-cash";
-  String jobAgent = "http://185.196.213.43:7088/api/service/job-agent";
-  String pochta = "http://185.196.213.43:7088/api/service/postal-service-agent";
+      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/service/send-money-cash";
+  String jobAgent =
+      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/service/job-agent";
+  String pochta =
+      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/service/postal-service-agent";
   String supportGet =
-      "http://185.196.213.43:7088/api/support-chats/get-all-dialog/";
-  String supportPut = "http://185.196.213.43:7088/api/support-chats";
-  String airTicket = 'http://185.196.213.43:7088/api/service/avia-ticket-agent';
-  String getComment = 'http://185.196.213.43:7088/api/info-comment/';
-  String putComment = 'http://185.196.213.43:7088/api/info-comment';
-  // String airticket = "http://185.196.213.43:7088/api/air/ticket/info";
+      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/support-chats/get-all-dialog/";
+  String supportPut =
+      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/support-chats";
+  String airTicket =
+      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/service/avia-ticket-agent';
+  String getComment =
+      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/info-comment/';
+  String putComment =
+      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/info-comment';
+  String putAirticket =
+      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/air/ticket/info';
+  String smsGet =
+      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/auth/step_1';
 }

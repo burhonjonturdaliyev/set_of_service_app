@@ -38,13 +38,8 @@ class Support_Api {
 
         return message;
       }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error: $e"),
-      ));
-
-      Text("Error is here => $e");
-    }
+      // ignore: empty_catches
+    } catch (e) {}
     return null;
   }
 }

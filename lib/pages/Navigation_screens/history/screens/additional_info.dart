@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Additional_page_shop extends StatefulWidget {
-  Additional_page_shop(
+class Additional_done_page extends StatefulWidget {
+  Additional_done_page(
       {super.key,
       required this.name,
       required this.number,
@@ -28,22 +28,69 @@ class Additional_page_shop extends StatefulWidget {
   String image;
 
   @override
-  State<Additional_page_shop> createState() => _Additional_page_shopState();
+  State<Additional_done_page> createState() => _Additional_done_pageState();
 }
 
-class _Additional_page_shopState extends State<Additional_page_shop> {
+class _Additional_done_pageState extends State<Additional_done_page> {
   int _currentImageIndex = 0;
   List name = [
     "https://cdn.pixabay.com/photo/2016/02/28/12/55/boy-1226964_960_720.jpg",
     "https://cdn.pixabay.com/photo/2014/11/13/06/12/boy-529067_960_720.jpg",
     "https://cdn.pixabay.com/photo/2014/09/16/01/19/girl-447701_960_720.jpg",
   ];
+
+  done() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+          title: Text(
+            "E'lonni o'chirishni xoxlaysizmi?",
+            style: TextStyle(
+                fontFamily: "Inter",
+                fontWeight: FontWeight.w700,
+                fontSize: 16.sp),
+          ),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+                  onPressed: () {},
+                  child: Text(
+                    "Ha",
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16.sp),
+                  )),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Yo'q",
+                      style: TextStyle(
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16.sp))),
+            ],
+          )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: done,
+              icon: Icon(Icons.done_all_outlined,
+                  color: Colors.white, size: 25.sp))
+        ],
         title: Text(
-          "Batafsil ma'lumot",
+          "Faol e'loningiz",
           style: TextStyle(
               color: Colors.white,
               fontSize: 20.sp,
