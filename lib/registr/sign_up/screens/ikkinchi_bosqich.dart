@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, unused_element, avoid_print
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,15 +37,57 @@ class _ikkinchi_bosqichState extends State<ikkinchi_bosqich> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Yakuniy_bosqich(),
+              builder: (context) => Yakuniy_bosqich(
+                  number: widget.number, password: widget.password),
             ));
       } else {
-        // API request failed
+        dialog();
         print('API request failed with status code: ${response.statusCode}');
       }
     } catch (e) {
-      // Handle any exceptions that occurred during the request
+      return;
     }
+  }
+
+  dialog() {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              backgroundColor: const Color(0xFF8B0000),
+              content: SizedBox(
+                height: 150.h,
+                width: 150.w,
+                child: Stack(children: [
+                  Positioned(
+                      bottom: 0.h,
+                      left: 0.w,
+                      right: 0.w,
+                      top: 50.h,
+                      child: Text(
+                        "Kiritilgan kod mos kelmadi!\nIltimos qaytadan urunib ko'ring!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16.sp),
+                      )),
+                  Positioned(
+                      top: -15.h,
+                      right: -10.w,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.close_outlined,
+                          color: Colors.white,
+                          size: 35.sp,
+                        ),
+                      )),
+                ]),
+              ),
+            ));
   }
 
   @override

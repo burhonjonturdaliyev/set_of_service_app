@@ -51,29 +51,29 @@ class _Support_centerState extends State<Support_center> {
     );
   }
 
-  // Future<void> getId() async {
-  //   final url = "${Api().supportGet}$userId";
-  //   final uri = Uri.parse(url);
-  //   try {
-  //     http.Response response = await http.get(uri);
-  //     if (response.statusCode == 200) {
-  //       final body = response.body;
-  //       final json = jsonDecode(body);
-  //       final result = json["object"]["active"] as List<dynamic>;
-  //       if (result.isNotEmpty) {
-  //         setState(() {
-  //           IDsi = json["object"]["active"][0]["id"] as int;
-  //         });
-  //       }
-  //     }
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //       content: Text("Error: $e"),
-  //     ));
+  Future<void> getId() async {
+    final url = "${Api().supportGet}$userId";
+    final uri = Uri.parse(url);
+    try {
+      http.Response response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final body = response.body;
+        final json = jsonDecode(body);
+        final result = json["object"]["active"] as List<dynamic>;
+        if (result.isNotEmpty) {
+          setState(() {
+            IDsi = json["object"]["active"][0]["id"] as int;
+          });
+        }
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Error: $e"),
+      ));
 
-  //     Text("Error is here => $e");
-  //   }
-  // }
+      Text("Error is here => $e");
+    }
+  }
 
   Future<void> fetchMessage() async {
     final Response = await Support_Api.fetchMessage(context, userId);

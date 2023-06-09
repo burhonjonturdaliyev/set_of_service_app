@@ -38,6 +38,47 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
     });
   }
 
+  dialog() {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              backgroundColor: const Color(0xFF8B0000),
+              content: SizedBox(
+                height: 150.h,
+                width: 150.w,
+                child: Stack(children: [
+                  Positioned(
+                      bottom: 0.h,
+                      left: 0.w,
+                      right: 0.w,
+                      top: 40.h,
+                      child: Text(
+                        "Ushbu raqam allaqachon ro'yxatdan o'tgan!\nIltimos, boshqa telefon nomeringizni kiriting!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16.sp),
+                      )),
+                  Positioned(
+                      top: -15.h,
+                      right: -10.w,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.close_outlined,
+                          color: Colors.white,
+                          size: 35.sp,
+                        ),
+                      )),
+                ]),
+              ),
+            ));
+  }
+
   String? _passwordMatchValidator(String? value) {
     if (value != password.text) {
       return "Parollar mos emas!";
@@ -67,7 +108,7 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
                 childCurrent: const birinchi_bosqich()),
             (route) => true);
       } else {
-        // API request failed
+        dialog();
         print('API request failed with status code: ${response.statusCode}');
       }
     } catch (e) {

@@ -46,6 +46,7 @@ class _ChatState extends State<Chat> {
     0xFF4CAF50, // Green
   ];
   final ScrollController _controller = ScrollController();
+  late String xabarlar;
 
   Timer? timer;
 
@@ -55,6 +56,16 @@ class _ChatState extends State<Chat> {
       headers: {'Content-Type': 'application/json'},
       body: json.encode(send.toJson()),
     );
+    if (response.statusCode == 200) {
+      setState(() {
+        _controllerText.clear();
+      });
+      await fetchMessage();
+      await scrolling();
+    } else {
+      // ignore: avoid_print
+      print(response.statusCode);
+    }
   }
 
   void checkListForUpdates() {
@@ -64,7 +75,7 @@ class _ChatState extends State<Chat> {
   }
 
   scrolling() {
-    if (models.isNotEmpty) {
+    if (models.isNotEmpty && models.length >= 8) {
       _controller.jumpTo(_controller.position.maxScrollExtent + 100.h);
     }
   }
@@ -182,15 +193,10 @@ class _ChatState extends State<Chat> {
                   child: GestureDetector(
                     onTap: () async {
                       if (_formkey.currentState!.validate()) {
-                        final value = _controllerText.text;
-                        if (value.isNotEmpty) {
+                        xabarlar = _controllerText.text;
+                        if (xabarlar.isNotEmpty) {
                           await putUserMessage(
-                              user_send(message: value, userId: 2));
-                          await fetchMessage();
-                          await scrolling();
-                          setState(() {
-                            _controllerText.clear();
-                          });
+                              user_send(message: xabarlar, userId: 2));
                         }
                       }
                     },

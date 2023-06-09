@@ -1,4 +1,6 @@
 class Api {
+  String login =
+      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/auth/login';
   String step1 =
       'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/auth/step_1';
   String step2 =

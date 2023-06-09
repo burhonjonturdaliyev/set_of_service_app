@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_print, must_be_immutable, prefer_const_constructors_in_immutables
+// ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_print, must_be_immutable, prefer_const_constructors_in_immutables, use_build_context_synchronously, duplicate_ignore
 
 import 'dart:convert';
 
@@ -9,13 +9,16 @@ import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
 import 'package:set_of_service_app/screen/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import '../../../const_api/api.dart';
 import '../model/step_model.dart';
 
 class Yakuniy_bosqich extends StatefulWidget {
-  Yakuniy_bosqich({super.key});
+  Yakuniy_bosqich({super.key, required this.number, required this.password});
+  String number;
+  String password;
 
   @override
   State<Yakuniy_bosqich> createState() => _Yakuniy_bosqichState();
@@ -28,11 +31,13 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
 
   TextEditingController surname = TextEditingController();
 
-  TextEditingController jins = TextEditingController();
+  TextEditingController gender = TextEditingController();
 
   TextEditingController sana = TextEditingController();
 
   TextEditingController server = TextEditingController();
+
+  late SharedPreferences loginData;
   Future<void> _urlLauncher(String url) async {
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(
@@ -43,7 +48,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
     }
   }
 
-  Future<void> step2(
+  Future<void> step3(
     Step3_model model,
   ) async {
     try {
@@ -55,6 +60,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
       );
       if (response.statusCode == 200) {
         // ignore: use_build_context_synchronously
+        await adding_sharedPR();
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -68,6 +74,16 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
     } catch (e) {
       // Handle any exceptions that occurred during the request
     }
+  }
+
+  adding_sharedPR() {
+    loginData.setBool('isFirstTime', false);
+    loginData.setString("name", name.text);
+    loginData.setString("surname", surname.text);
+    loginData.setString("server", server.text);
+    loginData.setString("date", sana.text);
+    loginData.setString("number", widget.number);
+    loginData.setString("jins", gender.text);
   }
 
   bool isChecked = false;
@@ -222,11 +238,17 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
         key: _formKey,
         child: Column(
           children: [
-            longTextfield("Ismingizni kiriting:", name),
+            Padding(
+              padding: EdgeInsets.only(left: 10.w, right: 20.w),
+              child: longTextfield("Ismingizni kiriting:", name),
+            ),
             SizedBox(
               height: 10.h,
             ),
-            longTextfield("Familyangizni kiriting:", surname),
+            Padding(
+              padding: EdgeInsets.only(left: 10.w, right: 20.w),
+              child: longTextfield("Familyangizni kiriting:", surname),
+            ),
             SizedBox(
               height: 10.h,
             ),
@@ -239,7 +261,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                   decoration: BoxDecoration(
                       //color: Colors.amberAccent,
                       border:
-                          Border.all(width: 2.w, color: Colors.grey.shade300),
+                          Border.all(width: 1.w, color: Colors.grey.shade500),
                       borderRadius: BorderRadius.circular(33.w)),
                   child: Row(
                     children: [
@@ -288,7 +310,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                   decoration: BoxDecoration(
                       //color: Colors.amberAccent,
                       border:
-                          Border.all(width: 2.w, color: Colors.grey.shade300),
+                          Border.all(width: 1.w, color: Colors.grey.shade500),
                       borderRadius: BorderRadius.circular(33.w)),
                   child: Center(
                     child: DropdownButton<String>(
@@ -321,7 +343,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                     decoration: BoxDecoration(
                         //color: Colors.amberAccent,
                         border:
-                            Border.all(width: 2.w, color: Colors.grey.shade300),
+                            Border.all(width: 1.w, color: Colors.grey.shade500),
                         borderRadius: BorderRadius.circular(33.w)),
                     child: Row(
                       children: [
@@ -427,7 +449,18 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                   ),
                 ),
                 onPressed: () async {
-                  if (_formKey.currentState!.validate()) {}
+                  if (_formKey.currentState!.validate()) {
+                    await step3(Step3_model(
+                        currentCountry: "Uzbekistan",
+                        confirmPassword: widget.password,
+                        dateOfBirth: sana.text,
+                        firstName: name.text,
+                        genderType: gender.text,
+                        lastName: surname.text,
+                        password: widget.password,
+                        phoneNumber: widget.number,
+                        visitCountry: server.text));
+                  }
                 },
                 child: Text(
                   "Ro'yxatdan o'tish",
@@ -455,10 +488,10 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                       ..onTap = () => Navigator.pushAndRemoveUntil(
                           context,
                           PageTransition(
-                              child: Sign_in(),
-                              type: PageTransitionType.fade,
-                              curve: Curves.bounceOut,
-                              childCurrent: Yakuniy_bosqich()),
+                            child: Sign_in(),
+                            type: PageTransitionType.fade,
+                            curve: Curves.bounceOut,
+                          ),
                           (route) => false),
                     style: TextStyle(
                         color: Colors.black,
@@ -474,13 +507,9 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
   }
 
   Widget longTextfield(String hintText, TextEditingController controller) {
-    return Container(
+    return SizedBox(
       height: 45.h,
-      width: 310.w,
-      decoration: BoxDecoration(
-          //color: Colors.amberAccent,
-          border: Border.all(width: 2.w, color: Colors.grey.shade300),
-          borderRadius: BorderRadius.circular(33.w)),
+      width: 330.w,
       child: Row(
         children: [
           SizedBox(
@@ -490,16 +519,24 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
               child: TextFormField(
             controller: controller,
             maxLines: 1,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Bo'sh joyni to'ldiring!";
+              }
+              return null;
+            },
             style: TextStyle(
                 color: Colors.black, fontFamily: "Inter", fontSize: 16.sp),
             decoration: InputDecoration(
-                hintText: hintText,
-                hintStyle: TextStyle(
-                    color: Colors.black54,
-                    fontFamily: "Inter",
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500),
-                border: InputBorder.none),
+                label: Text(
+                  hintText,
+                  style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500),
+                ),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(33.w))),
           ))
         ],
       ),
@@ -508,13 +545,9 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
 
   Widget shortTextfield(String hintText, TextEditingController controller,
       VoidCallback funksiya) {
-    return Container(
+    return SizedBox(
       height: 45.h,
       width: 150.w,
-      decoration: BoxDecoration(
-          //color: Colors.amberAccent,
-          border: Border.all(width: 2.w, color: Colors.grey.shade300),
-          borderRadius: BorderRadius.circular(33.w)),
       child: Row(
         children: [
           SizedBox(
@@ -525,19 +558,27 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
               onTap: () {
                 funksiya();
               },
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Iltimos to'ldiring!";
+                }
+                return null;
+              },
               controller: controller,
               readOnly: true,
               maxLines: 1,
               style: TextStyle(
                   color: Colors.black, fontFamily: "Inter", fontSize: 16.sp),
               decoration: InputDecoration(
-                  hintText: hintText,
-                  hintStyle: TextStyle(
-                      color: Colors.black54,
-                      fontFamily: "Inter",
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500),
-                  border: InputBorder.none),
+                  label: Text(
+                    hintText,
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(33.w))),
             ),
           ),
         ],
