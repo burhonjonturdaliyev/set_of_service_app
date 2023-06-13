@@ -60,7 +60,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
       );
       if (response.statusCode == 200) {
         // ignore: use_build_context_synchronously
-        await adding_sharedPR();
+
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -451,7 +451,6 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     await step3(Step3_model(
-                        currentCountry: "Uzbekistan",
                         confirmPassword: widget.password,
                         dateOfBirth: sana.text,
                         firstName: name.text,
