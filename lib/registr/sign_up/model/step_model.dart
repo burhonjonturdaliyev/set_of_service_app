@@ -53,6 +53,7 @@ class Step3_model {
   String? password;
   String? phoneNumber;
   String? visitCountry;
+  String? deviceId;
 
   Step3_model(
       {required this.confirmPassword,
@@ -62,12 +63,13 @@ class Step3_model {
       required this.lastName,
       required this.password,
       required this.phoneNumber,
+      required this.deviceId,
       required this.visitCountry});
 
   Step3_model.fromJson(Map<String, dynamic> json) {
     confirmPassword = json['confirmPassword'];
     dateOfBirth = json['dateOfBirth'];
-
+    deviceId = json['deviceId'];
     firstName = json['firstName'];
     genderType = json['genderType'];
     lastName = json['lastName'];
@@ -80,7 +82,7 @@ class Step3_model {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['confirmPassword'] = confirmPassword;
     data['dateOfBirth'] = dateOfBirth;
-
+    data['deviceId'] = deviceId;
     data['firstName'] = firstName;
     data['genderType'] = genderType;
     data['lastName'] = lastName;

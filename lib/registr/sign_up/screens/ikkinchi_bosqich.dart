@@ -10,9 +10,14 @@ import '../../../const_api/api.dart';
 import '../model/step_model.dart';
 
 class ikkinchi_bosqich extends StatefulWidget {
-  ikkinchi_bosqich({super.key, required this.number, required this.password});
+  ikkinchi_bosqich(
+      {super.key,
+      required this.number,
+      required this.password,
+      required this.deviceId});
   String number;
   String password;
+  String deviceId;
 
   @override
   State<ikkinchi_bosqich> createState() => _ikkinchi_bosqichState();
@@ -38,7 +43,10 @@ class _ikkinchi_bosqichState extends State<ikkinchi_bosqich> {
             context,
             MaterialPageRoute(
               builder: (context) => Yakuniy_bosqich(
-                  number: widget.number, password: widget.password),
+                number: widget.number,
+                password: widget.password,
+                deviceId: widget.deviceId,
+              ),
             ));
       } else {
         dialog();

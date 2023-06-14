@@ -16,9 +16,14 @@ import '../../../const_api/api.dart';
 import '../model/step_model.dart';
 
 class Yakuniy_bosqich extends StatefulWidget {
-  Yakuniy_bosqich({super.key, required this.number, required this.password});
+  Yakuniy_bosqich(
+      {super.key,
+      required this.number,
+      required this.password,
+      required this.deviceId});
   String number;
   String password;
+  String deviceId;
 
   @override
   State<Yakuniy_bosqich> createState() => _Yakuniy_bosqichState();
@@ -34,6 +39,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
   TextEditingController gender = TextEditingController();
 
   TextEditingController sana = TextEditingController();
+  late String sanaServer;
 
   TextEditingController server = TextEditingController();
 
@@ -454,6 +460,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                         confirmPassword: widget.password,
                         dateOfBirth: sana.text,
                         firstName: name.text,
+                        deviceId: widget.deviceId,
                         genderType: gender.text,
                         lastName: surname.text,
                         password: widget.password,

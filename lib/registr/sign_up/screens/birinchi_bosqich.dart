@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, file_names, non_constant_identifier_names, duplicate_ignore, unnecessary_null_comparison, use_build_context_synchronously, avoid_print
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,7 @@ import 'package:set_of_service_app/registr/sign_up/screens/ikkinchi_bosqich.dart
 import 'package:http/http.dart' as http;
 import '../../../const_api/api.dart';
 import '../model/step_model.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class birinchi_bosqich extends StatefulWidget {
   const birinchi_bosqich({super.key});
@@ -31,6 +33,26 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
   bool visible = true;
   bool checking = false;
   int textstype = 1;
+
+  late String deviceId;
+
+  getMacAddress() async {
+    print("Kirdi\n\n\n");
+    var deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      setState(() {
+        deviceId = androidInfo.id;
+      });
+      print('Android MAC Address: $deviceId');
+    } else if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      setState(() {
+        deviceId = iosInfo.identifierForVendor!;
+      });
+      print('IOS MAC Address: $deviceId');
+    }
+  }
 
   void _visible() {
     setState(() {
@@ -103,6 +125,7 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
                 child: ikkinchi_bosqich(
                   number: fullnumber,
                   password: password.text,
+                  deviceId: deviceId,
                 ),
                 type: PageTransitionType.fade,
                 childCurrent: const birinchi_bosqich()),
@@ -119,7 +142,7 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
   @override
   void initState() {
     _visible();
-
+    getMacAddress();
     super.initState();
   }
 
