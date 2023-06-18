@@ -4,10 +4,13 @@ import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../../const_api/api.dart';
 
 class addItems extends StatefulWidget {
   const addItems({super.key});
@@ -46,20 +49,30 @@ class _addItemsState extends State<addItems> {
   elon_joylash() async {
     if (checkBox == true) {
       print("Funksiya yozish kere");
-      // var response = await http.post(Uri.parse(Api().elon), body: {
-      //   {
-      //     "address": manzil.text,
-      //     "businessProfileId": 1,
-      //     "delivered": radioButton == 1 ? true : false,
-      //     "description": batafsil.text,
-      //     "id": 1,
-      //     "mobileNumber": telegram.text,
-      //     "phoneNumber": qoshimcha_raqam.text,
-      //     "shopType": "NOFOODS",
-      //     "telegramUrl": telegram.text,
-      //     "title": mavzu.text,
-      //   },
-      // });
+      var response = await http.post(Uri.parse(Api().elon), body: {
+        {
+          "address": manzil.text,
+          "delivered": radioButton == 1 ? true : false,
+          "description": batafsil.text,
+          "id": 1,
+          "mobileNumber": telegram.text,
+          "phoneNumber": qoshimcha_raqam.text,
+          "shopType": "NOFOODS",
+          "telegramUrl": telegram.text,
+          "title": mavzu.text,
+        },
+      });
+      if (response.statusCode == 200) {
+        return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: SizedBox(
+              height: 100.h,
+              width: 100.w,
+            ),
+          ),
+        );
+      } else {}
       // print(response.body);
     }
   }
