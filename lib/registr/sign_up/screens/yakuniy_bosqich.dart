@@ -117,6 +117,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
     if (choose != null) {
       setState(() {
         sana.text = DateFormat("dd.MM.yyyy").format(choose);
+        sanaServer = choose.toString();
       });
     }
   }
@@ -458,7 +459,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                   if (_formKey.currentState!.validate()) {
                     await step3(Step3_model(
                         confirmPassword: widget.password,
-                        dateOfBirth: sana.text,
+                        dateOfBirth: sanaServer,
                         firstName: name.text,
                         deviceId: widget.deviceId,
                         genderType: gender.text,
