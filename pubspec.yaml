@@ -64,6 +64,8 @@ dependencies:
   flutter_image_compress: ^2.0.0
   awesome_dialog: ^3.1.0
   device_info_plus: ^9.0.2
+  image_cropper: ^4.0.1
+  path_provider: ^2.0.15
   
 
 dev_dependencies:

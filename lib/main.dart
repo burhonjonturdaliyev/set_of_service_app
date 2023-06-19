@@ -23,8 +23,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
 // monitoring two section elon va xarajatlar --done
 // at least 2 photo required in shop
 // use number format --done
