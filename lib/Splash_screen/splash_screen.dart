@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/home.dart';
 import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
+import 'package:set_of_service_app/screen/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash_screen extends StatefulWidget {
@@ -39,7 +40,7 @@ class _Splash_screenState extends State<Splash_screen> {
           Navigator.pushAndRemoveUntil(
               context,
               PageTransition(
-                  child: const Home(),
+                  child: const Home_Page(),
                   type: PageTransitionType.fade,
                   curve: Curves.fastLinearToSlowEaseIn,
                   childCurrent: const Splash_screen()),

@@ -41,7 +41,10 @@ class _NaqtState extends State<Naqt> {
   Widget build(BuildContext context) {
     return models.isEmpty
         ? const Center(
-            child: Text("Uzur brat ishlamayapmiz!"),
+            child: Text(
+              "Ulanmoqda...",
+              textAlign: TextAlign.center,
+            ),
           )
         : Column(
             children: [

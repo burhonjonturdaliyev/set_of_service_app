@@ -7,7 +7,8 @@ import 'package:set_of_service_app/pages/Navigation_screens/history/widget/elon_
 import '../../../../models/shop_models.dart';
 
 class Elon_monitoring extends StatefulWidget {
-  Elon_monitoring({super.key});
+  Elon_monitoring({super.key, required this.userId});
+  int userId;
 
   @override
   State<Elon_monitoring> createState() => _Elon_monitoringState();

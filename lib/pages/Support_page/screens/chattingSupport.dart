@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, file_names, non_constant_identifier_names, unused_local_variable
+// ignore_for_file: camel_case_types, file_names, non_constant_identifier_names, unused_local_variable, must_be_immutable
 
 import 'dart:async';
 import 'dart:convert';
@@ -15,14 +15,14 @@ import 'package:set_of_service_app/pages/Support_page/models/support_models_send
 import '../../../const_api/api.dart';
 
 class Support_center extends StatefulWidget {
-  const Support_center({super.key});
+  Support_center({super.key, required this.userId});
+  int userId;
 
   @override
   State<Support_center> createState() => _Support_centerState();
 }
 
 class _Support_centerState extends State<Support_center> {
-  int userId = 1;
   int? IDsi;
 
   List<Data> support = [];
@@ -52,7 +52,7 @@ class _Support_centerState extends State<Support_center> {
   }
 
   Future<void> getId() async {
-    final url = "${Api().supportGet}$userId";
+    final url = "${Api().supportGet}${widget.userId}";
     final uri = Uri.parse(url);
     try {
       http.Response response = await http.get(uri);
@@ -76,7 +76,7 @@ class _Support_centerState extends State<Support_center> {
   }
 
   Future<void> fetchMessage() async {
-    final Response = await Support_Api.fetchMessage(context, userId);
+    final Response = await Support_Api.fetchMessage(context, widget.userId);
     if (mounted) {
       setState(() {
         Response != null ? support = Response : null;
@@ -88,18 +88,18 @@ class _Support_centerState extends State<Support_center> {
     if (IDsi != null) {
       putUserMessage(PostSupport(
         id: IDsi,
-        userId: userId,
+        userId: widget.userId,
         dialogsa: Dialogsa(
           message: _controller.text,
-          userId: userId,
+          userId: widget.userId,
         ),
       ));
     } else {
       putUserMessage(PostSupport(
-        userId: userId,
+        userId: widget.userId,
         dialogsa: Dialogsa(
           message: _controller.text,
-          userId: userId,
+          userId: widget.userId,
         ),
       ));
     }

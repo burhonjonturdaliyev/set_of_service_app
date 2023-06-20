@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, must_be_immutable, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors_in_immutables, must_be_immutable, non_constant_identifier_names, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -17,25 +17,17 @@ import 'package:set_of_service_app/pages/Navigation_screens/services_page/curren
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/GlobalNews.dart';
 
 // ignore: camel_case_types
-class List_of_services extends StatelessWidget {
-  List_of_services({super.key});
-  List<Services_model> model = [
-    Services_model(info: "Shop xizmatlari", page: const Shop()),
-    Services_model(info: "Pul yuborish xizmatlari", page: const Send_money()),
-    Services_model(info: "To'lovlar", page: const Pul_Tolovlar()),
-    Services_model(info: "Avia bilet xizmatlari", page: const Avia_bilet()),
-    Services_model(info: "Pochta xizmatlari", page: const Pochta_xizmati()),
-    Services_model(info: "Paynet", page: const Paynet()),
-    Services_model(
-        info: "Viza masalalarida yordam xizmati", page: const Viza_xizmati()),
-    Services_model(info: "Ish topib berish xizmati", page: const Ish_topish()),
-    Services_model(
-        info: "Uy-joy topib berish xizmatlari", page: const Uy_joy_top()),
-    Services_model(info: "Eng oxirgi yangiliklar", page: GlobalNews()
-        //Yangiliklar()
-        ),
-    Services_model(info: "Valyuta kursi", page: const Valyuta_kursi()),
-  ];
+class List_of_services extends StatefulWidget {
+  List_of_services({super.key, required this.userId});
+  int userId;
+
+  @override
+  State<List_of_services> createState() => _List_of_servicesState();
+}
+
+class _List_of_servicesState extends State<List_of_services> {
+  late List<Services_model> model;
+
   final white = Colors.white;
 
   final appbarColor = const Color(0xFF8B0000);
@@ -43,7 +35,35 @@ class List_of_services extends StatelessWidget {
   final containerColor = const Color(0xff8A0000);
 
   final circleavatarback = const Color.fromARGB(208, 220, 163, 163);
+
   final backgroudColor = const Color(0xffFDDADA);
+
+  @override
+  void initState() {
+    super.initState();
+    model = [
+      Services_model(info: "Shop xizmatlari", page: const Shop()),
+      Services_model(info: "Pul yuborish xizmatlari", page: const Send_money()),
+      Services_model(info: "To'lovlar", page: const Pul_Tolovlar()),
+      Services_model(
+          info: "Avia bilet xizmatlari",
+          page: Avia_bilet(
+            userId: widget.userId,
+          )),
+      Services_model(info: "Pochta xizmatlari", page: const Pochta_xizmati()),
+      Services_model(info: "Paynet", page: const Paynet()),
+      Services_model(
+          info: "Viza masalalarida yordam xizmati", page: const Viza_xizmati()),
+      Services_model(
+          info: "Ish topib berish xizmati", page: const Ish_topish()),
+      Services_model(
+          info: "Uy-joy topib berish xizmatlari", page: const Uy_joy_top()),
+      Services_model(info: "Eng oxirgi yangiliklar", page: GlobalNews()
+          //Yangiliklar()
+          ),
+      Services_model(info: "Valyuta kursi", page: const Valyuta_kursi()),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, prefer_const_constructors_in_immutables, unused_local_variable, non_constant_identifier_names
+// ignore_for_file: prefer_final_fields, prefer_const_constructors_in_immutables, unused_local_variable, non_constant_identifier_names, must_be_immutable
 
 import 'dart:async';
 import 'dart:convert';
@@ -13,7 +13,8 @@ import 'package:set_of_service_app/pages/Navigation_screens/chat/models/chat_mod
 import 'package:set_of_service_app/pages/Navigation_screens/chat/models/user_send_models.dart';
 
 class Chat extends StatefulWidget {
-  Chat({super.key});
+  Chat({super.key, required this.userId});
+  int userId;
 
   @override
   State<Chat> createState() => _ChatState();
@@ -21,7 +22,7 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   final _formkey = GlobalKey<FormState>();
-  final int id = 2;
+
   List<chat_models> models = [];
   List<int> colors = [
     0xFFFFC107, // Amber
@@ -219,8 +220,9 @@ class _ChatState extends State<Chat> {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Row(
-        mainAxisAlignment:
-            chat.userId == id ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: chat.userId == widget.userId
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -229,7 +231,7 @@ class _ChatState extends State<Chat> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Visibility(
-                    visible: chat.userId != id ? true : false,
+                    visible: chat.userId != widget.userId ? true : false,
                     child: CircleAvatar(
                       backgroundColor: Color(
                         colors,
@@ -248,7 +250,7 @@ class _ChatState extends State<Chat> {
                     width: 5.w,
                   ),
                   Visibility(
-                    visible: chat.userId == id ? true : false,
+                    visible: chat.userId == widget.userId ? true : false,
                     child: Row(
                       children: [
                         Text(
@@ -264,7 +266,7 @@ class _ChatState extends State<Chat> {
                   Container(
                     constraints: BoxConstraints(maxWidth: 250.w),
                     decoration: BoxDecoration(
-                        color: chat.userId == id
+                        color: chat.userId == widget.userId
                             ? const Color.fromARGB(193, 231, 90, 75)
                             : const Color.fromARGB(255, 63, 187, 63),
                         borderRadius: BorderRadius.circular(33.w),
@@ -296,7 +298,7 @@ class _ChatState extends State<Chat> {
                     ),
                   ),
                   Visibility(
-                    visible: chat.userId != id ? true : false,
+                    visible: chat.userId != widget.userId ? true : false,
                     child: Row(
                       children: [
                         Text(

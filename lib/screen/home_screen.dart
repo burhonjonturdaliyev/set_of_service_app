@@ -22,6 +22,8 @@ class Home_Page extends StatefulWidget {
 }
 
 class _Home_PageState extends State<Home_Page> {
+  int userId = 2;
+
   int selectedIndex = 2;
   final List<IconData> data = [
     Icons.home_outlined,
@@ -112,7 +114,9 @@ class _Home_PageState extends State<Home_Page> {
           IconButton(
             onPressed: () {
               Navigator.of(context).push(PageTransition(
-                  child: SupportTypes(),
+                  child: SupportTypes(
+                    userId: userId,
+                  ),
                   type: PageTransitionType.rightToLeftJoined,
                   childCurrent: Home_Page()));
             },
@@ -229,7 +233,23 @@ class _Home_PageState extends State<Home_Page> {
               selectedIndex = index;
             });
           },
-          children: [List_of_services(), History(), Home(), Chat(), Profil()],
+          children: [
+            List_of_services(
+              userId: userId,
+            ),
+            History(
+              userId: userId,
+            ),
+            Home(
+              userId: userId,
+            ),
+            Chat(
+              userId: userId,
+            ),
+            Profil(
+              userId: userId,
+            )
+          ],
         ),
       ),
     );

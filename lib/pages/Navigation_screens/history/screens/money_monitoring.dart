@@ -7,7 +7,8 @@ import 'package:lottie/lottie.dart';
 import '../models/history_model.dart';
 
 class Money_monitoring extends StatelessWidget {
-  Money_monitoring({super.key});
+  Money_monitoring({super.key, required this.userId});
+  int userId;
   final appbarColor = const Color(0xFF8B0000);
 
   final containerColor = const Color(0xff8A0000);

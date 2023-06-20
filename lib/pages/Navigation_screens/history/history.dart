@@ -1,13 +1,15 @@
 // ignore_for_file: camel_case_types, must_be_immutable
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/history/screens/elon_monitoring.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/history/screens/money_monitoring.dart';
 
 class History extends StatefulWidget {
-  const History({super.key});
-
+  History({super.key, required this.userId});
+  int userId;
   @override
   State<History> createState() => _HistoryState();
 }
@@ -156,7 +158,14 @@ class _HistoryState extends State<History> {
               selectedIndex = value;
             });
           },
-          children: [Money_monitoring(), Elon_monitoring()],
+          children: [
+            Money_monitoring(
+              userId: widget.userId,
+            ),
+            Elon_monitoring(
+              userId: widget.userId,
+            )
+          ],
         ))
       ],
     );

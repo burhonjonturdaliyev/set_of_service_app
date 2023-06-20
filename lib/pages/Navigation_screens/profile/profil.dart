@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
@@ -6,8 +8,8 @@ import 'package:set_of_service_app/pages/Navigation_screens/profile/identificati
 import 'package:set_of_service_app/pages/Profile_settings/Profile_settings.dart';
 
 class Profil extends StatefulWidget {
-  const Profil({super.key});
-
+  Profil({super.key, required this.userId});
+  int userId;
   @override
   State<Profil> createState() => _ProfilState();
 }
@@ -126,10 +128,9 @@ class _ProfilState extends State<Profil> {
                         onPressed: () => Navigator.push(
                             context,
                             PageTransition(
-                                child: const IdentificationProfel(),
-                                type: PageTransitionType.fade,
-                                curve: Curves.bounceInOut,
-                                childCurrent: const Profil())),
+                              child: const IdentificationProfel(),
+                              type: PageTransitionType.fade,
+                            )),
                         child: Text(
                           "Identifikatsiyadan o’tish",
                           style: TextStyle(

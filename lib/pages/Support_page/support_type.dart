@@ -7,13 +7,29 @@ import 'package:set_of_service_app/pages/Support_page/screens/chattingSupport.da
 import 'package:set_of_service_app/pages/Support_page/models/support_types.dart';
 import 'package:set_of_service_app/pages/Support_page/screens/deleteScreen.dart';
 
-class SupportTypes extends StatelessWidget {
-  SupportTypes({super.key});
-  List<Support_Types> models = [
-    Support_Types(name: "Aktiv chat", page: const Support_center()),
-    Support_Types(
-        name: "Tugatilgan chatlar", page: const DeleteMessageSupport()),
-  ];
+class SupportTypes extends StatefulWidget {
+  SupportTypes({super.key, required this.userId});
+  int userId;
+
+  @override
+  State<SupportTypes> createState() => _SupportTypesState();
+}
+
+class _SupportTypesState extends State<SupportTypes> {
+  late List<Support_Types> models;
+  @override
+  void initState() {
+    super.initState();
+    models = [
+      Support_Types(
+          name: "Aktiv chat", page: Support_center(userId: widget.userId)),
+      Support_Types(
+          name: "Tugatilgan chatlar",
+          page: DeleteMessageSupport(
+            userId: widget.userId,
+          )),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {

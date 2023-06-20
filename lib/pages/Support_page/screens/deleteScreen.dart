@@ -12,7 +12,8 @@ import 'package:set_of_service_app/pages/Support_page/screens/additional_Support
 import '../../../const_api/api.dart';
 
 class DeleteMessageSupport extends StatefulWidget {
-  const DeleteMessageSupport({super.key});
+  DeleteMessageSupport({super.key, required this.userId});
+  int userId;
 
   @override
   State<DeleteMessageSupport> createState() => _DeleteMessageSupportState();
@@ -22,7 +23,7 @@ class _DeleteMessageSupportState extends State<DeleteMessageSupport> {
   List<DeleteModels> models = [];
   Future<void> fetchDelete() async {
     try {
-      final uri = "${Api().supportGet}1";
+      final uri = "${Api().supportGet}${widget.userId}";
       final url = Uri.parse(uri);
       final responce = await http.get(url);
       if (responce.statusCode == 200) {
@@ -98,8 +99,7 @@ class _DeleteMessageSupportState extends State<DeleteMessageSupport> {
             context,
             PageTransition(
                 child: AdditionalSupport(index: index),
-                type: PageTransitionType.rightToLeftJoined,
-                childCurrent: const DeleteMessageSupport(),
+                type: PageTransitionType.leftToRightWithFade,
                 curve: Curves.bounceInOut)),
         child: Container(
           height: 50.h,
