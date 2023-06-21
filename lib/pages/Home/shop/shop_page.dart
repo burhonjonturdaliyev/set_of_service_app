@@ -51,7 +51,8 @@ class _ShopState extends State<Shop> {
           decoration: const BoxDecoration(
             //color: Color(0xffFDDADA),
             image: DecorationImage(
-                image: AssetImage("image/back_screen.png"), fit: BoxFit.cover),
+                image: AssetImage("image/back_screen.png"),
+                fit: BoxFit.fitHeight),
           ),
           child: Column(
             children: [
@@ -161,7 +162,7 @@ class _ShopState extends State<Shop> {
                     });
                   },
                   children: [
-                    Oziq_ovqat(),
+                    const Oziq_ovqat(),
                     Nooziq_ovqat(
                       userId: widget.userId,
                     )

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, camel_case_types
+// ignore_for_file: must_be_immutable, camel_case_types, prefer_const_constructors_in_immutables
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -6,26 +6,41 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Additional_done_page extends StatefulWidget {
-  Additional_done_page(
-      {super.key,
-      required this.name,
-      required this.number,
-      required this.delevering,
-      required this.address,
-      required this.time,
-      required this.count,
-      required this.rate,
-      required this.information,
-      required this.image});
-  String name;
-  String number;
-  String delevering;
-  String address;
-  DateTime time;
-  int count;
-  double rate;
-  String information;
-  String image;
+  Additional_done_page({
+    super.key,
+    required this.id,
+    required this.title,
+    required this.subTitle,
+    required this.juridical,
+    required this.serviceFee,
+    required this.phoneNumber,
+    required this.telegramUrl,
+    required this.officeAddress,
+    required this.active,
+    this.serviceCategoryEntity,
+    required this.serviceCategoryId,
+    required this.businessProfileId,
+    required this.totalStarts,
+    required this.totalViews,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+  late final int id;
+  late final String title;
+  late final String subTitle;
+  late final bool juridical;
+  late final String serviceFee;
+  late final String phoneNumber;
+  late final String telegramUrl;
+  late final String officeAddress;
+  late final bool active;
+  late final void serviceCategoryEntity;
+  late final int serviceCategoryId;
+  late final int businessProfileId;
+  late final double totalStarts;
+  late final int totalViews;
+  late final DateTime createdAt;
+  late final DateTime updatedAt;
 
   @override
   State<Additional_done_page> createState() => _Additional_done_pageState();
@@ -193,7 +208,7 @@ class _Additional_done_pageState extends State<Additional_done_page> {
                     children: [
                       Expanded(
                         child: Text(
-                          widget.information,
+                          widget.subTitle,
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "Inter",
@@ -209,7 +224,7 @@ class _Additional_done_pageState extends State<Additional_done_page> {
                   Row(
                     children: [
                       Text(
-                        "Yetkazib berish xizmati: ${widget.delevering}",
+                        "Yetkazib berish xizmati: Yo'q",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -240,7 +255,7 @@ class _Additional_done_pageState extends State<Additional_done_page> {
                     children: [
                       Expanded(
                         child: Text(
-                          widget.address,
+                          widget.officeAddress,
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "Inter",
@@ -257,8 +272,8 @@ class _Additional_done_pageState extends State<Additional_done_page> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xffFDDADA)),
-                      onPressed: () =>
-                          FlutterPhoneDirectCaller.callNumber(widget.number),
+                      onPressed: () => FlutterPhoneDirectCaller.callNumber(
+                          widget.phoneNumber),
                       child: Text(
                         "Hoziroq bog'laning",
                         style: TextStyle(

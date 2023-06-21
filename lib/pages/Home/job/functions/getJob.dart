@@ -1,6 +1,7 @@
 // ignore: camel_case_types
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print
 import 'dart:convert';
+import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:set_of_service_app/pages/Home/job/models/jobModels.dart';
@@ -12,7 +13,7 @@ class gettingJob {
     final uri = Api().jobAgent;
     final url = Uri.parse(uri);
     try {
-      http.Response response = await http.get(url);
+      Response response = await http.get(url);
       if (response.statusCode == 200) {
         final body = response.body;
         final json = jsonDecode(body);

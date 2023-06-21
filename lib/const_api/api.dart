@@ -6,13 +6,14 @@ class serverApi {
 }
 
 class Api {
+  String foods = '${serverApi().url}/sos/api/shop/foods';
+  String nofoods = '${serverApi().url}/sos/api/shop/no-foods';
   String login = '${serverApi().url}/sos/api/auth/login';
   String step1 = '${serverApi().url}/sos/api/auth/step_1';
   String step2 = '${serverApi().url}/sos/api/auth/step_2';
   String step3 = '${serverApi().url}/sos/api/auth/step_3/register';
   String globalChatGet = "${serverApi().url}/sos/api/chat/all";
   String globatChatPut = '${serverApi().url}/sos/api/chat';
-  String oziqOvqat = "${serverApi().url}/sos/api/shop";
   String elon = "${serverApi().url}/sos/api/shop";
   String homeAgency = "${serverApi().url}/sos/api/service/home-agent";
   String vizaSupport = "${serverApi().url}/sos/api/service/visa-support";

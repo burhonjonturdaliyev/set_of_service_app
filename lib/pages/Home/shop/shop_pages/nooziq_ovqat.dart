@@ -1,107 +1,40 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, camel_case_types, duplicate_ignore
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Home/shop/additional/add_items.dart';
+import 'package:set_of_service_app/pages/Home/shop/functions/getShop.dart';
+import 'package:set_of_service_app/pages/Home/shop/model/nofoods_model.dart';
 
 import '../Widget/no_oziq_widget.dart';
-import '../../../../models/shop_models.dart';
 
 // ignore: camel_case_types
-class Nooziq_ovqat extends StatelessWidget {
+class Nooziq_ovqat extends StatefulWidget {
   Nooziq_ovqat({super.key, required this.userId});
   int userId;
-  List<Shop_models> models = [
-    Shop_models(
-        name: "Uzbek non national foods ...",
-        number: "+998906936594",
-        delevering: "Mavjud",
-        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
-        time: DateTime(2023, 03, 25),
-        count: 12345,
-        rate: 4.7,
-        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
-        image:
-            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
-    Shop_models(
-        name: "Uzbek non national foods ...",
-        number: "+998906936594",
-        delevering: "Mavjud",
-        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
-        time: DateTime(2023, 03, 25),
-        count: 12345,
-        rate: 4.7,
-        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
-        image:
-            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
-    Shop_models(
-        name: "Uzbek non national foods ...",
-        number: "+998906936594",
-        delevering: "Mavjud",
-        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
-        time: DateTime(2023, 03, 25),
-        count: 12345,
-        rate: 4.7,
-        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
-        image:
-            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
-    Shop_models(
-        name: "Uzbek non national foods ...",
-        number: "+998906936594",
-        delevering: "Mavjud",
-        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
-        time: DateTime(2023, 03, 25),
-        count: 12345,
-        rate: 4.7,
-        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
-        image:
-            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
-    Shop_models(
-        name: "Uzbek non national foods ...",
-        number: "+998906936594",
-        delevering: "Mavjud",
-        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
-        time: DateTime(2023, 03, 25),
-        count: 12345,
-        rate: 4.7,
-        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
-        image:
-            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
-    Shop_models(
-        name: "Uzbek non national foods ...",
-        number: "+998906936594",
-        delevering: "Mavjud",
-        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
-        time: DateTime(2023, 03, 25),
-        count: 12345,
-        rate: 4.7,
-        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
-        image:
-            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
-    Shop_models(
-        name: "Uzbek non national foods ...",
-        number: "+998906936594",
-        delevering: "Mavjud",
-        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
-        time: DateTime(2023, 03, 25),
-        count: 12345,
-        rate: 4.7,
-        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
-        image:
-            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
-    Shop_models(
-        name: "Uzbek non national foods ...",
-        number: "+998906936594",
-        delevering: "Mavjud",
-        address: "Tokyo, Edogawa ku, Kasai rinkoen 1-66",
-        time: DateTime(2023, 03, 25),
-        count: 12345,
-        rate: 4.7,
-        information: "Bu yerda ko'proq ma'lumot bo'lish mumkin",
-        image:
-            "https://uploads-ssl.webflow.com/5e86c7170f1ab21474c3f2a4/5ef1d04b4056011f67df2ed7_Natural%2Blight%2B-%2BFood%2BPhotography%2B-%2BFrenchly%2B-4365.jpg"),
-  ];
+
+  @override
+  State<Nooziq_ovqat> createState() => _Nooziq_ovqatState();
+}
+
+class _Nooziq_ovqatState extends State<Nooziq_ovqat> {
+  List<nofoods_model> models = [];
+
+  Future<void> getNoFoods() async {
+    final responce = await noFoodsGet().fetchNoFood();
+    if (mounted) {
+      setState(() {
+        responce != null ? models = responce : null;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    getNoFoods();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +62,7 @@ class Nooziq_ovqat extends StatelessWidget {
                       context,
                       PageTransition(
                         child: addItems(
-                          userId: userId,
+                          userId: widget.userId,
                         ),
                         type: PageTransitionType.fade,
                       ));
@@ -164,7 +97,7 @@ class Nooziq_ovqat extends StatelessWidget {
             left: 8.w,
             right: 8.w,
           ),
-          child: no_List_builder(info_List: models),
+          child: no_List_builder(models: models),
         ))
       ],
     );
