@@ -15,7 +15,25 @@ class Pochta_xizmati extends StatefulWidget {
 }
 
 class _Pochta_xizmatiState extends State<Pochta_xizmati> {
-  List<pochtaModels> models = [];
+  List<pochtaModels> models = [
+    pochtaModels(
+        id: 1,
+        title: "Salom Tashkent",
+        subTitle:
+            "Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir",
+        juridical: false,
+        serviceFee: "2000 yena",
+        phoneNumber: "+998906936594",
+        telegramUrl: "https://t.me/TBA_003",
+        officeAddress: "Tokyo Ganjao Nimadir 232",
+        active: true,
+        serviceCategoryId: 1,
+        businessProfileId: 1,
+        totalStarts: 5.0,
+        totalViews: 1230,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now())
+  ];
 
   Future<void> gettingPochta() async {
     final Response = await GettingPochta().fetchInfo(context);

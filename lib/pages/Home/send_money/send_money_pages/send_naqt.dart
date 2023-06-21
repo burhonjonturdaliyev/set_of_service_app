@@ -15,7 +15,25 @@ class Naqt extends StatefulWidget {
 }
 
 class _NaqtState extends State<Naqt> {
-  List<NaqtModels> models = [];
+  List<NaqtModels> models = [
+    NaqtModels(
+        id: 1,
+        title: "Paynet",
+        subTitle:
+            "Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir",
+        juridical: false,
+        serviceFee: "2000 yena",
+        phoneNumber: "+998906936594",
+        telegramUrl: "https://t.me/TBA_003",
+        officeAddress: "Tokyo Ganjao Nimadir 232",
+        active: true,
+        serviceCategoryId: 1,
+        businessProfileId: 1,
+        totalStarts: 5.0,
+        totalViews: 1230,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now())
+  ];
 
   Future<void> getKarta() async {
     final Response = await sendNaqt().fetchInfo(context);
@@ -28,7 +46,7 @@ class _NaqtState extends State<Naqt> {
 
   @override
   void initState() {
-    getKarta();
+    // getKarta();
     super.initState();
   }
 

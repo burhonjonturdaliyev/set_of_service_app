@@ -24,11 +24,29 @@ class _Uy_joy_topState extends State<Uy_joy_top> {
     }
   }
 
-  List<HomeModels> homeItems = [];
+  List<HomeModels> homeItems = [
+    HomeModels(
+        id: 1,
+        title: "2 xonalik uy",
+        subTitle:
+            "Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir",
+        juridical: false,
+        serviceFee: "2000 yena",
+        phoneNumber: "+998906936594",
+        telegramUrl: "https://t.me/TBA_003",
+        officeAddress: "Tokyo Ganjao Nimadir 232",
+        active: true,
+        serviceCategoryId: 1,
+        businessProfileId: 1,
+        totalStarts: 5.0,
+        totalViews: 1230,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now())
+  ];
 
   @override
   void initState() {
-    fetchItems();
+    // fetchItems();
     super.initState();
   }
 

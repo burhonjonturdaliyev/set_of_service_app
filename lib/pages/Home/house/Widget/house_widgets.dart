@@ -16,6 +16,16 @@ class House_widget extends StatelessWidget {
         rang2: const Color.fromARGB(255, 255, 0, 0),
         rang1: const Color.fromARGB(255, 255, 255, 255)),
   ];
+  Future<void> _urlLauncher(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw "Can not launch $url";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -24,205 +34,183 @@ class House_widget extends StatelessWidget {
           house_items(models[index], colour[index % colour.length]),
     );
   }
-}
 
-Widget house_items(HomeModels models, Colour_models colourModels) {
-  return Padding(
-    padding: EdgeInsets.only(top: 5.h, bottom: 5.0.h),
-    child: Container(
-      width: 353.w,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(33.w),
-        border: Border.all(width: 1, color: Colors.black26),
-        gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [colourModels.rang1, colourModels.rang2]),
+  Widget house_items(HomeModels models, Colour_models colourModels) {
+    return Padding(
+      padding: EdgeInsets.only(top: 5.h, bottom: 5.0.h),
+      child: Container(
+        width: 353.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(33.w),
+          border: Border.all(width: 1, color: Colors.black26),
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [colourModels.rang1, colourModels.rang2]),
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 15.w, top: 10.h),
+              child: Row(
+                children: [
+                  Text(
+                    "Uy-Joy topib berish agentligi",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.w400,
+                        fontSize: 10.sp),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                      child: Text(
+                    models.title,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24.sp,
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.w800),
+                  )),
+                  SizedBox(
+                    width: 20.w,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        FlutterPhoneDirectCaller.callNumber(models.phoneNumber);
+                      },
+                      icon: Icon(
+                        Icons.call,
+                        size: 40.w,
+                        color: Colors.black,
+                      ))
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "To'lov: ${models.serviceFee}",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: "Inter",
+                                fontWeight: FontWeight.w400,
+                                fontSize: 10.sp),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Manzil: ${models.officeAddress}",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: "Inter",
+                                fontWeight: FontWeight.w400,
+                                fontSize: 10.sp),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        _urlLauncher(models.telegramUrl);
+                      },
+                      icon: Icon(
+                        Icons.telegram,
+                        size: 40.w,
+                        color: Colors.black,
+                      ))
+                ],
+              ),
+            ),
+            const Divider(
+              thickness: 1,
+              color: Colors.black,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 7.w, bottom: 5.h),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.calendar_month_outlined,
+                    size: 8.w,
+                    color: Colors.black,
+                  ),
+                  SizedBox(
+                    width: 3.w,
+                  ),
+                  Text(
+                    DateFormat("dd.MM.yyyy").format(models.updatedAt),
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        fontSize: 8.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(
+                    width: 16.w,
+                  ),
+                  Icon(
+                    Icons.visibility,
+                    size: 12.w,
+                    color: Colors.black,
+                  ),
+                  SizedBox(
+                    width: 3.w,
+                  ),
+                  Text(
+                    models.totalViews.toString(),
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        fontSize: 8.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(
+                    width: 16.w,
+                  ),
+                  Icon(
+                    Icons.star_rate_rounded,
+                    size: 12.w,
+                    color: Colors.black,
+                  ),
+                  SizedBox(
+                    width: 3.w,
+                  ),
+                  Text(
+                    models.totalStarts.toString(),
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        fontSize: 8.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 15.w, top: 10.h),
-            child: Row(
-              children: [
-                Text(
-                  "Uy-Joy topib berish agentligi",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.w400,
-                      fontSize: 10.sp),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      models.title,
-                      maxLines: 1,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24.sp,
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.w800),
-                    ),
-                    Text(
-                      models.subTitle,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontFamily: "Inter",
-                          fontSize: 9.sp,
-                          color: Colors.black45),
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          FlutterPhoneDirectCaller.callNumber(
-                              models.phoneNumber);
-                        },
-                        icon: Icon(
-                          Icons.call,
-                          size: 35.w,
-                          color: Colors.black,
-                        )),
-                    IconButton(
-                        onPressed: () async {
-                          try {
-                            await launchUrl(Uri.parse(models.telegramUrl));
-                          } catch (e) {
-                            Text("Error is here => $e");
-                          }
-                        },
-                        icon: Icon(
-                          Icons.telegram_outlined,
-                          size: 35.w,
-                          color: Colors.black,
-                        ))
-                  ],
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            child: Row(
-              children: [
-                Text(
-                  "Xizmat haqqi: ${models.serviceFee}",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.w400,
-                      fontSize: 10.sp),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            child: Row(
-              children: [
-                Text(
-                  "Manzil: ${models.officeAddress}",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.w400,
-                      fontSize: 10.sp),
-                )
-              ],
-            ),
-          ),
-          const Divider(
-            thickness: 1,
-            color: Colors.black,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 7.w, bottom: 5.h),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.calendar_month_outlined,
-                  size: 8.w,
-                  color: Colors.black,
-                ),
-                SizedBox(
-                  width: 3.w,
-                ),
-                Text(
-                  DateFormat("dd.MM.yyyy").format(models.updatedAt),
-                  style: TextStyle(
-                      fontFamily: "Inter",
-                      fontSize: 8.sp,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w400),
-                ),
-                SizedBox(
-                  width: 16.w,
-                ),
-                Icon(
-                  Icons.visibility,
-                  size: 12.w,
-                  color: Colors.black,
-                ),
-                SizedBox(
-                  width: 3.w,
-                ),
-                Text(
-                  models.totalViews.toString(),
-                  style: TextStyle(
-                      fontFamily: "Inter",
-                      fontSize: 8.sp,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w400),
-                ),
-                SizedBox(
-                  width: 16.w,
-                ),
-                Icon(
-                  Icons.star_rate_rounded,
-                  size: 12.w,
-                  color: Colors.black,
-                ),
-                SizedBox(
-                  width: 3.w,
-                ),
-                Text(
-                  models.totalStarts.toString(),
-                  style: TextStyle(
-                      fontFamily: "Inter",
-                      fontSize: 8.sp,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    ),
-  );
+    );
+  }
 }

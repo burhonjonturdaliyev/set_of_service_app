@@ -15,7 +15,25 @@ class Ish_topish extends StatefulWidget {
 }
 
 class _Ish_topishState extends State<Ish_topish> {
-  List<JobModels> models = [];
+  List<JobModels> models = [
+    JobModels(
+        id: 1,
+        title: "Yaponiyada dasturchilik",
+        subTitle:
+            "Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir",
+        juridical: false,
+        serviceFee: "2000 yena",
+        phoneNumber: "+998906936594",
+        telegramUrl: "https://t.me/TBA_003",
+        officeAddress: "Tokyo Ganjao Nimadir 232",
+        active: true,
+        serviceCategoryId: 1,
+        businessProfileId: 1,
+        totalStarts: 5.0,
+        totalViews: 1230,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now())
+  ];
 
   Future<void> getJob() async {
     // ignore: non_constant_identifier_names, unused_local_variable
@@ -29,7 +47,7 @@ class _Ish_topishState extends State<Ish_topish> {
 
   @override
   void initState() {
-    getJob();
+    // getJob();
     super.initState();
   }
 
