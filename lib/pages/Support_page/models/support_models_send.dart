@@ -3,7 +3,7 @@ class PostSupport {
   int? id;
   int? userId;
 
-  PostSupport({this.dialogsa, this.id, this.userId});
+  PostSupport({required this.dialogsa, this.id, required this.userId});
 
   PostSupport.fromJson(Map<String, dynamic> json) {
     dialogsa =

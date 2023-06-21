@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, file_names, non_constant_identifier_names, unused_local_variable, must_be_immutable
+// ignore_for_file: camel_case_types, file_names, non_constant_identifier_names, unused_local_variable, must_be_immutable, unnecessary_null_comparison, avoid_print
 
 import 'dart:async';
 import 'dart:convert';
@@ -32,8 +32,6 @@ class _Support_centerState extends State<Support_center> {
 
   final ScrollController _controllerList = ScrollController();
 
-  final apiUrl = Uri.parse(Api().supportPut);
-
   final TextEditingController _controller = TextEditingController();
 
   Timer? timer;
@@ -43,12 +41,52 @@ class _Support_centerState extends State<Support_center> {
     });
   }
 
-  Future<void> putUserMessage(PostSupport send) async {
+  Future<void> putUserMessage() async {
     final response = await http.post(
-      apiUrl,
+      Uri.parse(Api().supportPut),
       headers: {'Content-Type': 'application/json'},
-      body: json.encode(send.toJson()),
+      body: IDsi != null
+          ? json.encode(PostSupport(
+                  id: IDsi,
+                  userId: widget.userId,
+                  dialogsa: Dialogsa(
+                      message: _controller.text, userId: widget.userId))
+              .toJson())
+          : json.encode(PostSupport(
+                  userId: widget.userId,
+                  dialogsa: Dialogsa(
+                      message: _controller.text, userId: widget.userId))
+              .toJson()),
     );
+    print("Yuborildi");
+    if (response.statusCode == 200) {
+      fetchMessage();
+      scrolling();
+      _controller.clear();
+    } else {
+      print(response.statusCode);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: const Color(0xff8B0000),
+          content: SizedBox(
+            height: 150.h,
+            width: 150.w,
+            child: Center(
+              child: Text(
+                "Uzur sizning xabaringiz yuborilmadi!. Iltimos, internet aloqangizni qaytadan tekshiring!",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13.sp,
+                    color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
   }
 
   Future<void> getId() async {
@@ -66,6 +104,7 @@ class _Support_centerState extends State<Support_center> {
           });
         }
       }
+      print(IDsi);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Error: $e"),
@@ -84,27 +123,6 @@ class _Support_centerState extends State<Support_center> {
     }
   }
 
-  cheking() {
-    if (IDsi != null) {
-      putUserMessage(PostSupport(
-        id: IDsi,
-        userId: widget.userId,
-        dialogsa: Dialogsa(
-          message: _controller.text,
-          userId: widget.userId,
-        ),
-      ));
-    } else {
-      putUserMessage(PostSupport(
-        userId: widget.userId,
-        dialogsa: Dialogsa(
-          message: _controller.text,
-          userId: widget.userId,
-        ),
-      ));
-    }
-  }
-
   scrolling() {
     if (support.isNotEmpty) {
       _controllerList.jumpTo(_controllerList.position.maxScrollExtent + 100.h);
@@ -113,6 +131,7 @@ class _Support_centerState extends State<Support_center> {
 
   @override
   void initState() {
+    getId();
     fetchMessage();
     checkListForUpdates();
     super.initState();
@@ -218,11 +237,11 @@ class _Support_centerState extends State<Support_center> {
                     padding: EdgeInsets.only(right: 8.0.w),
                     child: GestureDetector(
                       onTap: () async {
-                        if (_formKey.currentState!.validate()) {
-                          await cheking();
-                          await fetchMessage();
-                          scrolling();
-                          _controller.clear();
+                        print("Ishlayapti");
+                        if (_controller != null) {
+                          print("Kirdi");
+                          putUserMessage();
+                          print("chiqdi");
                         }
                       },
                       child: Image.asset(

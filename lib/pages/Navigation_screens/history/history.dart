@@ -1,7 +1,5 @@
 // ignore_for_file: camel_case_types, must_be_immutable
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/history/screens/elon_monitoring.dart';

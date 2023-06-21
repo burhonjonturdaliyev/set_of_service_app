@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, must_be_immutable, non_constant_identifier_names, camel_case_types
+// ignore_for_file: prefer_const_constructors_in_immutables, must_be_immutable, non_constant_identifier_names, camel_case_types, duplicate_ignore
 
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -42,7 +42,11 @@ class _List_of_servicesState extends State<List_of_services> {
   void initState() {
     super.initState();
     model = [
-      Services_model(info: "Shop xizmatlari", page: const Shop()),
+      Services_model(
+          info: "Shop xizmatlari",
+          page: Shop(
+            userId: widget.userId,
+          )),
       Services_model(info: "Pul yuborish xizmatlari", page: const Send_money()),
       Services_model(info: "To'lovlar", page: const Pul_Tolovlar()),
       Services_model(

@@ -1,42 +1,30 @@
+// ignore_for_file: camel_case_types
+
+class serverApi {
+  String url =
+      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088";
+}
+
 class Api {
-  String login =
-      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/auth/login';
-  String step1 =
-      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/auth/step_1';
-  String step2 =
-      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/auth/step_2';
-  String step3 =
-      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/auth/step_3/register';
-  String globalChatGet =
-      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/chat/all";
-  String globatChatPut =
-      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/chat';
-  String oziqOvqat =
-      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/shop";
-  String elon =
-      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/shop";
-  String homeAgency =
-      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/service/home-agent";
-  String vizaSupport =
-      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/service/visa-support";
-  String sendMoneyCash =
-      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/service/send-money-cash";
-  String jobAgent =
-      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/service/job-agent";
-  String pochta =
-      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/service/postal-service-agent";
+  String login = '${serverApi().url}/sos/api/auth/login';
+  String step1 = '${serverApi().url}/sos/api/auth/step_1';
+  String step2 = '${serverApi().url}/sos/api/auth/step_2';
+  String step3 = '${serverApi().url}/sos/api/auth/step_3/register';
+  String globalChatGet = "${serverApi().url}/sos/api/chat/all";
+  String globatChatPut = '${serverApi().url}/sos/api/chat';
+  String oziqOvqat = "${serverApi().url}/sos/api/shop";
+  String elon = "${serverApi().url}/sos/api/shop";
+  String homeAgency = "${serverApi().url}/sos/api/service/home-agent";
+  String vizaSupport = "${serverApi().url}/sos/api/service/visa-support";
+  String sendMoneyCash = "${serverApi().url}/sos/api/service/send-money-cash";
+  String jobAgent = "${serverApi().url}/sos/api/service/job-agent";
+  String pochta = "${serverApi().url}/sos/api/service/postal-service-agent";
   String supportGet =
-      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/support-chats/get-all-dialog/";
-  String supportPut =
-      "http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/support-chats";
-  String airTicket =
-      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/service/avia-ticket-agent';
-  String getComment =
-      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/info-comment/';
-  String putComment =
-      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/info-comment';
-  String putAirticket =
-      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/air/ticket/info';
-  String smsGet =
-      'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/auth/step_1';
+      "${serverApi().url}/sos/api/support-chats/get-all-dialog/";
+  String supportPut = "${serverApi().url}/sos/api/support-chats";
+  String airTicket = '${serverApi().url}/sos/api/service/avia-ticket-agent';
+  String getComment = '${serverApi().url}/sos/api/info-comment/';
+  String putComment = '${serverApi().url}/sos/api/info-comment';
+  String putAirticket = '${serverApi().url}/sos/api/air/ticket/info';
+  String smsGet = '${serverApi().url}/sos/api/auth/step_1';
 }

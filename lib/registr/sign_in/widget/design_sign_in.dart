@@ -250,6 +250,15 @@ class _DesignSignInState extends State<DesignSignIn> {
               children: [
                 Expanded(
                     child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Iltimos telefon raqamni kiriting!";
+                    }
+                    if (value.length < 12) {
+                      return "Parol mos kelmadi!";
+                    }
+                    return null;
+                  },
                   controller: widget.number,
                   onChanged: (value) {
                     String pattern;

@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, duplicate_ignore, must_be_immutable, avoid_print, use_build_context_synchronously
+// ignore_for_file: camel_case_types, duplicate_ignore, must_be_immutable, avoid_print, use_build_context_synchronously, non_constant_identifier_names
 
 import 'dart:convert';
 

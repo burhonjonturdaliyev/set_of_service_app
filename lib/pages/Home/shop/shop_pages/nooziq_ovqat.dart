@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Home/shop/additional/add_items.dart';
-import 'package:set_of_service_app/pages/Home/shop/shop_page.dart';
 
 import '../Widget/no_oziq_widget.dart';
 import '../../../../models/shop_models.dart';
 
 // ignore: camel_case_types
 class Nooziq_ovqat extends StatelessWidget {
-  Nooziq_ovqat({super.key});
+  Nooziq_ovqat({super.key, required this.userId});
+  int userId;
   List<Shop_models> models = [
     Shop_models(
         name: "Uzbek non national foods ...",
@@ -128,9 +128,11 @@ class Nooziq_ovqat extends StatelessWidget {
                   Navigator.push(
                       context,
                       PageTransition(
-                          child: const addItems(),
-                          type: PageTransitionType.fade,
-                          childCurrent: const Shop()));
+                        child: addItems(
+                          userId: userId,
+                        ),
+                        type: PageTransitionType.fade,
+                      ));
                 },
                 child: Row(
                   children: [

@@ -1,5 +1,6 @@
-// ignore_for_file: camel_case_types, non_constant_identifier_names, must_be_immutable, invalid_use_of_visible_for_testing_member, avoid_print
+// ignore_for_file: camel_case_types, non_constant_identifier_names, must_be_immutable, invalid_use_of_visible_for_testing_member, avoid_print, unnecessary_null_comparison
 
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../const_api/api.dart';
 
 class addItems extends StatefulWidget {
-  const addItems({super.key});
+  addItems({super.key, required this.userId});
+  int userId;
 
   @override
   State<addItems> createState() => _addItemsState();
@@ -31,6 +33,7 @@ class _addItemsState extends State<addItems> {
   TextEditingController manzil = TextEditingController();
 
   TextEditingController batafsil = TextEditingController();
+  late String telegramLinki;
 
   final _formKey = GlobalKey<FormState>();
   File? rasm1;
@@ -47,33 +50,117 @@ class _addItemsState extends State<addItems> {
   bool checkBox = false;
 
   elon_joylash() async {
+    await telegram_link();
     if (checkBox == true) {
-      print("Funksiya yozish kere");
-      var response = await http.post(Uri.parse(Api().elon), body: {
-        {
-          "address": manzil.text,
-          "delivered": radioButton == 1 ? true : false,
-          "description": batafsil.text,
-          "id": 1,
-          "mobileNumber": telegram.text,
-          "phoneNumber": qoshimcha_raqam.text,
-          "shopType": "NOFOODS",
-          "telegramUrl": telegram.text,
-          "title": mavzu.text,
-        },
-      });
+      Map<String, dynamic> requestBody = {
+        "address": manzil.text,
+        "delivered": true,
+        "description": batafsil.text,
+        "mobileNumber": telfon.text,
+        "phoneNumber": qoshimcha_raqam.text,
+        "shopType": "FOODS",
+        "telegramUrl": telegramLinki,
+        "title": mavzu.text,
+        "userId": 3,
+      };
+
+      var response = await http.post(
+        Uri.parse(Api().elon),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(requestBody),
+      );
+
       if (response.statusCode == 200) {
+        print("Succesfully");
+      } else {
+        print(response.statusCode);
         return showDialog(
           context: context,
           builder: (context) => AlertDialog(
+            backgroundColor: const Color(0xFF8B0000),
             content: SizedBox(
-              height: 100.h,
+              height: 150.h,
               width: 100.w,
+              child: Stack(children: [
+                Positioned(
+                    top: 50.h,
+                    left: 0,
+                    right: 0,
+                    child: Text(
+                      "Sizning e'loningiz joylanmadi! Iltimos, yana bir harakat qilib ko'ring!",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15.sp),
+                    )),
+                Positioned(
+                    top: -15.h,
+                    right: -10.w,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.close_outlined,
+                        color: Colors.white,
+                        size: 35.sp,
+                      ),
+                    )),
+              ]),
             ),
           ),
         );
-      } else {}
-      // print(response.body);
+      }
+    } else {
+      return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: const Color(0xFF8B0000),
+          content: SizedBox(
+            height: 150.h,
+            width: 100.w,
+            child: Stack(children: [
+              Positioned(
+                  top: 50.h,
+                  left: 0,
+                  right: 0,
+                  child: Text(
+                    "E'lonni joylashdan oldin, e'lon berish shartlari bilan tanishib chiqing!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15.sp),
+                  )),
+              Positioned(
+                  top: -15.h,
+                  right: -10.w,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.close_outlined,
+                      color: Colors.white,
+                      size: 35.sp,
+                    ),
+                  )),
+            ]),
+          ),
+        ),
+      );
+    }
+  }
+
+  telegram_link() {
+    if (telegram != null) {
+      setState(() {
+        var temp = telegram.text;
+        telegramLinki = 'https://t.me/$temp';
+      });
     }
   }
 
@@ -367,7 +454,7 @@ class _addItemsState extends State<addItems> {
                       height: 6.h,
                     ),
                     shortTextfield("Mavzu", mavzu),
-                    shortTextfield("Telegram @username", telegram),
+                    telegramField("Telegram @username", telegram),
                     numberTextfield("Telefon raqam", telfon),
                     numberTextfield("Qo'shimcha raqam", qoshimcha_raqam),
                     shortTextfield("Manzil", manzil),
@@ -522,6 +609,42 @@ class _addItemsState extends State<addItems> {
         ));
   }
 
+  Widget telegramField(String label, controller) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 16.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+              child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Iltimos ${label.toLowerCase()}ni kiriting!";
+              }
+              return null;
+            },
+            controller: controller,
+            maxLines: 1,
+            decoration: InputDecoration(
+                prefix: const Text(
+                  "@",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: "Inter",
+                  ),
+                ),
+                label: Text(label),
+                border: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(width: 1.w, color: const Color(0xFF8B0000)),
+                    borderRadius: BorderRadius.circular(12.w))),
+          ))
+        ],
+      ),
+    );
+  }
+
   Widget bigTextfield(String label, controller) {
     return Padding(
       padding: EdgeInsets.only(bottom: 16.h),
@@ -563,6 +686,9 @@ class _addItemsState extends State<addItems> {
             validator: (value) {
               if (value!.isEmpty) {
                 return "Iltimos ${label.toLowerCase()}ni kiriting!";
+              }
+              if (value.length < 12) {
+                return "Iltimos ${label.toLowerCase()}ni to'liq kiriting!";
               }
               return null;
             },

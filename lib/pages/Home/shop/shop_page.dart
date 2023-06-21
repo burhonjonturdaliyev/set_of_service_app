@@ -1,10 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/pages/Home/shop/shop_pages/nooziq_ovqat.dart';
 import 'package:set_of_service_app/pages/Home/shop/shop_pages/oziq_ovqat.dart';
 
 class Shop extends StatefulWidget {
-  const Shop({super.key});
+  Shop({super.key, required this.userId});
+  int userId;
 
   @override
   State<Shop> createState() => _ShopState();
@@ -157,7 +160,12 @@ class _ShopState extends State<Shop> {
                       selectedIndex = index;
                     });
                   },
-                  children: [Oziq_ovqat(), Nooziq_ovqat()],
+                  children: [
+                    Oziq_ovqat(),
+                    Nooziq_ovqat(
+                      userId: widget.userId,
+                    )
+                  ],
                 ),
               )
             ],
