@@ -40,11 +40,11 @@ class Pochta_widgets extends StatelessWidget {
 
   Widget pochta_items(pochtaModels models, Colour_models colourModels) {
     return Padding(
-      padding: EdgeInsets.only(top: 5.h, bottom: 5.0.h),
+      padding: EdgeInsets.only(bottom: 8.0.h),
       child: Container(
         width: 353.w,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(33.w),
+          borderRadius: BorderRadius.circular(30),
           border: Border.all(width: 1, color: Colors.black26),
           gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -54,105 +54,118 @@ class Pochta_widgets extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 15.w, top: 10.h),
-              child: Row(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
                 children: [
-                  Text(
-                    "Post",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w400,
-                        fontSize: 10.sp),
+                  Row(
+                    children: [
+                      Text(
+                        "Pochta",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10.sp),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                          child: Text(
+                        ((models.title).length <= 30)
+                            ? models.title
+                            : models.title.substring(0, 30),
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24.sp,
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.w800),
+                      )),
+                      SizedBox(
+                        width: 20.w,
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            FlutterPhoneDirectCaller.callNumber(
+                                models.phoneNumber);
+                          },
+                          icon: Icon(
+                            Icons.call,
+                            size: 40.w,
+                            color: Colors.black,
+                          ))
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Yetkazib berish: Yo'q",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "Inter",
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 10.sp),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Manzil: ${models.officeAddress}",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "Inter",
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 10.sp),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            _urlLauncher(models.telegramUrl);
+                          },
+                          icon: Icon(
+                            Icons.telegram_outlined,
+                            size: 40.w,
+                            color: Colors.black,
+                          ))
+                    ],
                   )
                 ],
               ),
             ),
-            SizedBox(
-              height: 5.h,
-            ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
+              padding: EdgeInsets.symmetric(horizontal: 2.w),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                      child: Text(
-                    models.title,
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24.sp,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w800),
-                  )),
-                  SizedBox(
-                    width: 20.w,
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        FlutterPhoneDirectCaller.callNumber(models.phoneNumber);
-                      },
-                      icon: Icon(
-                        Icons.call,
-                        size: 40.w,
-                        color: Colors.black,
-                      ))
+                      child: Container(
+                    height: 1.h,
+                    color: Colors.black,
+                  ))
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "To'lov: ${models.serviceFee}",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: "Inter",
-                                fontWeight: FontWeight.w400,
-                                fontSize: 10.sp),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Manzil: ${models.officeAddress}",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: "Inter",
-                                fontWeight: FontWeight.w400,
-                                fontSize: 10.sp),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        _urlLauncher(models.telegramUrl);
-                      },
-                      icon: Icon(
-                        Icons.telegram,
-                        size: 40.w,
-                        color: Colors.black,
-                      ))
-                ],
+              padding: EdgeInsets.only(
+                left: 20.w,
+                right: 7.w,
               ),
-            ),
-            const Divider(
-              thickness: 1,
-              color: Colors.black,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 7.w, bottom: 5.h),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -165,7 +178,7 @@ class Pochta_widgets extends StatelessWidget {
                     width: 3.w,
                   ),
                   Text(
-                    DateFormat("dd.MM.yyyy").format(models.updatedAt),
+                    DateFormat("dd.MM.yyyy").format(models.createdAt),
                     style: TextStyle(
                         fontFamily: "Inter",
                         fontSize: 8.sp,

@@ -18,7 +18,7 @@ class _Pochta_xizmatiState extends State<Pochta_xizmati> {
   List<pochtaModels> models = [
     pochtaModels(
         id: 1,
-        title: "Salom Tashkent",
+        title: "BTS pochta",
         subTitle:
             "Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir",
         juridical: false,

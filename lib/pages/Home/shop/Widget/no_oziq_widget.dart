@@ -201,6 +201,7 @@ class _no_List_builderState extends State<no_List_builder> {
                   right: 7.w,
                 ),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.calendar_month_outlined,
@@ -255,17 +256,6 @@ class _no_List_builderState extends State<no_List_builder> {
                           fontSize: 8.sp,
                           color: Colors.black,
                           fontWeight: FontWeight.w400),
-                    ),
-                    SizedBox(
-                      width: 45.w,
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.keyboard_arrow_down_outlined,
-                        size: 16.w,
-                        color: Colors.black,
-                      ),
                     ),
                   ],
                 ),
