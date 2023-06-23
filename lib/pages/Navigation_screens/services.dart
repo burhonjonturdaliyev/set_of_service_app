@@ -62,7 +62,11 @@ class _List_of_servicesState extends State<List_of_services> {
           info: "Ish topib berish xizmati", page: const Ish_topish()),
       Services_model(
           info: "Uy-joy topib berish xizmatlari", page: const Uy_joy_top()),
-      Services_model(info: "Eng oxirgi yangiliklar", page: GlobalNews()
+      Services_model(
+          info: "Eng oxirgi yangiliklar",
+          page: GlobalNews(
+            userId: widget.userId,
+          )
           //Yangiliklar()
           ),
       Services_model(info: "Valyuta kursi", page: const Valyuta_kursi()),

@@ -7,18 +7,20 @@ import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangil
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/widget/NewsPageWidget.dart';
 
 class NewsWidgets {
-  Widget catagory(
-      {required List<CatagoryModels> list,
-      required BuildContext context,
-      required List ikonlar}) {
+  Widget catagory({
+    required List<CatagoryModels> list,
+    required BuildContext context,
+  }) {
     return ListView.builder(
       itemCount: list.length,
-      itemBuilder: (context, index) =>
-          itemsDesign(context, list[index], ikonlar),
+      itemBuilder: (context, index) => itemsDesign(context, list[index]),
     );
   }
 
-  Widget itemsDesign(BuildContext context, CatagoryModels models, ikonlar) {
+  Widget itemsDesign(
+    BuildContext context,
+    CatagoryModels models,
+  ) {
     return Padding(
       padding: EdgeInsets.only(bottom: 8.0.h),
       child: InkWell(
@@ -34,19 +36,63 @@ class NewsWidgets {
               color: const Color.fromARGB(177, 228, 201, 201),
               borderRadius: BorderRadius.circular(13.w)),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                width: 10.w,
+              Row(
+                children: [
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Icon(
+                    Icons.newspaper_outlined,
+                    color: Colors.black54,
+                    size: 25.w,
+                  ),
+                  SizedBox(
+                    width: 15.w,
+                  ),
+                  Text(
+                    models.name,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Inter",
+                      fontSize: 13.sp,
+                    ),
+                  ),
+                ],
               ),
-              Icon(
-                Icons.newspaper_outlined,
-                color: Colors.black54,
-                size: 25.w,
-              ),
-              SizedBox(
-                width: 15.w,
-              ),
-              Text(models.name)
+              Row(
+                children: [
+                  SizedBox(
+                    width: 30.w,
+                  ),
+                  Container(
+                    height: 35.h,
+                    width: 35.h,
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        border: Border.all(width: 0.5.w, color: Colors.black54),
+                        borderRadius: BorderRadius.circular(100.w)),
+                    child: Center(
+                        child: Text(
+                      "1",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: "Inter",
+                        fontSize: 13.sp,
+                      ),
+                    )),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Colors.black54,
+                    size: 25.w,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  )
+                ],
+              )
             ],
           ),
         ),

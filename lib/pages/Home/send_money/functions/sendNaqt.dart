@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:set_of_service_app/pages/Home/send_money/models/modelsNaqt.dart';
 
 import '../../../../const_api/api.dart';
+import '../../../../registr/sign_in/Sign_in_screen.dart';
 
 class sendNaqt {
   Future<List<NaqtModels>?> fetchInfo(BuildContext context) async {
@@ -14,7 +15,7 @@ class sendNaqt {
     final url = Uri.parse(uri);
     try {
       http.Response response = await http.get(url);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final body = response.body;
         final json = jsonDecode(body);
         final result = json["object"] as List<dynamic>;
@@ -37,6 +38,14 @@ class sendNaqt {
               updatedAt: DateTime.parse(e["updatedAt"]));
         }).toList();
         return datas;
+      } else if (response.statusCode == 403) {
+        // ignore: use_build_context_synchronously
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Sign_in(),
+            ),
+            (route) => false);
       }
     } catch (e) {
       print(e);

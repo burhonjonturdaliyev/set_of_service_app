@@ -11,6 +11,7 @@ import 'package:set_of_service_app/pages/Home/airticket/model/air_ticket_info.da
 import 'package:set_of_service_app/pages/Home/airticket/page/air_ticket_list.dart';
 import 'package:set_of_service_app/pages/Home/airticket/page/country_picker.dart';
 import 'package:set_of_service_app/pages/Home/airticket/widget/arriving.dart';
+import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
 
 // ignore: camel_case_types
 class Avia_bilet extends StatefulWidget {
@@ -69,13 +70,20 @@ class _Avia_biletState extends State<Avia_bilet> {
           ),
           headers: {'Content-Type': 'application/json'},
           body: json.encode(model.toJson()));
-      if (responce.statusCode == 200) {
+      if (responce.statusCode == 200 || responce.statusCode == 201) {
         Navigator.push(
             context,
             PageTransition(
               child: Air_ticket_list(),
               type: PageTransitionType.fade,
             ));
+      } else if (responce.statusCode == 403) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Sign_in(),
+            ),
+            (route) => false);
       } else {
         print(responce.statusCode);
       }

@@ -76,7 +76,7 @@ class _Send_moneyState extends State<Send_money> {
                             width: 185.w,
                             height: 25.h,
                             decoration: BoxDecoration(
-                                color: selectedIndex == 0
+                                color: selectedIndex == 1
                                     ? const Color(0xA4F89B9B)
                                     : const Color(0xFF8B0000),
                                 borderRadius: BorderRadius.circular(5.w)),
@@ -113,7 +113,7 @@ class _Send_moneyState extends State<Send_money> {
                             width: 185.w,
                             height: 25.h,
                             decoration: BoxDecoration(
-                                color: selectedIndex == 1
+                                color: selectedIndex == 0
                                     ? const Color(0xA4F89B9B)
                                     : const Color(0xFF8B0000),
                                 borderRadius: BorderRadius.circular(5.w)),

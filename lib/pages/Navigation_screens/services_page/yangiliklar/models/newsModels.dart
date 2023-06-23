@@ -1,12 +1,9 @@
 // ignore_for_file: camel_case_types, file_names
 
-import 'package:flutter/material.dart';
-
 class CatagoryModels {
   String name;
-  Icon icon;
   String type;
-  CatagoryModels({required this.name, required this.icon, required this.type});
+  CatagoryModels({required this.name, required this.type});
 }
 
 class infoNew {

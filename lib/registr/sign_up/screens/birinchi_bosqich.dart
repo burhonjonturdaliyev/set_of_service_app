@@ -118,7 +118,7 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
         headers: {'Content-Type': 'application/json'},
         body: json.encode(model.toJson()),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         Navigator.pushAndRemoveUntil(
             context,
             PageTransition(

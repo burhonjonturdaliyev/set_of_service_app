@@ -36,7 +36,7 @@ class _Oziq_ovqatState extends State<Oziq_ovqat> {
   ];
 
   Future<void> getFoods() async {
-    final responce = await foodsGet().fetchFood();
+    final responce = await foodsGet().fetchFood(context);
     if (mounted) {
       setState(() {
         responce != null ? models = responce : null;

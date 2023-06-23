@@ -63,7 +63,7 @@ class _NewPageWidgetState extends State<NewPageWidget> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "${widget.name} xabarlar",
+          widget.name,
           style: TextStyle(
               color: Colors.white,
               fontSize: 20.sp,

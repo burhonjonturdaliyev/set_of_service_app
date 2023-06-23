@@ -33,4 +33,14 @@ class MyApp extends StatelessWidget {
 // komment change to izohlar
 
 
-
+//New tasks
+//--------------------------------------------------------------------
+//rasmni auto yuklash va id lani saqlab list qib bervorish
+// yangiliklar categorila qo'shish va cound add
+// airticket check postman
+// "dd.MM.yyyy" that same format in airticket info
+// /api/county/global/info/count qo'shish
+// api 403 loginga otvorish each services
+// change to colors selecting the catagory
+// loading page timeout 10 15 second
+// statuscode==200||statuscode==201

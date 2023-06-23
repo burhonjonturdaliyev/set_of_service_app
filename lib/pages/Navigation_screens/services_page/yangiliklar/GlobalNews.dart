@@ -5,34 +5,27 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsModels.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/widget/WidgetsNews.dart';
 
-class GlobalNews extends StatelessWidget {
-  GlobalNews({super.key});
+class GlobalNews extends StatefulWidget {
+  GlobalNews({super.key, required this.userId});
+  int userId;
+
+  @override
+  State<GlobalNews> createState() => _GlobalNewsState();
+}
+
+class _GlobalNewsState extends State<GlobalNews> {
   List<CatagoryModels> catagory = [
-    CatagoryModels(
-        name: "Odatiy", icon: const Icon(Icons.start_outlined), type: "Normal"),
-    CatagoryModels(
-        name: "Ko'p ko'rilgan",
-        icon: const Icon(Icons.start_outlined),
-        type: "Top"),
-    CatagoryModels(
-        name: "Mashxur", icon: const Icon(Icons.start_outlined), type: "Trend"),
-    CatagoryModels(
-        name: "Rasmiy",
-        icon: const Icon(Icons.start_outlined),
-        type: "Official"),
-    CatagoryModels(
-        name: "Boshqa turdagi",
-        icon: const Icon(Icons.start_outlined),
-        type: "Others"),
-  ];
-  List<String> ikonlar = [
-    "article",
-    "trending_up",
-    "trending_up",
-    "check_circle",
-    "category"
+    CatagoryModels(name: "Trenddagi yangiliklar", type: "trend"),
+    CatagoryModels(name: "O'zbekiston elchixonasi", type: "embassy"),
+    CatagoryModels(name: "UYAJ", type: "uyaj"),
+    CatagoryModels(name: "Top xabarlar", type: "top"),
+    CatagoryModels(name: "Rasmiy xabarlar", type: "official"),
+    CatagoryModels(name: "Odatiy yangiliklar", type: "normal"),
+    CatagoryModels(name: "Boshqa turdagi", type: "others"),
+    CatagoryModels(name: "Eng ko'p beriladigan savollar", type: "fryQuestions"),
   ];
 
+  // "normal": 0,
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,8 +49,10 @@ class GlobalNews extends StatelessWidget {
                 fit: BoxFit.fitHeight)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: NewsWidgets()
-              .catagory(list: catagory, context: context, ikonlar: ikonlar),
+          child: NewsWidgets().catagory(
+            list: catagory,
+            context: context,
+          ),
         ),
       ),
     );

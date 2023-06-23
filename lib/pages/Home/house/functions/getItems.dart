@@ -7,13 +7,15 @@ import 'package:set_of_service_app/const_api/api.dart';
 import 'package:http/http.dart' as http;
 import 'package:set_of_service_app/pages/Home/house/models/models.dart';
 
+import '../../../../registr/sign_in/Sign_in_screen.dart';
+
 class getHouse {
   Future<List<HomeModels>?> fetchInfo(BuildContext context) async {
     final uri = Api().homeAgency;
     final url = Uri.parse(uri);
     try {
       http.Response response = await http.get(url);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final body = response.body;
         final json = jsonDecode(body);
         final result = json["object"] as List<dynamic>;
@@ -36,6 +38,14 @@ class getHouse {
               updatedAt: DateTime.parse(e["updatedAt"]));
         }).toList();
         return datas;
+      } else if (response.statusCode == 403) {
+        // ignore: use_build_context_synchronously
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Sign_in(),
+            ),
+            (route) => false);
       }
     } catch (e) {
       print(e);
