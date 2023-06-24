@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 
 //New tasks
 //--------------------------------------------------------------------
-//rasmni auto yuklash va id lani saqlab list qib bervorish
+//rasmni auto yuklash va id lani saqlab list qib bervorish --function is ready only left to testing
 // yangiliklar categorila qo'shish va cound add --prograss
 // airticket check postman  --done
 // "dd.MM.yyyy" that same format in airticket info --done
