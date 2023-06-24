@@ -1,9 +1,10 @@
-// ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_print, must_be_immutable, prefer_const_constructors_in_immutables, use_build_context_synchronously, duplicate_ignore
+// ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_print, must_be_immutable, prefer_const_constructors_in_immutables, use_build_context_synchronously, duplicate_ignore, unnecessary_null_comparison
 
 import 'dart:convert';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
@@ -39,9 +40,10 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
   TextEditingController gender = TextEditingController();
 
   TextEditingController sana = TextEditingController();
-  late String sanaServer;
 
   TextEditingController server = TextEditingController();
+
+  late String tugilgan_kun;
 
   late SharedPreferences loginData;
   Future<void> _urlLauncher(String url) async {
@@ -107,19 +109,49 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
     'Xitoy',
   ];
 
-  void kalendar(BuildContext context) async {
-    DateTime? choose = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(1900),
-        lastDate: DateTime.now());
-    ThemeData.light().copyWith().appBarTheme;
-    if (choose != null) {
-      setState(() {
-        sana.text = DateFormat("dd.MM.yyyy").format(choose);
-        sanaServer = choose.toString();
-      });
-    }
+  void kalendar(BuildContext context) {
+    DatePicker.showDatePicker(
+      context,
+      showTitleActions: true,
+      minTime: DateTime(1900),
+      maxTime: DateTime.now(),
+      theme: DatePickerTheme(
+        backgroundColor: const Color(0xff800000), // Set the background color
+        headerColor: const Color(0xff800000), // Set the header text color
+        itemStyle: TextStyle(
+          color: Colors.white, // Set the date text color
+          fontWeight: FontWeight.bold,
+          fontSize: 18.0.sp,
+        ),
+        cancelStyle: TextStyle(
+          color: Colors.white, // Set the done button text color
+          fontSize: 16.0.sp,
+          fontWeight: FontWeight.bold,
+        ),
+        doneStyle: TextStyle(
+          color: Colors.white, // Set the done button text color
+          fontSize: 16.0.sp,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      onChanged: (date) {
+        if (date != null) {
+          setState(() {
+            sana.text = DateFormat("dd.MM.yyyy").format(date);
+            tugilgan_kun = DateFormat("yyyy-MM-dd HH:mm").format(date);
+          });
+        }
+      },
+      onConfirm: (date) {
+        if (date != null) {
+          setState(() {
+            sana.text = DateFormat("dd.MM.yyyy").format(date);
+            tugilgan_kun = DateFormat("yyyy-MM-dd HH:mm").format(date);
+          });
+        }
+      },
+      currentTime: DateTime.now(),
+    );
   }
 
   @override
@@ -459,7 +491,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                   if (_formKey.currentState!.validate()) {
                     await step3(Step3_model(
                         confirmPassword: widget.password,
-                        dateOfBirth: sanaServer,
+                        dateOfBirth: sana.text,
                         firstName: name.text,
                         deviceId: widget.deviceId,
                         genderType: gender.text,

@@ -1,13 +1,11 @@
-// ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, unused_element, avoid_print
+// ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, unused_element, avoid_print, use_build_context_synchronously, duplicate_ignore
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:set_of_service_app/registr/sign_up/screens/yakuniy_bosqich.dart';
-import 'package:http/http.dart' as http;
-import '../../../const_api/api.dart';
-import '../model/step_model.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/registr/loading/loading_screen_sms.dart';
 
 class ikkinchi_bosqich extends StatefulWidget {
   ikkinchi_bosqich(
@@ -27,35 +25,6 @@ class _ikkinchi_bosqichState extends State<ikkinchi_bosqich> {
   TextEditingController conficCode = TextEditingController();
 
   final _formkey = GlobalKey<FormState>();
-  Future<void> step2(
-    Step2_model model,
-  ) async {
-    try {
-      // ignore: unused_local_variable
-      final response = await http.post(
-        Uri.parse(Api().step2),
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode(model.toJson()),
-      );
-      if (response.statusCode == 200) {
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Yakuniy_bosqich(
-                number: widget.number,
-                password: widget.password,
-                deviceId: widget.deviceId,
-              ),
-            ));
-      } else {
-        dialog();
-        print('API request failed with status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      return;
-    }
-  }
 
   dialog() {
     showDialog(
@@ -96,6 +65,11 @@ class _ikkinchi_bosqichState extends State<ikkinchi_bosqich> {
                 ]),
               ),
             ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -314,10 +288,15 @@ class _ikkinchi_bosqichState extends State<ikkinchi_bosqich> {
                     ),
                     onPressed: () async {
                       if (_formkey.currentState!.validate()) {
-                        await step2(Step2_model(
-                            password: widget.password,
-                            phoneNumber: widget.number,
-                            smsCode: conficCode.text));
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: Loading_screen_sms(
+                                    number: widget.number,
+                                    conficCode: conficCode.text,
+                                    password: widget.password,
+                                    deviceId: widget.deviceId),
+                                type: PageTransitionType.fade));
                       }
                     },
                     child: Text(

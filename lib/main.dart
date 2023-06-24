@@ -36,11 +36,12 @@ class MyApp extends StatelessWidget {
 //New tasks
 //--------------------------------------------------------------------
 //rasmni auto yuklash va id lani saqlab list qib bervorish
-// yangiliklar categorila qo'shish va cound add
-// airticket check postman
-// "dd.MM.yyyy" that same format in airticket info
-// /api/county/global/info/count qo'shish
-// api 403 loginga otvorish each services
-// change to colors selecting the catagory
-// loading page timeout 10 15 second
-// statuscode==200||statuscode==201
+// yangiliklar categorila qo'shish va cound add --prograss
+// airticket check postman  --done
+// "dd.MM.yyyy" that same format in airticket info --done
+// /api/county/global/info/count qo'shish --prograss
+// api 403 loginga otvorish each services --done
+// change to colors selecting the catagory --done
+// loading page timeout 10 15 second --right now doing
+// statuscode==200||statuscode==201 --done
+// yyyy-MM-dd HH:mm should change this format --done

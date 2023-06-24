@@ -5,6 +5,7 @@ import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/registr/loading/loading_screen_login.dart';
 import 'package:set_of_service_app/registr/sign_in/model/login_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -35,82 +36,6 @@ class _DesignSignInState extends State<DesignSignIn> {
   late bool new_user;
   final _formkey = GlobalKey<FormState>();
   int textstype = 1;
-
-  Future<void> login(
-    login_model model,
-  ) async {
-    try {
-      // ignore: unused_local_variable
-      final response = await http.post(
-        Uri.parse(Api().login),
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode(model.toJson()),
-      );
-      if (response.statusCode == 200) {
-        String number = widget.number.text;
-        String password = widget.password.text;
-
-        logindata.setBool("login", false);
-        logindata.setString("number", number);
-        logindata.setString("password", password);
-
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) => const Home_Page(),
-            ),
-            (route) => false);
-      } else {
-        // API request failed
-        dialog();
-        // ignore: avoid_print
-        print('API request failed with status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      return;
-    }
-  }
-
-  dialog() {
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              backgroundColor: const Color(0xFF8B0000),
-              content: SizedBox(
-                height: 150.h,
-                width: 150.w,
-                child: Stack(children: [
-                  Positioned(
-                      bottom: 0.h,
-                      left: 0.w,
-                      right: 0.w,
-                      top: 50.h,
-                      child: Text(
-                        "Telefon yoki parol xato!\nIltimos qaytadan urunib ko'ring!",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: "Inter",
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16.sp),
-                      )),
-                  Positioned(
-                      top: -15.h,
-                      right: -10.w,
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.close_outlined,
-                          color: Colors.white,
-                          size: 35.sp,
-                        ),
-                      )),
-                ]),
-              ),
-            ));
-  }
 
   void _visible() {
     setState(() {
@@ -413,9 +338,13 @@ class _DesignSignInState extends State<DesignSignIn> {
                 },
                 onPressed: () async {
                   if (_formkey.currentState!.validate()) {
-                    await login(login_model(
-                        password: widget.password.text,
-                        phoneNumber: widget.number.text));
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: Loading_page(
+                                phoneNumber: widget.number.text,
+                                password: widget.password.text),
+                            type: PageTransitionType.fade));
                   }
                 },
                 child: Text(

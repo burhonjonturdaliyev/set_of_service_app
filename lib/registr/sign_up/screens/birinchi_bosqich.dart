@@ -1,16 +1,12 @@
 // ignore_for_file: camel_case_types, file_names, non_constant_identifier_names, duplicate_ignore, unnecessary_null_comparison, use_build_context_synchronously, avoid_print
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/registr/sign_up/screens/ikkinchi_bosqich.dart';
-import 'package:http/http.dart' as http;
-import '../../../const_api/api.dart';
-import '../model/step_model.dart';
+import 'package:set_of_service_app/registr/loading/loading_screen_step1.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
 class birinchi_bosqich extends StatefulWidget {
@@ -106,37 +102,6 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
       return "Parollar mos emas!";
     }
     return null;
-  }
-
-  Future<void> step1(
-    Step1_model model,
-  ) async {
-    try {
-      // ignore: unused_local_variable
-      final response = await http.post(
-        Uri.parse(Api().step1),
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode(model.toJson()),
-      );
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        Navigator.pushAndRemoveUntil(
-            context,
-            PageTransition(
-                child: ikkinchi_bosqich(
-                  number: fullnumber,
-                  password: password.text,
-                  deviceId: deviceId,
-                ),
-                type: PageTransitionType.fade,
-                childCurrent: const birinchi_bosqich()),
-            (route) => true);
-      } else {
-        dialog();
-        print('API request failed with status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      // Handle any exceptions that occurred during the request
-    }
   }
 
   @override
@@ -462,8 +427,17 @@ class _birinchi_bosqichState extends State<birinchi_bosqich> {
                 onPressed: () async {
                   await adding();
                   if (_formkey.currentState!.validate()) {
-                    await step1(Step1_model(
-                        password: password.text, phoneNumber: fullnumber));
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        PageTransition(
+                            child: Loading_screen_step1(
+                              number: fullnumber,
+                              password: password.text,
+                              deviceId: deviceId,
+                            ),
+                            type: PageTransitionType.fade,
+                            childCurrent: const birinchi_bosqich()),
+                        (route) => true);
                   }
                 },
                 child: Text(

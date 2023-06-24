@@ -1,15 +1,18 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 class Arriving extends StatefulWidget {
-  Arriving(
-      {super.key, required this.ketishSanasi, required this.qaytishSanasi});
-  TextEditingController ketishSanasi;
-  TextEditingController qaytishSanasi;
+  Arriving({
+    super.key,
+    required this.ketishSanasi,
+    required this.qaytishSanasi,
+  });
+  TextEditingController ketishSanasi, qaytishSanasi;
 
   @override
   State<Arriving> createState() => _ArrivingState();
@@ -40,23 +43,58 @@ class _ArrivingState extends State<Arriving> {
                           if (value!.isEmpty) {
                             return "Iltimos Ketish sanasini kiriting";
                           }
-                          if (widget.ketishSanasi.text.length != 10) {
-                            return "To'liq sanani kiriting";
-                          }
+
                           return null;
                         },
                         onTap: () async {
-                          DateTime? choose = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
-                              lastDate: DateTime(2030));
-                          if (choose != null) {
-                            setState(() {
-                              widget.ketishSanasi.text =
-                                  DateFormat("yyyy-MM-dd").format(choose);
-                            });
-                          }
+                          DatePicker.showDatePicker(
+                            context,
+                            showTitleActions: true,
+                            minTime: DateTime(1900),
+                            maxTime: DateTime.now(),
+                            theme: DatePickerTheme(
+                              backgroundColor: const Color(
+                                  0xff800000), // Set the background color
+                              headerColor: const Color(
+                                  0xff800000), // Set the header text color
+                              itemStyle: TextStyle(
+                                color: Colors.white, // Set the date text color
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0.sp,
+                              ),
+                              cancelStyle: TextStyle(
+                                color: Colors
+                                    .white, // Set the done button text color
+                                fontSize: 16.0.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              doneStyle: TextStyle(
+                                color: Colors
+                                    .white, // Set the done button text color
+                                fontSize: 16.0.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onChanged: (date) {
+                              if (date != null) {
+                                setState(() {
+                                  widget.ketishSanasi.text =
+                                      DateFormat("yyyy-MM-dd HH:mm")
+                                          .format(date);
+                                });
+                              }
+                            },
+                            onConfirm: (date) {
+                              if (date != null) {
+                                setState(() {
+                                  widget.ketishSanasi.text =
+                                      DateFormat("yyyy-MM-dd HH:mm")
+                                          .format(date);
+                                });
+                              }
+                            },
+                            currentTime: DateTime.now(),
+                          );
                         },
                         controller: widget.ketishSanasi,
                         keyboardType: TextInputType.none,
@@ -91,23 +129,57 @@ class _ArrivingState extends State<Arriving> {
                           if (value!.isEmpty) {
                             return "Iltimos qaytish sanasini kiriting";
                           }
-                          if (widget.qaytishSanasi.text.length != 10) {
-                            return "To'liq sanani kiriting";
-                          }
                           return null;
                         },
                         onTap: () async {
-                          DateTime? choose = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
-                              lastDate: DateTime(2030));
-                          if (choose != null) {
-                            setState(() {
-                              widget.qaytishSanasi.text =
-                                  DateFormat("yyyy-MM-dd").format(choose);
-                            });
-                          }
+                          DatePicker.showDatePicker(
+                            context,
+                            showTitleActions: true,
+                            minTime: DateTime(1900),
+                            maxTime: DateTime.now(),
+                            theme: DatePickerTheme(
+                              backgroundColor: const Color(
+                                  0xff800000), // Set the background color
+                              headerColor: const Color(
+                                  0xff800000), // Set the header text color
+                              itemStyle: TextStyle(
+                                color: Colors.white, // Set the date text color
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0.sp,
+                              ),
+                              cancelStyle: TextStyle(
+                                color: Colors
+                                    .white, // Set the done button text color
+                                fontSize: 16.0.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              doneStyle: TextStyle(
+                                color: Colors
+                                    .white, // Set the done button text color
+                                fontSize: 16.0.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onChanged: (date) {
+                              if (date != null) {
+                                setState(() {
+                                  widget.qaytishSanasi.text =
+                                      DateFormat("yyyy-MM-dd HH:mm")
+                                          .format(date);
+                                });
+                              }
+                            },
+                            onConfirm: (date) {
+                              if (date != null) {
+                                setState(() {
+                                  widget.qaytishSanasi.text =
+                                      DateFormat("yyyy-MM-dd HH:mm")
+                                          .format(date);
+                                });
+                              }
+                            },
+                            currentTime: DateTime.now(),
+                          );
                         },
                         controller: widget.qaytishSanasi,
                         keyboardType: TextInputType.none,
