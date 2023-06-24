@@ -42,6 +42,6 @@ class MyApp extends StatelessWidget {
 // /api/county/global/info/count qo'shish --prograss
 // api 403 loginga otvorish each services --done
 // change to colors selecting the catagory --done
-// loading page timeout 10 15 second --right now doing
+// loading page timeout 10 15 second --done
 // statuscode==200||statuscode==201 --done
 // yyyy-MM-dd HH:mm should change this format --done

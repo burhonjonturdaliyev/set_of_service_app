@@ -6,6 +6,7 @@ class serverApi {
 }
 
 class Api {
+  String countInfo = '${serverApi().url}/api/county/global/info/count';
   String uploadImage = '${serverApi().url}/api/file/upload';
   String foods = '${serverApi().url}/sos/api/shop/foods';
   String nofoods = '${serverApi().url}/sos/api/shop/no-foods';

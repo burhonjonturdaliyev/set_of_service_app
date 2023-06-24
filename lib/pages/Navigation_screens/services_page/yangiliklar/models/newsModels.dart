@@ -3,7 +3,8 @@
 class CatagoryModels {
   String name;
   String type;
-  CatagoryModels({required this.name, required this.type});
+  int? count;
+  CatagoryModels({required this.name, required this.type, this.count});
 }
 
 class infoNew {

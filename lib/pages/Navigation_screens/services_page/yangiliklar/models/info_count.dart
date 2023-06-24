@@ -1,24 +1,24 @@
 // ignore_for_file: camel_case_types
 
 class info_count {
-  int? normal;
-  int? top;
   int? trend;
-  int? official;
   int? embassy;
   int? uyaj;
-  int? fryQuestions;
+  int? top;
+  int? official;
+  int? normal;
   int? others;
+  int? fryQuestions;
 
   info_count(
-      {this.normal,
-      this.top,
-      this.trend,
-      this.official,
-      this.embassy,
-      this.uyaj,
-      this.fryQuestions,
-      this.others});
+      {required this.normal,
+      required this.top,
+      required this.trend,
+      required this.official,
+      required this.embassy,
+      required this.uyaj,
+      required this.fryQuestions,
+      required this.others});
 
   info_count.fromJson(Map<String, dynamic> json) {
     normal = json['normal'];

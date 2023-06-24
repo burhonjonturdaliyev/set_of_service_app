@@ -13,7 +13,10 @@ class NewsWidgets {
   }) {
     return ListView.builder(
       itemCount: list.length,
-      itemBuilder: (context, index) => itemsDesign(context, list[index]),
+      itemBuilder: (context, index) => itemsDesign(
+        context,
+        list[index],
+      ),
     );
   }
 
@@ -74,14 +77,23 @@ class NewsWidgets {
                         border: Border.all(width: 0.5.w, color: Colors.black54),
                         borderRadius: BorderRadius.circular(100.w)),
                     child: Center(
-                        child: Text(
-                      "1",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: "Inter",
-                        fontSize: 13.sp,
-                      ),
-                    )),
+                        child: models.count != null
+                            ? Text(
+                                models.count.toString(),
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "Inter",
+                                  fontSize: 13.sp,
+                                ),
+                              )
+                            : SizedBox(
+                                height: 15.h,
+                                width: 15.w,
+                                child: const CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Color(0xFF8B0000),
+                                ),
+                              )),
                   ),
                   Icon(
                     Icons.arrow_forward_ios_rounded,

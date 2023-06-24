@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:set_of_service_app/pages/Home/shop/functions/upload_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../const_api/api.dart';
@@ -41,13 +42,10 @@ class _addItemsState extends State<addItems> {
   File? rasm3;
   File? rasm4;
 
-  File? rasm11;
-  File? rasm22;
-  File? rasm33;
-  File? rasm44;
-
   int radioButton = 1;
   bool checkBox = false;
+
+  List<int> index_photo = [];
 
   elon_joylash() async {
     await telegram_link();
@@ -164,50 +162,6 @@ class _addItemsState extends State<addItems> {
     }
   }
 
-  Future compressorImage(manba) async {
-    if (manba == null) return null;
-    FlutterImageCompress.compressWithFile(manba);
-  }
-
-  Future<void> pickImage(File? manba, ImageSource source) async {
-    final pickedfile = await ImagePicker.platform.pickImage(source: source);
-
-    if (mounted) {
-      if (pickedfile != null) {
-        setState(() {
-          if (manba == rasm1) {
-            rasm1 = File(pickedfile.path);
-          } else if (manba == rasm2) {
-            rasm2 = File(pickedfile.path);
-          } else if (manba == rasm3) {
-            rasm3 = File(pickedfile.path);
-          } else if (manba == rasm4) {
-            rasm4 = File(pickedfile.path);
-          }
-        });
-      }
-    }
-
-    if (mounted) {
-      if (pickedfile != null) {
-        final compressedFile = await compressorImage(pickedfile.path);
-        if (compressedFile != null) {
-          setState(() {
-            if (manba == rasm1) {
-              rasm11 = File(compressedFile);
-            } else if (manba == rasm2) {
-              rasm22 = File(compressedFile);
-            } else if (manba == rasm3) {
-              rasm33 = File(compressedFile);
-            } else if (manba == rasm4) {
-              rasm44 = File(compressedFile);
-            }
-          });
-        }
-      }
-    }
-  }
-
   Future<void> _urlLauncher(String url) async {
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(
@@ -246,8 +200,8 @@ class _addItemsState extends State<addItems> {
                     children: [
                       IconButton(
                           onPressed: () {
-                            pickImage(manba, ImageSource.gallery);
-                            Navigator.pop(context);
+                            images_upload().upload(context, manba,
+                                ImageSource.gallery, index_photo);
                           },
                           icon: Icon(
                             Icons.photo_outlined,
@@ -268,7 +222,8 @@ class _addItemsState extends State<addItems> {
                     children: [
                       IconButton(
                           onPressed: () {
-                            pickImage(manba, ImageSource.camera);
+                            images_upload().upload(context, manba,
+                                ImageSource.camera, index_photo);
                             Navigator.pop(context);
                           },
                           icon: Icon(
