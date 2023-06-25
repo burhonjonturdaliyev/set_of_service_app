@@ -39,12 +39,17 @@ class images_upload {
         'https://api.imgbb.com/1/upload',
         data: data,
         onSendProgress: (send, total) {
-          print("$send, $total");
+          double sendMB = send / (1024 * 1024); // Convert bytes to megabytes
+          double totalMB = total / (1024 * 1024); // Convert bytes to megabytes
+
+          print("Sent: ${sendMB.toStringAsFixed(2)} MB");
+          print("Total: ${totalMB.toStringAsFixed(2)} MB");
+          print(
+              "Yuklangan foizi: ${((send * 100) / total).toStringAsFixed(0)} %");
         },
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         print("Uploaded");
-        print(response.data);
       } else if (response.statusCode == 403) {
         Navigator.pushAndRemoveUntil(
             context,
