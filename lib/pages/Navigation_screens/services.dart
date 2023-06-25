@@ -46,30 +46,54 @@ class _List_of_servicesState extends State<List_of_services> {
           info: "Shop xizmatlari",
           page: Shop(
             userId: widget.userId,
-          )),
-      Services_model(info: "Pul yuborish xizmatlari", page: const Send_money()),
-      Services_model(info: "To'lovlar", page: const Pul_Tolovlar()),
+          ),
+          image: "assets/service/xarid.png"),
+      Services_model(
+          info: "Pul yuborish xizmatlari",
+          page: const Send_money(),
+          image: "assets/service/pul_yuborish.png"),
+      Services_model(
+          info: "To'lovlar",
+          page: const Pul_Tolovlar(),
+          image: "assets/service/tolov.png"),
       Services_model(
           info: "Avia bilet xizmatlari",
           page: Avia_bilet(
             userId: widget.userId,
-          )),
-      Services_model(info: "Pochta xizmatlari", page: const Pochta_xizmati()),
-      Services_model(info: "Paynet", page: const Paynet()),
+          ),
+          image: "assets/service/bilet.png"),
       Services_model(
-          info: "Viza masalalarida yordam xizmati", page: const Viza_xizmati()),
+          info: "Pochta xizmatlari",
+          page: const Pochta_xizmati(),
+          image: "assets/service/pochta.png"),
       Services_model(
-          info: "Ish topib berish xizmati", page: const Ish_topish()),
+          info: "Paynet",
+          page: const Paynet(),
+          image: "assets/service/paynet.png"),
       Services_model(
-          info: "Uy-joy topib berish xizmatlari", page: const Uy_joy_top()),
+          info: "Viza masalalarida yordam xizmati",
+          page: const Viza_xizmati(),
+          image: "assets/service/viza.png"),
+      Services_model(
+          info: "Ish topib berish xizmati",
+          page: const Ish_topish(),
+          image: "assets/service/ish.png"),
+      Services_model(
+          info: "Uy-joy topib berish xizmatlari",
+          page: const Uy_joy_top(),
+          image: "assets/service/uy.png"),
       Services_model(
           info: "Eng oxirgi yangiliklar",
           page: GlobalNews(
             userId: widget.userId,
-          )
+          ),
+          image: "assets/service/yangiliklar.png"
           //Yangiliklar()
           ),
-      Services_model(info: "Valyuta kursi", page: const Valyuta_kursi()),
+      Services_model(
+          info: "Valyuta kursi",
+          page: const Valyuta_kursi(),
+          image: "assets/service/valyuta.png"),
     ];
   }
 
@@ -127,13 +151,25 @@ class _List_of_servicesState extends State<List_of_services> {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    model.info,
-                    style: TextStyle(
+                  Row(
+                    children: [
+                      Image.asset(
+                        model.image,
+                        width: 18.w,
                         color: Colors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: "Inter"),
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text(
+                        model.info,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: "Inter"),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     width: 5.w,

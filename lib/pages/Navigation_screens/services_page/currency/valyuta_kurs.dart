@@ -95,7 +95,10 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
                   image: AssetImage("image/back_screen.png"),
                   fit: BoxFit.fill)),
           child: currency.isEmpty
-              ? const Center(child: CircularProgressIndicator())
+              ? const Center(
+                  child: CircularProgressIndicator(
+                  color: Color(0xFF8B0000),
+                ))
               : Column(
                   children: [
                     Padding(

@@ -41,7 +41,6 @@ class images_upload {
         onSendProgress: (send, total) {
           double sendMB = send / (1024 * 1024); // Convert bytes to megabytes
           double totalMB = total / (1024 * 1024); // Convert bytes to megabytes
-
           print("Sent: ${sendMB.toStringAsFixed(2)} MB");
           print("Total: ${totalMB.toStringAsFixed(2)} MB");
           print(
