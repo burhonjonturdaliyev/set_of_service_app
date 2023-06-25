@@ -44,7 +44,7 @@ class _Loading_pageState extends State<Loading_page> {
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-            builder: (context) => const Home_Page(),
+            builder: (context) => Home_Page(),
           ),
           (route) => false,
         );

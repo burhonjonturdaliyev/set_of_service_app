@@ -72,7 +72,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const Home_Page(),
+              builder: (context) => Home_Page(),
             ),
             (route) => false);
       } else {

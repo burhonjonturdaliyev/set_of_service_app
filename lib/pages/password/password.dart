@@ -316,7 +316,7 @@ class _OtpScreenState extends State<OtpScreen> {
       Navigator.pushAndRemoveUntil(
           context,
           PageTransition(
-              child: const Home_Page(),
+              child: Home_Page(),
               type: PageTransitionType.fade,
               curve: Curves.easeInCirc,
               duration: const Duration(seconds: 1)),

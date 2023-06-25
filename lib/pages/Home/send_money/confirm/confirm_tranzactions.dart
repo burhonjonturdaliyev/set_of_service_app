@@ -165,8 +165,7 @@ class Confirm_tranzactions extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                     context,
                     PageTransition(
-                        child: const Home_Page(),
-                        type: PageTransitionType.fade),
+                        child: Home_Page(), type: PageTransitionType.fade),
                     (route) => false);
               },
               child: Text(

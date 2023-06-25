@@ -18,6 +18,7 @@ class getCount {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final body = response.body;
         final json = jsonDecode(body);
+        // ignore: unused_local_variable
         final result = json['object'] as Map<String, int>;
       } else if (response.statusCode == 403) {
         Navigator.pushAndRemoveUntil(

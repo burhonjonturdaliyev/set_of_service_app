@@ -44,7 +44,7 @@ class _Loading_page_registrState extends State<Loading_page_registr> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const Home_Page(),
+              builder: (context) => Home_Page(),
             ),
             (route) => false);
       } else {

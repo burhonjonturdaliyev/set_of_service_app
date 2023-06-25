@@ -1,6 +1,5 @@
 // ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, unused_element, avoid_print, use_build_context_synchronously, duplicate_ignore
 
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

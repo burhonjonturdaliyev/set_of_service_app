@@ -29,7 +29,9 @@ class _Splash_screenState extends State<Splash_screen> {
           Navigator.pushAndRemoveUntil(
               context,
               PageTransition(
-                  child: Sign_in(),
+                  child: Sign_in(
+                    logindata: logindata,
+                  ),
                   type: PageTransitionType.fade,
                   curve: Curves.fastLinearToSlowEaseIn,
                   childCurrent: const Splash_screen()),
@@ -39,7 +41,7 @@ class _Splash_screenState extends State<Splash_screen> {
           Navigator.pushAndRemoveUntil(
               context,
               PageTransition(
-                  child: const Home_Page(),
+                  child: Home_Page(),
                   type: PageTransitionType.fade,
                   curve: Curves.fastLinearToSlowEaseIn,
                   childCurrent: const Splash_screen()),

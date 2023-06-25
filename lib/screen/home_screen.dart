@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, duplicate_ignore, library_private_types_in_public_api, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, duplicate_ignore, library_private_types_in_public_api, non_constant_identifier_names, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,8 +14,8 @@ import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home_Page extends StatefulWidget {
-  const Home_Page({Key? key}) : super(key: key);
-
+  Home_Page({super.key, this.logindata});
+  SharedPreferences? logindata;
   @override
   // ignore: no_logic_in_create_state
   _Home_PageState createState() => _Home_PageState();

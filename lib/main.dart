@@ -23,14 +23,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// monitoring two section elon va xarajatlar --done
-// at least 2 photo required in shop
-// use number format --done
-//should add /sos/api/auth/step_1
-// +998-99-123-45-67 vs +81-80-1234-5678 --done
-// changing the style of server bold black, others should be black34 weight.w400
-// yangiliklar section add items and changings
-// komment change to izohlar
 
 
 //New tasks

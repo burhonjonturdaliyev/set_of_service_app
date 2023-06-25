@@ -1,15 +1,11 @@
 // ignore_for_file: non_constant_identifier_names, duplicate_ignore
 
-import 'dart:convert';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/registr/loading/loading_screen_login.dart';
-import 'package:set_of_service_app/registr/sign_in/model/login_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-import '../../../const_api/api.dart';
 import '../../../screen/home_screen.dart';
 import '../../reset/Reset_password_screen.dart';
 import '../../sign_up/screens/birinchi_bosqich.dart';
@@ -51,7 +47,7 @@ class _DesignSignInState extends State<DesignSignIn> {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const Home_Page(),
+            builder: (context) => Home_Page(),
           ));
     }
   }
@@ -330,8 +326,7 @@ class _DesignSignInState extends State<DesignSignIn> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       PageTransition(
-                          child: const Home_Page(),
-                          type: PageTransitionType.fade),
+                          child: Home_Page(), type: PageTransitionType.fade),
                       (route) => false);
                   widget.number.clear();
                   widget.number.clear();
