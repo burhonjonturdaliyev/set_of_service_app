@@ -2,19 +2,34 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/Widgets/profile_widgets.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/profile/identification/profileIdentification.dart';
 import 'package:set_of_service_app/pages/Profile_settings/Profile_settings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profil extends StatefulWidget {
-  Profil({super.key, required this.userId});
+  Profil(
+      {super.key,
+      required this.userId,
+      required this.davlat,
+      required this.fullname,
+      required this.jins,
+      required this.number,
+      required this.sana,
+      required this.server,
+      required this.verification});
   int userId;
+  String? fullname, sana, number, jins, davlat, server;
+  bool? verification;
   @override
   State<Profil> createState() => _ProfilState();
 }
 
 class _ProfilState extends State<Profil> {
+  SharedPreferences? logindata;
+
   @override
   void initState() {
     super.initState();
@@ -53,7 +68,7 @@ class _ProfilState extends State<Profil> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Burhonjon Turdialiev",
+                  widget.fullname ?? "Yuklanmoqda",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 24.sp,
@@ -85,7 +100,11 @@ class _ProfilState extends State<Profil> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "01.02.2003",
+                  // ignore: unnecessary_null_comparison
+                  widget.sana != null
+                      ? DateFormat("dd.MM.yyyy")
+                          .format(DateTime.parse(widget.sana!))
+                      : "Yuklanmoqda",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 14.sp,
@@ -149,10 +168,10 @@ class _ProfilState extends State<Profil> {
             Padding(
               padding: EdgeInsets.only(left: 20.w),
               child: Information_section_profile(
-                number: "+998 90 123 45 67",
-                jins: "Erkak",
-                mamlakat: "O'zbekiston",
-                server: "Yaponiya",
+                number: widget.number ?? "Yuklanmoqda",
+                jins: widget.jins ?? "Yuklanmoqda",
+                mamlakat: widget.davlat ?? "Yuklanmoqda",
+                server: widget.server ?? "Yuklanmoqda",
               ),
             ),
           ],

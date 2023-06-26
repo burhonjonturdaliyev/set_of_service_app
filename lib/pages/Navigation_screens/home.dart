@@ -12,6 +12,7 @@ import 'package:set_of_service_app/pages/Home/send_money/send_money.dart';
 import 'package:set_of_service_app/pages/Home/shop/shop_page.dart';
 import 'package:set_of_service_app/pages/Home/pochta/pochta_xizmati.dart';
 import 'package:set_of_service_app/pages/Home/visa/viza_xizmati.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Home/tolovlar/tolovlar.dart';
 
@@ -26,6 +27,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool visible = true;
   double money = 0.00;
+  SharedPreferences? logindata;
 
   final white = Colors.white;
 
@@ -46,8 +48,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // service = LocalNotificationService();
-    // service.initialize();
     super.initState();
   }
 

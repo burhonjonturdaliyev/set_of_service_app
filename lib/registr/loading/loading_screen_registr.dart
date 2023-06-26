@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, use_build_context_synchronously, duplicate_ignore, must_be_immutable
+// ignore_for_file: camel_case_types, use_build_context_synchronously, duplicate_ignore, must_be_immutable, avoid_print
 
 import 'dart:async';
 import 'dart:convert';
@@ -6,8 +6,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../const_api/api.dart';
 import '../../screen/home_screen.dart';
+import '../data/user_model.dart';
 import '../sign_up/model/step_model.dart';
 
 class Loading_page_registr extends StatefulWidget {
@@ -29,6 +31,8 @@ class Loading_page_registr extends StatefulWidget {
 }
 
 class _Loading_page_registrState extends State<Loading_page_registr> {
+  user_model? datalar;
+  SharedPreferences? logindata;
   Future<void> step3(
     Step3_model model,
   ) async {
@@ -40,13 +44,29 @@ class _Loading_page_registrState extends State<Loading_page_registr> {
         body: json.encode(model.toJson()),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // ignore: use_build_context_synchronously
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Home_Page(),
-            ),
-            (route) => false);
+        try {
+          final body = response.body;
+          if (body != null && body.isNotEmpty) {
+            final json = jsonDecode(body);
+            final result = json['object'];
+            final data = user_model.fromJson(result);
+            setState(() {
+              datalar = data;
+            });
+            await getSharedPreferencesInstance();
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) => Home_Page(),
+              ),
+              (route) => false,
+            );
+          } else {
+            print('API response body is null or empty');
+          }
+        } catch (e) {
+          print(e);
+        }
       } else {
         // API request failed
         Navigator.pop(context);
@@ -100,6 +120,21 @@ class _Loading_page_registrState extends State<Loading_page_registr> {
     } catch (e) {
       // Handle any exceptions that occurred during the request
     }
+  }
+
+  getSharedPreferencesInstance() async {
+    logindata = await SharedPreferences.getInstance();
+    logindata?.setBool('isFirstTime', false);
+    logindata?.setInt("id", datalar!.user!.id!);
+    logindata?.setString('firstName', datalar!.user!.firstName!);
+    logindata?.setString('lastName', datalar!.user!.lastName!);
+    logindata?.setString('phoneNumber', datalar!.user!.phoneNumber!);
+    logindata?.setString('currentCountry', datalar!.user!.currentCountry!);
+    logindata?.setString('visitCountry', datalar!.user!.visitCountry!);
+    logindata?.setString('accountType', datalar!.user!.accountType!);
+    logindata?.setString('genderType', datalar!.user!.genderType!);
+    logindata?.setString('dateOfBirth', datalar!.user!.dateOfBirth!);
+    logindata?.setBool('verification', datalar!.user!.verification!);
   }
 
   registr() {

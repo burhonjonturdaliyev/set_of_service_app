@@ -24,7 +24,7 @@ class Home_Page extends StatefulWidget {
 }
 
 class _Home_PageState extends State<Home_Page> {
-  int userId = 3;
+  int userId = 0;
   SharedPreferences? logindata;
   int selectedIndex = 2;
   final List<IconData> data = [
@@ -45,12 +45,28 @@ class _Home_PageState extends State<Home_Page> {
 
   final circleavatarback = const Color.fromARGB(208, 220, 163, 163);
 
-  String? number;
-  String? password;
   late bool new_user;
+  String? fullname, sana, number, jins, davlat, server;
+  bool? verification;
 
   Future<void> getSharedPreferencesInstance() async {
     logindata = await SharedPreferences.getInstance();
+    int? id = logindata?.getInt("id");
+    if (id != null) {
+      setState(() {
+        userId = id;
+      });
+      setState(() {
+        fullname =
+            "${logindata?.getString("firstName")} ${logindata?.getString("lastName")}";
+        sana = logindata?.getString("dateOfBirth");
+        number = logindata?.getString('phoneNumber');
+        jins = logindata?.getString('genderType');
+        davlat = logindata?.getString('currentCountry');
+        server = logindata?.getString('visitCountry');
+        verification = logindata?.getBool('verification');
+      });
+    }
   }
 
   @override
@@ -151,7 +167,7 @@ class _Home_PageState extends State<Home_Page> {
                           size: 24.w,
                         ),
                         onTap: () {
-                          logindata?.setBool('isFirstTime', true);
+                          logindata?.clear();
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
@@ -244,6 +260,13 @@ class _Home_PageState extends State<Home_Page> {
             ),
             Profil(
               userId: userId,
+              davlat: davlat,
+              fullname: fullname,
+              jins: jins,
+              number: number,
+              sana: sana,
+              server: server,
+              verification: verification,
             )
           ],
         ),

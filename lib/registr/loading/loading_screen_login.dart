@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names
+// ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, unnecessary_null_comparison, avoid_print, duplicate_ignore
 
 import 'dart:async';
 import 'dart:convert';
@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
+import 'package:set_of_service_app/registr/data/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../const_api/api.dart';
@@ -29,17 +30,7 @@ class Loading_page extends StatefulWidget {
 }
 
 class _Loading_pageState extends State<Loading_page> {
-  List<dynamic> userInfo = [];
-  static const String id = 'id';
-  static const String firstName = 'firstName';
-  static const String lastName = 'lastName';
-  static const String phoneNumber = 'phoneNumber';
-  static const String currentCountry = 'currentCountry';
-  static const String visitCountry = 'visitCountry';
-  static const String balance = 'balance';
-  static const String accountType = 'accountType';
-  static const String genderType = 'genderType';
-  static const String dateOfBirth = 'dateOfBirth';
+  user_model? datalar;
   late Timer _timer;
   SharedPreferences? logindata;
   void checkingTime() {
@@ -53,16 +44,16 @@ class _Loading_pageState extends State<Loading_page> {
   getSharedPreferencesInstance() async {
     logindata = await SharedPreferences.getInstance();
     logindata?.setBool('isFirstTime', false);
-    // logindata?.setInt(id, saving_model[0].id);
-    // logindata?.setString(firstName, saving_model[0].firstName);
-    // logindata?.setString(lastName, saving_model[0].lastName);
-    // logindata?.setString(phoneNumber, saving_model[0].phoneNumber);
-    // logindata?.setString(currentCountry, saving_model[0].currentCountry);
-    // logindata?.setString(visitCountry, saving_model[0].visitCountry);
-    // logindata?.setInt(balance, saving_model[0].balance);
-    // logindata?.setString(accountType, saving_model[0].accountType);
-    // logindata?.setString(genderType, saving_model[0].genderType);
-    // logindata?.setString(dateOfBirth, saving_model[0].dateOfBirth);
+    logindata?.setInt("id", datalar!.user!.id!);
+    logindata?.setString('firstName', datalar!.user!.firstName!);
+    logindata?.setString('lastName', datalar!.user!.lastName!);
+    logindata?.setString('phoneNumber', datalar!.user!.phoneNumber!);
+    logindata?.setString('currentCountry', datalar!.user!.currentCountry!);
+    logindata?.setString('visitCountry', datalar!.user!.visitCountry!);
+    logindata?.setString('accountType', datalar!.user!.accountType!);
+    logindata?.setString('genderType', datalar!.user!.genderType!);
+    logindata?.setString('dateOfBirth', datalar!.user!.dateOfBirth!);
+    logindata?.setBool('verification', datalar!.user!.verification!);
   }
 
   Future<void> login(login_model model) async {
@@ -76,57 +67,27 @@ class _Loading_pageState extends State<Loading_page> {
       if (response.statusCode == 200 || response.statusCode == 201) {
         try {
           final body = response.body;
-          final json = jsonDecode(body);
-
-          setState(() {
-            userInfo = json['object'];
-          });
-          if (userInfo.isEmpty) {
-            print("empty");
+          if (body != null && body.isNotEmpty) {
+            final json = jsonDecode(body);
+            final result = json['object'];
+            final data = user_model.fromJson(result);
+            setState(() {
+              datalar = data;
+            });
+            await getSharedPreferencesInstance();
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) => Home_Page(),
+              ),
+              (route) => false,
+            );
           } else {
-            print("Not empty");
+            print('API response body is null or empty');
           }
-          // if (user != null) {
-          //   final savingData = [
-          //     login_save(
-          //       id: user['id'],
-          //       firstName: user['firstName'],
-          //       lastName: user['lastName'],
-          //       phoneNumber: user['phoneNumber'],
-          //       currentCountry: user['currentCountry'],
-          //       visitCountry: user['visitCountry'],
-          //       balance: user['balance'],
-          //       accountType: user['accountType'],
-          //       genderType: user['genderType'],
-          //       dateOfBirth: user['dateOfBirth'],
-          //       verification: user['verification'],
-          //     )
-          //   ];
-          //   print("Data retrieved successfully.");
-          //   setState(() {
-          //     saving_model = savingData;
-          //   });
-          //   if (saving_model.isEmpty) {
-          //     print("No data available in the saving_model list.");
-          //   } else {
-          //     print("Saving Model ID: ${saving_model[0].id}");
-          //     // Print other properties of the saving_model if needed
-          //     getSharedPreferencesInstance();
-          //   }
-          // } else {
-          //   print("data yuq");
-          // }
         } catch (e) {
           print(e);
         }
-
-        // ignore: use_build_context_synchronously
-        // Navigator.of(context).pushAndRemoveUntil(
-        //   MaterialPageRoute(
-        //     builder: (context) => Home_Page(),
-        //   ),
-        //   (route) => false,
-        // );
       } else {
         // ignore: use_build_context_synchronously
         Navigator.pop(context);
