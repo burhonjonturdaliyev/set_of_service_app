@@ -25,7 +25,7 @@ class Home_Page extends StatefulWidget {
 
 class _Home_PageState extends State<Home_Page> {
   int userId = 3;
-
+  SharedPreferences? logindata;
   int selectedIndex = 2;
   final List<IconData> data = [
     Icons.home_outlined,
@@ -49,9 +49,14 @@ class _Home_PageState extends State<Home_Page> {
   String? password;
   late bool new_user;
 
+  Future<void> getSharedPreferencesInstance() async {
+    logindata = await SharedPreferences.getInstance();
+  }
+
   @override
   void initState() {
     super.initState();
+    getSharedPreferencesInstance();
     _controller = PageController(initialPage: selectedIndex);
   }
 
@@ -146,6 +151,7 @@ class _Home_PageState extends State<Home_Page> {
                           size: 24.w,
                         ),
                         onTap: () {
+                          logindata?.setBool('isFirstTime', true);
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(

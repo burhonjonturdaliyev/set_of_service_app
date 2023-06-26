@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/registr/loading/loading_screen_login.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../screen/home_screen.dart';
 import '../../reset/Reset_password_screen.dart';
 import '../../sign_up/screens/birinchi_bosqich.dart';
@@ -22,7 +21,6 @@ class DesignSignIn extends StatefulWidget {
     required this.visible,
   });
   TextEditingController number, password;
-  SharedPreferences? logindata;
   bool visible;
 
   @override
@@ -348,7 +346,6 @@ class _DesignSignInState extends State<DesignSignIn> {
                               phoneNumber: fullnumber,
                               password: widget.password.text,
                               macAddress: macAddress,
-                              logindata: widget.logindata,
                             ),
                             type: PageTransitionType.fade));
                   }
