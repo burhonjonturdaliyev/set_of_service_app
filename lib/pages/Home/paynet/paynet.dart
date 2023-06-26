@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
 
 class Paynet extends StatefulWidget {
   const Paynet({super.key});
@@ -62,7 +61,15 @@ class _PaynetState extends State<Paynet> {
                   SizedBox(
                     height: 25.h,
                   ),
-                  Lottie.asset("animations/error.json", repeat: false)
+                  Text(
+                    "404",
+                    style: TextStyle(
+                      color: const Color(0xff8B0000),
+                      fontWeight: FontWeight.w700,
+                      fontFamily: "Inter",
+                      fontSize: 120.sp,
+                    ),
+                  )
                 ])));
   }
 

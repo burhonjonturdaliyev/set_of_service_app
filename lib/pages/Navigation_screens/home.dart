@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Home/airticket/avia_bilet.dart';
 import 'package:set_of_service_app/pages/Home/house/house.dart';
@@ -128,16 +127,6 @@ class _HomeState extends State<Home> {
                               width: 150.w,
                               child: Stack(
                                 children: [
-                                  Positioned(
-                                    top: 0,
-                                    bottom: 0,
-                                    left: 0,
-                                    right: 0,
-                                    child: Lottie.asset(
-                                      "animations/not_working.json",
-                                      width: 200.w,
-                                    ),
-                                  ),
                                   Positioned(
                                       top: -10.h,
                                       right: -3.w,

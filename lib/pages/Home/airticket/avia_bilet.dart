@@ -2,16 +2,17 @@
 
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/const_api/api.dart';
-import 'package:set_of_service_app/pages/Home/airticket/model/air_ticket_info.dart';
-import 'package:set_of_service_app/pages/Home/airticket/page/air_ticket_list.dart';
-import 'package:set_of_service_app/pages/Home/airticket/page/country_picker.dart';
-import 'package:set_of_service_app/pages/Home/airticket/widget/arriving.dart';
 import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
+
+import 'model/air_ticket_info.dart';
+import 'page/air_ticket_list.dart';
+import 'page/country_picker.dart';
+import 'widget/arriving.dart';
 
 // ignore: camel_case_types
 class Avia_bilet extends StatefulWidget {
@@ -29,10 +30,11 @@ class _Avia_biletState extends State<Avia_bilet> {
   TextEditingController country2 = TextEditingController();
   List<String> parvoz = ["Economy", "Business"];
 
-  String dropdownValue = "Economy";
+  String klass = "Economy";
   int man = 0;
   int woman = 0;
   int child = 0;
+  late int hammasi;
 
   final _formfield = GlobalKey<FormState>();
 
@@ -64,28 +66,31 @@ class _Avia_biletState extends State<Avia_bilet> {
 
   Future<void> info_ticket(air_ticket_info model) async {
     try {
-      final responce = await http.post(
-          Uri.parse(
-            Api().putAirticket,
-          ),
-          headers: {'Content-Type': 'application/json'},
-          body: json.encode(model.toJson()));
-      if (responce.statusCode == 200 || responce.statusCode == 201) {
+      Dio dio = Dio();
+      final response = await dio.post(
+        Api().putAirticket,
+        options: Options(headers: {'Content-Type': 'application/json'}),
+        data: json.encode(model.toJson()),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
         Navigator.push(
-            context,
-            PageTransition(
-              child: Air_ticket_list(),
-              type: PageTransitionType.fade,
-            ));
-      } else if (responce.statusCode == 403) {
+          context,
+          PageTransition(
+            child: Air_ticket_list(),
+            type: PageTransitionType.fade,
+          ),
+        );
+      } else if (response.statusCode == 403) {
         Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Sign_in(),
-            ),
-            (route) => false);
+          context,
+          MaterialPageRoute(
+            builder: (context) => Sign_in(),
+          ),
+          (route) => false,
+        );
       } else {
-        print(responce.statusCode);
+        print(response.statusCode);
       }
     } catch (e) {
       print(e);
@@ -235,11 +240,11 @@ class _Avia_biletState extends State<Avia_bilet> {
                                   ],
                                 ),
                                 DropdownButton(
-                                  value: dropdownValue,
+                                  value: klass,
                                   elevation: 16,
                                   onChanged: (newValue) {
                                     setState(() {
-                                      dropdownValue = newValue!;
+                                      klass = newValue!;
                                     });
                                   },
                                   items: parvoz.map<DropdownMenuItem<String>>(
@@ -267,12 +272,13 @@ class _Avia_biletState extends State<Avia_bilet> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(21.w)),
                         backgroundColor: const Color(0xFF8B0000)),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formfield.currentState!.validate()) {
+                        await hamma();
                         info_ticket(air_ticket_info(
-                            airClass: dropdownValue,
+                            airClass: klass,
                             from: country1.text,
-                            passenger: child + woman + man,
+                            passenger: hammasi,
                             returnDate: qaytishSanasi.text,
                             toGoDate: ketishSanasi.text,
                             userId: widget.userId,
@@ -307,5 +313,11 @@ class _Avia_biletState extends State<Avia_bilet> {
         },
       ),
     );
+  }
+
+  hamma() {
+    setState(() {
+      hammasi = child + woman + man;
+    });
   }
 }

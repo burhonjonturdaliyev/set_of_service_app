@@ -151,7 +151,6 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
           });
         }
       },
-      currentTime: DateTime.now(),
     );
   }
 

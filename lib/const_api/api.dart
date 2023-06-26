@@ -28,6 +28,6 @@ class Api {
   String airTicket = '${serverApi().url}/sos/api/service/avia-ticket-agent';
   String getComment = '${serverApi().url}/sos/api/info-comment/';
   String putComment = '${serverApi().url}/sos/api/info-comment';
-  String putAirticket = '${serverApi().url}/sos/api/air/ticket/info';
+  String putAirticket = '${serverApi().url}/sos/api/air_ticket/info';
   String smsGet = '${serverApi().url}/sos/api/auth/step_1';
 }

@@ -3,7 +3,6 @@
 class air_ticket_info {
   String? airClass;
   String? from;
-  int? id;
   int? passenger;
   String? returnDate;
   String? toGoDate;
@@ -13,7 +12,6 @@ class air_ticket_info {
   air_ticket_info(
       {required this.airClass,
       required this.from,
-      this.id,
       required this.passenger,
       required this.returnDate,
       required this.toGoDate,
@@ -23,7 +21,6 @@ class air_ticket_info {
   air_ticket_info.fromJson(Map<String, dynamic> json) {
     airClass = json['airClass'];
     from = json['from'];
-    id = json['id'];
     passenger = json['passenger'];
     returnDate = json['returnDate'];
     toGoDate = json['toGoDate'];
@@ -35,7 +32,6 @@ class air_ticket_info {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['airClass'] = airClass;
     data['from'] = from;
-    data['id'] = id;
     data['passenger'] = passenger;
     data['returnDate'] = returnDate;
     data['toGoDate'] = toGoDate;

@@ -493,7 +493,7 @@ packages:
     source: hosted
     version: "2.0.1"
   lottie:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: lottie
       url: "https://pub.dartlang.org"

@@ -1,24 +1,69 @@
-// ignore_for_file: must_be_immutable, unnecessary_null_comparison
+// ignore_for_file: must_be_immutable, unnecessary_null_comparison, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 class Arriving extends StatefulWidget {
   Arriving({
-    super.key,
+    Key? key,
     required this.ketishSanasi,
     required this.qaytishSanasi,
-  });
-  TextEditingController ketishSanasi, qaytishSanasi;
+  }) : super(key: key);
+
+  TextEditingController ketishSanasi;
+  TextEditingController qaytishSanasi;
 
   @override
-  State<Arriving> createState() => _ArrivingState();
+  _ArrivingState createState() => _ArrivingState();
 }
 
 class _ArrivingState extends State<Arriving> {
+  TextEditingController birinchisi = TextEditingController();
+  TextEditingController ikkinchisi = TextEditingController();
+
+  kalendar(
+    BuildContext context,
+    TextEditingController name,
+  ) {
+    DatePicker.showDatePicker(
+      context,
+      showTitleActions: true,
+      minTime: DateTime(1900),
+      maxTime: DateTime.now(),
+      theme: DatePickerTheme(
+        backgroundColor: const Color(0xff800000), // Set the background color
+        headerColor: const Color(0xff800000), // Set the header text color
+        itemStyle: TextStyle(
+          color: Colors.white, // Set the date text color
+          fontWeight: FontWeight.bold,
+          fontSize: 18.0.sp,
+        ),
+        cancelStyle: TextStyle(
+          color: Colors.white, // Set the done button text color
+          fontSize: 16.0.sp,
+          fontWeight: FontWeight.bold,
+        ),
+        doneStyle: TextStyle(
+          color: Colors.white, // Set the done button text color
+          fontSize: 16.0.sp,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      onChanged: (date) {
+        setState(() {
+          name.text = DateFormat("yyyy-MM-dd HH:mm").format(date);
+        });
+      },
+      onConfirm: (date) {
+        setState(() {
+          name.text = DateFormat("yyyy-MM-dd HH:mm").format(date);
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,81 +83,37 @@ class _ArrivingState extends State<Arriving> {
                   child: Row(
                     children: [
                       Expanded(
-                          child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Iltimos Ketish sanasini kiriting";
-                          }
-
-                          return null;
-                        },
-                        onTap: () async {
-                          DatePicker.showDatePicker(
-                            context,
-                            showTitleActions: true,
-                            minTime: DateTime.now(),
-                            maxTime: DateTime(2024),
-                            theme: DatePickerTheme(
-                              backgroundColor: const Color(
-                                  0xff800000), // Set the background color
-                              headerColor: const Color(
-                                  0xff800000), // Set the header text color
-                              itemStyle: TextStyle(
-                                color: Colors.white, // Set the date text color
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0.sp,
-                              ),
-                              cancelStyle: TextStyle(
-                                color: Colors
-                                    .white, // Set the done button text color
-                                fontSize: 16.0.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              doneStyle: TextStyle(
-                                color: Colors
-                                    .white, // Set the done button text color
-                                fontSize: 16.0.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onChanged: (date) {
-                              if (date != null) {
-                                setState(() {
-                                  widget.ketishSanasi.text =
-                                      DateFormat("yyyy-MM-dd HH:mm")
-                                          .format(date);
-                                });
-                              }
-                            },
-                            onConfirm: (date) {
-                              if (date != null) {
-                                setState(() {
-                                  widget.ketishSanasi.text =
-                                      DateFormat("yyyy-MM-dd HH:mm")
-                                          .format(date);
-                                });
-                              }
-                            },
-                            currentTime: DateTime.now(),
-                          );
-                        },
-                        controller: widget.ketishSanasi,
-                        keyboardType: TextInputType.none,
-                        inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                        decoration: InputDecoration(
+                        child: TextFormField(
+                          readOnly: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Iltimos Ketish sanasini kiriting";
+                            }
+                            return null;
+                          },
+                          onTap: () {
+                            kalendar(
+                              context,
+                              widget.ketishSanasi,
+                            );
+                          },
+                          controller: widget.ketishSanasi,
+                          decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.date_range_outlined,
                               size: 30.w,
                             ),
-                            label: Text(
-                              "Ketish sanasi:",
-                              style: TextStyle(
-                                  fontFamily: "Inter", fontSize: 15.sp),
+                            labelText: "Ketish sanasi:",
+                            labelStyle: TextStyle(
+                              fontFamily: "Inter",
+                              fontSize: 15.sp,
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(21.w),
-                            )),
-                      )),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -124,83 +125,40 @@ class _ArrivingState extends State<Arriving> {
                   child: Row(
                     children: [
                       Expanded(
-                          child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Iltimos qaytish sanasini kiriting";
-                          }
-                          return null;
-                        },
-                        onTap: () async {
-                          DatePicker.showDatePicker(
-                            context,
-                            showTitleActions: true,
-                            minTime: DateTime.now(),
-                            maxTime: DateTime(2024),
-                            theme: DatePickerTheme(
-                              backgroundColor: const Color(
-                                  0xff800000), // Set the background color
-                              headerColor: const Color(
-                                  0xff800000), // Set the header text color
-                              itemStyle: TextStyle(
-                                color: Colors.white, // Set the date text color
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0.sp,
-                              ),
-                              cancelStyle: TextStyle(
-                                color: Colors
-                                    .white, // Set the done button text color
-                                fontSize: 16.0.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              doneStyle: TextStyle(
-                                color: Colors
-                                    .white, // Set the done button text color
-                                fontSize: 16.0.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onChanged: (date) {
-                              if (date != null) {
-                                setState(() {
-                                  widget.qaytishSanasi.text =
-                                      DateFormat("yyyy-MM-dd HH:mm")
-                                          .format(date);
-                                });
-                              }
-                            },
-                            onConfirm: (date) {
-                              if (date != null) {
-                                setState(() {
-                                  widget.qaytishSanasi.text =
-                                      DateFormat("yyyy-MM-dd HH:mm")
-                                          .format(date);
-                                });
-                              }
-                            },
-                            currentTime: DateTime.now(),
-                          );
-                        },
-                        controller: widget.qaytishSanasi,
-                        keyboardType: TextInputType.none,
-                        inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                        decoration: InputDecoration(
+                        child: TextFormField(
+                          readOnly: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Iltimos qaytish sanasini kiriting";
+                            }
+                            return null;
+                          },
+                          onTap: () {
+                            kalendar(
+                              context,
+                              widget.qaytishSanasi,
+                            );
+                          },
+                          controller: widget.qaytishSanasi,
+                          decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.date_range_outlined,
                               size: 30.w,
                             ),
-                            label: Text(
-                              "Qaytish sanasi:",
-                              style: TextStyle(
-                                  fontFamily: "Inter", fontSize: 15.sp),
+                            labelText: "Qaytish sanasi:",
+                            labelStyle: TextStyle(
+                              fontFamily: "Inter",
+                              fontSize: 15.sp,
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(21.w),
-                            )),
-                      )),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

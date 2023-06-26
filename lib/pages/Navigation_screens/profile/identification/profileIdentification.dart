@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:lottie/lottie.dart';
 
 class IdentificationProfel extends StatefulWidget {
   const IdentificationProfel({super.key});
@@ -19,23 +18,6 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
   final galleryPicker = ImagePicker();
 
   final imagePicker = ImagePicker();
-
-  bool animation1 = true;
-  bool animation2 = true;
-
-  String face_animation = "animations/face_detect.json";
-  String done_animation = "animations/done.json";
-  String passport = "animations/passport.json";
-  String waiting_animation = "animations/waiting.json";
-  String onGoing = "animations/ongoing.json";
-
-  animationChanger() {
-    if (image != null) {
-      setState(() {
-        animation1 = false;
-      });
-    } else {}
-  }
 
   uploadCamera() async {
     // ignore: deprecated_member_use
@@ -140,23 +122,8 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                     fontFamily: "Inter",
                     fontSize: 26.sp),
               ),
-              SizedBox(
-                width: 10.w,
-              ),
-              Lottie.asset(onGoing,
-                  width: 60.w,
-                  height: 90.h,
-                  repeat: animation1,
-                  reverse: false),
             ],
           ),
-        ),
-        Positioned(
-          top: 165.h,
-          left: 80.w,
-          right: 80.w,
-          child: Lottie.asset(face_animation,
-              width: 150.w, repeat: animation1, reverse: false),
         ),
         Positioned(
           bottom: 220.h,
@@ -181,7 +148,6 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                   backgroundColor: const Color(0xff8B0000)),
               onPressed: () async {
                 await uploadCamera();
-                animationChanger();
               },
               child: Text(
                 "Shaxsni tasdiqlash",
@@ -218,7 +184,6 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                           fontFamily: "Inter",
                           fontSize: 13.sp),
                     ),
-                    Lottie.asset(done_animation, height: 40.h, reverse: false),
                   ],
                 ),
               ),
@@ -238,8 +203,6 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                           fontFamily: "Inter",
                           fontSize: 26.sp),
                     ),
-                    Lottie.asset(onGoing,
-                        width: 60.w, height: 90.h, reverse: false),
                   ],
                 ),
               ),
@@ -258,12 +221,6 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                 ),
               ),
               Positioned(
-                  top: 145.h,
-                  left: -20.w,
-                  right: -20.w,
-                  child: Lottie.asset(passport,
-                      height: 400.h, width: 400.w, repeat: animation2)),
-              Positioned(
                   bottom: 150.h,
                   left: 100.w,
                   right: 100.w,
@@ -272,12 +229,6 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                           backgroundColor: const Color(0xff8B0000)),
                       onPressed: () async {
                         await uploadGallery();
-                        if (gallery != null) {
-                          setState(() {
-                            passport = done_animation;
-                            animation2 = false;
-                          });
-                        }
                       },
                       child: Text(
                         "Hujjatni yuklash",
@@ -312,13 +263,6 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
               ),
             ],
           ),
-        ),
-        Positioned(
-          top: 120.h,
-          left: 0,
-          right: 0,
-          child: Lottie.asset("animations/approved.json",
-              width: 200.w, height: 200.h, repeat: false),
         ),
         Positioned(
           bottom: 200.h,

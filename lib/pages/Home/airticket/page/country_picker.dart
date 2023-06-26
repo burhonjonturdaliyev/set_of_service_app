@@ -5,7 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Country_picker extends StatefulWidget {
-  Country_picker({super.key, required this.country1, required this.country2});
+  Country_picker({
+    super.key,
+    required this.country1,
+    required this.country2,
+  });
+
   TextEditingController country1;
   TextEditingController country2;
 
