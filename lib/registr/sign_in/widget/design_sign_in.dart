@@ -348,6 +348,7 @@ class _DesignSignInState extends State<DesignSignIn> {
                               phoneNumber: fullnumber,
                               password: widget.password.text,
                               macAddress: macAddress,
+                              logindata: widget.logindata,
                             ),
                             type: PageTransitionType.fade));
                   }
