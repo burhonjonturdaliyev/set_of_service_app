@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, file_names, use_build_context_synchronously, avoid_print
+// ignore_for_file: must_be_immutable, file_names, use_build_context_synchronously, avoid_print, unnecessary_null_comparison
 
 import 'dart:convert';
 
@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/info_count.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsModels.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/widget/WidgetsNews.dart';
 
@@ -22,6 +23,7 @@ class GlobalNews extends StatefulWidget {
 }
 
 class _GlobalNewsState extends State<GlobalNews> {
+  counting_news_model? model;
   List<CatagoryModels> catagory = [
     CatagoryModels(name: "Trenddagi yangiliklar", type: "trend", count: 0),
     CatagoryModels(name: "O'zbekiston elchixonasi", type: "embassy", count: 0),
@@ -36,8 +38,8 @@ class _GlobalNewsState extends State<GlobalNews> {
 
   @override
   void initState() {
-    super.initState();
     getCount();
+    super.initState();
   }
 
   Future<void> getCount() async {
@@ -47,19 +49,13 @@ class _GlobalNewsState extends State<GlobalNews> {
       Response response = await http.get(uri);
       if (response.statusCode == 200 || response.statusCode == 201) {
         final body = response.body;
-        final json = jsonDecode(body);
-        final result = json['object'] as Map<String, int>;
-
-        // Add count value from the API to each item in the catagory list
-        List<CatagoryModels> modifiedCatagory = catagory.map((item) {
-          int count =
-              result[item.type] ?? 0; // Fetch count value from the API response
-          return CatagoryModels(name: item.name, type: item.type, count: count);
-        }).toList();
-
-        setState(() {
-          catagory = modifiedCatagory;
-        });
+        if (body != null && body.isNotEmpty) {
+          final json = jsonDecode(body);
+          final data = counting_news_model.fromJson(json['data']);
+          setState(() {
+            model = data;
+          });
+        }
       } else if (response.statusCode == 403) {
         Navigator.pushAndRemoveUntil(
             context,
