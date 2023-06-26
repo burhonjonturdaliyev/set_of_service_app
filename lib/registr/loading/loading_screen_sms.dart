@@ -100,7 +100,7 @@ class _Loading_screen_smsState extends State<Loading_screen_sms> {
   void initState() {
     step2(Step2_model(
         password: widget.password,
-        phoneNumber: widget.password,
+        phoneNumber: widget.number,
         smsCode: widget.conficCode));
     super.initState();
   }

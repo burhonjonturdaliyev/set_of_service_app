@@ -37,7 +37,11 @@ class _Sign_inState extends State<Sign_in> {
     );
     return Scaffold(
         backgroundColor: Colors.white,
-        body:
-            DesignSignIn(number: number, password: password, visible: visible));
+        body: DesignSignIn(
+          logindata: widget.logindata,
+          number: number,
+          password: password,
+          visible: visible,
+        ));
   }
 }

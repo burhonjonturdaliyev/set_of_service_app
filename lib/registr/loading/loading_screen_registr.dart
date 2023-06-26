@@ -106,12 +106,12 @@ class _Loading_page_registrState extends State<Loading_page_registr> {
     step3(Step3_model(
         confirmPassword: widget.password,
         dateOfBirth: widget.sana,
+        deviceId: widget.deviceId,
         firstName: widget.name,
         genderType: widget.gender,
         lastName: widget.surname,
         password: widget.password,
         phoneNumber: widget.number,
-        deviceId: widget.deviceId,
         visitCountry: widget.server));
   }
 

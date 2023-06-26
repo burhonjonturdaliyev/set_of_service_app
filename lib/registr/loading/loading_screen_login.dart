@@ -12,10 +12,15 @@ import '../../screen/home_screen.dart';
 import '../sign_in/model/login_model.dart';
 
 class Loading_page extends StatefulWidget {
-  Loading_page({super.key, required this.phoneNumber, required this.password});
+  Loading_page(
+      {super.key,
+      required this.phoneNumber,
+      required this.password,
+      required this.macAddress});
 
   String phoneNumber;
   String password;
+  String macAddress;
 
   @override
   State<Loading_page> createState() => _Loading_pageState();
@@ -105,6 +110,7 @@ class _Loading_pageState extends State<Loading_page> {
 
   void auth() {
     login(login_model(
+      macAddress: widget.macAddress,
       password: widget.password,
       phoneNumber: widget.phoneNumber,
     ));

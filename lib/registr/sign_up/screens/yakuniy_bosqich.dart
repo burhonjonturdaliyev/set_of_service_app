@@ -491,7 +491,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                   if (_formKey.currentState!.validate()) {
                     await step3(Step3_model(
                         confirmPassword: widget.password,
-                        dateOfBirth: sana.text,
+                        dateOfBirth: tugilgan_kun,
                         firstName: name.text,
                         deviceId: widget.deviceId,
                         genderType: gender.text,

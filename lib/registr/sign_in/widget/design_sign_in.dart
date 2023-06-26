@@ -1,5 +1,8 @@
-// ignore_for_file: non_constant_identifier_names, duplicate_ignore
+// ignore_for_file: non_constant_identifier_names, duplicate_ignore, use_build_context_synchronously, avoid_print
 
+import 'dart:io';
+
+import 'package:device_info/device_info.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,11 +19,10 @@ class DesignSignIn extends StatefulWidget {
       {super.key,
       required this.number,
       required this.password,
-      required this.visible});
-  TextEditingController number;
-
-  TextEditingController password;
-
+      required this.visible,
+      required this.logindata});
+  TextEditingController number, password;
+  SharedPreferences? logindata;
   bool visible;
 
   @override
@@ -28,10 +30,10 @@ class DesignSignIn extends StatefulWidget {
 }
 
 class _DesignSignInState extends State<DesignSignIn> {
-  late SharedPreferences logindata;
   late bool new_user;
   final _formkey = GlobalKey<FormState>();
   int textstype = 1;
+  late String macAddress, fullnumber;
 
   void _visible() {
     setState(() {
@@ -39,23 +41,28 @@ class _DesignSignInState extends State<DesignSignIn> {
     });
   }
 
-  void check_login() async {
-    logindata = await SharedPreferences.getInstance();
-    new_user = (logindata.getBool("login") ?? true);
-    if (new_user == false) {
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Home_Page(),
-          ));
+  getMacAddress() async {
+    print("Kirdi");
+    var deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      setState(() {
+        macAddress = androidInfo.id;
+      });
+      print('Android MAC Address: [$macAddress]');
+    } else if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      setState(() {
+        macAddress = iosInfo.identifierForVendor;
+      });
+      print('IOS MAC Address: [$macAddress]');
     }
   }
 
   @override
   void initState() {
+    getMacAddress();
     super.initState();
-    check_login();
   }
 
   @override
@@ -333,12 +340,15 @@ class _DesignSignInState extends State<DesignSignIn> {
                 },
                 onPressed: () async {
                   if (_formkey.currentState!.validate()) {
+                    await adding();
                     Navigator.push(
                         context,
                         PageTransition(
                             child: Loading_page(
-                                phoneNumber: widget.number.text,
-                                password: widget.password.text),
+                              phoneNumber: fullnumber,
+                              password: widget.password.text,
+                              macAddress: macAddress,
+                            ),
                             type: PageTransitionType.fade));
                   }
                 },
@@ -381,5 +391,9 @@ class _DesignSignInState extends State<DesignSignIn> {
         ),
       ),
     );
+  }
+
+  adding() {
+    fullnumber = widget.number.text.replaceAll("-", "");
   }
 }
