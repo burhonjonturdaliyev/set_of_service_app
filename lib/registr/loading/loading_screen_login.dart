@@ -50,27 +50,38 @@ class _Loading_pageState extends State<Loading_page> {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final body = response.body;
-        final json = jsonDecode(body);
-        final result = json['object']['user'] as List;
-        final savingData = result
-            .map((e) => login_save(
-                id: e['id'],
-                firstName: e['firstName'],
-                lastName: e['lastName'],
-                phoneNumber: e['phoneNumber'],
-                currentCountry: e['currentCountry'],
-                visitCountry: e['visitCountry'],
-                balance: e['balance'],
-                accountType: e['accountType'],
-                genderType: e['genderType'],
-                dateOfBirth: e['dateOfBirth'],
-                verification: e['verification']))
-            .toList();
-        setState(() {
-          saving_model = savingData;
-        });
+        try {
+          final body = response.body;
+          final json = jsonDecode(body);
+          final user = json['object']['user'];
 
+          if (user != null) {
+            final savingData = [
+              login_save(
+                id: user['id'],
+                firstName: user['firstName'],
+                lastName: user['lastName'],
+                phoneNumber: user['phoneNumber'],
+                currentCountry: user['currentCountry'],
+                visitCountry: user['visitCountry'],
+                balance: user['balance'],
+                accountType: user['accountType'],
+                genderType: user['genderType'],
+                dateOfBirth: user['dateOfBirth'],
+                verification: user['verification'],
+              )
+            ];
+
+            setState(() {
+              saving_model = savingData;
+            });
+            if (saving_model.isEmpty) {
+              print("Hech nimasi yu buni");
+            }
+          }
+        } catch (e) {
+          print(e);
+        }
         if (saving_model.isNotEmpty) {
           widget.logindata!.setBool('isFirstTime', false);
           widget.logindata!.setInt('id', saving_model[0].id);
@@ -95,7 +106,7 @@ class _Loading_pageState extends State<Loading_page> {
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-            builder: (context) => Home_Page(logindata: widget.logindata),
+            builder: (context) => Home_Page(),
           ),
           (route) => false,
         );

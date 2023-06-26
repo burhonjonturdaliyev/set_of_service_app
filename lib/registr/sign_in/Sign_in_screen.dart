@@ -3,11 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:set_of_service_app/registr/sign_in/widget/design_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Sign_in extends StatefulWidget {
-  Sign_in({super.key, this.logindata});
-  SharedPreferences? logindata;
+  Sign_in({super.key});
 
   @override
   State<Sign_in> createState() => _Sign_inState();
@@ -38,7 +36,6 @@ class _Sign_inState extends State<Sign_in> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: DesignSignIn(
-          logindata: widget.logindata,
           number: number,
           password: password,
           visible: visible,

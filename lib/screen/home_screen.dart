@@ -14,8 +14,10 @@ import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home_Page extends StatefulWidget {
-  Home_Page({super.key, this.logindata});
-  SharedPreferences? logindata;
+  Home_Page({
+    super.key,
+  });
+
   @override
   // ignore: no_logic_in_create_state
   _Home_PageState createState() => _Home_PageState();
@@ -45,23 +47,12 @@ class _Home_PageState extends State<Home_Page> {
 
   String? number;
   String? password;
-  late SharedPreferences logindata;
   late bool new_user;
+
   @override
   void initState() {
     super.initState();
-    SharedPreferences.getInstance().then((SharedPreferences prefs) {
-      logindata = prefs;
-    });
-
     _controller = PageController(initialPage: selectedIndex);
-  }
-
-  void takingVariable() {
-    setState(() {
-      number = logindata.get("number").toString();
-      password = logindata.get("password").toString();
-    });
   }
 
   @override
@@ -155,7 +146,6 @@ class _Home_PageState extends State<Home_Page> {
                           size: 24.w,
                         ),
                         onTap: () {
-                          logindata.setBool("login", true);
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(

@@ -15,12 +15,12 @@ import '../../sign_up/screens/birinchi_bosqich.dart';
 
 // ignore: must_be_immutable
 class DesignSignIn extends StatefulWidget {
-  DesignSignIn(
-      {super.key,
-      required this.number,
-      required this.password,
-      required this.visible,
-      required this.logindata});
+  DesignSignIn({
+    super.key,
+    required this.number,
+    required this.password,
+    required this.visible,
+  });
   TextEditingController number, password;
   SharedPreferences? logindata;
   bool visible;
