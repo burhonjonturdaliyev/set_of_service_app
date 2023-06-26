@@ -37,11 +37,7 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
 
   TextEditingController surname = TextEditingController();
 
-  TextEditingController gender = TextEditingController();
-
   TextEditingController sana = TextEditingController();
-
-  TextEditingController server = TextEditingController();
 
   late String tugilgan_kun;
 
@@ -88,25 +84,30 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
     loginData.setBool('isFirstTime', false);
     loginData.setString("name", name.text);
     loginData.setString("surname", surname.text);
-    loginData.setString("server", server.text);
+    loginData.setString("server", myServer);
     loginData.setString("date", sana.text);
     loginData.setString("number", widget.number);
-    loginData.setString("jins", gender.text);
+    loginData.setString("jins", jinsi);
   }
 
   bool isChecked = false;
-  String myServer = 'Yaponiya';
-  String jinsi = 'Erkak';
+  String myServer = 'JAPAN';
+  String jinsi = 'ERKAK';
 
-  List<String> jinslari = ['Erkak', 'Ayol'];
+  List<String> jinslari = ['ERKAK', 'AYOL'];
   List<String> countryNames = [
-    'Yaponiya',
-    'O\'zbekiston',
-    'Koreya',
-    'Yevropa',
-    'Amerika',
-    'Avstraliya',
-    'Xitoy',
+    'JAPAN',
+    'UZBEKISTAN',
+    'KOREA',
+    'USA',
+    'RUSSIA',
+    'KAZAKHSTAN',
+    'EUROPE',
+    'CHINA',
+    'CANADA',
+    'SINGAPORE',
+    'TURKEY',
+    'UAE'
   ];
 
   void kalendar(BuildContext context) {
@@ -489,16 +490,61 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                 ),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    await step3(Step3_model(
-                        confirmPassword: widget.password,
-                        dateOfBirth: tugilgan_kun,
-                        firstName: name.text,
-                        deviceId: widget.deviceId,
-                        genderType: gender.text,
-                        lastName: surname.text,
-                        password: widget.password,
-                        phoneNumber: widget.number,
-                        visitCountry: server.text));
+                    if (isChecked) {
+                      await step3(Step3_model(
+                          confirmPassword: widget.password,
+                          dateOfBirth: tugilgan_kun,
+                          firstName: name.text,
+                          deviceId: widget.deviceId,
+                          genderType: jinsi,
+                          lastName: surname.text,
+                          password: widget.password,
+                          phoneNumber: widget.number,
+                          visitCountry: myServer));
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          clipBehavior: Clip.antiAlias,
+                          backgroundColor: const Color(0xFF8B0000),
+                          content: SizedBox(
+                            height: 50.h,
+                            width: 50.w,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  top: 10.h,
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 0,
+                                  child: Text(
+                                    "Foydalanish shartiga\nrozi ekaningizni tasdiqlang!",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: "Inter",
+                                        fontSize: 15.sp),
+                                  ),
+                                ),
+                                Positioned(
+                                    right: -10.w,
+                                    top: -13.h,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      icon: Icon(
+                                        Icons.close_rounded,
+                                        color: Colors.white,
+                                        size: 35.sp,
+                                      ),
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }
                   }
                 },
                 child: Text(
