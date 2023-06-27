@@ -200,7 +200,6 @@ class _Loading_page_registrState extends State<Loading_page_registr> {
   @override
   void initState() {
     registr();
-
     super.initState();
   }
 

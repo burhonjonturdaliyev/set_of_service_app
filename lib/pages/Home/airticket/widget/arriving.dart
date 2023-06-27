@@ -30,8 +30,8 @@ class _ArrivingState extends State<Arriving> {
     DatePicker.showDatePicker(
       context,
       showTitleActions: true,
-      minTime: DateTime(1900),
-      maxTime: DateTime.now(),
+      minTime: DateTime.now(),
+      maxTime: DateTime(2024),
       theme: DatePickerTheme(
         backgroundColor: const Color(0xff800000), // Set the background color
         headerColor: const Color(0xff800000), // Set the header text color
