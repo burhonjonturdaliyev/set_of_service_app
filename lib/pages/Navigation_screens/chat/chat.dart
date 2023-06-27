@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, prefer_const_constructors_in_immutables, unused_local_variable, non_constant_identifier_names, must_be_immutable
+// ignore_for_file: prefer_final_fields, prefer_const_constructors_in_immutables, unused_local_variable, non_constant_identifier_names, must_be_immutable, avoid_print, duplicate_ignore
 
 import 'dart:async';
 import 'dart:convert';
@@ -52,20 +52,24 @@ class _ChatState extends State<Chat> {
   Timer? timer;
 
   Future<void> putUserMessage(user_send send) async {
-    final response = await http.post(
-      Uri.parse(Api().globatChatPut),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(send.toJson()),
-    );
-    if (response.statusCode == 200) {
-      setState(() {
-        _controllerText.clear();
-      });
-      await fetchMessage();
-      await scrolling();
-    } else {
-      // ignore: avoid_print
-      print(response.statusCode);
+    try {
+      final response = await http.post(
+        Uri.parse(Api().globatChatPut),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(send.toJson()),
+      );
+      if (response.statusCode == 200) {
+        setState(() {
+          _controllerText.clear();
+        });
+        await fetchMessage();
+        await scrolling();
+      } else {
+        // ignore: avoid_print
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print("Here is mistake: $e");
     }
   }
 
@@ -196,8 +200,8 @@ class _ChatState extends State<Chat> {
                       if (_formkey.currentState!.validate()) {
                         xabarlar = _controllerText.text;
                         if (xabarlar.isNotEmpty) {
-                          await putUserMessage(
-                              user_send(message: xabarlar, userId: 2));
+                          await putUserMessage(user_send(
+                              message: xabarlar, userId: widget.userId));
                         }
                       }
                     },
@@ -266,10 +270,17 @@ class _ChatState extends State<Chat> {
                   Container(
                     constraints: BoxConstraints(maxWidth: 250.w),
                     decoration: BoxDecoration(
-                        color: chat.userId == widget.userId
-                            ? const Color.fromARGB(193, 231, 90, 75)
-                            : const Color.fromARGB(255, 63, 187, 63),
-                        borderRadius: BorderRadius.circular(33.w),
+                        color: const Color.fromARGB(234, 228, 201, 201),
+                        // chat.userId == widget.userId
+                        borderRadius: BorderRadius.only(
+                            bottomRight: chat.userId != widget.userId
+                                ? Radius.circular(15.w)
+                                : Radius.zero,
+                            bottomLeft: chat.userId == widget.userId
+                                ? Radius.circular(15.w)
+                                : Radius.zero,
+                            topLeft: Radius.circular(15.w),
+                            topRight: Radius.circular(15.w)),
                         border: Border.all(width: 1, color: Colors.black26)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -285,12 +296,20 @@ class _ChatState extends State<Chat> {
                                 child: Text(
                                   chat.username,
                                   style: TextStyle(
-                                      color: Colors.black54,
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.w700,
                                       fontFamily: "Inter",
-                                      fontSize: 12.sp),
+                                      fontSize: 9.sp),
                                 ),
                               ),
-                              Text(chat.message),
+                              Text(
+                                chat.message,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "Inter",
+                                  fontSize: 16.sp,
+                                ),
+                              ),
                             ],
                           ),
                         ),

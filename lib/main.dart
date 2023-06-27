@@ -37,3 +37,9 @@ class MyApp extends StatelessWidget {
 // loading page timeout 10 15 second --done
 // statuscode==200||statuscode==201 --done
 // yyyy-MM-dd HH:mm should change this format --done
+
+//New taks
+//Chat --done
+//Support chat
+//REgistr save
+//verifiation checking
