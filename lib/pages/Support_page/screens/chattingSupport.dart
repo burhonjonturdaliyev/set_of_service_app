@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, file_names, non_constant_identifier_names, unused_local_variable, must_be_immutable, unnecessary_null_comparison, avoid_print
+// ignore_for_file: camel_case_types, file_names, non_constant_identifier_names, unused_local_variable, must_be_immutable, unnecessary_null_comparison, avoid_print, use_build_context_synchronously
 
 import 'dart:async';
 import 'dart:convert';
@@ -11,6 +11,8 @@ import 'package:intl/intl.dart';
 import 'package:set_of_service_app/pages/Support_page/functions/get_message.dart';
 import 'package:set_of_service_app/pages/Support_page/models/support_models.get.dart';
 import 'package:set_of_service_app/pages/Support_page/models/support_models_send.dart';
+import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../const_api/api.dart';
 
@@ -33,6 +35,7 @@ class _Support_centerState extends State<Support_center> {
   final ScrollController _controllerList = ScrollController();
 
   final TextEditingController _controller = TextEditingController();
+  SharedPreferences? logindata;
 
   Timer? timer;
   checkListForUpdates() {
@@ -41,28 +44,30 @@ class _Support_centerState extends State<Support_center> {
     });
   }
 
-  Future<void> putUserMessage() async {
-    final response = await http.post(
-      Uri.parse(Api().supportPut),
-      headers: {'Content-Type': 'application/json'},
-      body: IDsi != null
-          ? json.encode(PostSupport(
-                  id: IDsi,
-                  userId: widget.userId,
-                  dialogsa: Dialogsa(
-                      message: _controller.text, userId: widget.userId))
-              .toJson())
-          : json.encode(PostSupport(
-                  userId: widget.userId,
-                  dialogsa: Dialogsa(
-                      message: _controller.text, userId: widget.userId))
-              .toJson()),
-    );
+  logut() async {
+    logindata = await SharedPreferences.getInstance();
+    logindata?.clear();
+  }
+
+  Future<void> putUserMessage(String message) async {
+    final response = await http.post(Uri.parse(Api().supportPut),
+        headers: {'Content-Type': 'application/json'},
+        body: IDsi == null
+            ? json.decode(SupportPost.tojson)
+            : json.decode(SupportPost.tojson));
     print("Yuborildi");
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       fetchMessage();
       scrolling();
       _controller.clear();
+    } else if (response.statusCode == 403) {
+      await logut();
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Sign_in(),
+          ),
+          (route) => false);
     } else {
       print(response.statusCode);
       showDialog(
@@ -98,6 +103,7 @@ class _Support_centerState extends State<Support_center> {
         final body = response.body;
         final json = jsonDecode(body);
         final result = json["object"]["active"] as List<dynamic>;
+        print('Bu yerda ID :${json["object"]["active"][0]["id"]}');
         if (result.isNotEmpty) {
           setState(() {
             IDsi = json["object"]["active"][0]["id"] as int;
@@ -240,7 +246,7 @@ class _Support_centerState extends State<Support_center> {
                         print("Ishlayapti");
                         if (_controller != null) {
                           print("Kirdi");
-                          putUserMessage();
+                          // putUserMessage();
                           print("chiqdi");
                         }
                       },

@@ -83,14 +83,23 @@ class _ProfilState extends State<Profil> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "Tasdiqlanmagan akkaunt",
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: "Inter"),
-                )
+                widget.verification == true
+                    ? Text(
+                        "Tadiqlangan akkaunt",
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "Inter"),
+                      )
+                    : Text(
+                        "Tasdiqlanmagan akkaunt",
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "Inter"),
+                      )
               ],
             ),
             SizedBox(
@@ -116,51 +125,54 @@ class _ProfilState extends State<Profil> {
             SizedBox(
               height: 25.h,
             ),
-            Container(
-              width: 330.w,
-              height: 120.h,
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(206, 241, 228, 108),
-                  borderRadius: BorderRadius.circular(16)),
-              child: Column(children: [
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: 15.0.h, left: 19.w, right: 19.w),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "Ilovaning barcha imkoniyatlaridan to’liq foydalanish uchun , iltimos identifikatsiya jarajoyidan o’ting",
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: "Inter"),
-                        ),
-                      )
-                    ],
+            Visibility(
+              visible: widget.verification == true ? false : true,
+              child: Container(
+                width: 330.w,
+                height: 120.h,
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(206, 241, 228, 108),
+                    borderRadius: BorderRadius.circular(16)),
+                child: Column(children: [
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: 15.0.h, left: 19.w, right: 19.w),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "Ilovaning barcha imkoniyatlaridan to’liq foydalanish uchun , iltimos identifikatsiya jarayonidan o’ting",
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: "Inter"),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                        onPressed: () => Navigator.push(
-                            context,
-                            PageTransition(
-                              child: const IdentificationProfel(),
-                              type: PageTransitionType.fade,
-                            )),
-                        child: Text(
-                          "Identifikatsiyadan o’tish",
-                          style: TextStyle(
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14.sp,
-                              color: Colors.black),
-                        ))
-                  ],
-                )
-              ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                          onPressed: () => Navigator.push(
+                              context,
+                              PageTransition(
+                                child: const IdentificationProfel(),
+                                type: PageTransitionType.fade,
+                              )),
+                          child: Text(
+                            "Identifikatsiyadan o’tish",
+                            style: TextStyle(
+                                fontFamily: "Inter",
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14.sp,
+                                color: Colors.black),
+                          ))
+                    ],
+                  )
+                ]),
+              ),
             ),
             SizedBox(
               height: 38.h,

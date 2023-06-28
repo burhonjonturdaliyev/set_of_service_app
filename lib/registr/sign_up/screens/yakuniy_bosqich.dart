@@ -1,20 +1,15 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_print, must_be_immutable, prefer_const_constructors_in_immutables, use_build_context_synchronously, duplicate_ignore, unnecessary_null_comparison
 
-import 'dart:convert';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/registr/loading/loading_screen_registr.dart';
 import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
-import 'package:set_of_service_app/screen/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:http/http.dart' as http;
-import '../../../const_api/api.dart';
-import '../model/step_model.dart';
 
 class Yakuniy_bosqich extends StatefulWidget {
   Yakuniy_bosqich(
@@ -50,44 +45,6 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
     )) {
       throw "Can not launch $url";
     }
-  }
-
-  Future<void> step3(
-    Step3_model model,
-  ) async {
-    try {
-      // ignore: unused_local_variable
-      final response = await http.post(
-        Uri.parse(Api().step3),
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode(model.toJson()),
-      );
-      if (response.statusCode == 200) {
-        // ignore: use_build_context_synchronously
-
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Home_Page(),
-            ),
-            (route) => false);
-      } else {
-        // API request failed
-        print('API request failed with status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      // Handle any exceptions that occurred during the request
-    }
-  }
-
-  adding_sharedPR() {
-    loginData.setBool('isFirstTime', false);
-    loginData.setString("name", name.text);
-    loginData.setString("surname", surname.text);
-    loginData.setString("server", myServer);
-    loginData.setString("date", sana.text);
-    loginData.setString("number", widget.number);
-    loginData.setString("jins", jinsi);
   }
 
   bool isChecked = false;
@@ -490,16 +447,19 @@ class _Yakuniy_bosqichState extends State<Yakuniy_bosqich> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     if (isChecked) {
-                      await step3(Step3_model(
-                          confirmPassword: widget.password,
-                          dateOfBirth: tugilgan_kun,
-                          firstName: name.text,
-                          deviceId: widget.deviceId,
-                          genderType: jinsi,
-                          lastName: surname.text,
-                          password: widget.password,
-                          phoneNumber: widget.number,
-                          visitCountry: myServer));
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: Loading_page_registr(
+                                  name: name.text,
+                                  surname: surname.text,
+                                  password: widget.password,
+                                  deviceId: widget.deviceId,
+                                  number: widget.number,
+                                  gender: jinsi,
+                                  sana: tugilgan_kun,
+                                  server: myServer),
+                              type: PageTransitionType.fade));
                     } else {
                       showDialog(
                         context: context,

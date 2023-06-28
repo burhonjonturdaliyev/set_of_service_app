@@ -41,5 +41,5 @@ class MyApp extends StatelessWidget {
 //New taks
 //Chat --done
 //Support chat
-//REgistr save
-//verifiation checking
+//REgistr save --done
+//verifiation checking --done

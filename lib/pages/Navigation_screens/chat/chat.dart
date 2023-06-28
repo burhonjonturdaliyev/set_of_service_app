@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, prefer_const_constructors_in_immutables, unused_local_variable, non_constant_identifier_names, must_be_immutable, avoid_print, duplicate_ignore
+// ignore_for_file: prefer_final_fields, prefer_const_constructors_in_immutables, unused_local_variable, non_constant_identifier_names, must_be_immutable, avoid_print, duplicate_ignore, use_build_context_synchronously
 
 import 'dart:async';
 import 'dart:convert';
@@ -11,6 +11,8 @@ import 'package:set_of_service_app/pages/Navigation_screens/chat/functions/getMe
 
 import 'package:set_of_service_app/pages/Navigation_screens/chat/models/chat_models.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/chat/models/user_send_models.dart';
+import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Chat extends StatefulWidget {
   Chat({super.key, required this.userId});
@@ -50,6 +52,11 @@ class _ChatState extends State<Chat> {
   late String xabarlar;
 
   Timer? timer;
+  SharedPreferences? logindata;
+  logut() async {
+    logindata = await SharedPreferences.getInstance();
+    logindata?.clear();
+  }
 
   Future<void> putUserMessage(user_send send) async {
     try {
@@ -58,12 +65,20 @@ class _ChatState extends State<Chat> {
         headers: {'Content-Type': 'application/json'},
         body: json.encode(send.toJson()),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         setState(() {
           _controllerText.clear();
         });
         await fetchMessage();
         await scrolling();
+      } else if (response.statusCode == 403) {
+        await logut();
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Sign_in(),
+            ),
+            (route) => false);
       } else {
         // ignore: avoid_print
         print(response.statusCode);
@@ -86,7 +101,7 @@ class _ChatState extends State<Chat> {
   }
 
   Future<void> fetchMessage() async {
-    final Response = await getMessage().fetchMessage(context);
+    final Response = await getMessage().fetchMessage(context, logindata);
     if (mounted) {
       Response != null ? models = Response : null;
     }
