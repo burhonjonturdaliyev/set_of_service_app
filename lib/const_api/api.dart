@@ -22,9 +22,8 @@ class Api {
   String sendMoneyCash = "${serverApi().url}/sos/api/service/send-money-cash";
   String jobAgent = "${serverApi().url}/sos/api/service/job-agent";
   String pochta = "${serverApi().url}/sos/api/service/postal-service-agent";
-  String supportGet =
-      "${serverApi().url}/sos/api/support-chats/get-all-dialog/";
-  String supportPut = "${serverApi().url}/sos/api/support-chats";
+  String supportGet = "${serverApi().url}/sos/api/support-chat/get-all-dialog/";
+  String supportPut = "${serverApi().url}/sos/api/support-chat";
   String airTicket = '${serverApi().url}/sos/api/service/avia-ticket-agent';
   String getComment = '${serverApi().url}/sos/api/info-comment/';
   String putComment = '${serverApi().url}/sos/api/info-comment';

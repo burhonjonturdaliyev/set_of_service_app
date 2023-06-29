@@ -27,7 +27,7 @@ class Dialogsa {
   String? message;
   int? userId;
 
-  Dialogsa({this.message, this.userId});
+  Dialogsa({required this.message, required this.userId});
 
   Dialogsa.fromJson(Map<String, dynamic> json) {
     message = json['message'];

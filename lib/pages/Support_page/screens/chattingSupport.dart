@@ -50,26 +50,71 @@ class _Support_centerState extends State<Support_center> {
   }
 
   Future<void> putUserMessage(String message) async {
-    final response = await http.post(Uri.parse(Api().supportPut),
+    try {
+      final post = PostSupport(
+        dialogsa: Dialogsa(message: message, userId: widget.userId),
+        userId: widget.userId,
+      );
+      final postNotNull = PostSupport(
+        dialogsa: Dialogsa(message: message, userId: widget.userId),
+        userId: widget.userId,
+        id: IDsi,
+      );
+      final response = await http.post(
+        Uri.parse(Api().supportPut),
         headers: {'Content-Type': 'application/json'},
         body: IDsi == null
-            ? json.decode(SupportPost.tojson)
-            : json.decode(SupportPost.tojson));
-    print("Yuborildi");
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      fetchMessage();
-      scrolling();
-      _controller.clear();
-    } else if (response.statusCode == 403) {
-      await logut();
-      Navigator.pushAndRemoveUntil(
+            ? jsonEncode(post.toJson())
+            : jsonEncode(postNotNull.toJson()),
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        fetchMessage();
+        scrolling();
+        _controller.clear();
+      } else if (response.statusCode == 403) {
+        await logut();
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => Sign_in(),
           ),
-          (route) => false);
-    } else {
-      print(response.statusCode);
+          (route) => false,
+        );
+      } else {
+        String? xabar;
+        print(response.statusCode);
+        final body = response.body;
+        final json = jsonDecode(body);
+        print(body);
+        setState(() {
+          xabar = json['message'];
+        });
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            backgroundColor: const Color(0xff8B0000),
+            content: SizedBox(
+              height: 150.h,
+              width: 150.w,
+              child: Center(
+                child: Text(
+                  xabar ?? "Nimadir xato",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13.sp,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle error
+      print('Error: $e');
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -82,10 +127,11 @@ class _Support_centerState extends State<Support_center> {
                 "Uzur sizning xabaringiz yuborilmadi!. Iltimos, internet aloqangizni qaytadan tekshiring!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13.sp,
-                    color: Colors.white),
+                  fontFamily: "Inter",
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13.sp,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -94,12 +140,12 @@ class _Support_centerState extends State<Support_center> {
     }
   }
 
-  Future<void> getId() async {
+  getId() async {
     final url = "${Api().supportGet}${widget.userId}";
     final uri = Uri.parse(url);
     try {
       http.Response response = await http.get(uri);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final body = response.body;
         final json = jsonDecode(body);
         final result = json["object"]["active"] as List<dynamic>;
@@ -108,14 +154,19 @@ class _Support_centerState extends State<Support_center> {
           setState(() {
             IDsi = json["object"]["active"][0]["id"] as int;
           });
+          print("Set qilindi id: $IDsi");
         }
+      } else if (response.statusCode == 403) {
+        await logut();
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Sign_in(),
+          ),
+          (route) => false,
+        );
       }
-      print(IDsi);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error: $e"),
-      ));
-
       Text("Error is here => $e");
     }
   }
@@ -243,11 +294,8 @@ class _Support_centerState extends State<Support_center> {
                     padding: EdgeInsets.only(right: 8.0.w),
                     child: GestureDetector(
                       onTap: () async {
-                        print("Ishlayapti");
                         if (_controller != null) {
-                          print("Kirdi");
-                         // putUserMessage();
-                          print("chiqdi");
+                          putUserMessage(_controller.text);
                         }
                       },
                       child: Image.asset(
