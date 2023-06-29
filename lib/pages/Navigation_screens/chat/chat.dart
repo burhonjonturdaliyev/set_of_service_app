@@ -15,8 +15,9 @@ import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Chat extends StatefulWidget {
-  Chat({super.key, required this.userId});
+  Chat({super.key, required this.userId, required this.models});
   int userId;
+  List<chat_models> models;
 
   @override
   State<Chat> createState() => _ChatState();
@@ -25,7 +26,6 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   final _formkey = GlobalKey<FormState>();
 
-  List<chat_models> models = [];
   List<int> colors = [
     0xFFFFC107, // Amber
     0xFFF44336, // Red
@@ -95,7 +95,7 @@ class _ChatState extends State<Chat> {
   }
 
   scrolling() {
-    if (models.isNotEmpty && models.length >= 8) {
+    if (widget.models.isNotEmpty && widget.models.length >= 8) {
       _controller.jumpTo(_controller.position.maxScrollExtent + 100.h);
     }
   }
@@ -103,15 +103,15 @@ class _ChatState extends State<Chat> {
   Future<void> fetchMessage() async {
     final Response = await getMessage().fetchMessage(context, logindata);
     if (mounted) {
-      Response != null ? models = Response : null;
+      setState(() {
+        Response != null ? widget.models = Response : null;
+      });
     }
   }
 
   @override
   void initState() {
-    fetchMessage();
     checkListForUpdates();
-
     super.initState();
   }
 
@@ -156,15 +156,15 @@ class _ChatState extends State<Chat> {
               Expanded(
                   child: SafeArea(
                 minimum: EdgeInsets.only(bottom: 60.h),
-                child: models.isEmpty
+                child: widget.models.isEmpty
                     ? const Center(
                         child: Text(
                             "Hozirda hech qanday yozishmalar mavjud emas!"))
                     : ListView.builder(
                         controller: _controller,
-                        itemCount: models.length,
-                        itemBuilder: (context, index) =>
-                            items_design(models[index], colors[index % 20]),
+                        itemCount: widget.models.length,
+                        itemBuilder: (context, index) => items_design(
+                            widget.models[index], colors[index % 20]),
                       ),
               )),
             ],
@@ -273,7 +273,7 @@ class _ChatState extends State<Chat> {
                     child: Row(
                       children: [
                         Text(
-                          DateFormat("HH:mm, MMMM").format(chat.createdAt!),
+                          DateFormat("HH:mm, dd-MMMM").format(chat.createdAt!),
                           style: TextStyle(
                               fontFamily: "Inter",
                               fontSize: 9.sp,
@@ -336,7 +336,7 @@ class _ChatState extends State<Chat> {
                     child: Row(
                       children: [
                         Text(
-                          DateFormat("HH:mm, MMMM").format(chat.createdAt!),
+                          DateFormat("HH:mm, dd-MMMM").format(chat.createdAt!),
                           style: TextStyle(
                               fontFamily: "Inter",
                               fontSize: 9.sp,

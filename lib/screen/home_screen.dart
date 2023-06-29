@@ -13,6 +13,9 @@ import 'package:set_of_service_app/pages/Support_page/support_type.dart';
 import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../pages/Navigation_screens/chat/functions/getMessage.dart';
+import '../pages/Navigation_screens/chat/models/chat_models.dart';
+
 class Home_Page extends StatefulWidget {
   Home_Page({
     super.key,
@@ -49,6 +52,8 @@ class _Home_PageState extends State<Home_Page> {
   String? fullname, sana, number, jins, davlat, server;
   bool? verification;
 
+  List<chat_models> models = [];
+
   Future<void> getSharedPreferencesInstance() async {
     logindata = await SharedPreferences.getInstance();
     int? id = logindata?.getInt("id");
@@ -69,11 +74,19 @@ class _Home_PageState extends State<Home_Page> {
     }
   }
 
+  Future<void> fetchMessage() async {
+    final Response = await getMessage().fetchMessage(context, logindata);
+    if (mounted) {
+      Response != null ? models = Response : null;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     getSharedPreferencesInstance();
     _controller = PageController(initialPage: selectedIndex);
+    fetchMessage();
   }
 
   @override
@@ -257,6 +270,7 @@ class _Home_PageState extends State<Home_Page> {
             ),
             Chat(
               userId: userId,
+              models: models,
             ),
             Profil(
               userId: userId,

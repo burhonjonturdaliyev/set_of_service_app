@@ -223,34 +223,41 @@ class _Support_centerState extends State<Support_center> {
         child: Stack(
           children: [
             Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("image/back_screen.png"),
-                    fit: BoxFit.fitHeight,
-                    alignment: Alignment.bottomCenter),
-              ),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: SafeArea(
-                      minimum: EdgeInsets.only(bottom: 60.h),
-                      child: support.isEmpty
-                          ? const Center(
-                              child: Text(
-                                  "Hozirda hech qanday suhbat mavjud emas!"),
-                            )
-                          : RefreshIndicator(
-                              onRefresh: fetchMessage,
-                              child: ListView.builder(
-                                controller: _controllerList,
-                                itemCount: support.length,
-                                itemBuilder: (context, index) =>
-                                    items_design(support[index]),
-                              ),
-                            ),
-                    ),
+              color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 60.h),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    image: DecorationImage(
+                        image: AssetImage("image/back_screen.png"),
+                        fit: BoxFit.fitHeight,
+                        alignment: Alignment.bottomCenter),
                   ),
-                ],
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: SafeArea(
+                          minimum: EdgeInsets.only(bottom: 60.h),
+                          child: support.isEmpty
+                              ? const Center(
+                                  child: Text(
+                                      "Hozirda hech qanday suhbat mavjud emas!"),
+                                )
+                              : RefreshIndicator(
+                                  onRefresh: fetchMessage,
+                                  child: ListView.builder(
+                                    controller: _controllerList,
+                                    itemCount: support.length,
+                                    itemBuilder: (context, index) =>
+                                        items_design(support[index]),
+                                  ),
+                                ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
             Positioned(
@@ -334,7 +341,7 @@ class _Support_centerState extends State<Support_center> {
                     child: Row(
                       children: [
                         Text(
-                          DateFormat("HH:mm, MMMM")
+                          DateFormat("HH:mm, dd-MMMM")
                               .format(DateTime.parse(chat.dialogs.createdAt)),
                           style: TextStyle(
                               fontFamily: "Inter",
@@ -399,7 +406,7 @@ class _Support_centerState extends State<Support_center> {
                           width: 5.w,
                         ),
                         Text(
-                          DateFormat("HH:mm, MMMM")
+                          DateFormat("HH:mm, dd-MMMM")
                               .format(DateTime.parse(chat.dialogs.createdAt)),
                           style: TextStyle(
                               fontFamily: "Inter",
