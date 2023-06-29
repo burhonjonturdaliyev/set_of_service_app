@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, duplicate_ignore, library_private_types_in_public_api, non_constant_identifier_names, must_be_immutable
+// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, duplicate_ignore, library_private_types_in_public_api, non_constant_identifier_names, must_be_immutable, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -49,7 +49,7 @@ class _Home_PageState extends State<Home_Page> {
   final circleavatarback = const Color.fromARGB(208, 220, 163, 163);
 
   late bool new_user;
-  String? fullname, sana, number, jins, davlat, server;
+  String? fullname, sana, number, jins, davlat, server, userHashId;
   bool? verification;
 
   List<chat_models> models = [];
@@ -70,7 +70,9 @@ class _Home_PageState extends State<Home_Page> {
         davlat = logindata?.getString('currentCountry');
         server = logindata?.getString('visitCountry');
         verification = logindata?.getBool('verification');
+        userHashId = logindata?.getString("userHashId");
       });
+      print(userHashId);
     }
   }
 
@@ -281,6 +283,7 @@ class _Home_PageState extends State<Home_Page> {
               sana: sana,
               server: server,
               verification: verification,
+              userHashId: userHashId,
             )
           ],
         ),

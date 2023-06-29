@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, non_constant_identifier_names
 
 class serverApi {
   String url =
@@ -29,4 +29,5 @@ class Api {
   String putComment = '${serverApi().url}/sos/api/info-comment';
   String putAirticket = '${serverApi().url}/sos/api/air_ticket/info';
   String smsGet = '${serverApi().url}/sos/api/auth/step_1';
+  String id_card = '${serverApi().url}/sos/api/file/upload/id-card/';
 }

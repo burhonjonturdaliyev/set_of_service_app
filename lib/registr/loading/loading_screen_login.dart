@@ -54,6 +54,7 @@ class _Loading_pageState extends State<Loading_page> {
     logindata?.setString('genderType', datalar!.user!.genderType!);
     logindata?.setString('dateOfBirth', datalar!.user!.dateOfBirth!);
     logindata?.setBool('verification', datalar!.user!.verification!);
+    logindata?.setString('userHashId', datalar!.user!.userHashId!);
   }
 
   Future<void> login(login_model model) async {

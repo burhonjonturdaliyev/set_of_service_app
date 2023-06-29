@@ -1,12 +1,22 @@
-// ignore_for_file: deprecated_member_use, duplicate_ignore, non_constant_identifier_names, file_names, invalid_use_of_visible_for_testing_member
+// ignore_for_file: deprecated_member_use, duplicate_ignore, non_constant_identifier_names, file_names, invalid_use_of_visible_for_testing_member, use_build_context_synchronously, avoid_print, must_be_immutable
 
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:page_transition/page_transition.dart';
 import 'dart:io';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../registr/sign_in/Sign_in_screen.dart';
+
 class IdentificationProfel extends StatefulWidget {
-  const IdentificationProfel({super.key});
+  IdentificationProfel({super.key, required this.userHashId});
+  String? userHashId;
 
   @override
   State<IdentificationProfel> createState() => _IdentificationProfelState();
@@ -14,10 +24,138 @@ class IdentificationProfel extends StatefulWidget {
 
 class _IdentificationProfelState extends State<IdentificationProfel> {
   File? image;
-  File? gallery;
-  final galleryPicker = ImagePicker();
 
-  final imagePicker = ImagePicker();
+  SharedPreferences? logindata;
+
+  Future openDialog(manba) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: SizedBox(
+          height: 100.h,
+          width: 220.w,
+          child: Column(
+            children: [
+              Text(
+                "Suratni qayerdan yuklamoqchisiz?",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Inter",
+                    fontSize: 12.sp),
+              ),
+              const Divider(
+                thickness: 1,
+                color: Colors.black87,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            upload(context, manba, ImageSource.gallery,
+                                widget.userHashId!);
+                          },
+                          icon: Icon(
+                            Icons.photo_outlined,
+                            color: Colors.black54,
+                            size: 25.sp,
+                          )),
+                      Text(
+                        "Galareyadan",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Inter",
+                            fontSize: 10.sp),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            upload(context, manba, ImageSource.camera,
+                                widget.userHashId!);
+                          },
+                          icon: Icon(
+                            Icons.camera_alt_outlined,
+                            color: Colors.black54,
+                            size: 25.sp,
+                          )),
+                      Text(
+                        "Kamera orqali",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Inter",
+                            fontSize: 10.sp),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  upload(BuildContext context, XFile? pickedImage, ImageSource source,
+      String? userHashId) async {
+    var dio = Dio();
+    pickedImage = await ImagePicker().pickImage(source: source);
+
+    if (pickedImage != null) {
+      File file = File(pickedImage.path);
+
+      // Compress the image
+      Uint8List? compressedImage = await FlutterImageCompress.compressWithFile(
+        file.path,
+        quality: 85, // Adjust the compression quality as needed
+      );
+
+      // Create a temporary compressed file
+      File compressedFile =
+          await File('${file.path}.compressed').writeAsBytes(compressedImage!);
+
+      String filename = compressedFile.path.split('/').last;
+      String filePath = compressedFile.path;
+      FormData data = FormData.fromMap({
+        'key': "id-card",
+        'image': await MultipartFile.fromFile(filePath, filename: filename),
+      });
+      var response = await dio.post(
+        'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/file/upload/id-card/$userHashId',
+        data: data,
+        onSendProgress: (send, total) {
+          double sendMB = send / (1024 * 1024); // Convert bytes to megabytes
+          double totalMB = total / (1024 * 1024); // Convert bytes to megabytes
+          print("Sent: ${sendMB.toStringAsFixed(2)} MB");
+          print("Total: ${totalMB.toStringAsFixed(2)} MB");
+          print(
+              "Yuklangan foizi: ${((send * 100) / total).toStringAsFixed(0)} %");
+        },
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        logindata?.setBool('verification', true);
+        print("Uploaded");
+        print(response.statusMessage);
+      } else if (response.statusCode == 403) {
+        logindata?.clear();
+        Navigator.pushAndRemoveUntil(
+            context,
+            PageTransition(child: Sign_in(), type: PageTransitionType.fade),
+            (route) => false);
+      } else {
+        print(
+            "Internetda yoki serverda muammo bor. Kod: ${response.statusCode}");
+      }
+    }
+  }
 
   uploadCamera() async {
     // ignore: deprecated_member_use
@@ -31,51 +169,15 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
     } else {}
   }
 
-  Future<void> uploadGallery() async {
-    // ignore: deprecated_member_use
-    var picketFile =
-        await ImagePicker.platform.getImage(source: ImageSource.gallery);
-
-    if (picketFile != null) {
-      setState(() {
-        // ignore: unnecessary_null_comparison
-        gallery = picketFile.path != null ? File(picketFile.path) : null;
-      });
-    } else {}
+  gettingLogindata() async {
+    logindata = await SharedPreferences.getInstance();
   }
 
-  // Future<void> uploadImage() async {
-  //   // Get a photo from the camera
-  //   final picker = ImagePicker();
-  //   final pickedFile = await picker.getImage(source: ImageSource.camera);
-
-  //   // Create a multipart request to upload the photo to the server
-  //   final request = http.MultipartRequest(
-  //     'POST',
-  //     Uri.parse('https://example.com/upload'),
-  //   );
-
-  //   // Add the photo to the multipart request
-  //   final file = File(pickedFile!.path);
-  //   final stream = http.ByteStream(file.openRead());
-  //   final length = await file.length();
-  //   final multipartFile = http.MultipartFile(
-  //     'file',
-  //     stream,
-  //     length,
-  //   );
-  //   request.files.add(multipartFile);
-
-  //   // Send the multipart request to the server
-  //   final response = await request.send();
-
-  //   // Check if the server returned a success status code
-  //   if (response.statusCode == 200) {
-  //     print('Image uploaded to server.');
-  //   } else {
-  //     print('Error uploading image to server.');
-  //   }
-  // }
+  @override
+  void initState() {
+    gettingLogindata();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,192 +201,64 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
               image: DecorationImage(
                   image: AssetImage("image/back_screen.png"),
                   fit: BoxFit.fitHeight)),
-          child: image == null ? firstProcess() : secondProcess()),
+          child: verification()),
     );
   }
 
-  Widget firstProcess() {
-    return Stack(
+  Widget verification() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Positioned(
-          top: 30.h,
-          left: 0,
-          right: 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Birinchi bosqich:",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Inter",
-                    fontSize: 26.sp),
-              ),
-            ],
+        Image.asset(
+          "image/verification/verification.png",
+          width: 180.w,
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        Text(
+          "Iltimos, shaxsingizni tasdiqlash uchun quyidagi hujjatlardan birini bizga yuklang!\nHujjatlar:",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: "Inter",
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w400,
           ),
         ),
-        Positioned(
-          bottom: 220.h,
-          left: 0,
-          right: 0,
-          child: Text(
-            "Iltimos, yuzingizni kameraga to'liq tushishini taminlang!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.black54,
-                fontFamily: "Inter",
-                fontWeight: FontWeight.w600,
-                fontSize: 16.sp),
+        Text(
+          "Passport, Haydovchilik guvoxnomasi, ID card, 在留カード",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: "Inter",
+            fontSize: 10.sp,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        Positioned(
-            bottom: 150.h,
-            left: 80.w,
-            right: 80.w,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff8B0000)),
-              onPressed: () async {
-                await uploadCamera();
-              },
-              child: Text(
-                "Shaxsni tasdiqlash",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16.sp),
-              ),
-            )),
-      ],
-    );
-  }
-
-  Widget secondProcess() {
-    return gallery != null
-        ? doneProcess()
-        : Stack(
-            children: [
-              Positioned(
-                top: 90.h,
-                left: 0,
-                right: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Birinchi bosqich:",
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Inter",
-                          fontSize: 13.sp),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                top: 30.h,
-                left: 0,
-                right: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Ikkinchi bosqich:",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Inter",
-                          fontSize: 26.sp),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 220.h,
-                left: 0,
-                right: 0,
-                child: Text(
-                  "Iltimos, shaxsingizni tasdiqlash uchun Biografik passport , ID karta yoki haydovchilik guvohnomasi bilan taminlang!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp),
-                ),
-              ),
-              Positioned(
-                  bottom: 150.h,
-                  left: 100.w,
-                  right: 100.w,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff8B0000)),
-                      onPressed: () async {
-                        await uploadGallery();
-                      },
-                      child: Text(
-                        "Hujjatni yuklash",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: "Inter",
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp),
-                      ))),
-            ],
-          );
-  }
-
-  Widget doneProcess() {
-    return Stack(
-      children: [
-        Positioned(
-          top: 60.h,
-          left: 0,
-          right: 0,
-          child: Column(
-            children: [
-              Text(
-                "Tabriklaymiz, siz barcha bosqichlarni muvaffaqiyatli yakunladingiz!",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: "Inter",
-                    fontSize: 23.sp),
-              ),
-            ],
-          ),
+        SizedBox(
+          height: 110.h,
         ),
-        Positioned(
-          bottom: 200.h,
-          left: 100.w,
-          right: 100.w,
-          child: ElevatedButton(
+        ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xff8B0000),
+              backgroundColor: const Color(0xFF8B0000),
+              minimumSize: const Size(250, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(21),
+              ),
             ),
             onPressed: () {
-              Navigator.pop(context);
+              openDialog(image);
             },
             child: Text(
-              "Yakunlash",
+              "Hujjatni yuklash",
               style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: "Inter",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.sp),
-            ),
-          ),
-        )
+                color: Colors.white,
+                fontFamily: "Inter",
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ))
       ],
     );
   }

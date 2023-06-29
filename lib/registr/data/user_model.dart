@@ -37,6 +37,7 @@ class User {
   Null? avatarPhoto;
   Null? deviceId;
   bool? verification;
+  String? userHashId;
 
   User(
       {this.id,
@@ -56,7 +57,8 @@ class User {
       this.dateOfBirth,
       this.avatarPhoto,
       this.deviceId,
-      this.verification});
+      this.verification,
+      this.userHashId});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -77,6 +79,7 @@ class User {
     avatarPhoto = json['avatarPhoto'];
     deviceId = json['deviceId'];
     verification = json['verification'];
+    userHashId = json['userHashId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -99,6 +102,7 @@ class User {
     data['avatarPhoto'] = avatarPhoto;
     data['deviceId'] = deviceId;
     data['verification'] = verification;
+    data['userHashId'] = userHashId;
     return data;
   }
 }

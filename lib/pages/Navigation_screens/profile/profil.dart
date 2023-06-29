@@ -19,9 +19,10 @@ class Profil extends StatefulWidget {
       required this.number,
       required this.sana,
       required this.server,
-      required this.verification});
+      required this.verification,
+      required this.userHashId});
   int userId;
-  String? fullname, sana, number, jins, davlat, server;
+  String? fullname, sana, number, jins, davlat, server, userHashId;
   bool? verification;
   @override
   State<Profil> createState() => _ProfilState();
@@ -158,7 +159,8 @@ class _ProfilState extends State<Profil> {
                           onPressed: () => Navigator.push(
                               context,
                               PageTransition(
-                                child: const IdentificationProfel(),
+                                child: IdentificationProfel(
+                                    userHashId: widget.userHashId),
                                 type: PageTransitionType.fade,
                               )),
                           child: Text(

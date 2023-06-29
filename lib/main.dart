@@ -44,3 +44,4 @@ class MyApp extends StatelessWidget {
 //REgistr save --done
 //verifiation checking --done
 //file upload add
+//only one step to verificate accaount
