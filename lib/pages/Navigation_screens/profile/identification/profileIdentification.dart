@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use, duplicate_ignore, non_constant_identifier_names, file_names, invalid_use_of_visible_for_testing_member, use_build_context_synchronously, avoid_print, must_be_immutable, depend_on_referenced_packages
 
 import 'dart:typed_data';
+import 'package:http_parser/http_parser.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,6 +28,7 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
   File? image;
 
   SharedPreferences? logindata;
+  final _picker = ImagePicker();
 
   Future openDialog(manba) {
     return showDialog(
@@ -115,26 +118,31 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
 
       if (pickedImage != null) {
         File file = File(pickedImage.path);
+
+        // Compress the image
         Uint8List? compressedImage =
             await FlutterImageCompress.compressWithFile(
           file.path,
-          quality: 85,
+          quality: 85, // Adjust the compression quality as needed
         );
+
+        // Create a temporary compressed file
         File compressedFile = await File('${file.path}.compressed')
             .writeAsBytes(compressedImage!);
 
         String filename = compressedFile.path.split('/').last;
         String filePath = compressedFile.path;
-        FormData data = FormData.fromMap({
-          'key': "id-card",
-          'value': await MultipartFile.fromFile(filePath, filename: filename),
-        });
+        FormData data = FormData();
+        data.fields.add(const MapEntry('id-card', 'id-card'));
+        data.files.add(MapEntry(
+            'image', MultipartFile.fromFileSync(filePath, filename: filename)));
         var response = await dio.post(
           '${Api().id_card}${widget.userHashId}',
           data: data,
           onSendProgress: (send, total) {
-            double sendMB = send / (1024 * 1024);
-            double totalMB = total / (1024 * 1024);
+            double sendMB = send / (1024 * 1024); // Convert bytes to megabytes
+            double totalMB =
+                total / (1024 * 1024); // Convert bytes to megabytes
             print("Sent: ${sendMB.toStringAsFixed(2)} MB");
             print("Total: ${totalMB.toStringAsFixed(2)} MB");
             print(
@@ -158,6 +166,27 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future uploadImage(String? userHashId) async {
+    final pickedFile = await _picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 80,
+    );
+    if (pickedFile != null) {
+      var request = http.MultipartRequest("POST",
+          Uri.parse("${Api().id_card}${widget.userHashId}")); //add text fields
+      request.fields["text_field"] =
+          'id-card'; //create multipart using filepath, string or bytes
+      var pic = await http.MultipartFile.fromPath(
+          "file_field", pickedFile.path); //add multipart to request
+      request.files.add(pic);
+      var response = await request.send(); //Get the response from the server
+      var responseData = await response.stream.toBytes();
+      var responseString = String.fromCharCodes(responseData);
+      print(responseString);
+      print(response.statusCode);
     }
   }
 
