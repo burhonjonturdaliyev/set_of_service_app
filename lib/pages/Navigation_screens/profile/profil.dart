@@ -86,7 +86,7 @@ class _ProfilState extends State<Profil> {
               children: [
                 widget.verification == true
                     ? Text(
-                        "Tadiqlangan akkaunt",
+                        "Tasdiqlangan akkaunt",
                         style: TextStyle(
                             color: Colors.green,
                             fontSize: 14.sp,

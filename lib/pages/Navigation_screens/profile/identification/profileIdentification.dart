@@ -1,7 +1,7 @@
-// ignore_for_file: deprecated_member_use, duplicate_ignore, non_constant_identifier_names, file_names, invalid_use_of_visible_for_testing_member, use_build_context_synchronously, avoid_print, must_be_immutable
+// ignore_for_file: deprecated_member_use, duplicate_ignore, non_constant_identifier_names, file_names, invalid_use_of_visible_for_testing_member, use_build_context_synchronously, avoid_print, must_be_immutable, depend_on_referenced_packages
 
 import 'dart:typed_data';
-
+import 'package:http_parser/http_parser.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,6 +28,7 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
   File? image;
 
   SharedPreferences? logindata;
+  final _picker = ImagePicker();
 
   Future openDialog(manba) {
     return showDialog(
@@ -56,6 +58,7 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                     children: [
                       IconButton(
                           onPressed: () {
+                            Navigator.pop(context);
                             upload(context, manba, ImageSource.gallery,
                                 widget.userHashId!);
                           },
@@ -78,6 +81,8 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                     children: [
                       IconButton(
                           onPressed: () {
+                            Navigator.pop(context);
+
                             upload(context, manba, ImageSource.camera,
                                 widget.userHashId!);
                           },
@@ -107,54 +112,98 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
 
   upload(BuildContext context, XFile? pickedImage, ImageSource source,
       String? userHashId) async {
-    var dio = Dio();
-    pickedImage = await ImagePicker().pickImage(source: source);
+    try {
+      var dio = Dio();
+      pickedImage = await ImagePicker().pickImage(source: source);
 
-    if (pickedImage != null) {
-      File file = File(pickedImage.path);
+      if (pickedImage != null) {
+        File file = File(pickedImage.path);
 
-      // Compress the image
-      Uint8List? compressedImage = await FlutterImageCompress.compressWithFile(
-        file.path,
-        quality: 85, // Adjust the compression quality as needed
-      );
+        // Compress the image
+        Uint8List? compressedImage =
+            await FlutterImageCompress.compressWithFile(
+          file.path,
+          quality: 85, // Adjust the compression quality as needed
+        );
 
-      // Create a temporary compressed file
-      File compressedFile =
-          await File('${file.path}.compressed').writeAsBytes(compressedImage!);
+        // Create a temporary compressed file
+        File compressedFile = await File('${file.path}.compressed')
+            .writeAsBytes(compressedImage!);
 
-      String filename = compressedFile.path.split('/').last;
-      String filePath = compressedFile.path;
-      FormData data = FormData.fromMap({
-        'key': "id-card",
-        'image': await MultipartFile.fromFile(filePath, filename: filename),
-      });
-      var response = await dio.post(
-        '${Api().id_card}${widget.userHashId}',
-        data: data,
-        onSendProgress: (send, total) {
-          double sendMB = send / (1024 * 1024); // Convert bytes to megabytes
-          double totalMB = total / (1024 * 1024); // Convert bytes to megabytes
-          print("Sent: ${sendMB.toStringAsFixed(2)} MB");
-          print("Total: ${totalMB.toStringAsFixed(2)} MB");
+        String filename = compressedFile.path.split('/').last;
+        String filePath = compressedFile.path;
+        FormData data = FormData.fromMap({
+          'key': "id-card",
+          'value': await MultipartFile.fromFile(filePath, filename: filename),
+        });
+        var response = await dio.post(
+          '${Api().id_card}${widget.userHashId}',
+          data: data,
+          onSendProgress: (send, total) {
+            double sendMB = send / (1024 * 1024); // Convert bytes to megabytes
+            double totalMB =
+                total / (1024 * 1024); // Convert bytes to megabytes
+            print("Sent: ${sendMB.toStringAsFixed(2)} MB");
+            print("Total: ${totalMB.toStringAsFixed(2)} MB");
+            print(
+                "Yuklangan foizi: ${((send * 100) / total).toStringAsFixed(0)} %");
+          },
+        );
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          logindata?.setBool('verification', true);
+          print("Uploaded");
+          print(response.statusMessage);
+        } else if (response.statusCode == 403) {
+          logindata?.clear();
+          Navigator.pushAndRemoveUntil(
+              context,
+              PageTransition(child: Sign_in(), type: PageTransitionType.fade),
+              (route) => false);
+        } else {
           print(
-              "Yuklangan foizi: ${((send * 100) / total).toStringAsFixed(0)} %");
-        },
-      );
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        logindata?.setBool('verification', true);
-        print("Uploaded");
-        print(response.statusMessage);
-      } else if (response.statusCode == 403) {
-        logindata?.clear();
-        Navigator.pushAndRemoveUntil(
-            context,
-            PageTransition(child: Sign_in(), type: PageTransitionType.fade),
-            (route) => false);
-      } else {
-        print(
-            "Internetda yoki serverda muammo bor. Kod: ${response.statusCode}");
+              "Internetda yoki serverda muammo bor. Kod: ${response.statusCode}");
+        }
       }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future uploadImage(String? userHashId) async {
+    final pickedFile = await _picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 80,
+    );
+    if (pickedFile != null) {
+      File image = File(pickedFile.path);
+      var uri = Uri.parse('${Api().id_card}$userHashId');
+
+      var request = http.MultipartRequest('POST', uri);
+
+      request.fields['key'] = 'id-card';
+
+      var multipartFile = http.MultipartFile(
+        'image',
+        image.readAsBytes().asStream(),
+        image.lengthSync(),
+        contentType: MediaType(
+          'image',
+          'jpeg',
+        ), // Adjust the media type as per your image format
+      );
+
+      request.files.add(multipartFile);
+
+      var response = await request.send();
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print('Image uploaded successfully');
+      } else {
+        print(response.statusCode);
+        print('Image upload failed');
+      }
+    } else {
+      print('No image selected');
     }
   }
 
@@ -249,7 +298,7 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
               ),
             ),
             onPressed: () {
-              openDialog(image);
+              uploadImage(widget.userHashId);
             },
             child: Text(
               "Hujjatni yuklash",

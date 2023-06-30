@@ -190,7 +190,10 @@ class _Home_PageState extends State<Home_Page> {
                               ));
                         },
                       ),
-                      Divider(),
+                      Divider(
+                        thickness: 0.5.w,
+                        color: Colors.black38,
+                      ),
                       ListTile(
                         title: Text("Exit"),
                         trailing: Icon(
@@ -200,7 +203,10 @@ class _Home_PageState extends State<Home_Page> {
                         ),
                         onTap: exit,
                       ),
-                      Divider(),
+                      Divider(
+                        thickness: 0.5.w,
+                        color: Colors.black38,
+                      ),
                     ],
                   ),
                 ),
