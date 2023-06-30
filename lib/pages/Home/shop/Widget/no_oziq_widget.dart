@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, duplicate_ignore, empty_statements
+// ignore_for_file: camel_case_types, duplicate_ignore, empty_statements, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
@@ -30,12 +30,16 @@ class _no_List_builderState extends State<no_List_builder> {
   ];
 
   Future<void> _urlLauncher(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (!await launchUrl(
-      uri,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw "Can not launch $url";
+    try {
+      final Uri uri = Uri.parse(url);
+      if (!await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      )) {
+        throw "Can not launch $url";
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -184,7 +188,7 @@ class _no_List_builderState extends State<no_List_builder> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 2.w),
+                padding: EdgeInsets.symmetric(horizontal: 4.w),
                 child: Row(
                   children: [
                     Expanded(

@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, duplicate_ignore
+// ignore_for_file: camel_case_types, duplicate_ignore, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
@@ -23,12 +23,16 @@ class Send_money_naqt_widget extends StatefulWidget {
 
 class _Send_money_naqt_widgetState extends State<Send_money_naqt_widget> {
   Future<void> _urlLauncher(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (!await launchUrl(
-      uri,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw "Can not launch $url";
+    try {
+      final Uri uri = Uri.parse(url);
+      if (!await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      )) {
+        throw "Can not launch $url";
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -159,7 +163,7 @@ class _Send_money_naqt_widgetState extends State<Send_money_naqt_widget> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2.w),
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: Row(
                 children: [
                   Expanded(

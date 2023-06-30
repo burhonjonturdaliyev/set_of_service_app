@@ -12,6 +12,7 @@ import 'dart:io';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../const_api/api.dart';
 import '../../../../registr/sign_in/Sign_in_screen.dart';
 
 class IdentificationProfel extends StatefulWidget {
@@ -129,7 +130,7 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
         'image': await MultipartFile.fromFile(filePath, filename: filename),
       });
       var response = await dio.post(
-        'http://ec2-54-199-249-118.ap-northeast-1.compute.amazonaws.com:7088/sos/api/file/upload/id-card/$userHashId',
+        '${Api().id_card}${widget.userHashId}',
         data: data,
         onSendProgress: (send, total) {
           double sendMB = send / (1024 * 1024); // Convert bytes to megabytes

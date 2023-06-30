@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, non_constant_identifier_names
+// ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
@@ -15,12 +15,16 @@ import '../../../../models/colour_model.dart';
 // ignore: must_be_immutable
 class Job_widget extends StatelessWidget {
   Future<void> _urlLauncher(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (!await launchUrl(
-      uri,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw "Can not launch $url";
+    try {
+      final Uri uri = Uri.parse(url);
+      if (!await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      )) {
+        throw "Can not launch $url";
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -153,7 +157,7 @@ class Job_widget extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2.w),
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: Row(
                 children: [
                   Expanded(

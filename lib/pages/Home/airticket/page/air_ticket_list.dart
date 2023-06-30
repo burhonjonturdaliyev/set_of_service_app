@@ -18,12 +18,12 @@ class _Air_ticket_listState extends State<Air_ticket_list> {
   List<AirticketModels> models = [
     AirticketModels(
         id: 1,
-        title: "Hello tashkent",
+        title: "Tashkent - Japan",
         subTitle: "Caption",
         juridical: false,
         serviceFee: "bor",
         phoneNumber: "+998906936594",
-        telegramUrl: "https/t.me/tba_003",
+        telegramUrl: "https://t.me/TBA_003",
         officeAddress: "Mavjud",
         active: true,
         serviceCategoryId: 1,
@@ -65,8 +65,11 @@ class _Air_ticket_listState extends State<Air_ticket_list> {
           )),
       body: RefreshIndicator(
           onRefresh: fetchInfo,
-          child: Ticket_builder(
-            models: models,
+          child: Padding(
+            padding: EdgeInsets.only(left: 11.w, right: 11.w, top: 11.w),
+            child: Ticket_builder(
+              models: models,
+            ),
           )),
     );
   }
