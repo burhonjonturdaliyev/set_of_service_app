@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use, duplicate_ignore, non_constant_identifier_names, file_names, invalid_use_of_visible_for_testing_member, use_build_context_synchronously, avoid_print, must_be_immutable, depend_on_referenced_packages
 
 import 'dart:typed_data';
-import 'package:http_parser/http_parser.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -9,7 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'dart:io';
-import 'package:http/http.dart' as http;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,7 +26,6 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
   File? image;
 
   SharedPreferences? logindata;
-  final _picker = ImagePicker();
 
   Future openDialog(manba) {
     return showDialog(
@@ -118,15 +115,11 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
 
       if (pickedImage != null) {
         File file = File(pickedImage.path);
-
-        // Compress the image
         Uint8List? compressedImage =
             await FlutterImageCompress.compressWithFile(
           file.path,
-          quality: 85, // Adjust the compression quality as needed
+          quality: 85,
         );
-
-        // Create a temporary compressed file
         File compressedFile = await File('${file.path}.compressed')
             .writeAsBytes(compressedImage!);
 
@@ -140,9 +133,8 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
           '${Api().id_card}${widget.userHashId}',
           data: data,
           onSendProgress: (send, total) {
-            double sendMB = send / (1024 * 1024); // Convert bytes to megabytes
-            double totalMB =
-                total / (1024 * 1024); // Convert bytes to megabytes
+            double sendMB = send / (1024 * 1024);
+            double totalMB = total / (1024 * 1024);
             print("Sent: ${sendMB.toStringAsFixed(2)} MB");
             print("Total: ${totalMB.toStringAsFixed(2)} MB");
             print(
@@ -166,44 +158,6 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
       }
     } catch (e) {
       print(e);
-    }
-  }
-
-  Future uploadImage(String? userHashId) async {
-    final pickedFile = await _picker.pickImage(
-      source: ImageSource.camera,
-      imageQuality: 80,
-    );
-    if (pickedFile != null) {
-      File image = File(pickedFile.path);
-      var uri = Uri.parse('${Api().id_card}$userHashId');
-
-      var request = http.MultipartRequest('POST', uri);
-
-      request.fields['key'] = 'id-card';
-
-      var multipartFile = http.MultipartFile(
-        'image',
-        image.readAsBytes().asStream(),
-        image.lengthSync(),
-        contentType: MediaType(
-          'image',
-          'jpeg',
-        ), // Adjust the media type as per your image format
-      );
-
-      request.files.add(multipartFile);
-
-      var response = await request.send();
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        print('Image uploaded successfully');
-      } else {
-        print(response.statusCode);
-        print('Image upload failed');
-      }
-    } else {
-      print('No image selected');
     }
   }
 
@@ -298,7 +252,7 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
               ),
             ),
             onPressed: () {
-              uploadImage(widget.userHashId);
+              openDialog(image);
             },
             child: Text(
               "Hujjatni yuklash",
