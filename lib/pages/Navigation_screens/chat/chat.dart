@@ -301,20 +301,20 @@ class _ChatState extends State<Chat> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(10.w),
+                          padding: EdgeInsets.only(
+                              bottom: 7.h, left: 7.w, right: 7.w, top: 4.h),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(
-                                    top: 2.h, left: 3.w, right: 3.w),
+                                padding: EdgeInsets.only(left: 3.w, right: 3.w),
                                 child: Text(
                                   chat.username,
                                   style: TextStyle(
                                       color: Colors.black87,
                                       fontWeight: FontWeight.w700,
                                       fontFamily: "Inter",
-                                      fontSize: 9.sp),
+                                      fontSize: 8.sp),
                                 ),
                               ),
                               Text(

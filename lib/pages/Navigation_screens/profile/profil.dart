@@ -62,9 +62,31 @@ class _ProfilState extends State<Profil> {
                 )),
               ),
             ),
-            SizedBox(
-              height: 33.h,
-            ),
+            widget.verification == true
+                ? SizedBox(
+                    height: 20.h,
+                  )
+                : SizedBox(
+                    height: 33.h,
+                  ),
+            Visibility(
+                visible: widget.verification ?? false,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 100.h,
+                      width: 100.w,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 3, color: Colors.black45),
+                          borderRadius: BorderRadius.circular(100.w)),
+                      child:
+                          Icon(Icons.person, color: Colors.black45, size: 55.w),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    )
+                  ],
+                )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -79,7 +101,7 @@ class _ProfilState extends State<Profil> {
               ],
             ),
             SizedBox(
-              height: 8.h,
+              height: 5.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -104,7 +126,7 @@ class _ProfilState extends State<Profil> {
               ],
             ),
             SizedBox(
-              height: 19.h,
+              height: 5.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -128,56 +150,60 @@ class _ProfilState extends State<Profil> {
             ),
             Visibility(
               visible: widget.verification == true ? false : true,
-              child: Container(
-                width: 330.w,
-                height: 120.h,
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(206, 241, 228, 108),
-                    borderRadius: BorderRadius.circular(16)),
-                child: Column(children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.only(top: 15.0.h, left: 19.w, right: 19.w),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "Ilovaning barcha imkoniyatlaridan to’liq foydalanish uchun , iltimos identifikatsiya jarayonidan o’ting",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Inter"),
-                          ),
-                        )
-                      ],
-                    ),
+              child: Column(
+                children: [
+                  Container(
+                    width: 330.w,
+                    height: 120.h,
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(206, 241, 228, 108),
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Column(children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 15.0.h, left: 19.w, right: 19.w),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "Ilovaning barcha imkoniyatlaridan to’liq foydalanish uchun , iltimos identifikatsiya jarayonidan o’ting",
+                                style: TextStyle(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: "Inter"),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                              onPressed: () => Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: IdentificationProfel(
+                                        userHashId: widget.userHashId),
+                                    type: PageTransitionType.fade,
+                                  )),
+                              child: Text(
+                                "Identifikatsiyadan o’tish",
+                                style: TextStyle(
+                                    fontFamily: "Inter",
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14.sp,
+                                    color: Colors.black),
+                              ))
+                        ],
+                      )
+                    ]),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                          onPressed: () => Navigator.push(
-                              context,
-                              PageTransition(
-                                child: IdentificationProfel(
-                                    userHashId: widget.userHashId),
-                                type: PageTransitionType.fade,
-                              )),
-                          child: Text(
-                            "Identifikatsiyadan o’tish",
-                            style: TextStyle(
-                                fontFamily: "Inter",
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14.sp,
-                                color: Colors.black),
-                          ))
-                    ],
-                  )
-                ]),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                ],
               ),
-            ),
-            SizedBox(
-              height: 38.h,
             ),
             Padding(
               padding: EdgeInsets.only(left: 20.w),
@@ -195,7 +221,8 @@ class _ProfilState extends State<Profil> {
             bottom: 15.h,
             child: InkWell(
               onTap: () => Navigator.of(context).push(PageTransition(
-                  child: const Profile_settings(),
+                  child: Profile_settings(
+                      userId: widget.userId, userHashId: widget.userHashId),
                   type: PageTransitionType.bottomToTop)),
               child: Container(
                 width: 281.w,

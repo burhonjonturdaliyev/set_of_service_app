@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.red,
           ),
-          home: const New_screen()),
+          home: const Splash_screen()),
       designSize: const Size(375, 812),
     );
   }
@@ -46,3 +46,16 @@ class MyApp extends StatelessWidget {
 //verifiation checking --done
 //file upload add
 //only one step to verificate accaount
+
+
+//new tasks
+
+//decrise the padding of name in chat --done
+//404 error in balance check --done
+//profile tahrirlash --done
+//tahrirlash upload function image --process
+//add profile photo --done
+// left integrate with api
+
+//problems
+//after editing profile login code changed 

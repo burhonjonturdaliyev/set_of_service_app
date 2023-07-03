@@ -30,4 +30,6 @@ class Api {
   String putAirticket = '${serverApi().url}/sos/api/air_ticket/info';
   String smsGet = '${serverApi().url}/sos/api/auth/step_1';
   String id_card = '${serverApi().url}/sos/api/file/upload/id-card/';
+  String upload_avatar = '${serverApi().url}/sos/api/file/upload/avatar';
+  String edit_user = '${serverApi().url}/sos/api/user';
 }

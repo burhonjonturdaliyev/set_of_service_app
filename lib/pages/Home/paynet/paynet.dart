@@ -44,7 +44,7 @@ class _PaynetState extends State<Paynet> {
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("image/back_screen.png"),
-                    fit: BoxFit.cover)),
+                    fit: BoxFit.fitHeight)),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

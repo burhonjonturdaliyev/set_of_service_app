@@ -123,10 +123,37 @@ class _HomeState extends State<Home> {
                           builder: (context) => AlertDialog(
                             backgroundColor: white,
                             content: SizedBox(
-                              height: 200.h,
-                              width: 150.w,
+                              height: 170.h,
+                              width: 130.w,
                               child: Stack(
                                 children: [
+                                  Positioned(
+                                      top: 40.h,
+                                      left: 0.w,
+                                      right: 0.w,
+                                      bottom: 0.h,
+                                      child: Text(
+                                        "Xizmat hali yo'lga qo'yilmagan!",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.black87,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "Inter",
+                                            fontSize: 16.sp),
+                                      )),
+                                  Positioned(
+                                      top: 90.h,
+                                      left: 0,
+                                      right: 0,
+                                      child: Text(
+                                        "4 0 4",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: const Color(0xFF8B0000),
+                                            fontFamily: "Inter",
+                                            fontSize: 45.sp,
+                                            fontWeight: FontWeight.bold),
+                                      )),
                                   Positioned(
                                       top: -10.h,
                                       right: -3.w,

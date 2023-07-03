@@ -93,7 +93,7 @@ class _Valyuta_kursiState extends State<Valyuta_kursi> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("image/back_screen.png"),
-                  fit: BoxFit.fill)),
+                  fit: BoxFit.fitHeight)),
           child: currency.isEmpty
               ? const Center(
                   child: CircularProgressIndicator(

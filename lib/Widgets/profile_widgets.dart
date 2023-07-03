@@ -59,7 +59,51 @@ class Information_section_profile extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 21.h,
+          height: 10.h,
+        ),
+        Row(
+          children: [
+            Icon(
+              Icons.mail_outline_outlined,
+              color: Colors.black87,
+              size: 33.w,
+            ),
+            SizedBox(
+              width: 19.w,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Elektron pochta:",
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w700,
+                          color: const Color.fromARGB(143, 0, 0, 0)),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "kimnidir.nimadir@gmail.com",
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                    )
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
+        SizedBox(
+          height: 10.h,
         ),
         Row(
           children: [
@@ -103,7 +147,7 @@ class Information_section_profile extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 21.h,
+          height: 10.h,
         ),
         Row(
           children: [
@@ -147,7 +191,7 @@ class Information_section_profile extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 21.h,
+          height: 10.h,
         ),
         Row(
           children: [
