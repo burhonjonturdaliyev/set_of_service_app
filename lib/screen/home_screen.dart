@@ -49,7 +49,7 @@ class _Home_PageState extends State<Home_Page> {
   final circleavatarback = const Color.fromARGB(208, 220, 163, 163);
 
   late bool new_user;
-  String? fullname, sana, number, jins, davlat, server, userHashId;
+  String? fullname, sana, number, jins, davlat, server, userHashId, email;
   bool? verification;
 
   List<chat_models> models = [];
@@ -71,6 +71,7 @@ class _Home_PageState extends State<Home_Page> {
         server = logindata?.getString('visitCountry');
         verification = logindata?.getBool('verification');
         userHashId = logindata?.getString("userHashId");
+        email = logindata?.getString('email');
       });
       print(userHashId);
     }
@@ -290,6 +291,7 @@ class _Home_PageState extends State<Home_Page> {
               server: server,
               verification: verification,
               userHashId: userHashId,
+              email: email,
             )
           ],
         ),

@@ -454,46 +454,45 @@ class _Profile_setting_widgetsState extends State<Profile_setting_widgets> {
               SizedBox(
                 height: 20.h,
               ),
-              GestureDetector(
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Loading_profile(
-                            email: widget.email.text,
-                            firstname: widget.ism.text,
-                            gender: widget.jinsi,
-                            lastname: widget.familya.text,
-                            sana: widget.sana.text,
-                            server: widget.server,
-                            userHashId: widget.userHashId,
-                            userId: widget.userId,
-                            visitCountry: "Uzbekistan",
-                            profel: profel,
-                          ),
-                        ));
-                  }
-                },
-                child: Container(
-                  width: 281.w,
-                  height: 46.h,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: const Color(0xff8B0000)),
-                  child: Center(
-                    child: Text(
-                      "Saqlash",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: "Inter",
-                          letterSpacing: 1.5),
-                    ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF8B0000),
+                  minimumSize: const Size(250, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(21),
                   ),
                 ),
-              )
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Loading_profile(
+                          email: widget.email.text,
+                          firstname: widget.ism.text,
+                          gender: widget.jinsi,
+                          lastname: widget.familya.text,
+                          sana: widget.sana.text,
+                          server: widget.server,
+                          userHashId: widget.userHashId,
+                          userId: widget.userId,
+                          visitCountry: "Uzbekistan",
+                          profel: profel,
+                        ),
+                      ),
+                    );
+                  }
+                },
+                child: Text(
+                  "Saqlash",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: "Inter",
+                      letterSpacing: 1.5),
+                ),
+              ),
             ],
           ),
         ),

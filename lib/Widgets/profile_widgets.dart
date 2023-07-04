@@ -1,18 +1,30 @@
+// ignore_for_file: unnecessary_null_comparison, camel_case_types, duplicate_ignore
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: camel_case_types, must_be_immutable
-class Information_section_profile extends StatelessWidget {
+class Information_section_profile extends StatefulWidget {
   String number;
   String jins;
   String mamlakat;
   String server;
+  String email;
   Information_section_profile(
       {super.key,
       required this.number,
       required this.jins,
       required this.mamlakat,
-      required this.server});
+      required this.server,
+      required this.email});
+
+  @override
+  State<Information_section_profile> createState() =>
+      _Information_section_profileState();
+}
+
+class _Information_section_profileState
+    extends State<Information_section_profile> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,7 +57,7 @@ class Information_section_profile extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      number,
+                      widget.number,
                       style: TextStyle(
                           fontSize: 16.sp,
                           fontFamily: "Inter",
@@ -61,49 +73,56 @@ class Information_section_profile extends StatelessWidget {
         SizedBox(
           height: 10.h,
         ),
-        Row(
-          children: [
-            Icon(
-              Icons.mail_outline_outlined,
-              color: Colors.black87,
-              size: 33.w,
-            ),
-            SizedBox(
-              width: 19.w,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      "Elektron pochta:",
-                      style: TextStyle(
-                          fontSize: 12.sp,
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.w700,
-                          color: const Color.fromARGB(143, 0, 0, 0)),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "kimnidir.nimadir@gmail.com",
-                      style: TextStyle(
-                          fontSize: 16.sp,
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black),
-                    )
-                  ],
-                )
-              ],
-            )
-          ],
-        ),
-        SizedBox(
-          height: 10.h,
+        Visibility(
+          visible: widget.email != null || widget.email != '' ? false : true,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.mail_outline_outlined,
+                    color: Colors.black87,
+                    size: 33.w,
+                  ),
+                  SizedBox(
+                    width: 19.w,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "Elektron pochta:",
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                fontFamily: "Inter",
+                                fontWeight: FontWeight.w700,
+                                color: const Color.fromARGB(143, 0, 0, 0)),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            widget.email,
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontFamily: "Inter",
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+            ],
+          ),
         ),
         Row(
           children: [
@@ -133,7 +152,7 @@ class Information_section_profile extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      jins,
+                      widget.jins,
                       style: TextStyle(
                           fontSize: 16.sp,
                           fontFamily: "Inter",
@@ -177,7 +196,7 @@ class Information_section_profile extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      mamlakat,
+                      widget.mamlakat,
                       style: TextStyle(
                           fontSize: 16.sp,
                           fontFamily: "Inter",
@@ -221,7 +240,7 @@ class Information_section_profile extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      server,
+                      widget.server,
                       style: TextStyle(
                           fontSize: 16.sp,
                           fontFamily: "Inter",

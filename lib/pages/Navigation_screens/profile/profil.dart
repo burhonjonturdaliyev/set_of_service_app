@@ -20,9 +20,10 @@ class Profil extends StatefulWidget {
       required this.sana,
       required this.server,
       required this.verification,
-      required this.userHashId});
+      required this.userHashId,
+      required this.email});
   int userId;
-  String? fullname, sana, number, jins, davlat, server, userHashId;
+  String? fullname, sana, number, jins, davlat, server, userHashId, email;
   bool? verification;
   @override
   State<Profil> createState() => _ProfilState();
@@ -212,35 +213,37 @@ class _ProfilState extends State<Profil> {
                 jins: widget.jins ?? "Yuklanmoqda",
                 mamlakat: widget.davlat ?? "Yuklanmoqda",
                 server: widget.server ?? "Yuklanmoqda",
+                email: widget.email ?? "",
               ),
             ),
           ],
         ),
         Positioned(
-            left: 48.w,
+            left: 75.w,
+            right: 75.w,
             bottom: 15.h,
-            child: InkWell(
-              onTap: () => Navigator.of(context).push(PageTransition(
-                  child: Profile_settings(
-                      userId: widget.userId, userHashId: widget.userHashId),
-                  type: PageTransitionType.bottomToTop)),
-              child: Container(
-                width: 281.w,
-                height: 46.h,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: const Color(0xff8B0000)),
-                child: Center(
-                  child: Text(
-                    "Tahrirlash",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14.sp,
-                        letterSpacing: 1.5),
-                  ),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF8B0000),
+                minimumSize: const Size(250, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(21),
                 ),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(PageTransition(
+                    child: Profile_settings(
+                        userId: widget.userId, userHashId: widget.userHashId),
+                    type: PageTransitionType.bottomToTop));
+              },
+              child: Text(
+                "Tahrirlash",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14.sp,
+                    letterSpacing: 1.5),
               ),
             )),
       ],

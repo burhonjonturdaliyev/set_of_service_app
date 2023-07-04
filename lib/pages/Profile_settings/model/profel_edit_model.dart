@@ -12,15 +12,15 @@ class profel_edit {
   String? visitCountry;
 
   profel_edit(
-      {this.currentCountry,
-      this.dateOfBirth,
-      this.email,
-      this.firstName,
-      this.genderType,
-      this.id,
-      this.lastName,
-      this.userHashId,
-      this.visitCountry});
+      {required this.currentCountry,
+      required this.dateOfBirth,
+      required this.email,
+      required this.firstName,
+      required this.genderType,
+      required this.id,
+      required this.lastName,
+      required this.userHashId,
+      required this.visitCountry});
 
   profel_edit.fromJson(Map<String, dynamic> json) {
     currentCountry = json['currentCountry'];

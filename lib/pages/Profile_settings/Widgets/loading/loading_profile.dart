@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, must_be_immutable, use_build_context_synchronously, avoid_print
+// ignore_for_file: camel_case_types, must_be_immutable, use_build_context_synchronously, avoid_print, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,6 +60,25 @@ class _Loading_profileState extends State<Loading_profile> {
       // Request error
       print('Error updating data: $e');
     }
+  }
+
+  upload_server() {
+    upload(profel_edit(
+        currentCountry: widget.visitCountry,
+        dateOfBirth: widget.sana,
+        email: widget.email,
+        firstName: widget.firstname,
+        genderType: widget.gender,
+        id: widget.userId,
+        lastName: widget.lastname,
+        userHashId: widget.userHashId,
+        visitCountry: widget.server));
+  }
+
+  @override
+  void initState() {
+    upload_server();
+    super.initState();
   }
 
   @override

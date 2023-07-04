@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, unnecessary_null_comparison, avoid_print, duplicate_ignore
+// ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, unnecessary_null_comparison, avoid_print, duplicate_ignore, null_check_always_fails
 
 import 'dart:async';
 import 'dart:convert';
@@ -55,6 +55,7 @@ class _Loading_pageState extends State<Loading_page> {
     logindata?.setString('dateOfBirth', datalar!.user!.dateOfBirth!);
     logindata?.setBool('verification', datalar!.user!.verification!);
     logindata?.setString('userHashId', datalar!.user!.userHashId!);
+    logindata?.setString('email', datalar!.user!.email!);
   }
 
   Future<void> login(login_model model) async {
@@ -90,6 +91,7 @@ class _Loading_pageState extends State<Loading_page> {
           print(e);
         }
       } else {
+        print(response.statusCode);
         // ignore: use_build_context_synchronously
         Navigator.pop(context);
         showDialog(

@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, use_build_context_synchronously, duplicate_ignore, must_be_immutable, avoid_print, unnecessary_null_comparison
+// ignore_for_file: camel_case_types, use_build_context_synchronously, duplicate_ignore, must_be_immutable, avoid_print, unnecessary_null_comparison, null_check_always_fails
 
 import 'dart:async';
 import 'dart:convert';
@@ -136,6 +136,7 @@ class _Loading_page_registrState extends State<Loading_page_registr> {
     logindata?.setString('dateOfBirth', datalar!.user!.dateOfBirth!);
     logindata?.setBool('verification', datalar!.user!.verification!);
     logindata?.setString('userHashId', datalar!.user!.userHashId!);
+    logindata?.setString('email', datalar!.user!.email!);
   }
 
   registr() {
