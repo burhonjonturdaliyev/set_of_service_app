@@ -1,5 +1,7 @@
 // ignore_for_file: camel_case_types, unnecessary_question_mark, prefer_void_to_null
 
+import 'dart:ffi';
+
 class user_model {
   User? user;
 
@@ -23,19 +25,17 @@ class User {
   String? firstName;
   String? lastName;
   String? phoneNumber;
-  Null? confirmPassword;
-  String? password;
   String? currentCountry;
   String? visitCountry;
-  Null? residentCardId;
+  String? residentCardId;
   String? balanceChargeCode;
   double? balance;
-  Null? email;
+  String? email;
   String? accountType;
   String? genderType;
   String? dateOfBirth;
-  Null? avatarPhoto;
-  Null? deviceId;
+  String? avatarPhoto;
+  String? deviceId;
   bool? verification;
   String? userHashId;
 
@@ -44,8 +44,6 @@ class User {
       this.firstName,
       this.lastName,
       this.phoneNumber,
-      this.confirmPassword,
-      this.password,
       this.currentCountry,
       this.visitCountry,
       this.residentCardId,
@@ -65,8 +63,6 @@ class User {
     firstName = json['firstName'];
     lastName = json['lastName'];
     phoneNumber = json['phoneNumber'];
-    confirmPassword = json['confirmPassword'];
-    password = json['password'];
     currentCountry = json['currentCountry'];
     visitCountry = json['visitCountry'];
     residentCardId = json['residentCardId'];
@@ -88,8 +84,6 @@ class User {
     data['firstName'] = firstName;
     data['lastName'] = lastName;
     data['phoneNumber'] = phoneNumber;
-    data['confirmPassword'] = confirmPassword;
-    data['password'] = password;
     data['currentCountry'] = currentCountry;
     data['visitCountry'] = visitCountry;
     data['residentCardId'] = residentCardId;

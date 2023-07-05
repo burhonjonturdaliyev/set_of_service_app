@@ -34,7 +34,7 @@ class _Loading_pageState extends State<Loading_page> {
   late Timer _timer;
   SharedPreferences? logindata;
   void checkingTime() {
-    const duration = Duration(seconds: 30);
+    const duration = Duration(seconds: 25000);
     _timer = Timer(duration, () {
       Navigator.pop(context);
       dialog(); // Call the dialog function outside the timer callback
@@ -60,7 +60,8 @@ class _Loading_pageState extends State<Loading_page> {
   Future<void> login(login_model model) async {
     try {
       final response = await http.post(
-        Uri.parse(Api().login),
+        Uri.parse(
+            'https://fcc9-2405-1201-9186-c000-8516-fa83-ba5c-d9ce.ngrok-free.app/sos/api/auth/login'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(model.toJson()),
       );
@@ -71,6 +72,7 @@ class _Loading_pageState extends State<Loading_page> {
           if (body != null && body.isNotEmpty) {
             final json = jsonDecode(body);
             final result = json['object'];
+            print(result);
             final data = user_model.fromJson(result);
             setState(() {
               datalar = data;
@@ -139,6 +141,7 @@ class _Loading_pageState extends State<Loading_page> {
         );
         // ignore: avoid_print
         print('API request failed with status code: ${response.statusCode}');
+        print('Body: ${response.body}');
       }
     } catch (e) {
       return;

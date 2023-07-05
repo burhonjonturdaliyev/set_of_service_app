@@ -58,3 +58,7 @@ class MyApp extends StatelessWidget {
 
 //problems
 //after editing profile login code changed 
+
+//new tasks
+//connect to api => id card and profel edit
+//forget password telfon nomer 
