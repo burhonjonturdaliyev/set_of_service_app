@@ -6,9 +6,7 @@ class login_model {
   String? macAddress;
 
   login_model(
-      {required this.password,
-      required this.phoneNumber,
-      required this.macAddress});
+      {required this.password, required this.phoneNumber, this.macAddress});
 
   login_model.fromJson(Map<String, dynamic> json) {
     password = json['password'];

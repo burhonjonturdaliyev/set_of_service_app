@@ -62,17 +62,20 @@ class _Profile_settingsState extends State<Profile_settings> {
             image: DecorationImage(
                 image: AssetImage("image/back_screen.png"),
                 fit: BoxFit.fitHeight)),
-        child: Profile_setting_widgets(
-          userHashId: widget.userHashId,
-          userId: widget.userId,
-          ism: ism,
-          familya: familya,
-          email: email,
-          sana: sana,
-          server: myServer,
-          jinsi: jinsi,
-          jinslari: jinslari,
-          davlatlar: countryNames,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ProfileSettingWidgets(
+            userHashId: widget.userHashId,
+            userId: widget.userId,
+            ism: ism,
+            familya: familya,
+            email: email,
+            sana: sana,
+            server: myServer,
+            jinsi: jinsi,
+            jinslari: jinslari,
+            davlatlar: countryNames,
+          ),
         ),
       ),
     );
