@@ -34,7 +34,7 @@ class _Loading_pageState extends State<Loading_page> {
   late Timer _timer;
   SharedPreferences? logindata;
   void checkingTime() {
-    const duration = Duration(seconds: 25000);
+    const duration = Duration(seconds: 30);
     _timer = Timer(duration, () {
       Navigator.pop(context);
       dialog(); // Call the dialog function outside the timer callback
@@ -48,20 +48,21 @@ class _Loading_pageState extends State<Loading_page> {
     logindata?.setString('firstName', datalar!.user!.firstName!);
     logindata?.setString('lastName', datalar!.user!.lastName!);
     logindata?.setString('phoneNumber', datalar!.user!.phoneNumber!);
-    logindata?.setString('currentCountry', datalar!.user!.currentCountry!);
+    logindata?.setString(
+        'currentCountry', datalar!.user!.currentCountry ?? "Uzbekistan");
     logindata?.setString('visitCountry', datalar!.user!.visitCountry!);
     logindata?.setString('accountType', datalar!.user!.accountType!);
     logindata?.setString('genderType', datalar!.user!.genderType!);
     logindata?.setString('dateOfBirth', datalar!.user!.dateOfBirth!);
     logindata?.setBool('verification', datalar!.user!.verification!);
     logindata?.setString('userHashId', datalar!.user!.userHashId!);
+    logindata?.setString('email', datalar!.user!.email ?? "Mavjud emas");
   }
 
   Future<void> login(login_model model) async {
     try {
       final response = await http.post(
-        Uri.parse(
-            'https://fcc9-2405-1201-9186-c000-8516-fa83-ba5c-d9ce.ngrok-free.app/sos/api/auth/login'),
+        Uri.parse(Api().login),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(model.toJson()),
       );
@@ -72,7 +73,7 @@ class _Loading_pageState extends State<Loading_page> {
           if (body != null && body.isNotEmpty) {
             final json = jsonDecode(body);
             final result = json['object'];
-            print(result);
+
             final data = user_model.fromJson(result);
             setState(() {
               datalar = data;

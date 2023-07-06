@@ -213,7 +213,7 @@ class _ProfilState extends State<Profil> {
                 jins: widget.jins ?? "Yuklanmoqda",
                 mamlakat: widget.davlat ?? "Yuklanmoqda",
                 server: widget.server ?? "Yuklanmoqda",
-                email: widget.email ?? "",
+                email: widget.email ?? "Yuklanmoqda",
               ),
             ),
           ],

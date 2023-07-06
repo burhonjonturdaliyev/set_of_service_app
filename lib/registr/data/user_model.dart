@@ -1,7 +1,5 @@
 // ignore_for_file: camel_case_types, unnecessary_question_mark, prefer_void_to_null
 
-import 'dart:ffi';
-
 class user_model {
   User? user;
 

@@ -73,56 +73,53 @@ class _Information_section_profileState
         SizedBox(
           height: 10.h,
         ),
-        Visibility(
-          visible: widget.email != null || widget.email != '' ? false : true,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.mail_outline_outlined,
-                    color: Colors.black87,
-                    size: 33.w,
-                  ),
-                  SizedBox(
-                    width: 19.w,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Elektron pochta:",
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontFamily: "Inter",
-                                fontWeight: FontWeight.w700,
-                                color: const Color.fromARGB(143, 0, 0, 0)),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            widget.email,
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                fontFamily: "Inter",
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-            ],
-          ),
+        Column(
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.mail_outline_outlined,
+                  color: Colors.black87,
+                  size: 33.w,
+                ),
+                SizedBox(
+                  width: 19.w,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "Elektron pochta:",
+                          style: TextStyle(
+                              fontSize: 12.sp,
+                              fontFamily: "Inter",
+                              fontWeight: FontWeight.w700,
+                              color: const Color.fromARGB(143, 0, 0, 0)),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          widget.email,
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              fontFamily: "Inter",
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black),
+                        )
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+          ],
         ),
         Row(
           children: [
