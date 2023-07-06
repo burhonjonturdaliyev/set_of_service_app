@@ -16,7 +16,7 @@ class finished_elon extends StatefulWidget {
   // ignore: non_constant_identifier_names
   finished_elon({super.key, required this.info_List});
   // ignore: non_constant_identifier_names
-  List<nofoods_model> info_List;
+  List<shop_no_foods_model> info_List;
 
   @override
   State<finished_elon> createState() => _finished_elonState();
@@ -50,28 +50,29 @@ class _finished_elonState extends State<finished_elon> {
   }
 
 // ignore: non_constant_identifier_names
-  Widget builder_items(
-      BuildContext context, nofoods_model model, Colour_models colourModels) {
+  Widget builder_items(BuildContext context, shop_no_foods_model model,
+      Colour_models colourModels) {
     return Padding(
       padding: EdgeInsets.only(bottom: 8.0.h),
       child: InkWell(
         onTap: () => Navigator.of(context).push(PageTransition(
             child: Additional_done_page(
-                id: model.id,
-                title: model.title,
-                subTitle: model.subTitle,
-                juridical: model.juridical,
-                serviceFee: model.serviceFee,
-                phoneNumber: model.phoneNumber,
-                telegramUrl: model.telegramUrl,
-                officeAddress: model.officeAddress,
-                active: model.active,
-                serviceCategoryId: model.serviceCategoryId,
-                businessProfileId: model.businessProfileId,
-                totalStarts: model.totalStarts,
-                totalViews: model.totalViews,
-                createdAt: model.createdAt,
-                updatedAt: model.updatedAt),
+                id: model.id!,
+                title: model.title!,
+                description: model.description ?? "",
+                delivered: model.delivered ?? false,
+                address: model.address!,
+                telegramUrl: model.telegramUrl!,
+                phoneNumber: model.phoneNumber!,
+                mobileNumber: model.mobileNumber!,
+                shopType: model.shopType!,
+                objectPhotos: model.objectPhotos,
+                createdAt: model.createdAt!,
+                updatedAt: model.updatedAt!,
+                viewsCount: model.viewsCount ?? 0,
+                starts: model.starts ?? 0,
+                businessProfileId: model.businessProfileId ?? 0,
+                userId: model.userId!),
             type: PageTransitionType.rightToLeftWithFade,
             curve: Curves.easeInBack,
             childCurrent: const Oziq_ovqat())),
@@ -108,9 +109,9 @@ class _finished_elonState extends State<finished_elon> {
                       children: [
                         Expanded(
                             child: Text(
-                          ((model.title).length <= 30)
-                              ? model.title
-                              : model.title.substring(0, 30),
+                          model.title!.length > 30
+                              ? model.title!.substring(0, 30)
+                              : model.title!,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               color: Colors.black,
@@ -124,7 +125,7 @@ class _finished_elonState extends State<finished_elon> {
                         IconButton(
                             onPressed: () {
                               FlutterPhoneDirectCaller.callNumber(
-                                  model.phoneNumber);
+                                  model.phoneNumber!);
                             },
                             icon: Icon(
                               Icons.call,
@@ -143,7 +144,7 @@ class _finished_elonState extends State<finished_elon> {
                             Row(
                               children: [
                                 Text(
-                                  "Yetkazib berish: Yo'q",
+                                  "Yetkazib berish: ${model.delivered! ? "Ha" : "Yo'q"}",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Inter",
@@ -158,7 +159,7 @@ class _finished_elonState extends State<finished_elon> {
                             Row(
                               children: [
                                 Text(
-                                  "Manzil: ${model.officeAddress}",
+                                  "Manzil: ${model.address}",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Inter",
@@ -171,7 +172,7 @@ class _finished_elonState extends State<finished_elon> {
                         ),
                         IconButton(
                             onPressed: () {
-                              _urlLauncher(model.telegramUrl);
+                              _urlLauncher(model.telegramUrl!);
                             },
                             icon: Icon(
                               Icons.telegram_outlined,
@@ -184,7 +185,7 @@ class _finished_elonState extends State<finished_elon> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 2.w),
+                padding: EdgeInsets.symmetric(horizontal: 4.w),
                 child: Row(
                   children: [
                     Expanded(
@@ -201,6 +202,7 @@ class _finished_elonState extends State<finished_elon> {
                   right: 7.w,
                 ),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.calendar_month_outlined,
@@ -211,7 +213,8 @@ class _finished_elonState extends State<finished_elon> {
                       width: 3.w,
                     ),
                     Text(
-                      DateFormat("dd.MM.yyyy").format(model.createdAt),
+                      DateFormat("dd.MM.yyyy")
+                          .format(DateTime.parse(model.createdAt!)),
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 8.sp,
@@ -230,7 +233,7 @@ class _finished_elonState extends State<finished_elon> {
                       width: 3.w,
                     ),
                     Text(
-                      "${model.totalViews}",
+                      model.viewsCount.toString(),
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 8.sp,
@@ -249,23 +252,12 @@ class _finished_elonState extends State<finished_elon> {
                       width: 3.w,
                     ),
                     Text(
-                      "${model.totalStarts}",
+                      model.starts.toString(),
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 8.sp,
                           color: Colors.black,
                           fontWeight: FontWeight.w400),
-                    ),
-                    SizedBox(
-                      width: 45.w,
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.keyboard_arrow_down_outlined,
-                        size: 16.w,
-                        color: Colors.black,
-                      ),
                     ),
                   ],
                 ),

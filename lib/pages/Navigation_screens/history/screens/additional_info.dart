@@ -6,41 +6,40 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Additional_done_page extends StatefulWidget {
-  Additional_done_page({
-    super.key,
-    required this.id,
-    required this.title,
-    required this.subTitle,
-    required this.juridical,
-    required this.serviceFee,
-    required this.phoneNumber,
-    required this.telegramUrl,
-    required this.officeAddress,
-    required this.active,
-    this.serviceCategoryEntity,
-    required this.serviceCategoryId,
-    required this.businessProfileId,
-    required this.totalStarts,
-    required this.totalViews,
-    required this.createdAt,
-    required this.updatedAt,
-  });
-  late final int id;
-  late final String title;
-  late final String subTitle;
-  late final bool juridical;
-  late final String serviceFee;
-  late final String phoneNumber;
-  late final String telegramUrl;
-  late final String officeAddress;
-  late final bool active;
-  late final void serviceCategoryEntity;
-  late final int serviceCategoryId;
-  late final int businessProfileId;
-  late final double totalStarts;
-  late final int totalViews;
-  late final DateTime createdAt;
-  late final DateTime updatedAt;
+  Additional_done_page(
+      {super.key,
+      required this.id,
+      required this.title,
+      required this.description,
+      required this.delivered,
+      required this.address,
+      required this.telegramUrl,
+      required this.phoneNumber,
+      required this.mobileNumber,
+      required this.shopType,
+      required this.objectPhotos,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.viewsCount,
+      required this.starts,
+      required this.businessProfileId,
+      required this.userId});
+  int id;
+  String title;
+  String description;
+  bool delivered;
+  String address;
+  String telegramUrl;
+  String phoneNumber;
+  String mobileNumber;
+  String shopType;
+  List<dynamic>? objectPhotos;
+  String createdAt;
+  String updatedAt;
+  int viewsCount;
+  double starts;
+  int businessProfileId;
+  int userId;
 
   @override
   State<Additional_done_page> createState() => _Additional_done_pageState();
@@ -208,7 +207,7 @@ class _Additional_done_pageState extends State<Additional_done_page> {
                     children: [
                       Expanded(
                         child: Text(
-                          widget.subTitle,
+                          widget.description,
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "Inter",
@@ -255,7 +254,7 @@ class _Additional_done_pageState extends State<Additional_done_page> {
                     children: [
                       Expanded(
                         child: Text(
-                          widget.officeAddress,
+                          widget.address,
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "Inter",

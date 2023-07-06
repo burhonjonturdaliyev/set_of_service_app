@@ -60,21 +60,22 @@ class _List_builderState extends State<List_builder> {
       child: InkWell(
         onTap: () => Navigator.of(context).push(PageTransition(
             child: Additional_page_shop(
-                id: model.id,
-                title: model.title,
-                subTitle: model.subTitle,
-                juridical: model.juridical,
-                serviceFee: model.serviceFee,
-                phoneNumber: model.phoneNumber,
-                telegramUrl: model.telegramUrl,
-                officeAddress: model.officeAddress,
-                active: model.active,
-                serviceCategoryId: model.serviceCategoryId,
-                businessProfileId: model.businessProfileId,
-                totalStarts: model.totalStarts,
-                totalViews: model.totalViews,
-                createdAt: model.createdAt,
-                updatedAt: model.updatedAt),
+                id: model.id!,
+                title: model.title!,
+                description: model.description ?? "",
+                delivered: model.delivered ?? false,
+                address: model.address!,
+                telegramUrl: model.telegramUrl!,
+                phoneNumber: model.phoneNumber!,
+                mobileNumber: model.mobileNumber!,
+                shopType: model.shopType!,
+                objectPhotos: model.objectPhotos,
+                createdAt: model.createdAt!,
+                updatedAt: model.updatedAt!,
+                viewsCount: model.viewsCount ?? 0,
+                starts: model.starts ?? 0,
+                businessProfileId: model.businessProfileId ?? 0,
+                userId: model.userId!),
             type: PageTransitionType.rightToLeftWithFade,
             curve: Curves.easeInBack,
             childCurrent: const Oziq_ovqat())),
@@ -111,9 +112,9 @@ class _List_builderState extends State<List_builder> {
                       children: [
                         Expanded(
                             child: Text(
-                          ((model.title).length <= 30)
-                              ? model.title
-                              : model.title.substring(0, 30),
+                          model.title!.length > 30
+                              ? model.title!.substring(0, 30)
+                              : model.title!,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               color: Colors.black,
@@ -127,7 +128,7 @@ class _List_builderState extends State<List_builder> {
                         IconButton(
                             onPressed: () {
                               FlutterPhoneDirectCaller.callNumber(
-                                  model.phoneNumber);
+                                  model.phoneNumber!);
                             },
                             icon: Icon(
                               Icons.call,
@@ -146,7 +147,7 @@ class _List_builderState extends State<List_builder> {
                             Row(
                               children: [
                                 Text(
-                                  "Yetkazib berish: Yo'q",
+                                  "Yetkazib berish: ${model.delivered! ? "Ha" : "Yo'q"}",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Inter",
@@ -161,7 +162,7 @@ class _List_builderState extends State<List_builder> {
                             Row(
                               children: [
                                 Text(
-                                  "Manzil: ${model.officeAddress}",
+                                  "Manzil: ${model.address}",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Inter",
@@ -174,7 +175,7 @@ class _List_builderState extends State<List_builder> {
                         ),
                         IconButton(
                             onPressed: () {
-                              _urlLauncher(model.telegramUrl);
+                              _urlLauncher(model.telegramUrl!);
                             },
                             icon: Icon(
                               Icons.telegram_outlined,
@@ -215,7 +216,8 @@ class _List_builderState extends State<List_builder> {
                       width: 3.w,
                     ),
                     Text(
-                      DateFormat("dd.MM.yyyy").format(model.createdAt),
+                      DateFormat("dd.MM.yyyy")
+                          .format(DateTime.parse(model.createdAt!)),
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 8.sp,
@@ -234,7 +236,7 @@ class _List_builderState extends State<List_builder> {
                       width: 3.w,
                     ),
                     Text(
-                      model.totalViews.toString(),
+                      model.viewsCount.toString(),
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 8.sp,
@@ -253,7 +255,7 @@ class _List_builderState extends State<List_builder> {
                       width: 3.w,
                     ),
                     Text(
-                      model.totalStarts.toString(),
+                      model.starts.toString(),
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 8.sp,

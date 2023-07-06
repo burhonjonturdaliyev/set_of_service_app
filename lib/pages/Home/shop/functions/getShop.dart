@@ -26,19 +26,20 @@ class foodsGet {
           return foods_model(
               id: e['id'],
               title: e['title'],
-              subTitle: e['subTitle'],
-              juridical: e['juridical'],
-              serviceFee: e['serviceFee'],
-              phoneNumber: e['phoneNumber'],
+              description: e['description'],
+              delivered: e['delivered'],
+              address: e['address'],
               telegramUrl: e['telegramUrl'],
-              officeAddress: e['officeAddress'],
-              active: e['active'],
-              serviceCategoryId: e['serviceCategoryId'],
-              businessProfileId: e['businessProfileId'],
-              totalStarts: e['totalStarts'],
-              totalViews: e['totalViews'],
+              phoneNumber: e['phoneNumber'],
+              mobileNumber: e['mobileNumber'],
+              shopType: e['shopType'],
+              objectPhotos: e['objectPhotos'],
               createdAt: e['createdAt'],
-              updatedAt: e['updatedAt']);
+              updatedAt: e['updatedAt'],
+              viewsCount: e['viewsCount'],
+              starts: e['starts'],
+              businessProfileId: e['businessProfileId'],
+              userId: e['userId']);
         }).toList();
         return datas;
       } else if (response.statusCode == 403) {
@@ -59,7 +60,7 @@ class foodsGet {
 }
 
 class noFoodsGet {
-  Future<List<nofoods_model>?> fetchNoFood(BuildContext context) async {
+  Future<List<shop_no_foods_model>?> fetchNoFood(BuildContext context) async {
     try {
       final uri = Api().nofoods;
       final url = Uri.parse(uri);
@@ -69,22 +70,23 @@ class noFoodsGet {
         final json = jsonDecode(body);
         final result = json['object'] as List<dynamic>;
         final datas = result.map((e) {
-          return nofoods_model(
+          return shop_no_foods_model(
               id: e['id'],
               title: e['title'],
-              subTitle: e['subTitle'],
-              juridical: e['juridical'],
-              serviceFee: e['serviceFee'],
-              phoneNumber: e['phoneNumber'],
+              description: e['description'],
+              delivered: e['delivered'],
+              address: e['address'],
               telegramUrl: e['telegramUrl'],
-              officeAddress: e['officeAddress'],
-              active: e['active'],
-              serviceCategoryId: e['serviceCategoryId'],
-              businessProfileId: e['businessProfileId'],
-              totalStarts: e['totalStarts'],
-              totalViews: e['totalViews'],
+              phoneNumber: e['phoneNumber'],
+              mobileNumber: e['mobileNumber'],
+              shopType: e['shopType'],
+              objectPhotos: e['objectPhotos'],
               createdAt: e['createdAt'],
-              updatedAt: e['updatedAt']);
+              updatedAt: e['updatedAt'],
+              viewsCount: e['viewsCount'],
+              starts: e['starts'],
+              businessProfileId: e['businessProfileId'],
+              userId: e['userId']);
         }).toList();
         return datas;
       } else if (response.statusCode == 403) {

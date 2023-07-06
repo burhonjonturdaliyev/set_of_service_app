@@ -14,7 +14,7 @@ class Elon_monitoring extends StatefulWidget {
 }
 
 class _Elon_monitoringState extends State<Elon_monitoring> {
-  List<nofoods_model> models = [];
+  List<shop_no_foods_model> models = [];
   @override
   Widget build(BuildContext context) {
     return Padding(

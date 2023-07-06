@@ -19,25 +19,7 @@ class Nooziq_ovqat extends StatefulWidget {
 }
 
 class _Nooziq_ovqatState extends State<Nooziq_ovqat> {
-  List<nofoods_model> models = [
-    nofoods_model(
-        id: 1,
-        title: "Buxara",
-        subTitle:
-            "Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir Nimadir",
-        juridical: false,
-        serviceFee: "2000 yena",
-        phoneNumber: "+998906936594",
-        telegramUrl: "https://t.me/TBA_003",
-        officeAddress: "Tokyo Ganjao Nimadir 232",
-        active: true,
-        serviceCategoryId: 1,
-        businessProfileId: 1,
-        totalStarts: 5.0,
-        totalViews: 1230,
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now())
-  ];
+  List<shop_no_foods_model> models = [];
 
   Future<void> getNoFoods() async {
     final responce = await noFoodsGet().fetchNoFood(context);
@@ -50,7 +32,7 @@ class _Nooziq_ovqatState extends State<Nooziq_ovqat> {
 
   @override
   void initState() {
-    // getNoFoods();
+    getNoFoods();
     super.initState();
   }
 

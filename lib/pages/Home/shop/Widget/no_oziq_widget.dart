@@ -16,7 +16,7 @@ class no_List_builder extends StatefulWidget {
   // ignore: non_constant_identifier_names
   no_List_builder({super.key, required this.models});
   // ignore: non_constant_identifier_names
-  List<nofoods_model> models;
+  List<shop_no_foods_model> models;
 
   @override
   State<no_List_builder> createState() => _no_List_builderState();
@@ -54,28 +54,29 @@ class _no_List_builderState extends State<no_List_builder> {
   }
 
 // ignore: non_constant_identifier_names
-  Widget builder_items(
-      BuildContext context, nofoods_model model, Colour_models colourModels) {
+  Widget builder_items(BuildContext context, shop_no_foods_model model,
+      Colour_models colourModels) {
     return Padding(
       padding: EdgeInsets.only(bottom: 8.0.h),
       child: InkWell(
         onTap: () => Navigator.of(context).push(PageTransition(
             child: Additional_page_shop(
-                id: model.id,
-                title: model.title,
-                subTitle: model.subTitle,
-                juridical: model.juridical,
-                serviceFee: model.serviceFee,
-                phoneNumber: model.phoneNumber,
-                telegramUrl: model.telegramUrl,
-                officeAddress: model.officeAddress,
-                active: model.active,
-                serviceCategoryId: model.serviceCategoryId,
-                businessProfileId: model.businessProfileId,
-                totalStarts: model.totalStarts,
-                totalViews: model.totalViews,
-                createdAt: model.createdAt,
-                updatedAt: model.updatedAt),
+                id: model.id!,
+                title: model.title!,
+                description: model.description ?? "",
+                delivered: model.delivered ?? false,
+                address: model.address!,
+                telegramUrl: model.telegramUrl!,
+                phoneNumber: model.phoneNumber!,
+                mobileNumber: model.mobileNumber!,
+                shopType: model.shopType!,
+                objectPhotos: model.objectPhotos,
+                createdAt: model.createdAt ?? DateTime.now().toString(),
+                updatedAt: model.updatedAt ?? DateTime.now().toString(),
+                viewsCount: model.viewsCount ?? 0,
+                starts: model.starts ?? 0,
+                businessProfileId: model.businessProfileId ?? 0,
+                userId: model.userId!),
             type: PageTransitionType.rightToLeftWithFade,
             curve: Curves.easeInBack,
             childCurrent: const Oziq_ovqat())),
@@ -112,9 +113,9 @@ class _no_List_builderState extends State<no_List_builder> {
                       children: [
                         Expanded(
                             child: Text(
-                          ((model.title).length <= 30)
-                              ? model.title
-                              : model.title.substring(0, 30),
+                          model.title!.length > 30
+                              ? model.title!.substring(0, 30)
+                              : model.title!,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               color: Colors.black,
@@ -128,7 +129,7 @@ class _no_List_builderState extends State<no_List_builder> {
                         IconButton(
                             onPressed: () {
                               FlutterPhoneDirectCaller.callNumber(
-                                  model.phoneNumber);
+                                  model.phoneNumber!);
                             },
                             icon: Icon(
                               Icons.call,
@@ -147,7 +148,7 @@ class _no_List_builderState extends State<no_List_builder> {
                             Row(
                               children: [
                                 Text(
-                                  "Yetkazib berish: Yo'q",
+                                  "Yetkazib berish: ${model.delivered! ? "Ha" : "Yo'q"}",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Inter",
@@ -162,7 +163,7 @@ class _no_List_builderState extends State<no_List_builder> {
                             Row(
                               children: [
                                 Text(
-                                  "Manzil: ${model.officeAddress}",
+                                  "Manzil: ${model.address}",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Inter",
@@ -175,7 +176,7 @@ class _no_List_builderState extends State<no_List_builder> {
                         ),
                         IconButton(
                             onPressed: () {
-                              _urlLauncher(model.telegramUrl);
+                              _urlLauncher(model.telegramUrl!);
                             },
                             icon: Icon(
                               Icons.telegram_outlined,
@@ -216,7 +217,8 @@ class _no_List_builderState extends State<no_List_builder> {
                       width: 3.w,
                     ),
                     Text(
-                      DateFormat("dd.MM.yyyy").format(model.createdAt),
+                      DateFormat("dd.MM.yyyy")
+                          .format(DateTime.parse(model.createdAt!)),
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 8.sp,
@@ -235,7 +237,7 @@ class _no_List_builderState extends State<no_List_builder> {
                       width: 3.w,
                     ),
                     Text(
-                      model.totalViews.toString(),
+                      model.viewsCount.toString(),
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 8.sp,
@@ -254,7 +256,7 @@ class _no_List_builderState extends State<no_List_builder> {
                       width: 3.w,
                     ),
                     Text(
-                      model.totalStarts.toString(),
+                      model.starts.toString(),
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 8.sp,
