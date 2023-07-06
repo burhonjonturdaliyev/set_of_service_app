@@ -1,15 +1,23 @@
-// ignore_for_file: must_be_immutable, file_names, camel_case_types, non_constant_identifier_names, duplicate_ignore
+// ignore_for_file: must_be_immutable, file_names, camel_case_types, non_constant_identifier_names, duplicate_ignore, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
+import 'package:set_of_service_app/registr/loading/loading_screen_reset.dart';
 
-class Reset_password extends StatelessWidget {
-  Reset_password({super.key});
+class Reset_password extends StatefulWidget {
+  const Reset_password({super.key});
+
+  @override
+  State<Reset_password> createState() => _Reset_passwordState();
+}
+
+class _Reset_passwordState extends State<Reset_password> {
   final _formkey = GlobalKey<FormState>();
+  int textstype = 1;
   TextEditingController number = TextEditingController();
+  String? fullnumber;
 
   @override
   Widget build(BuildContext context) {
@@ -128,31 +136,72 @@ class Reset_password extends StatelessWidget {
               children: [
                 Expanded(
                     child: TextFormField(
-                  controller: number,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Telefon nomerni kiriting";
+                      return "Iltimos telefon raqamni kiriting!";
                     }
-                    if (value.length < 9) {
-                      return "Iltimos oxirigacha kiriting";
-                    }
-                    if (value != "906936594") {
-                      return "Bazada bunday raqam mavjud emas, iltimos ro'yxatdan o'ting";
+                    if (value.length < 12) {
+                      return "Telefon raqamni to'liq kiriting!";
                     }
                     return null;
                   },
+                  controller: number,
+                  onChanged: (value) {
+                    String pattern;
+                    if (value.startsWith('9')) {
+                      pattern = '+XXX-XX-XXX-XX-XX';
+                    } else if (value.startsWith('8')) {
+                      pattern = '+XX-XX-XXXX-XXXX';
+                      setState(() {
+                        textstype = 2;
+                      });
+                    } else {
+                      pattern = '+XXX-XX-XXX-XX-XX';
+                    }
+
+                    var textIndex = 0;
+                    var maskedText = '';
+
+                    for (var patternIndex = 0;
+                        patternIndex < pattern.length;
+                        patternIndex++) {
+                      if (pattern[patternIndex] == 'X') {
+                        if (textIndex < value.length) {
+                          maskedText += value[textIndex];
+                          textIndex++;
+                        }
+                      } else {
+                        maskedText += pattern[patternIndex];
+                      }
+
+                      if (textIndex >= value.length) {
+                        break;
+                      }
+                    }
+
+                    setState(() {
+                      number.value = TextEditingValue(
+                        text: maskedText,
+                        selection:
+                            TextSelection.collapsed(offset: maskedText.length),
+                      );
+                    });
+                  },
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(9)
+                    textstype == 1
+                        ? LengthLimitingTextInputFormatter(12)
+                        : LengthLimitingTextInputFormatter(12)
                   ],
+                  buildCounter: (
+                    BuildContext context, {
+                    required int currentLength,
+                    required bool isFocused,
+                    required int? maxLength,
+                  }) =>
+                      null,
+                  cursorColor: Colors.red,
                   decoration: InputDecoration(
-                      prefix: const Text(
-                        "+998 ",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "Inter",
-                        ),
-                      ),
                       prefixIcon: Icon(
                         Icons.phone_iphone_outlined,
                         size: 25.w,
@@ -176,79 +225,14 @@ class Reset_password extends StatelessWidget {
                     borderRadius: BorderRadius.circular(21),
                   ),
                 ),
-                onPressed: () {
+                onPressed: () async {
                   if (_formkey.currentState!.validate()) {
-                    showDialog(
-                      context: context,
-                      builder: (context) => ClipRRect(
-                        borderRadius: BorderRadius.circular(21.w),
-                        child: AlertDialog(
-                          backgroundColor: const Color(0xFF8B0000),
-                          content: SizedBox(
-                            height: 218.h,
-                            width: 348.w,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 54.h,
-                                ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        "Parol telefon raqamingizga yuborildi",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: "Inter",
-                                            fontWeight: FontWeight.w900,
-                                            fontSize: 16.sp),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 65.h,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        PageTransition(
-                                            child: Sign_in(),
-                                            type: PageTransitionType.fade),
-                                        (route) => false);
-                                  },
-                                  child: Container(
-                                    width: 220.w,
-                                    height: 37.h,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(21.w),
-                                        border: Border.all(
-                                            width: 3,
-                                            color: const Color.fromARGB(
-                                                70, 241, 237, 237)),
-                                        color: const Color.fromARGB(
-                                            208, 252, 210, 210)),
-                                    child: Center(
-                                      child: Text(
-                                        "ok".toUpperCase(),
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w900,
-                                            fontSize: 25.sp,
-                                            fontFamily: "Inter"),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
+                    await adding();
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: loading_reset(number: fullnumber!),
+                            type: PageTransitionType.fade));
                   }
                 },
                 child: Text(
@@ -286,5 +270,9 @@ class Reset_password extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  adding() {
+    fullnumber = number.text.replaceAll("-", "");
   }
 }

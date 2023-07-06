@@ -195,7 +195,7 @@ class _addItemsState extends State<addItems> {
       // Check the response
       if (response.statusCode == 200 || response.statusCode == 201) {
         print(responseBody);
-        final json = jsonDecode(responseBody);
+
         // Request successful
         print('Upload successful');
       } else if (response.statusCode == 403) {

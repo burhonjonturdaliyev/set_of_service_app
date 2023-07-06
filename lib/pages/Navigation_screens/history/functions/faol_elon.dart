@@ -52,7 +52,6 @@ class elon_no_foods {
         print(response.statusCode);
       }
     } catch (e) {
-      // ignore: avoid_print
       print(e);
     }
     return null;

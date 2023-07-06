@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/const_api/api.dart';
 import 'package:set_of_service_app/pages/Profile_settings/model/getting_user_info.dart';

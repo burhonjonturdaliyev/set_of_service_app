@@ -181,7 +181,7 @@ class _DesignSignInState extends State<DesignSignIn> {
                       return "Iltimos telefon raqamni kiriting!";
                     }
                     if (value.length < 12) {
-                      return "Parol mos kelmadi!";
+                      return 'Telefon raqamni to\'liq kiriting!';
                     }
                     return null;
                   },
@@ -196,7 +196,7 @@ class _DesignSignInState extends State<DesignSignIn> {
                         textstype = 2;
                       });
                     } else {
-                      pattern = '+XXX-XX-XXX-XX-XX'; // Default pattern
+                      pattern = '+XXX-XX-XXX-XX-XX';
                     }
 
                     var textIndex = 0;
@@ -301,7 +301,7 @@ class _DesignSignInState extends State<DesignSignIn> {
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).push(PageTransition(
-                          child: Reset_password(),
+                          child: const Reset_password(),
                           type: PageTransitionType.fade));
                       widget.number.clear();
                       widget.password.clear();

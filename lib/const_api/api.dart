@@ -14,6 +14,7 @@ class Api {
   String step1 = '${serverApi().url}/sos/api/auth/step_1';
   String step2 = '${serverApi().url}/sos/api/auth/step_2';
   String step3 = '${serverApi().url}/sos/api/auth/step_3/register';
+  String forget_password = '${serverApi().url}/sos/api/auth/forget/password/';
   String globalChatGet = "${serverApi().url}/sos/api/chat/all";
   String globatChatPut = '${serverApi().url}/sos/api/chat';
   String elon = "${serverApi().url}/sos/api/shop";
