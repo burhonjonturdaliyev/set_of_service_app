@@ -41,7 +41,18 @@ class _Elon_monitoringState extends State<Elon_monitoring> {
         left: 12.w,
         right: 12.w,
       ),
-      child: finished_elon(info_List: models),
+      child: models.isEmpty
+          ? Center(
+              child: Text(
+                "Siz hali e'lon joylamadingiz!",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: "inter",
+                  fontSize: 16.sp,
+                ),
+              ),
+            )
+          : finished_elon(info_List: models),
     );
   }
 }

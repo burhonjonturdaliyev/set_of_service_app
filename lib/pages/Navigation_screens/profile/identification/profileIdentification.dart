@@ -1,19 +1,17 @@
 // ignore_for_file: deprecated_member_use, duplicate_ignore, non_constant_identifier_names, file_names, invalid_use_of_visible_for_testing_member, use_build_context_synchronously, avoid_print, must_be_immutable, depend_on_referenced_packages
 
-import 'dart:typed_data';
-import 'package:dio/dio.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:page_transition/page_transition.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-
+import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/screen/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../const_api/api.dart';
-import '../../../../registr/sign_in/Sign_in_screen.dart';
 
 class IdentificationProfel extends StatefulWidget {
   IdentificationProfel({super.key, required this.userHashId});
@@ -58,8 +56,7 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                       IconButton(
                           onPressed: () {
                             Navigator.pop(context);
-                            upload(context, manba, ImageSource.gallery,
-                                widget.userHashId!);
+                            getImage(ImageSource.gallery);
                           },
                           icon: Icon(
                             Icons.photo_outlined,
@@ -81,9 +78,7 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
                       IconButton(
                           onPressed: () {
                             Navigator.pop(context);
-
-                            upload(context, manba, ImageSource.camera,
-                                widget.userHashId!);
+                            getImage(ImageSource.camera);
                           },
                           icon: Icon(
                             Icons.camera_alt_outlined,
@@ -109,100 +104,59 @@ class _IdentificationProfelState extends State<IdentificationProfel> {
     );
   }
 
-  upload(BuildContext context, XFile? pickedImage, ImageSource source,
-      String? userHashId) async {
-    try {
-      var dio = Dio();
-      pickedImage = await ImagePicker().pickImage(source: source);
-
-      if (pickedImage != null) {
-        File file = File(pickedImage.path);
-
-        // Compress the image
-        Uint8List? compressedImage =
-            await FlutterImageCompress.compressWithFile(
-          file.path,
-          quality: 85, // Adjust the compression quality as needed
-        );
-
-        // Create a temporary compressed file
-        File compressedFile = await File('${file.path}.compressed')
-            .writeAsBytes(compressedImage!);
-
-        String filename = compressedFile.path.split('/').last;
-        String filePath = compressedFile.path;
-        FormData data = FormData();
-        data.fields.add(const MapEntry('title', 'id-card'));
-        data.files.add(MapEntry(
-            'image', MultipartFile.fromFileSync(filePath, filename: filename)));
-        var response = await dio.post(
-          '${Api().id_card}${widget.userHashId}',
-          data: data,
-          onSendProgress: (send, total) {
-            double sendMB = send / (1024 * 1024); // Convert bytes to megabytes
-            double totalMB =
-                total / (1024 * 1024); // Convert bytes to megabytes
-            print("Sent: ${sendMB.toStringAsFixed(2)} MB");
-            print("Total: ${totalMB.toStringAsFixed(2)} MB");
-            print(
-                "Yuklangan foizi: ${((send * 100) / total).toStringAsFixed(0)} %");
-          },
-        );
-        if (response.statusCode == 200 || response.statusCode == 201) {
-          logindata?.setBool('verification', true);
-          print("Uploaded");
-          print(response.statusMessage);
-        } else if (response.statusCode == 403) {
-          logindata?.clear();
-          Navigator.pushAndRemoveUntil(
-              context,
-              PageTransition(child: Sign_in(), type: PageTransitionType.fade),
-              (route) => false);
-        } else {
-          print(
-              "Internetda yoki serverda muammo bor. Kod: ${response.statusCode}");
-        }
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future uploadImage(String? userHashId) async {
-    final pickedFile = await _picker.pickImage(
-      source: ImageSource.camera,
-      imageQuality: 80,
-    );
-    if (pickedFile != null) {
-      var request = http.MultipartRequest("POST",
-          Uri.parse("${Api().id_card}${widget.userHashId}")); //add text fields
-      request.fields["text_field"] =
-          'id-card'; //create multipart using filepath, string or bytes
-      var pic = await http.MultipartFile.fromPath(
-          "file_field", pickedFile.path); //add multipart to request
-      request.files.add(pic);
-      var response = await request.send(); //Get the response from the server
-      var responseData = await response.stream.toBytes();
-      var responseString = String.fromCharCodes(responseData);
-      print(responseString);
-      print(response.statusCode);
-    }
-  }
-
-  uploadCamera() async {
-    // ignore: deprecated_member_use
-    var pickedFile =
-        await ImagePicker.platform.getImage(source: ImageSource.camera);
+  Future getImage(source) async {
+    final pickedFile =
+        await _picker.pickImage(source: source, imageQuality: 75);
 
     if (pickedFile != null) {
       setState(() {
         image = File(pickedFile.path);
       });
-    } else {}
+      uploadImage();
+    } else {
+      print("Image is not selected");
+    }
+  }
+
+  void uploadImage() async {
+    // Create the request
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('${Api().id_card}${widget.userHashId}'));
+
+    // Set the parameter
+    request.files
+        .add(await http.MultipartFile.fromPath('id-card', image!.path));
+    print(request.url.path);
+    print(request.fields.toString());
+    print(request.files[0].filename);
+    try {
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+      final json = jsonDecode(responseBody);
+      if (response.statusCode == 200) {
+        print('Upload successful');
+        print(json['object']);
+        print(json['message']);
+        gettingLogindata();
+        Navigator.pushAndRemoveUntil(
+            context,
+            PageTransition(
+                child: Home_Page(selectedIndex: 4),
+                type: PageTransitionType.fade),
+            (route) => false);
+      } else {
+        print('Upload failed with status: ${response.statusCode}');
+        print(json['object']);
+        print(json['message']);
+      }
+    } catch (e) {
+      print('Upload failed with error: $e');
+    }
   }
 
   gettingLogindata() async {
     logindata = await SharedPreferences.getInstance();
+    logindata!.setBool('verification', true);
   }
 
   @override

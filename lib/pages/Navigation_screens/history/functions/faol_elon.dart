@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, avoid_print
 
 import 'dart:convert';
 
@@ -13,7 +13,7 @@ class elon_no_foods {
   Future<List<shop_no_foods_model>?> fetchNoFood(
       BuildContext context, int userId) async {
     try {
-      final uri = '${Api().faol_elon}6';
+      final uri = '${Api().faol_elon}$userId';
       final url = Uri.parse(uri);
       final response = await http.get(url);
       if (response.statusCode == 200 || response.statusCode == 201) {
