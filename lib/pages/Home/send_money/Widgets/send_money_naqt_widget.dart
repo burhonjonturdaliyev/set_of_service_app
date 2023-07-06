@@ -122,7 +122,7 @@ class _Send_money_naqt_widgetState extends State<Send_money_naqt_widget> {
                           Row(
                             children: [
                               Text(
-                                "Yetkazib berish: Yo'q",
+                                "Xizmat haqqi: ${model.serviceFee}",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: "Inter",
@@ -137,7 +137,7 @@ class _Send_money_naqt_widgetState extends State<Send_money_naqt_widget> {
                           Row(
                             children: [
                               Text(
-                                "Manzil: ${model.officeAddress}",
+                                "Manzil: ${model.officeAddress.length > 45 ? model.officeAddress.substring(0, 45) : model.officeAddress} ...",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: "Inter",

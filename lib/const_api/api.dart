@@ -18,14 +18,15 @@ class Api {
   String globalChatGet = "${serverApi().url}/sos/api/chat/all";
   String globatChatPut = '${serverApi().url}/sos/api/chat';
   String elon = "${serverApi().url}/sos/api/shop";
-  String homeAgency = "${serverApi().url}/sos/api/service/home-agent";
-  String vizaSupport = "${serverApi().url}/sos/api/service/visa-support";
-  String sendMoneyCash = "${serverApi().url}/sos/api/service/send-money-cash";
-  String jobAgent = "${serverApi().url}/sos/api/service/job-agent";
-  String pochta = "${serverApi().url}/sos/api/service/postal-service-agent";
+  String homeAgency = "${serverApi().url}/sos/api/service/all/home-agent";
+  String vizaSupport = "${serverApi().url}/sos/api/service/all/visa-support";
+  String sendMoneyCash =
+      "${serverApi().url}/sos/api/service/all/send-money-cash";
+  String jobAgent = "${serverApi().url}/sos/api/service/all/job-agent";
+  String pochta = "${serverApi().url}/sos/api/service/all/postal-service-agent";
   String supportGet = "${serverApi().url}/sos/api/support-chat/get-all-dialog/";
   String supportPut = "${serverApi().url}/sos/api/support-chat";
-  String airTicket = '${serverApi().url}/sos/api/service/avia-ticket-agent';
+  String airTicket = '${serverApi().url}/sos/api/service/all/avia-ticket-agent';
   String getComment = '${serverApi().url}/sos/api/info-comment/';
   String putComment = '${serverApi().url}/sos/api/info-comment';
   String putAirticket = '${serverApi().url}/sos/api/air_ticket/info';

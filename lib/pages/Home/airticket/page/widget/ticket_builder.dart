@@ -109,9 +109,9 @@ class _Ticket_builderState extends State<Ticket_builder> {
                     children: [
                       Expanded(
                           child: Text(
-                        ((model.title).length <= 30)
-                            ? model.title
-                            : model.title.substring(0, 30),
+                        model.title!.length > 30
+                            ? model.title!.substring(0, 30)
+                            : model.title!,
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             color: Colors.black,
@@ -125,7 +125,7 @@ class _Ticket_builderState extends State<Ticket_builder> {
                       IconButton(
                           onPressed: () {
                             FlutterPhoneDirectCaller.callNumber(
-                                model.phoneNumber);
+                                model.phoneNumber!);
                           },
                           icon: Icon(
                             Icons.call,
@@ -144,7 +144,7 @@ class _Ticket_builderState extends State<Ticket_builder> {
                           Row(
                             children: [
                               Text(
-                                "Yetkazib berish: Yo'q",
+                                "Bilet narxi: ${model.serviceFee}",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: "Inter",
@@ -159,7 +159,7 @@ class _Ticket_builderState extends State<Ticket_builder> {
                           Row(
                             children: [
                               Text(
-                                "Manzil: ${model.officeAddress}",
+                                "Manzil: ${model.officeAddress!.length > 45 ? model.officeAddress!.substring(0, 45) : model.officeAddress} ...",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: "Inter",
@@ -172,7 +172,7 @@ class _Ticket_builderState extends State<Ticket_builder> {
                       ),
                       IconButton(
                           onPressed: () {
-                            _urlLauncher(model.telegramUrl);
+                            _urlLauncher(model.telegramUrl!);
                           },
                           icon: Icon(
                             Icons.telegram_outlined,
@@ -213,7 +213,8 @@ class _Ticket_builderState extends State<Ticket_builder> {
                     width: 3.w,
                   ),
                   Text(
-                    DateFormat("dd.MM.yyyy").format(model.createdAt),
+                    DateFormat("dd.MM.yyyy")
+                        .format(DateTime.parse(model.createdAt!)),
                     style: TextStyle(
                         fontFamily: "Inter",
                         fontSize: 8.sp,
@@ -267,228 +268,3 @@ class _Ticket_builderState extends State<Ticket_builder> {
     );
   }
 }
-
-
-// Widget new_design(BuildContext context, AirticketModels api) {
-//   return Padding(
-//     padding: EdgeInsets.only(top: 5.h, left: 5.w, right: 5.w),
-//     child: Container(
-//       width: 353.w,
-//       height: 200.h,
-//       decoration: BoxDecoration(
-//           border: Border.all(width: 1.w, color: Colors.black26),
-//           color: Colors.white,
-//           borderRadius: BorderRadius.circular(33.w)),
-//       child: Stack(children: [
-//         Positioned(
-//             top: 0,
-//             left: 0,
-//             bottom: 0,
-//             child: Container(
-//               height: 150.h,
-//               width: 80.w,
-//               decoration: BoxDecoration(
-//                   color: const Color(0xFF8B0000),
-//                   borderRadius: BorderRadius.only(
-//                     bottomLeft: Radius.circular(33.w),
-//                     topLeft: Radius.circular(33.w),
-//                   )),
-//             )),
-//         Positioned(
-//             top: 10,
-//             left: 100.w,
-//             right: 20.w,
-//             child: Column(
-//               children: [
-//                 Row(
-//                   children: [
-//                     Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           "Qayerdan",
-//                           style: TextStyle(
-//                               color: Colors.black54,
-//                               fontFamily: "Inter",
-//                               fontWeight: FontWeight.w600,
-//                               fontSize: 16.sp),
-//                         ),
-//                         Text(api.fromTo!,
-//                             style: TextStyle(
-//                                 color: Colors.black,
-//                                 fontFamily: "Inter",
-//                                 fontWeight: FontWeight.bold,
-//                                 fontSize: 16.sp))
-//                       ],
-//                     ),
-//                     Icon(
-//                       Icons.arrow_right_alt_outlined,
-//                       color: Colors.black,
-//                       size: 46.w,
-//                     ),
-//                     Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           "Qayerga",
-//                           style: TextStyle(
-//                               color: Colors.black54,
-//                               fontFamily: "Inter",
-//                               fontWeight: FontWeight.w600,
-//                               fontSize: 16.sp),
-//                         ),
-//                         Text(api.whereTo!,
-//                             style: TextStyle(
-//                                 color: Colors.black,
-//                                 fontFamily: "Inter",
-//                                 fontWeight: FontWeight.bold,
-//                                 fontSize: 16.sp))
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//                 const Divider(
-//                   thickness: 1,
-//                   color: Colors.grey,
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Row(
-//                           children: [
-//                             Text(
-//                               "Ketish",
-//                               style: TextStyle(
-//                                   color: Colors.black54,
-//                                   fontFamily: "Inter",
-//                                   fontWeight: FontWeight.w600,
-//                                   fontSize: 14.sp),
-//                             ),
-//                             SizedBox(
-//                               width: 3.w,
-//                             ),
-//                             Transform.rotate(
-//                               angle: 13,
-//                               child: Icon(
-//                                 Icons.airplanemode_active_outlined,
-//                                 color: Colors.amber[900],
-//                                 size: 20.w,
-//                               ),
-//                             )
-//                           ],
-//                         ),
-//                         SizedBox(
-//                           height: 5.h,
-//                         ),
-//                         Text(
-//                           DateFormat("hh:mm a").format(api.toGoDate),
-//                           style: TextStyle(
-//                               color: Colors.amber[900],
-//                               fontFamily: "Inter",
-//                               fontWeight: FontWeight.bold,
-//                               fontSize: 14.sp),
-//                         ),
-//                         SizedBox(
-//                           height: 5.h,
-//                         ),
-//                         Text(DateFormat("EEEE, dd-MMMM").format(api.toGoDate)),
-//                       ],
-//                     ),
-//                     Container(
-//                       width: 1.w,
-//                       height: 70.h,
-//                       decoration: BoxDecoration(
-//                           color: Colors.black,
-//                           borderRadius: BorderRadius.circular(100.w)),
-//                     ),
-//                     Column(
-//                       crossAxisAlignment: CrossAxisAlignment.end,
-//                       children: [
-//                         Row(
-//                           children: [
-//                             Transform.rotate(
-//                               angle: -35,
-//                               child: Icon(
-//                                 Icons.airplanemode_active_outlined,
-//                                 color: Colors.green[900],
-//                                 size: 20.w,
-//                               ),
-//                             ),
-//                             Text(
-//                               "Qaytish",
-//                               style: TextStyle(
-//                                   color: Colors.black54,
-//                                   fontFamily: "Inter",
-//                                   fontWeight: FontWeight.w600,
-//                                   fontSize: 14.sp),
-//                             ),
-//                           ],
-//                         ),
-//                         SizedBox(
-//                           height: 5.h,
-//                         ),
-//                         Text(
-//                           DateFormat("hh:mm a").format(api.returnDate),
-//                           style: TextStyle(
-//                               color: Colors.green[900],
-//                               fontFamily: "Inter",
-//                               fontWeight: FontWeight.bold,
-//                               fontSize: 14.sp),
-//                         ),
-//                         SizedBox(
-//                           height: 5.h,
-//                         ),
-//                         Text(
-//                             DateFormat("EEEE, dd-MMMM").format(api.returnDate)),
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//                 const Divider(
-//                   thickness: 1,
-//                   color: Colors.grey,
-//                 ),
-//                 Row(
-//                   children: [
-//                     RichText(
-//                         text: TextSpan(children: [
-//                       TextSpan(
-//                           text: "Yo'lovchilar soni: ",
-//                           style: TextStyle(
-//                               color: Colors.black54,
-//                               fontFamily: "Inter",
-//                               fontWeight: FontWeight.w600,
-//                               fontSize: 14.sp)),
-//                       TextSpan(
-//                           text: api.passenger.toString(),
-//                           style: TextStyle(
-//                               color: Colors.black,
-//                               fontFamily: "Inter",
-//                               fontWeight: FontWeight.bold,
-//                               fontSize: 14.sp))
-//                     ])),
-//                   ],
-//                 ),
-//               ],
-//             )),
-//         Positioned(
-//             top: api.id == 10 ? 90.h : 80.h,
-//             left: -15.w,
-//             child: Transform(
-//                 alignment: Alignment.center,
-//                 transform: Matrix4.rotationZ(-0.5 * pi),
-//                 child: Text(
-//                   "Avia bilet ${api.id}",
-//                   style: TextStyle(
-//                       color: Colors.white,
-//                       fontFamily: "Inter",
-//                       fontWeight: FontWeight.bold,
-//                       fontSize: api.id == 10 ? 18.sp : 23.sp),
-//                 )))
-//       ]),
-//     ),
-//   );
-// }
