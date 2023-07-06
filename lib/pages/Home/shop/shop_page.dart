@@ -6,8 +6,9 @@ import 'package:set_of_service_app/pages/Home/shop/shop_pages/nooziq_ovqat.dart'
 import 'package:set_of_service_app/pages/Home/shop/shop_pages/oziq_ovqat.dart';
 
 class Shop extends StatefulWidget {
-  Shop({super.key, required this.userId});
+  Shop({super.key, required this.userId, this.selectedIndex});
   int userId;
+  int? selectedIndex;
 
   @override
   State<Shop> createState() => _ShopState();
@@ -20,7 +21,10 @@ class _ShopState extends State<Shop> {
   @override
   void initState() {
     super.initState();
-    controller = PageController();
+    setState(() {
+      selectedIndex = widget.selectedIndex ?? 0;
+    });
+    controller = PageController(initialPage: selectedIndex);
   }
 
   @override

@@ -147,7 +147,7 @@ class _List_builderState extends State<List_builder> {
                             Row(
                               children: [
                                 Text(
-                                  "Yetkazib berish: ${model.delivered! ? "Ha" : "Yo'q"}",
+                                  "Yetkazib berish: ${model.delivered! ? "Bor" : "Yo'q"}",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Inter",

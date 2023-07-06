@@ -26,6 +26,7 @@ class _Nooziq_ovqatState extends State<Nooziq_ovqat> {
     if (mounted) {
       setState(() {
         responce != null ? models = responce : null;
+        models.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
       });
     }
   }

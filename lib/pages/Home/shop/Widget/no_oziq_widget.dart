@@ -148,7 +148,7 @@ class _no_List_builderState extends State<no_List_builder> {
                             Row(
                               children: [
                                 Text(
-                                  "Yetkazib berish: ${model.delivered! ? "Ha" : "Yo'q"}",
+                                  "Yetkazib berish: ${model.delivered! ? "Bor" : "Yo'q"}",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Inter",

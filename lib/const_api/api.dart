@@ -7,7 +7,7 @@ class serverApi {
 
 class Api {
   String countInfo = '${serverApi().url}/api/county/global/info/count';
-  String uploadImage = '${serverApi().url}/api/file/upload';
+  String uploadImage = '${serverApi().url}/sos/api/file/upload/shop-photos';
   String foods = '${serverApi().url}/sos/api/shop/foods';
   String nofoods = '${serverApi().url}/sos/api/shop/no-foods';
   String login = '${serverApi().url}/sos/api/auth/login';
@@ -33,4 +33,5 @@ class Api {
   String upload_avatar = '${serverApi().url}/sos/api/file/upload/avatar';
   String edit_user = '${serverApi().url}/sos/api/user';
   String faol_elon = '${serverApi().url}/sos/api/shop/my/no-food/by-user/';
+  String view_image = '${serverApi().url}/sos/api/file/view/one/photo/';
 }

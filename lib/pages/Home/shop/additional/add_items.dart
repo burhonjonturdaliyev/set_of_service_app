@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, non_constant_identifier_names, must_be_immutable, invalid_use_of_visible_for_testing_member, avoid_print, unnecessary_null_comparison
+// ignore_for_file: camel_case_types, non_constant_identifier_names, must_be_immutable, invalid_use_of_visible_for_testing_member, avoid_print, unnecessary_null_comparison, use_build_context_synchronously
 
 import 'dart:convert';
 import 'dart:io';
@@ -8,7 +8,11 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:set_of_service_app/pages/Home/shop/functions/upload_image.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:set_of_service_app/pages/Home/shop/model/image_model.dart';
+import 'package:set_of_service_app/pages/Home/shop/shop_page.dart';
+import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../const_api/api.dart';
@@ -43,8 +47,10 @@ class _addItemsState extends State<addItems> {
 
   int radioButton = 1;
   bool checkBox = false;
+  final _picker = ImagePicker();
+  shop_image? imagelar;
 
-  List<int> index_photo = [];
+  List<String> index_photo = [];
 
   elon_joylash() async {
     await telegram_link();
@@ -58,7 +64,7 @@ class _addItemsState extends State<addItems> {
         "shopType": "FOODS",
         "telegramUrl": telegramLinki,
         "title": mavzu.text,
-        "userId": 3,
+        "userId": widget.userId,
       };
 
       var response = await http.post(
@@ -69,6 +75,11 @@ class _addItemsState extends State<addItems> {
 
       if (response.statusCode == 200) {
         print("Succesfully");
+        Navigator.pushReplacement(
+            context,
+            PageTransition(
+                child: Shop(userId: widget.userId, selectedIndex: 1),
+                type: PageTransitionType.fade));
       } else {
         print(response.statusCode);
         return showDialog(
@@ -152,6 +163,59 @@ class _addItemsState extends State<addItems> {
     }
   }
 
+  Future gettingImage(image, source) async {
+    final pickedFile =
+        await _picker.pickImage(source: source, imageQuality: 75);
+
+    if (pickedFile != null) {
+      setState(() {
+        image = File(pickedFile.path);
+      });
+      uploadImage(image);
+    } else {
+      print("Image is not selected");
+    }
+  }
+
+  void uploadImage(image) async {
+    // Create the request
+    var request = http.MultipartRequest('POST', Uri.parse(Api().uploadImage));
+
+    // Set the parameter
+    request.files
+        .add(await http.MultipartFile.fromPath('shop-photos', image!.path));
+    print(request.url.path);
+    print(request.fields.toString());
+    print(request.files[0].filename);
+    try {
+      // Send the request
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+
+      // Check the response
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print(responseBody);
+        final json = jsonDecode(responseBody);
+        // Request successful
+        print('Upload successful');
+      } else if (response.statusCode == 403) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Sign_in(),
+            ),
+            (route) => false);
+      } else {
+        // Request failed
+        print('Upload failed with status: ${response.statusCode}');
+        print(responseBody);
+      }
+    } catch (e) {
+      // Request error
+      print('Upload failed with error: $e');
+    }
+  }
+
   telegram_link() {
     if (telegram != null) {
       setState(() {
@@ -199,8 +263,8 @@ class _addItemsState extends State<addItems> {
                     children: [
                       IconButton(
                           onPressed: () {
-                            images_upload().upload(context, manba,
-                                ImageSource.gallery, index_photo);
+                            Navigator.pop(context);
+                            gettingImage(manba, ImageSource.gallery);
                           },
                           icon: Icon(
                             Icons.photo_outlined,
@@ -221,9 +285,8 @@ class _addItemsState extends State<addItems> {
                     children: [
                       IconButton(
                           onPressed: () {
-                            images_upload().upload(context, manba,
-                                ImageSource.camera, index_photo);
                             Navigator.pop(context);
+                            gettingImage(manba, ImageSource.camera);
                           },
                           icon: Icon(
                             Icons.camera_alt_outlined,
@@ -262,7 +325,7 @@ class _addItemsState extends State<addItems> {
               borderRadius: BorderRadius.circular(5.w)),
           child: manba != null
               ? Image.file(
-                  manba,
+                  File(manba.path).absolute,
                   fit: BoxFit.cover,
                 )
               : Center(
