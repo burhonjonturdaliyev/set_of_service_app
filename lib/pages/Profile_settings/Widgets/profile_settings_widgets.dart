@@ -1,16 +1,18 @@
-// ignore_for_file: must_be_immutable, unnecessary_null_comparison, avoid_print
+// ignore_for_file: must_be_immutable, unnecessary_null_comparison, avoid_print, use_build_context_synchronously, unused_local_variable, non_constant_identifier_names
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/const_api/api.dart';
+import 'package:set_of_service_app/pages/Profile_settings/model/getting_user_info.dart';
+import 'package:set_of_service_app/pages/Profile_settings/model/profel_edit_model.dart';
+import 'package:set_of_service_app/screen/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileSettingWidgets extends StatefulWidget {
   TextEditingController ism;
@@ -43,74 +45,155 @@ class ProfileSettingWidgets extends StatefulWidget {
 }
 
 class _ProfileSettingWidgetsState extends State<ProfileSettingWidgets> {
-  File? image;
-  final _picker = ImagePicker();
+  // File? image;
+  // final _picker = ImagePicker();
   bool showSpinner = false;
-  List<int> profile = [];
+  String? tugilgankuni;
+  getting_info_user? user_info;
+  SharedPreferences? logindata;
 
-  Future getImage() async {
-    final pickedFile = await _picker.pickImage(
-      source: ImageSource.camera,
-      imageQuality: 75,
-    );
+  // Future getImage() async {
+  //   final pickedFile = await _picker.pickImage(
+  //     source: ImageSource.camera,
+  //     imageQuality: 75,
+  //   );
 
-    if (pickedFile != null) {
-      setState(() {
-        image = File(pickedFile.path);
-      });
-      await uploadImage();
-    } else {
-      print("Image is not selected");
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       image = File(pickedFile.path);
+  //     });
+  //     await uploadImage();
+  //   } else {
+  //     print("Image is not selected");
+  //   }
+  // }
+
+  // Future<void> uploadImage() async {
+  //   // Create the request
+  //   var request = http.MultipartRequest('POST', Uri.parse(Api().upload_avatar));
+
+  //   // Set the parameter
+  //   request.files.add(
+  //     await http.MultipartFile.fromPath('avatar', image!.path),
+  //   );
+
+  //   try {
+  //     setState(() {
+  //       showSpinner = true;
+  //     });
+
+  //     // Send the request
+  //     var response = await request.send();
+
+  //     // Check the response
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       setState(() {
+  //         showSpinner = false;
+  //       });
+
+  //       // Request successful
+  //       print('Upload successful');
+  //       var responseBody = await response.stream.bytesToString();
+  //       final json = jsonDecode(responseBody);
+  //       final data = avatar.fromJson(json);
+  //       setState(() {
+  //         rasm_avatar = data;
+  //       });
+  //       if (rasm_avatar != null) {
+  //         setState(() {
+  //           profile = rasm_avatar!.object as List<String>?;
+  //         });
+  //       }
+  //     } else if (response.statusCode == 403) {
+  //       Navigator.pushAndRemoveUntil(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => Sign_in(),
+  //           ),
+  //           (route) => false);
+  //     } else {
+  //       setState(() {
+  //         showSpinner = false;
+  //       });
+  //       // Request failed
+  //       print('Upload failed with status: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     setState(() {
+  //       showSpinner = false;
+  //     });
+  //   }
+  // }
+
+  Future<void> login(profel_edit model) async {
+    try {
+      final response = await http.put(
+        Uri.parse(Api().edit_user),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(model.toJson()),
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final body = response.body;
+        final json = jsonDecode(body);
+        final data = getting_info_user.fromJson(json);
+        setState(() {
+          user_info = data;
+          showSpinner = false;
+        });
+        await getSharedPreferencesInstance();
+        Navigator.pushAndRemoveUntil(
+            context,
+            PageTransition(
+                child: Home_Page(selectedIndex: 4),
+                type: PageTransitionType.fade),
+            (route) => false);
+      } else {}
+
+      print(response.statusCode);
+    } catch (e) {
+      print(e);
     }
   }
 
-  Future<void> uploadImage() async {
-    // Create the request
-    var request = http.MultipartRequest('POST', Uri.parse(Api().upload_avatar));
+  upload() async {
+    login(profel_edit(
+        dateOfBirth: tugilgankuni,
+        email: widget.email.text,
+        firstName: widget.ism.text,
+        genderType: widget.jinsi,
+        id: widget.userId,
+        lastName: widget.familya.text,
+        userHashId: widget.userHashId,
+        visitCountry: widget.server));
+  }
 
-    // Set the parameter
-    request.files.add(
-      await http.MultipartFile.fromPath('avatar', image!.path),
+  getSharedPreferencesInstance() async {
+    logindata = await SharedPreferences.getInstance();
+    logindata?.setString('firstName', user_info!.object!.firstName!);
+    logindata?.setString('lastName', user_info!.object!.lastName!);
+    logindata?.setString('visitCountry', user_info!.object!.visitCountry!);
+    logindata?.setString('genderType', user_info!.object!.genderType!);
+    logindata?.setString('dateOfBirth', user_info!.object!.dateOfBirth!);
+    logindata?.setString('userHashId', user_info!.object!.userHashId!);
+    logindata?.setString('email', user_info!.object!.email ?? "Mavjud emas");
+  }
+
+  DropdownButton<String> server() {
+    return DropdownButton<String>(
+      value: widget.server,
+      elevation: 16,
+      onChanged: (newValue) {
+        setState(() {
+          widget.jinsi = widget.jinsi;
+        });
+      },
+      items: widget.davlatlar.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
-
-    try {
-      setState(() {
-        showSpinner = true;
-      });
-
-      // Send the request
-      var response = await request.send();
-
-      // Check the response
-      if (response.statusCode == 200) {
-        setState(() {
-          showSpinner = false;
-        });
-
-        // Request successful
-        print('Upload successful');
-        var responseBody = await response.stream.bytesToString();
-        final json = jsonDecode(responseBody);
-        print(json['object']);
-        var rasm = json['object'] as String;
-        var number = int.parse(rasm);
-        setState(() {
-          profile.add(number);
-        });
-
-        print('List uzunligi: ${profile.length}');
-      } else {
-        setState(() {
-          showSpinner = false;
-        });
-        // Request failed
-        print('Upload failed with status: ${response.statusCode}');
-      }
-    } catch (e) {
-      setState(() {
-        showSpinner = false;
-      });
-    }
   }
 
   DropdownButton<String> choose() {
@@ -141,6 +224,7 @@ class _ProfileSettingWidgetsState extends State<ProfileSettingWidgets> {
       onConfirm: (date) {
         setState(() {
           widget.sana.text = DateFormat('yyyy-MM-dd').format(date);
+          tugilgankuni = DateFormat('yyyy-MM-dd HH:mm').format(date);
         });
       },
       currentTime: DateTime.now(),
@@ -152,8 +236,7 @@ class _ProfileSettingWidgetsState extends State<ProfileSettingWidgets> {
     if (widget.ism.text.isEmpty ||
         widget.familya.text.isEmpty ||
         widget.email.text.isEmpty ||
-        widget.sana.text.isEmpty ||
-        widget.jinsi.isEmpty) {
+        widget.sana.text.isEmpty) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -190,139 +273,81 @@ class _ProfileSettingWidgetsState extends State<ProfileSettingWidgets> {
         },
       );
     } else {
-      setState(() {
-        showSpinner = true;
-      });
-
-      // Prepare the request body
-      var body = {
-        'id': widget.userId.toString(),
-        'hash_id': widget.userHashId,
-        'ism': widget.ism.text,
-        'familya': widget.familya.text,
-        'email': widget.email.text,
-        'sana': widget.sana.text,
-        'jinsi': widget.jinsi,
-        'avatar': profile.isEmpty ? null : profile.last,
-        'davlat': widget.server,
-      };
-
-      try {
-        // Send the request
-        var response = await http.post(
-          Uri.parse(Api().edit_user),
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          body: body,
-        );
-
-        if (response.statusCode == 200) {
-          setState(() {
-            showSpinner = false;
-          });
-          print(response.statusCode);
-        } else {
-          setState(() {
-            showSpinner = false;
-          });
-          print('Request failed with status: ${response.statusCode}');
-        }
-      } catch (e) {
-        setState(() {
-          showSpinner = false;
-        });
-        print(e);
-      }
+      upload();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: showSpinner,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Center(
-            child: GestureDetector(
-              onTap: getImage,
-              child: CircleAvatar(
-                backgroundColor: const Color(0xff8B0000),
-                radius: 60.w,
-                backgroundImage: image != null ? FileImage(image!) : null,
-                child: image == null
-                    ? const Icon(
-                        Icons.camera_alt,
-                        size: 60,
-                        color: Colors.white,
-                      )
-                    : null,
-              ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        TextField(
+          controller: widget.ism,
+          decoration: const InputDecoration(
+            labelText: 'Ismingizni kiriting:',
+          ),
+        ),
+        TextField(
+          controller: widget.familya,
+          decoration: const InputDecoration(
+            labelText: 'Familiyangizni kiriting:',
+          ),
+        ),
+        TextField(
+          controller: widget.email,
+          decoration: const InputDecoration(
+            labelText: 'Emailingizni kiriting:',
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            const Text('Qaysi davlat serverini ishlatmoqchisiz:'),
+            server(),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              widget.sana.text == ''
+                  ? 'Tug\'ilgan sanangizni tanlang:'
+                  : widget.sana.text,
+            ),
+            IconButton(
+              onPressed: () => kalendar(context),
+              icon: const Icon(Icons.date_range),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            const Text('Jinsingizni tanlang:'),
+            choose(),
+          ],
+        ),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF8B0000),
+            maximumSize: const Size(250, 50),
+            minimumSize: const Size(250, 50),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(21),
             ),
           ),
-          Expanded(
-            flex: 3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                TextField(
-                  controller: widget.ism,
-                  decoration: const InputDecoration(
-                    labelText: 'Ismingizni kiriting',
-                  ),
-                ),
-                TextField(
-                  controller: widget.familya,
-                  decoration: const InputDecoration(
-                    labelText: 'Familiyangizni kiriting',
-                  ),
-                ),
-                TextField(
-                  controller: widget.email,
-                  decoration: const InputDecoration(
-                    labelText: 'Emailingizni kiriting',
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      widget.sana.text == ''
-                          ? 'Sanangizni tanlang'
-                          : widget.sana.text,
-                    ),
-                    IconButton(
-                      onPressed: () => kalendar(context),
-                      icon: const Icon(Icons.date_range),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    const Text('Jinsingizni tanlang'),
-                    choose(),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF8B0000),
-                    maximumSize: const Size(250, 50),
-                    minimumSize: const Size(250, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(21),
-                    ),
-                  ),
-                  onPressed: () {
-                    saveForm();
-                  },
-                  child: const Text('Saqlash'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+          onPressed: () {
+            setState(() {
+              showSpinner = false;
+            });
+            saveForm();
+          },
+          child: const Text('Saqlash'),
+        ),
+      ],
     );
   }
 }

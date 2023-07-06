@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types
 
 class profel_edit {
-  String? currentCountry;
   String? dateOfBirth;
   String? email;
   String? firstName;
@@ -12,8 +11,7 @@ class profel_edit {
   String? visitCountry;
 
   profel_edit(
-      {required this.currentCountry,
-      required this.dateOfBirth,
+      {required this.dateOfBirth,
       required this.email,
       required this.firstName,
       required this.genderType,
@@ -23,7 +21,6 @@ class profel_edit {
       required this.visitCountry});
 
   profel_edit.fromJson(Map<String, dynamic> json) {
-    currentCountry = json['currentCountry'];
     dateOfBirth = json['dateOfBirth'];
     email = json['email'];
     firstName = json['firstName'];
@@ -36,7 +33,6 @@ class profel_edit {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['currentCountry'] = currentCountry;
     data['dateOfBirth'] = dateOfBirth;
     data['email'] = email;
     data['firstName'] = firstName;

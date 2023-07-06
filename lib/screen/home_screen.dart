@@ -17,10 +17,8 @@ import '../pages/Navigation_screens/chat/functions/getMessage.dart';
 import '../pages/Navigation_screens/chat/models/chat_models.dart';
 
 class Home_Page extends StatefulWidget {
-  Home_Page({
-    super.key,
-  });
-
+  Home_Page({super.key, this.selectedIndex});
+  int? selectedIndex;
   @override
   // ignore: no_logic_in_create_state
   _Home_PageState createState() => _Home_PageState();
@@ -29,7 +27,6 @@ class Home_Page extends StatefulWidget {
 class _Home_PageState extends State<Home_Page> {
   int userId = 0;
   SharedPreferences? logindata;
-  int selectedIndex = 2;
   final List<IconData> data = [
     Icons.home_outlined,
     Icons.history_outlined,
@@ -88,7 +85,7 @@ class _Home_PageState extends State<Home_Page> {
   void initState() {
     super.initState();
     getSharedPreferencesInstance();
-    _controller = PageController(initialPage: selectedIndex);
+    _controller = PageController(initialPage: widget.selectedIndex ?? 2);
     fetchMessage();
   }
 
@@ -231,8 +228,8 @@ class _Home_PageState extends State<Home_Page> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      selectedIndex = i;
-                      _controller?.animateToPage(selectedIndex,
+                      widget.selectedIndex = i;
+                      _controller?.animateToPage(widget.selectedIndex!,
                           duration: Duration(milliseconds: 300),
                           curve: Curves.easeInOut);
                     });
@@ -243,8 +240,9 @@ class _Home_PageState extends State<Home_Page> {
                     child: Icon(
                       data[i],
                       size: 35.w,
-                      color:
-                          i == selectedIndex ? Colors.white : circleavatarback,
+                      color: i == widget.selectedIndex
+                          ? Colors.white
+                          : circleavatarback,
                     ),
                   ),
                 ),
@@ -264,7 +262,7 @@ class _Home_PageState extends State<Home_Page> {
           controller: _controller,
           onPageChanged: (int index) {
             setState(() {
-              selectedIndex = index;
+              widget.selectedIndex = index;
             });
           },
           children: [

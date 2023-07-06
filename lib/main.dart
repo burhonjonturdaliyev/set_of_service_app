@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
 
 //new tasks
 //connect to api => id card and profel edit
+// add profel edit to server
 //forget password telfon nomer
 //connect faol elon
 //upload elon
