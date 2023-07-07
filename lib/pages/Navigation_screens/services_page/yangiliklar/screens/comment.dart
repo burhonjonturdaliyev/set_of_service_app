@@ -9,7 +9,9 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:set_of_service_app/const_api/api.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/function/newFunctions.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/edit_comment_model.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsCommentModels.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class CommentsNews extends StatefulWidget {
@@ -17,30 +19,39 @@ class CommentsNews extends StatefulWidget {
       {super.key,
       required this.id,
       required this.createdAt,
-      required this.description,
+      required this.createdBy,
+      required this.updatedAt,
+      required this.deleted,
       required this.title,
-      required this.photo,
-      required this.countryInfoType});
+      required this.description,
+      required this.newsType,
+      required this.photo});
 
-  int id;
-  String createdAt;
-  String title;
-  String description;
-  String countryInfoType;
-  int photo;
+  int? id;
+  String? createdAt;
+  int? createdBy;
+  String? updatedAt;
+  bool? deleted;
+  String? title;
+  String? description;
+  String? newsType;
+  String? photo;
 
   @override
   State<CommentsNews> createState() => _CommentsNewsState();
 }
 
 class _CommentsNewsState extends State<CommentsNews> {
-  int userId = 1;
+  bool edit_qilish = false;
+  int? userId;
+  int? commentId;
   final ScrollController _controller = ScrollController();
   final TextEditingController _kommentController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  SharedPreferences? logindata;
 
   Timer? timer;
-  List<newCommentModels> newComments = [];
+  List<getting_komment_model> newComments = [];
   List<int> colors = [
     0xFFFFC107, // Amber
     0xFFF44336, // Red
@@ -64,6 +75,16 @@ class _CommentsNewsState extends State<CommentsNews> {
     0xFF4CAF50, // Green
   ];
 
+  Future<void> getSharedPreferencesInstance() async {
+    logindata = await SharedPreferences.getInstance();
+    int? id = logindata?.getInt("id");
+    if (id != null) {
+      setState(() {
+        userId = id;
+      });
+    }
+  }
+
   Future<void> getComment() async {
     final Responce = await newFunctions()
         .getComments(context, "${Api().getComment}${widget.id}");
@@ -74,9 +95,9 @@ class _CommentsNewsState extends State<CommentsNews> {
     }
   }
 
-  Future<void> putUserMessage(putMessageComment send) async {
+  Future<void> putUserMessage(comment_adding_model send) async {
     final response = await http.post(
-      Uri.parse(Api().globatChatPut),
+      Uri.parse(Api().putComment),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(send.toJson()),
     );
@@ -96,6 +117,7 @@ class _CommentsNewsState extends State<CommentsNews> {
 
   @override
   void initState() {
+    getSharedPreferencesInstance();
     getComment();
     super.initState();
   }
@@ -180,8 +202,8 @@ class _CommentsNewsState extends State<CommentsNews> {
   Widget textfield() {
     return Positioned(
       bottom: 5.h,
-      left: 0,
-      right: 0,
+      left: 5.w,
+      right: 5.w,
       child: Form(
         key: _formKey,
         child: Container(
@@ -223,10 +245,21 @@ class _CommentsNewsState extends State<CommentsNews> {
                     if (_formKey.currentState!.validate()) {
                       final value = _kommentController.text;
                       if (value.isNotEmpty) {
-                        await putUserMessage(putMessageComment(
-                            countryGlobalInfoId: widget.id,
-                            message: value,
-                            userId: userId));
+                        edit_qilish
+                            ? {
+                                await edit(edit_comment_model(
+                                    id: commentId,
+                                    message: _kommentController.text,
+                                    newsId: widget.id,
+                                    userId: userId)),
+                                edit_qilish = false
+                              }
+                            : {
+                                await putUserMessage(comment_adding_model(
+                                    message: _kommentController.text,
+                                    newsId: widget.id,
+                                    userId: userId))
+                              };
                         await getComment();
                         await scrolling();
                         setState(() {
@@ -254,22 +287,22 @@ class _CommentsNewsState extends State<CommentsNews> {
     );
   }
 
-  Widget designCommets(newCommentModels comment, colors) {
+  Widget designCommets(getting_komment_model comment, colors) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
-        mainAxisAlignment: comment.id != userId
+        mainAxisAlignment: comment.createdBy != userId
             ? MainAxisAlignment.start
             : MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Visibility(
-            visible: comment.id == userId ? true : false,
+            visible: comment.createdBy == userId ? true : false,
             child: Row(
               children: [
                 Text(
                   DateFormat("HH:mm, dd-MMMM")
-                      .format(DateTime.parse(comment.createdAt)),
+                      .format(DateTime.parse(comment.createdAt!)),
                   style: TextStyle(
                       color: Colors.black87,
                       fontSize: 11.sp,
@@ -283,13 +316,24 @@ class _CommentsNewsState extends State<CommentsNews> {
             ),
           ),
           Visibility(
-            visible: comment.id != userId ? true : false,
+              visible: comment.edited! && comment.createdBy == userId,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.edit,
+                    color: Colors.black,
+                    size: 16.w,
+                  )
+                ],
+              )),
+          Visibility(
+            visible: comment.createdBy != userId ? true : false,
             child: CircleAvatar(
               backgroundColor: Color(
                 colors,
               ),
               child: Text(
-                comment.name[0],
+                comment.userName![0],
                 style: TextStyle(
                     color: Colors.white,
                     fontFamily: "Inter",
@@ -302,12 +346,22 @@ class _CommentsNewsState extends State<CommentsNews> {
             width: 5.w,
           ),
           Container(
-            constraints: BoxConstraints(maxWidth: 250.w),
+            constraints: BoxConstraints(maxWidth: 200.w),
             decoration: BoxDecoration(
-                color: comment.id != userId
+                color: comment.createdBy != userId
                     ? const Color.fromARGB(193, 231, 90, 75)
-                    : const Color.fromARGB(255, 63, 187, 63),
-                borderRadius: BorderRadius.circular(23.w),
+                    : const Color.fromARGB(167, 161, 82, 73),
+                borderRadius: comment.createdBy == userId
+                    ? BorderRadius.only(
+                        topLeft: Radius.circular(13.w),
+                        topRight: Radius.circular(13.w),
+                        bottomLeft: Radius.circular(13.w))
+                    : BorderRadius.only(
+                        topLeft: Radius.circular(13.w),
+                        topRight: Radius.circular(13.w),
+                        bottomRight: Radius.circular(13.w)),
+
+                //BorderRadius.circular(23.w),
                 border: Border.all(width: 1, color: Colors.black26)),
             child: Stack(
               children: [
@@ -315,25 +369,35 @@ class _CommentsNewsState extends State<CommentsNews> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(10.w),
+                      padding: EdgeInsets.only(
+                          left: 10.w, right: 10.w, bottom: 10.h, top: 5.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Visibility(
-                            visible: comment.id != userId ? true : false,
+                            visible: comment.createdBy != userId ? true : false,
                             child: Padding(
                               padding: EdgeInsets.only(
                                   top: 2.h, left: 3.w, right: 3.w),
                               child: Text(
-                                comment.name,
+                                comment.userName!,
                                 style: TextStyle(
                                     color: Colors.black54,
                                     fontFamily: "Inter",
-                                    fontSize: 12.sp),
+                                    fontSize: 10.sp),
                               ),
                             ),
                           ),
-                          Text(comment.message),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Text(
+                            comment.message!,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: "Inter",
+                                fontSize: 12.35.sp),
+                          ),
                         ],
                       ),
                     ),
@@ -343,7 +407,18 @@ class _CommentsNewsState extends State<CommentsNews> {
             ),
           ),
           Visibility(
-            visible: comment.id != userId ? true : false,
+              visible: comment.edited! && comment.createdBy != userId,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.edit,
+                    color: Colors.black,
+                    size: 16.w,
+                  )
+                ],
+              )),
+          Visibility(
+            visible: comment.createdBy != userId ? true : false,
             child: Row(
               children: [
                 SizedBox(
@@ -351,18 +426,130 @@ class _CommentsNewsState extends State<CommentsNews> {
                 ),
                 Text(
                   DateFormat("HH:mm dd-MMMM")
-                      .format(DateTime.parse(comment.createdAt)),
+                      .format(DateTime.parse(comment.createdAt!)),
                   style: TextStyle(
                       color: Colors.black87,
-                      fontSize: 11.sp,
+                      fontSize: 10.sp,
                       fontFamily: "Inter",
                       fontWeight: FontWeight.w500),
                 ),
               ],
             ),
-          )
+          ),
+          SizedBox(
+            width: 22.w,
+            child: Visibility(
+                visible: comment.createdBy == userId ? true : false,
+                child: PopupMenuButton<int>(
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      value: 1,
+                      child: Text(
+                        'Tahrirlash',
+                        style: TextStyle(fontFamily: "Inter", fontSize: 14.sp),
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 2,
+                      child: Text(
+                        'O\'chirish',
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontFamily: "Inter",
+                            fontSize: 14.sp),
+                      ),
+                    ),
+                  ],
+                  onSelected: (value) {
+                    switch (value) {
+                      case 1:
+                        {
+                          setState(() {
+                            _kommentController.text = comment.message!;
+                            commentId = comment.id;
+                            edit_qilish = true;
+                          });
+                        }
+                        break;
+                      case 2:
+                        deleteNote(comment.id);
+                        break;
+                    }
+                  },
+                )),
+          ),
         ],
       ),
     );
+  }
+
+  deleteNote(commentId) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: SizedBox(
+          height: 85.h,
+          width: 60.w,
+          child: Column(
+            children: [
+              Text(
+                "Xabaringizni o'chirishni xoxlaysizmi?",
+                style: TextStyle(fontFamily: "Inter", fontSize: 16.sp),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF8B0000)),
+                      onPressed: () async {
+                        Navigator.pop(context);
+                        await delete(commentId);
+                        await getComment();
+                      },
+                      child: Text(
+                        "Ha",
+                        style: TextStyle(fontFamily: "Inter", fontSize: 13.sp),
+                      )),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 194, 79, 79)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "Yo'q",
+                        style: TextStyle(fontFamily: "Inter", fontSize: 13.sp),
+                      )),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  delete(commentId) async {
+    final uri = '${Api().deleteComment}$userId/$commentId';
+    final url = Uri.parse(uri);
+    final response = await http.delete(url);
+  }
+
+  Future<void> edit(edit_comment_model send) async {
+    final uri = Api().editComment;
+    final url = Uri.parse(uri);
+
+    final response = await http.put(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(send.toJson()),
+    );
+    print(response.statusCode);
+    print(response.body);
   }
 }

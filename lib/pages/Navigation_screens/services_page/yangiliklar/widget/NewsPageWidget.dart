@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, file_names
+// ignore_for_file: must_be_immutable, file_names, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/function/newFunctions.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsModels.dart';
+import '../../../../../const_api/api.dart';
 import '../additional_screen/fully_information.dart';
 
 class NewPageWidget extends StatefulWidget {
@@ -19,29 +20,9 @@ class NewPageWidget extends StatefulWidget {
 }
 
 class _NewPageWidgetState extends State<NewPageWidget> {
-  List<infoNew> model = [
-    infoNew(
-        id: 1,
-        createdAt: DateTime.now().toString(),
-        title:
-            "Lorem Ipsum is simply dummy text ofthe printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ....",
-        description:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        countryInfoType: "Japan",
-        photo: 1),
-    infoNew(
-        id: 1,
-        createdAt: DateTime.now().toString(),
-        title:
-            "Lorem Ipsum is simply dummy text ofthe printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ....",
-        description:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        countryInfoType: "Japan",
-        photo: 1)
-  ];
+  List<news_model> model = [];
 
   Future<void> getInfo() async {
-    // ignore: non_constant_identifier_names
     final Response = await newFunctions().getInfoNew(context, widget.type);
     if (mounted) {
       setState(() {
@@ -103,7 +84,7 @@ class _NewPageWidgetState extends State<NewPageWidget> {
   }
 }
 
-Widget itemshow(BuildContext context, infoNew model) {
+Widget itemshow(BuildContext context, news_model model) {
   return Padding(
     padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h),
     child: InkWell(
@@ -113,10 +94,13 @@ Widget itemshow(BuildContext context, infoNew model) {
             PageTransition(
               child: fullyScreen(
                   id: model.id,
+                  createdAt: model.createdAt,
+                  createdBy: model.createdBy,
+                  updatedAt: model.updatedAt,
+                  deleted: model.deleted,
                   title: model.title,
                   description: model.description,
-                  countryInfoType: model.countryInfoType,
-                  createdAt: model.createdAt,
+                  newsType: model.newsType,
                   photo: model.photo),
               type: PageTransitionType.rightToLeft,
             ));
@@ -141,9 +125,9 @@ Widget itemshow(BuildContext context, infoNew model) {
                         children: [
                           Expanded(
                               child: Text(
-                            model.title.length >= 100
-                                ? "${model.title.substring(0, 100)} ..."
-                                : model.title,
+                            model.title!.length > 100
+                                ? "${model.title!.substring(0, 100)}..."
+                                : model.title!,
                             style:
                                 TextStyle(fontFamily: "Inter", fontSize: 11.sp),
                           )),
@@ -163,7 +147,7 @@ Widget itemshow(BuildContext context, infoNew model) {
                             width: 2.w,
                           ),
                           Text(DateFormat("yyyy.MM.dd")
-                              .format(DateTime.parse(model.createdAt))),
+                              .format(DateTime.parse(model.createdAt!))),
                           SizedBox(
                             width: 10.w,
                           ),
@@ -176,7 +160,7 @@ Widget itemshow(BuildContext context, infoNew model) {
                             width: 2.w,
                           ),
                           Text(DateFormat("HH:mm")
-                              .format(DateTime.parse(model.createdAt)))
+                              .format(DateTime.parse(model.createdAt!)))
                         ],
                       )
                     ],
@@ -189,9 +173,9 @@ Widget itemshow(BuildContext context, infoNew model) {
                   width: 120.w,
                   height: 80.h,
                   decoration: BoxDecoration(
-                      image: const DecorationImage(
+                      image: DecorationImage(
                           image: NetworkImage(
-                            "https://media.istockphoto.com/id/1135322304/photo/girl-carrying-a-school-bag.jpg?s=2048x2048&w=is&k=20&c=uklhuWev69_O-uI6hILvyfmNJOoYcaFm8nyV9yp2xsg=",
+                            "${Api().view_image}${model.photo}",
                           ),
                           fit: BoxFit.cover),
                       border: Border.all(width: 0.5, color: Colors.black38),

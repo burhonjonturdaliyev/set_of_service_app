@@ -6,21 +6,29 @@ import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/screens/comment.dart';
 
+import '../../../../../const_api/api.dart';
+
 class fullyScreen extends StatelessWidget {
   fullyScreen(
       {super.key,
       required this.id,
+      required this.createdAt,
+      required this.createdBy,
+      required this.updatedAt,
+      required this.deleted,
       required this.title,
       required this.description,
-      required this.countryInfoType,
-      required this.createdAt,
+      required this.newsType,
       required this.photo});
-  int id;
-  String createdAt;
-  String title;
-  String description;
-  String countryInfoType;
-  int photo;
+  int? id;
+  String? createdAt;
+  int? createdBy;
+  String? updatedAt;
+  bool? deleted;
+  String? title;
+  String? description;
+  String? newsType;
+  String? photo;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +36,7 @@ class fullyScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          DateFormat("dd/MM/yyyy").format(DateTime.parse(createdAt)),
+          DateFormat("dd/MM/yyyy").format(DateTime.parse(createdAt!)),
           style: TextStyle(
               color: Colors.white,
               fontSize: 20.sp,
@@ -46,10 +54,13 @@ class fullyScreen extends StatelessWidget {
                 child: CommentsNews(
                     id: id,
                     createdAt: createdAt,
-                    description: description,
+                    createdBy: createdBy,
+                    updatedAt: updatedAt,
+                    deleted: deleted,
                     title: title,
-                    photo: photo,
-                    countryInfoType: countryInfoType),
+                    description: description,
+                    newsType: newsType,
+                    photo: photo),
                 type: PageTransitionType.fade,
               ));
         },
@@ -79,11 +90,10 @@ class fullyScreen extends StatelessWidget {
                 width: 367.w,
                 height: 254.h,
                 decoration: BoxDecoration(
-                    image: const DecorationImage(
-                        image: NetworkImage(
-                            "https://media.istockphoto.com/id/1135322304/photo/girl-carrying-a-school-bag.jpg?s=2048x2048&w=is&k=20&c=uklhuWev69_O-uI6hILvyfmNJOoYcaFm8nyV9yp2xsg="),
+                    image: DecorationImage(
+                        image: NetworkImage("${Api().view_image}$photo"),
                         fit: BoxFit.cover),
-                    color: Colors.pinkAccent,
+                    color: Colors.transparent,
                     borderRadius: BorderRadius.circular(12.w),
                     border: Border.all(width: 0.5.w, color: Colors.black45)),
               ),
@@ -109,7 +119,7 @@ class fullyScreen extends StatelessWidget {
                 children: [
                   Expanded(
                       child: Text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                    title!,
                     style: TextStyle(
                         color: Colors.black87,
                         fontFamily: "Inter",
@@ -140,7 +150,7 @@ class fullyScreen extends StatelessWidget {
                 children: [
                   Expanded(
                       child: Text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                    description!,
                     style: TextStyle(
                         color: Colors.black54,
                         fontFamily: "Inter",

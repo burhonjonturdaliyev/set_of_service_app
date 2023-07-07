@@ -66,53 +66,55 @@ class _HomeState extends State<Home> {
               borderRadius: BorderRadius.circular(40),
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 10.w,
-                ),
                 Row(
                   children: [
-                    IconButton(
-                      onPressed: visib_check,
-                      icon: Icon(
-                        visible == true
-                            ? Icons.visibility_outlined
-                            : Icons.visibility_off_outlined,
-                        size: 35.w,
-                        color: Colors.white,
-                      ),
+                    SizedBox(
+                      width: 20.w,
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: visib_check,
+                          icon: Icon(
+                            visible == true
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            size: 35.w,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 12.w,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "SOS hisobingiz",
+                          style: TextStyle(
+                            fontFamily: "Inter",
+                            color: white,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          visible ? "$money yena" : "**** yena",
+                          style: TextStyle(
+                            fontFamily: "Inter",
+                            color: white,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
-                ),
-                SizedBox(
-                  width: 12.w,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "SOS hisobingiz",
-                      style: TextStyle(
-                        fontFamily: "Inter",
-                        color: white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    Text(
-                      visible ? "$money yena" : "**** yena",
-                      style: TextStyle(
-                        fontFamily: "Inter",
-                        color: white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 105.w,
                 ),
                 Row(
                   children: [
@@ -179,6 +181,9 @@ class _HomeState extends State<Home> {
                         size: 36.67,
                       ),
                     ),
+                    SizedBox(
+                      width: 30.w,
+                    )
                   ],
                 ),
               ],

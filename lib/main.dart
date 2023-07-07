@@ -78,5 +78,6 @@ class MyApp extends StatelessWidget {
 // done icons to trash icons --done
 // admin with telegram in divider --done
 // Elon uchun ariza in divider --done
-// add comment edit function
+// add comment edit function --done
 // add timer to user forget password --done
+// fix the balance add button

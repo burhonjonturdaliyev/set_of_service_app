@@ -11,24 +11,29 @@ import 'package:http/http.dart' as http;
 
 // ignore: camel_case_types
 class newFunctions {
-  Future<List<infoNew>?> getInfoNew(BuildContext context, String turi) async {
-    final url = "${Api().new_catagory}$turi}";
+  Future<List<news_model>?> getInfoNew(
+      BuildContext context, String turi) async {
+    final url = "${Api().new_catagory}$turi";
     final uri = Uri.parse(url);
     try {
-      Response response = await http.get(uri);
+      final response = await http.get(uri);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         final body = response.body;
         final json = jsonDecode(body);
 
         final result = json['object'] as List<dynamic>;
         final infoNews = result.map((e) {
-          return infoNew(
-              id: e["id"],
-              createdAt: e["createdAt"],
-              title: e["title"],
-              description: e["description"],
-              countryInfoType: e["countryInfoType"],
-              photo: e["photo"]);
+          return news_model(
+              id: e['id'],
+              createdAt: e['createdAt'],
+              createdBy: e['createdBy'],
+              updatedAt: e['updatedAt'],
+              deleted: e['deleted'],
+              title: e['title'],
+              description: e['description'],
+              newsType: e['newsType'],
+              photo: e['photo']);
         }).toList();
 
         return infoNews;
@@ -39,7 +44,7 @@ class newFunctions {
     return null;
   }
 
-  Future<List<newCommentModels>?> getComments(
+  Future<List<getting_komment_model>?> getComments(
       BuildContext context, String link) async {
     final url = link;
     final uri = Uri.parse(url);
@@ -51,11 +56,16 @@ class newFunctions {
 
         final result = json['object'] as List<dynamic>;
         final komments = result.map((e) {
-          return newCommentModels(
-              id: e["id"],
-              createdAt: e["createdAt"],
-              message: e["message"],
-              name: e["userName"]);
+          return getting_komment_model(
+              id: e['id'],
+              createdAt: e['createdAt'],
+              createdBy: e['createdBy'],
+              updatedAt: e['updatedAt'],
+              deleted: e['deleted'],
+              userName: e['userName'],
+              message: e['message'],
+              newsId: e['newsId'],
+              edited: e['edited']);
         }).toList();
 
         return komments;

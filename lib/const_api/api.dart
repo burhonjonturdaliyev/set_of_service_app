@@ -28,8 +28,10 @@ class Api {
   String supportGet = "${serverApi().url}/sos/api/support-chat/get-all-dialog/";
   String supportPut = "${serverApi().url}/sos/api/support-chat";
   String airTicket = '${serverApi().url}/sos/api/service/all/avia-ticket-agent';
-  String getComment = '${serverApi().url}/sos/api/info-comment/';
-  String putComment = '${serverApi().url}/sos/api/info-comment';
+  String getComment = '${serverApi().url}/sos/api/news/comment/';
+  String putComment = '${serverApi().url}/sos/api/news/comment';
+  String deleteComment = '${serverApi().url}/sos/api/news/comment/';
+  String editComment = '${serverApi().url}/sos/api/news/comment';
   String putAirticket = '${serverApi().url}/sos/api/air_ticket/info';
   String smsGet = '${serverApi().url}/sos/api/auth/step_1';
   String id_card = '${serverApi().url}/sos/api/file/upload/id-card/';
