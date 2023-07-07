@@ -37,4 +37,6 @@ class Api {
   String edit_user = '${serverApi().url}/sos/api/user';
   String faol_elon = '${serverApi().url}/sos/api/shop/my/no-food/by-user/';
   String view_image = '${serverApi().url}/sos/api/file/view/one/photo/';
+  String other_services =
+      '${serverApi().url}/sos/api/service/all/other-service';
 }

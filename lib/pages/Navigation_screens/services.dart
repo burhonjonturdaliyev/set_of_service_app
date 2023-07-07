@@ -14,6 +14,7 @@ import 'package:set_of_service_app/pages/Home/job/job.dart';
 import 'package:set_of_service_app/pages/Home/pochta/pochta_xizmati.dart';
 import 'package:set_of_service_app/pages/Home/house/house.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/currency/valyuta_kurs.dart';
+import 'package:set_of_service_app/pages/Navigation_screens/services_page/other%20services/other_services.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/GlobalNews.dart';
 
 // ignore: camel_case_types
@@ -83,17 +84,19 @@ class _List_of_servicesState extends State<List_of_services> {
           page: const Uy_joy_top(),
           image: "assets/service/uy.png"),
       Services_model(
-          info: "Eng oxirgi yangiliklar",
+          info: "Savollar va yangiliklar",
           page: GlobalNews(
             userId: widget.userId,
           ),
-          image: "assets/service/yangiliklar.png"
-          //Yangiliklar()
-          ),
+          image: "assets/service/yangiliklar.png"),
       Services_model(
           info: "Valyuta kursi",
           page: const Valyuta_kursi(),
           image: "assets/service/valyuta.png"),
+      Services_model(
+          info: "Boshqa servizlar",
+          page: const other_services(),
+          image: 'assets/service/other.png')
     ];
   }
 

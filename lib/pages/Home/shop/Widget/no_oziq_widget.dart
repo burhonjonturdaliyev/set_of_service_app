@@ -237,7 +237,7 @@ class _no_List_builderState extends State<no_List_builder> {
                       width: 3.w,
                     ),
                     Text(
-                      model.viewsCount.toString(),
+                      '${model.viewsCount ?? 1000.toString()}',
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 8.sp,
@@ -256,7 +256,7 @@ class _no_List_builderState extends State<no_List_builder> {
                       width: 3.w,
                     ),
                     Text(
-                      model.starts.toString(),
+                      '${model.starts ?? 5.0.toString()}',
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 8.sp,
