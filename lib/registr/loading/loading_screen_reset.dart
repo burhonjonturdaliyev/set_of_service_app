@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, use_build_context_synchronously, avoid_print
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -19,6 +20,17 @@ class loading_reset extends StatefulWidget {
 }
 
 class _loading_resetState extends State<loading_reset> {
+  late Timer _timer;
+  void checkingTime() {
+    const duration = Duration(seconds: 30);
+    _timer = Timer(duration, () {
+      Navigator.pushAndRemoveUntil(
+          context,
+          PageTransition(child: Sign_in(), type: PageTransitionType.fade),
+          (route) => false);
+    });
+  }
+
   getting_info() async {
     final uri = '${Api().forget_password}${widget.number}';
     final url = Uri.parse(uri);
@@ -32,7 +44,7 @@ class _loading_resetState extends State<loading_reset> {
     }
   }
 
-  login(String info) {
+  login(String? info) {
     showDialog(
       context: context,
       builder: (context) => ClipRRect(
@@ -73,7 +85,7 @@ class _loading_resetState extends State<loading_reset> {
                   children: [
                     Expanded(
                         child: Text(
-                      info,
+                      info ?? "Admin bilan bog'laning!",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
@@ -125,8 +137,15 @@ class _loading_resetState extends State<loading_reset> {
 
   @override
   void initState() {
+    checkingTime();
     getting_info();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override

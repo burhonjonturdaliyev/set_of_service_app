@@ -65,6 +65,7 @@ class _addItemsState extends State<addItems> {
         "telegramUrl": telegramLinki,
         "title": mavzu.text,
         "userId": widget.userId,
+        "objectPhotos": index_photo
       };
 
       var response = await http.post(
@@ -163,15 +164,29 @@ class _addItemsState extends State<addItems> {
     }
   }
 
-  Future gettingImage(image, source) async {
-    final pickedFile =
+  Future gettingImage(manba, source) async {
+    final pickedfile =
         await _picker.pickImage(source: source, imageQuality: 75);
-
-    if (pickedFile != null) {
+    if (mounted) {
+      if (pickedfile != null) {
+        setState(() {
+          if (manba == rasm1) {
+            rasm1 = File(pickedfile.path);
+          } else if (manba == rasm2) {
+            rasm2 = File(pickedfile.path);
+          } else if (manba == rasm3) {
+            rasm3 = File(pickedfile.path);
+          } else if (manba == rasm4) {
+            rasm4 = File(pickedfile.path);
+          }
+        });
+      }
+    }
+    if (pickedfile != null) {
       setState(() {
-        image = File(pickedFile.path);
+        manba = File(pickedfile.path);
       });
-      uploadImage(image);
+      uploadImage(manba);
     } else {
       print("Image is not selected");
     }
@@ -194,8 +209,12 @@ class _addItemsState extends State<addItems> {
 
       // Check the response
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print(responseBody);
-
+        final json = jsonDecode(responseBody);
+        String object = json['object'];
+        print(object);
+        setState(() {
+          index_photo.add(object);
+        });
         // Request successful
         print('Upload successful');
       } else if (response.statusCode == 403) {
@@ -612,7 +631,61 @@ class _addItemsState extends State<addItems> {
         ),
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
-            elon_joylash();
+            if (rasm1 != null && rasm2 != null ||
+                rasm1 != null && rasm3 != null ||
+                rasm1 != null && rasm4 != null ||
+                rasm2 != null && rasm3 != null ||
+                rasm2 != null && rasm4 != null ||
+                rasm3 != null && rasm4 != null) {
+              elon_joylash();
+            } else {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  backgroundColor: const Color(0xFF8B0000),
+                  content: SizedBox(
+                    height: 80.h,
+                    width: 80.w,
+                    child: Stack(children: [
+                      Positioned(
+                          top: 5.h,
+                          left: 5.w,
+                          right: 5.w,
+                          child: Text(
+                            "Iltimos, eng kamida 2 ta rasm yuklang!",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Inter",
+                                fontSize: 13.sp),
+                          )),
+                      Positioned(
+                          bottom: -5.h,
+                          left: 45.w,
+                          right: 45.w,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 244, 149, 149),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(21),
+                              ),
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                            child: Text(
+                              "Ok",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Inter",
+                                  fontSize: 16.sp),
+                            ),
+                          ))
+                    ]),
+                  ),
+                ),
+              );
+            }
+
             // Navigator.pop(context);
           }
         },

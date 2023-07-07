@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:set_of_service_app/const_api/api.dart';
 
 class Additional_page_shop extends StatefulWidget {
   Additional_page_shop(
@@ -46,13 +47,15 @@ class Additional_page_shop extends StatefulWidget {
 
 class _Additional_page_shopState extends State<Additional_page_shop> {
   int _currentImageIndex = 0;
-  List name = [
-    "https://cdn.pixabay.com/photo/2016/02/28/12/55/boy-1226964_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2014/11/13/06/12/boy-529067_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2014/09/16/01/19/girl-447701_960_720.jpg",
-  ];
+
   @override
   Widget build(BuildContext context) {
+    if (widget.objectPhotos == null) {
+      setState(() {
+        widget.objectPhotos = [];
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -76,7 +79,7 @@ class _Additional_page_shopState extends State<Additional_page_shop> {
             top: 5,
             left: 0,
             right: 0,
-            child: name.isEmpty
+            child: widget.objectPhotos!.isEmpty
                 ? const SizedBox()
                 : CarouselSlider(
                     options: CarouselOptions(
@@ -91,13 +94,13 @@ class _Additional_page_shopState extends State<Additional_page_shop> {
                         });
                       },
                     ),
-                    items: name.map((url) {
+                    items: widget.objectPhotos!.map((url) {
                       return Container(
                         margin: EdgeInsets.symmetric(horizontal: 5.w),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.network(
-                            url,
+                            '${Api().view_image}$url',
                             fit: BoxFit.cover,
                             width: double.infinity,
                           ),
@@ -110,12 +113,12 @@ class _Additional_page_shopState extends State<Additional_page_shop> {
             top: 190,
             left: 0,
             right: 0,
-            child: name.isEmpty
+            child: widget.objectPhotos!.isEmpty
                 ? const SizedBox()
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: name.map((url) {
-                      int index = name.indexOf(url);
+                    children: widget.objectPhotos!.map((url) {
+                      int index = widget.objectPhotos!.indexOf(url);
                       return Container(
                         width: 8,
                         height: 8,
@@ -134,7 +137,7 @@ class _Additional_page_shopState extends State<Additional_page_shop> {
                   ),
           ),
           Positioned(
-              top: name.isNotEmpty ? 220.h : 5.h,
+              top: widget.objectPhotos!.isNotEmpty ? 220.h : 5.h,
               left: 0,
               right: 0,
               child: Padding(
