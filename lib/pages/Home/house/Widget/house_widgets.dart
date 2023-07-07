@@ -125,7 +125,7 @@ class House_widget extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "Manzil: ${model.officeAddress.length > 45 ? model.officeAddress.substring(0, 45) : model.officeAddress} ...",
+                                "Manzil: ${model.officeAddress.length > 35 ? model.officeAddress.substring(0, 35) : model.officeAddress} ...",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: "Inter",

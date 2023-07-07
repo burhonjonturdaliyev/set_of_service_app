@@ -128,7 +128,7 @@ class Pochta_widgets extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "Manzil: ${models.officeAddress.length > 45 ? models.officeAddress.substring(0, 45) : models.officeAddress} ...",
+                                "Manzil: ${models.officeAddress.length > 35 ? models.officeAddress.substring(0, 35) : models.officeAddress} ...",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: "Inter",

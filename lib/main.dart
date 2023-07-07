@@ -64,6 +64,18 @@ class MyApp extends StatelessWidget {
 // add profel edit to server --done
 //forget password telfon nomer --done
 //connect faol elon --done
-//upload elon --done
+//upload elon --dones
 // connect all services to real api --done
 //adding news catigories
+
+// new task
+// decrise the substring
+// if password null connect to admin
+// shop null view and start add static value
+// rasmmi serverdan ovolish va serverga yuborish string
+// other service add to home list
+// Eng oxirgi yangiliklar change to Savollar va yangiliklar
+// done icons to trash icons
+// admin with telegram in divider
+// Elon uchun ariza in divider
+// add comment edit function

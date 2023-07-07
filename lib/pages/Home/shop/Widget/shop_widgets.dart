@@ -162,7 +162,7 @@ class _List_builderState extends State<List_builder> {
                             Row(
                               children: [
                                 Text(
-                                  "Manzil: ${model.address!.length > 45 ? model.address!.substring(0, 45) : model.address!} ...",
+                                  "Manzil: ${model.address!.length > 35 ? model.address!.substring(0, 35) : model.address!} ...",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Inter",
