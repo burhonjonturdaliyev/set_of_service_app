@@ -6,7 +6,8 @@ class serverApi {
 }
 
 class Api {
-  String countInfo = '${serverApi().url}/api/county/global/info/count';
+  String countInfo = '${serverApi().url}/sos/api/county/news/get-all/count';
+  String new_catagory = '${serverApi().url}/sos/api/county/news/category/';
   String uploadImage = '${serverApi().url}/sos/api/file/upload/shop-photos';
   String foods = '${serverApi().url}/sos/api/shop/foods';
   String nofoods = '${serverApi().url}/sos/api/shop/no-foods';

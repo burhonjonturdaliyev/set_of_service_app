@@ -1,61 +1,21 @@
-// ignore_for_file: camel_case_types
+class NewsModel {
+  bool? success;
+  String? message;
+  NewsObject? object;
 
-class info_count {
-  int? trend;
-  int? embassy;
-  int? uyaj;
-  int? top;
-  int? official;
-  int? normal;
-  int? others;
-  int? fryQuestions;
+  NewsModel({this.success, this.message, this.object});
 
-  info_count(
-      {required this.normal,
-      required this.top,
-      required this.trend,
-      required this.official,
-      required this.embassy,
-      required this.uyaj,
-      required this.fryQuestions,
-      required this.others});
-
-  info_count.fromJson(Map<String, dynamic> json) {
-    normal = json['normal'];
-    top = json['top'];
-    trend = json['trend'];
-    official = json['official'];
-    embassy = json['embassy'];
-    uyaj = json['uyaj'];
-    fryQuestions = json['fryQuestions'];
-    others = json['others'];
+  NewsModel.fromJson(Map<String, dynamic> json) {
+    success = json['success'];
+    message = json['message'];
+    object =
+        json['object'] != null ? NewsObject.fromJson(json['object']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['normal'] = normal;
-    data['top'] = top;
-    data['trend'] = trend;
-    data['official'] = official;
-    data['embassy'] = embassy;
-    data['uyaj'] = uyaj;
-    data['fryQuestions'] = fryQuestions;
-    data['others'] = others;
-    return data;
-  }
-}
-
-class counting_news_model {
-  Object? object;
-
-  counting_news_model({this.object});
-
-  counting_news_model.fromJson(Map<String, dynamic> json) {
-    object = json['object'] != null ? Object.fromJson(json['object']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
     if (object != null) {
       data['object'] = object!.toJson();
     }
@@ -63,47 +23,47 @@ class counting_news_model {
   }
 }
 
-class Object {
-  int? normal;
-  int? top;
-  int? trend;
-  int? official;
-  int? embassy;
-  int? uyaj;
-  int? fryQuestions;
-  int? others;
+class NewsObject {
+  int? oTHERS;
+  int? tOP;
+  int? oFFICAL;
+  int? uZBEMBASSY;
+  int? uYAJ;
+  int? tREND;
+  int? nORMAL;
+  int? fREQUENTLYQUESTIONS;
 
-  Object(
-      {required this.normal,
-      required this.top,
-      required this.trend,
-      required this.official,
-      required this.embassy,
-      required this.uyaj,
-      required this.fryQuestions,
-      required this.others});
+  NewsObject(
+      {this.oTHERS,
+      this.tOP,
+      this.oFFICAL,
+      this.uZBEMBASSY,
+      this.uYAJ,
+      this.tREND,
+      this.nORMAL,
+      this.fREQUENTLYQUESTIONS});
 
-  Object.fromJson(Map<String, dynamic> json) {
-    normal = json['normal'];
-    top = json['top'];
-    trend = json['trend'];
-    official = json['official'];
-    embassy = json['embassy'];
-    uyaj = json['uyaj'];
-    fryQuestions = json['fryQuestions'];
-    others = json['others'];
+  NewsObject.fromJson(Map<String, dynamic> json) {
+    oTHERS = json['OTHERS'];
+    tOP = json['TOP'];
+    oFFICAL = json['OFFICAL'];
+    uZBEMBASSY = json['UZB_EMBASSY'];
+    uYAJ = json['UYAJ'];
+    tREND = json['TREND'];
+    nORMAL = json['NORMAL'];
+    fREQUENTLYQUESTIONS = json['FREQUENTLY_QUESTIONS'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['normal'] = normal;
-    data['top'] = top;
-    data['trend'] = trend;
-    data['official'] = official;
-    data['embassy'] = embassy;
-    data['uyaj'] = uyaj;
-    data['fryQuestions'] = fryQuestions;
-    data['others'] = others;
+    data['OTHERS'] = oTHERS;
+    data['TOP'] = tOP;
+    data['OFFICAL'] = oFFICAL;
+    data['UZB_EMBASSY'] = uZBEMBASSY;
+    data['UYAJ'] = uYAJ;
+    data['TREND'] = tREND;
+    data['NORMAL'] = nORMAL;
+    data['FREQUENTLY_QUESTIONS'] = fREQUENTLYQUESTIONS;
     return data;
   }
 }

@@ -162,7 +162,7 @@ class _CommentsNewsState extends State<CommentsNews> {
                       right: 0,
                       child: SizedBox(
                         width: 375.w,
-                        height: 750.h,
+                        height: 745.h,
                         child: ListView.builder(
                           controller: _controller,
                           itemCount: newComments.length,
@@ -179,7 +179,7 @@ class _CommentsNewsState extends State<CommentsNews> {
 
   Widget textfield() {
     return Positioned(
-      bottom: 0,
+      bottom: 5.h,
       left: 0,
       right: 0,
       child: Form(

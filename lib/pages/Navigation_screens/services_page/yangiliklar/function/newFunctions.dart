@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, avoid_print
 
 import 'package:http/http.dart';
+import 'package:set_of_service_app/const_api/api.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsCommentModels.dart';
 import 'package:set_of_service_app/pages/Navigation_screens/services_page/yangiliklar/models/newsModels.dart';
 import 'dart:convert';
@@ -11,8 +12,7 @@ import 'package:http/http.dart' as http;
 // ignore: camel_case_types
 class newFunctions {
   Future<List<infoNew>?> getInfoNew(BuildContext context, String turi) async {
-    final url =
-        "http://185.196.213.43:7088/api/county/global/info/category/${turi.toUpperCase()}";
+    final url = "${Api().new_catagory}$turi}";
     final uri = Uri.parse(url);
     try {
       Response response = await http.get(uri);

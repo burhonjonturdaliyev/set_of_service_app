@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, use_build_context_synchronously
+// ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, use_build_context_synchronously, avoid_print
 
 import 'dart:convert';
 
@@ -27,7 +27,9 @@ class _loading_resetState extends State<loading_reset> {
       final json = jsonDecode(responce.body);
       Navigator.pop(context);
       login(json['object']);
-    } else {}
+    } else {
+      print(responce.statusCode);
+    }
   }
 
   login(String info) {
