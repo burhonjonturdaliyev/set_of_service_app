@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
 // other service add to home list --done
 // Eng oxirgi yangiliklar change to Savollar va yangiliklar --done
 // done icons to trash icons --done
-// admin with telegram in divider
-// Elon uchun ariza in divider
+// admin with telegram in divider --done
+// Elon uchun ariza in divider --done
 // add comment edit function
 // add timer to user forget password --done

@@ -12,6 +12,7 @@ import 'package:set_of_service_app/pages/Navigation_screens/services.dart';
 import 'package:set_of_service_app/pages/Support_page/support_type.dart';
 import 'package:set_of_service_app/registr/sign_in/Sign_in_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../pages/Navigation_screens/chat/functions/getMessage.dart';
 import '../pages/Navigation_screens/chat/models/chat_models.dart';
@@ -71,6 +72,20 @@ class _Home_PageState extends State<Home_Page> {
         email = logindata?.getString('email');
       });
       print(userHashId);
+    }
+  }
+
+  Future<void> _urlLauncher(String url) async {
+    try {
+      final Uri uri = Uri.parse(url);
+      if (!await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      )) {
+        throw "Can not launch $url";
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -172,6 +187,36 @@ class _Home_PageState extends State<Home_Page> {
                       BoxDecoration(color: Color.fromARGB(255, 251, 244, 244)),
                   child: Column(
                     children: [
+                      ListTile(
+                        title: Text("Admin bilan bog'lanish"),
+                        trailing: Icon(
+                          Icons.telegram_outlined,
+                          color: Colors.blue,
+                          size: 24.w,
+                        ),
+                        onTap: () {
+                          _urlLauncher("https://t.me/Jurabek_Toshbekov");
+                        },
+                      ),
+                      Divider(
+                        thickness: 0.5.w,
+                        color: Colors.black38,
+                      ),
+                      ListTile(
+                        title: Text("E'lon uchun ariza"),
+                        trailing: Icon(
+                          Icons.add_to_photos_rounded,
+                          color: Colors.black,
+                          size: 24.w,
+                        ),
+                        onTap: () {
+                          _urlLauncher("https://forms.gle/dvgGZUPNxfjisruw8");
+                        },
+                      ),
+                      Divider(
+                        thickness: 0.5.w,
+                        color: Colors.black38,
+                      ),
                       ListTile(
                         title: Text("Log out"),
                         trailing: Icon(
