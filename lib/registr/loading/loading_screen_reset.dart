@@ -26,7 +26,7 @@ class _loading_resetState extends State<loading_reset> {
     if (responce.statusCode == 200 || responce.statusCode == 201) {
       final json = jsonDecode(responce.body);
       Navigator.pop(context);
-      login(json['message']);
+      login(json['object']);
     } else {}
   }
 
