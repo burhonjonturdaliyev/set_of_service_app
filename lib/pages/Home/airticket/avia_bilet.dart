@@ -26,6 +26,8 @@ class Avia_bilet extends StatefulWidget {
 class _Avia_biletState extends State<Avia_bilet> {
   TextEditingController ketishSanasi = TextEditingController();
   TextEditingController qaytishSanasi = TextEditingController();
+  TextEditingController ketish = TextEditingController(),
+      qaytish = TextEditingController();
   TextEditingController country1 = TextEditingController();
   TextEditingController country2 = TextEditingController();
   List<String> parvoz = ["Economy", "Business"];
@@ -153,6 +155,8 @@ class _Avia_biletState extends State<Avia_bilet> {
                       color: const Color.fromARGB(255, 243, 236, 235),
                     ),
                     child: Arriving(
+                        ketish: ketish,
+                        qaytish: qaytish,
                         ketishSanasi: ketishSanasi,
                         qaytishSanasi: qaytishSanasi),
                   ),
@@ -279,8 +283,9 @@ class _Avia_biletState extends State<Avia_bilet> {
                             airClass: klass,
                             from: country1.text,
                             passenger: hammasi,
-                            returnDate: qaytishSanasi.text,
-                            toGoDate: ketishSanasi.text,
+                            returnDate:
+                                qaytish.text == "" ? null : qaytish.text,
+                            toGoDate: ketish.text,
                             userId: widget.userId,
                             whereTo: country2.text));
                       }

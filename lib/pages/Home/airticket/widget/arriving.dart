@@ -6,12 +6,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 class Arriving extends StatefulWidget {
-  Arriving({
-    Key? key,
-    required this.ketishSanasi,
-    required this.qaytishSanasi,
-  }) : super(key: key);
-
+  Arriving(
+      {Key? key,
+      required this.ketishSanasi,
+      required this.qaytishSanasi,
+      required this.ketish,
+      required this.qaytish})
+      : super(key: key);
+  TextEditingController ketish, qaytish;
   TextEditingController ketishSanasi;
   TextEditingController qaytishSanasi;
 
@@ -23,10 +25,8 @@ class _ArrivingState extends State<Arriving> {
   TextEditingController birinchisi = TextEditingController();
   TextEditingController ikkinchisi = TextEditingController();
 
-  kalendar(
-    BuildContext context,
-    TextEditingController name,
-  ) {
+  kalendar(BuildContext context, TextEditingController name,
+      TextEditingController name2) {
     DatePicker.showDatePicker(
       context,
       showTitleActions: true,
@@ -58,7 +58,8 @@ class _ArrivingState extends State<Arriving> {
       },
       onConfirm: (date) {
         setState(() {
-          name.text = DateFormat("yyyy-MM-dd HH:mm").format(date);
+          name.text = DateFormat("yyyy-MM-dd").format(date);
+          name2.text = DateFormat("yyyy-MM-dd HH:mm").format(date);
         });
       },
     );
@@ -93,9 +94,7 @@ class _ArrivingState extends State<Arriving> {
                           },
                           onTap: () {
                             kalendar(
-                              context,
-                              widget.ketishSanasi,
-                            );
+                                context, widget.ketishSanasi, widget.ketish);
                           },
                           controller: widget.ketishSanasi,
                           decoration: InputDecoration(
@@ -127,17 +126,9 @@ class _ArrivingState extends State<Arriving> {
                       Expanded(
                         child: TextFormField(
                           readOnly: true,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Iltimos qaytish sanasini kiriting";
-                            }
-                            return null;
-                          },
                           onTap: () {
                             kalendar(
-                              context,
-                              widget.qaytishSanasi,
-                            );
+                                context, widget.qaytishSanasi, widget.qaytish);
                           },
                           controller: widget.qaytishSanasi,
                           decoration: InputDecoration(
