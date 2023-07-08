@@ -25,6 +25,7 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   final _formkey = GlobalKey<FormState>();
+  List<chat_models> model = [];
 
   List<int> colors = [
     0xFFFFC107, // Amber
@@ -88,7 +89,7 @@ class _ChatState extends State<Chat> {
     }
   }
 
-  void checkListForUpdates() {
+  void checkListForUpdates() async {
     timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       fetchMessage();
     });
@@ -104,13 +105,14 @@ class _ChatState extends State<Chat> {
     final Response = await getMessage().fetchMessage(context, logindata);
     if (mounted) {
       setState(() {
-        Response != null ? widget.models = Response : null;
+        Response != null ? model = Response : null;
       });
     }
   }
 
   @override
   void initState() {
+    fetchMessage();
     checkListForUpdates();
     super.initState();
   }
@@ -162,9 +164,11 @@ class _ChatState extends State<Chat> {
                             "Hozirda hech qanday yozishmalar mavjud emas!"))
                     : ListView.builder(
                         controller: _controller,
-                        itemCount: widget.models.length,
+                        itemCount:
+                            model.isEmpty ? widget.models.length : model.length,
                         itemBuilder: (context, index) => items_design(
-                            widget.models[index], colors[index % 20]),
+                            model.isEmpty ? widget.models[index] : model[index],
+                            colors[index % 20]),
                       ),
               )),
             ],
