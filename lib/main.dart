@@ -27,11 +27,11 @@ class MyApp extends StatelessWidget {
 
 //New tasks
 //--------------------------------------------------------------------
-//rasmni auto yuklash va id lani saqlab list qib bervorish --function is ready only left to testing
-// yangiliklar categorila qo'shish va cound add --prograss
+//rasmni auto yuklash va id lani saqlab list qib bervorish --function is ready only left to testing --done
+// yangiliklar categorila qo'shish va cound add --done
 // airticket check postman  --done
 // "dd.MM.yyyy" that same format in airticket info --done
-// /api/county/global/info/count qo'shish --prograss
+// /api/county/global/info/count qo'shish --done
 // api 403 loginga otvorish each services --done
 // change to colors selecting the catagory --done
 // loading page timeout 10 15 second --done
@@ -43,8 +43,8 @@ class MyApp extends StatelessWidget {
 //Support chat
 //REgistr save --done
 //verifiation checking --done
-//file upload add
-//only one step to verificate accaount
+//file upload add --done
+//only one step to verificate accaount --done
 
 
 //new tasks
@@ -52,19 +52,19 @@ class MyApp extends StatelessWidget {
 //decrise the padding of name in chat --done
 //404 error in balance check --done
 //profile tahrirlash --done
-//tahrirlash upload function image --process
+//tahrirlash upload function image --done
 //add profile photo --done
-// left integrate with api
+// left integrate with api --done
 
 //problems
-//after editing profile login code changed 
+//after editing profile login code changed --done 
 
 //new tasks
 //connect to api => id card and profel edit --done
 // add profel edit to server --done
 //forget password telfon nomer --done
 //connect faol elon --done
-//upload elon --dones
+//upload elon --done
 // connect all services to real api --done
 //adding news catigories
 

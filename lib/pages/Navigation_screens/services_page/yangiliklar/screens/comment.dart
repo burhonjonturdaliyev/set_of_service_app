@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, non_constant_identifier_names, unrelated_type_equality_checks
+// ignore_for_file: unused_local_variable, non_constant_identifier_names, unrelated_type_equality_checks, avoid_print
 
 import 'dart:async';
 import 'dart:convert';
