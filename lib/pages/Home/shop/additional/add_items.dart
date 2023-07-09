@@ -259,7 +259,7 @@ class _addItemsState extends State<addItems> {
       context: context,
       builder: (context) => AlertDialog(
         content: SizedBox(
-          height: 100.h,
+          height: 102.h,
           width: 220.w,
           child: Column(
             children: [
@@ -477,7 +477,7 @@ class _addItemsState extends State<addItems> {
                       children: [
                         Expanded(
                             child: Text(
-                          "E’lon mavzusini yozing.\nEtibor bering !!! xxxx tadan ko’p belgi e’lon uchun ajratilgan joydan oshib ketadi va ko’yinmay qolishi mumkin !!!  ",
+                          "E’lon mavzusini yozing.\nEtibor bering !!! xxxx tadan ko’p belgi e’lon uchun ajratilgan joydan oshib ketadi va ko’rinmay qolishi mumkin !!!  ",
                           style: TextStyle(
                               color: Colors.black54,
                               fontWeight: FontWeight.w400,

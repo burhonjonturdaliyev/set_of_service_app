@@ -155,7 +155,7 @@ class _ProfilState extends State<Profil> {
                 children: [
                   Container(
                     width: 330.w,
-                    height: 120.h,
+                    height: 130.h,
                     decoration: BoxDecoration(
                         color: const Color.fromARGB(206, 241, 228, 108),
                         borderRadius: BorderRadius.circular(16)),

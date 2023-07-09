@@ -72,7 +72,7 @@ class _List_of_servicesState extends State<List_of_services> {
           page: const Paynet(),
           image: "assets/service/paynet.png"),
       Services_model(
-          info: "Viza masalalarida yordam xizmati",
+          info: "Vizaga yordam xizmati",
           page: const Viza_xizmati(),
           image: "assets/service/viza.png"),
       Services_model(

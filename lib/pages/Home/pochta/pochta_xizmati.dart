@@ -69,7 +69,7 @@ class _Pochta_xizmatiState extends State<Pochta_xizmati> {
                     children: [
                       Expanded(
                         child: Text(
-                          "Pochta xizmati ro’yxati ro’yxati:",
+                          "Pochta xizmati ro’yxati:",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 18.sp,

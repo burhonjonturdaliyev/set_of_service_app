@@ -136,7 +136,6 @@ class _Loading_page_registrState extends State<Loading_page_registr> {
     logindata?.setString('dateOfBirth', datalar!.user!.dateOfBirth!);
     logindata?.setBool('verification', datalar!.user!.verification!);
     logindata?.setString('userHashId', datalar!.user!.userHashId!);
-    logindata?.setString('email', datalar!.user!.email!);
   }
 
   registr() {

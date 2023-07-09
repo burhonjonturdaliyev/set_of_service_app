@@ -85,3 +85,8 @@ class MyApp extends StatelessWidget {
 // new tasks
 // remove the validator in airticket return date --done
 // showing only date not clocks --done
+
+//bugs
+// register --done
+// elon uchun ariza --done
+// service catagory text size --done

@@ -175,7 +175,7 @@ class Pochta_widgets extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.calendar_month_outlined,
-                    size: 8.w,
+                    size: 8.sp,
                     color: Colors.black,
                   ),
                   SizedBox(
@@ -194,7 +194,7 @@ class Pochta_widgets extends StatelessWidget {
                   ),
                   Icon(
                     Icons.visibility,
-                    size: 12.w,
+                    size: 12.sp,
                     color: Colors.black,
                   ),
                   SizedBox(
@@ -213,7 +213,7 @@ class Pochta_widgets extends StatelessWidget {
                   ),
                   Icon(
                     Icons.star_rate_rounded,
-                    size: 12.w,
+                    size: 12.sp,
                     color: Colors.black,
                   ),
                   SizedBox(

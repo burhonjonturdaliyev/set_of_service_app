@@ -110,6 +110,38 @@ class _Home_PageState extends State<Home_Page> {
     super.dispose();
   }
 
+  Logout() {
+    Navigator.pop(context);
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+          title: Text(
+              "Dasturdan barcha malumotlaringizni chiqarishni xoxlaysizmi?"),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+                  onPressed: () {
+                    logindata?.clear();
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Sign_in(),
+                        ));
+                  },
+                  child: Text("Ha")),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Yo'q")),
+            ],
+          )),
+    );
+  }
+
   exit() {
     Navigator.pop(context);
     showDialog(
@@ -210,7 +242,8 @@ class _Home_PageState extends State<Home_Page> {
                           size: 24.w,
                         ),
                         onTap: () {
-                          _urlLauncher("https://forms.gle/dvgGZUPNxfjisruw8");
+                          _urlLauncher(
+                              "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAQYNHcNUNFlYWkZOQk5KTU1IRDBKTTk0OE5IT05DNC4u");
                         },
                       ),
                       Divider(
@@ -224,14 +257,7 @@ class _Home_PageState extends State<Home_Page> {
                           color: Colors.black,
                           size: 24.w,
                         ),
-                        onTap: () {
-                          logindata?.clear();
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Sign_in(),
-                              ));
-                        },
+                        onTap: Logout,
                       ),
                       Divider(
                         thickness: 0.5.w,
